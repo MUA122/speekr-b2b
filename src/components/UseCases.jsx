@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Button, Container, Stack, Typography } from '@mui/material';
 import {
   ArrowRight,
-  BadgeCheck,
+  Code2,
+  GraduationCap,
   Headphones,
-  Layers3,
   PhoneCall,
   UsersRound,
 } from 'lucide-react';
@@ -13,10 +13,23 @@ import { brand } from '../theme.js';
 const useCases = [
   {
     label: 'Sales',
-    title: 'Turn cold calls into closed deals.',
-    copy:
-      "Cold outreach, discovery, objection handling, negotiation, closing. Your reps practice the call before they're on the call - with personas built around your ICP.",
-    chips: ['Budget objection - enterprise', 'Discovery with a skeptical CFO', 'Cold call to a busy GM'],
+    cards: [
+      {
+        eyebrow: 'SALES',
+        title: 'Cold Calling',
+        copy: 'Practice opening conversations, handling objections, and engaging prospects.',
+      },
+      {
+        eyebrow: 'SALES',
+        title: 'Discovery Calls',
+        copy: 'Improve questioning, active listening, and qualification skills.',
+      },
+      {
+        eyebrow: 'SALES',
+        title: 'Closing Deals',
+        copy: 'Master negotiation, stakeholder alignment, and closing conversations.',
+      },
+    ],
     metric: '31% faster rep ramp',
     score: '31%',
     accent: brand.signal,
@@ -24,47 +37,103 @@ const useCases = [
     point: { x: '12%', y: '66%' },
   },
   {
-    label: 'Customer Care',
-    title: 'Handle angry customers. Build loyal ones.',
-    copy:
-      'De-escalation, empathy, retention saves, complex Tier-2 handovers. Frontline agents practice the hardest moments until calm, fluent responses become automatic.',
-    chips: [
-      'Billing dispute - Egyptian dialect',
-      'Service outage escalation',
-      'Retention save - churn risk',
+    label: 'Customer Service',
+    cards: [
+      {
+        eyebrow: 'CUSTOMER SERVICE TRAINING',
+        title: 'Customer Complaints',
+        copy: 'Handle complaints with confidence and empathy.',
+      },
+      {
+        eyebrow: 'CUSTOMER SERVICE TRAINING',
+        title: 'Escalation Management',
+        copy: 'Practice high-pressure customer conversations.',
+      },
+      {
+        eyebrow: 'CUSTOMER SERVICE TRAINING',
+        title: 'Service Recovery',
+        copy: 'Navigate challenging interactions and retain customers.',
+      },
     ],
     metric: '+22pt NPS lift, post-pilot',
     score: '+22',
-    accent: brand.sky,
+    accent: '#E7D4F4',
     icon: Headphones,
-    point: { x: '36%', y: '28%' },
+    point: { x: '32%', y: '28%' },
   },
   {
     label: 'Leadership',
-    title: 'Be the manager your team needs.',
-    copy:
-      'Tough feedback, performance conversations, alignment moments, board updates. New managers gain reps on the conversations they used to dread.',
-    chips: ['Difficult feedback delivery', 'Aligning a divided team', 'Quarterly business review'],
+    cards: [
+      {
+        eyebrow: 'LEADERSHIP TRAINING',
+        title: 'Giving Feedback',
+        copy: 'Practice constructive and performance-based feedback conversations.',
+      },
+      {
+        eyebrow: 'LEADERSHIP TRAINING',
+        title: 'Coaching Employees',
+        copy: 'Improve coaching and employee development discussions.',
+      },
+      {
+        eyebrow: 'LEADERSHIP TRAINING',
+        title: 'Difficult Conversations',
+        copy: 'Handle accountability, conflict, and performance issues.',
+      },
+    ],
     metric: '2x manager confidence (self-reported)',
     score: '2x',
     accent: brand.mint,
     icon: UsersRound,
-    point: { x: '64%', y: '47%' },
+    point: { x: '54%', y: '50%' },
   },
   {
-    label: 'L&D',
-    title: 'Onboarding',
-    copy:
-      'Replace one-shot training with continuous practice. Build certification paths, role-specific journeys, and ongoing skill-coaching that survives the first week back at work.',
-    chips: [
-      'New-hire onboarding journey',
-      'Certification - product knowledge',
-      'Quarterly refresh - top scenarios',
+    label: 'Technical Teams',
+    cards: [
+      {
+        eyebrow: 'TECHNICAL TEAMS',
+        title: 'Stakeholder Communication',
+        copy: 'Explain technical concepts clearly to non-technical audiences.',
+      },
+      {
+        eyebrow: 'TECHNICAL TEAMS',
+        title: 'Build Client Confidence',
+        copy: 'Practice customer-facing technical discussions.',
+      },
+      {
+        eyebrow: 'TECHNICAL TEAMS',
+        title: 'Cross-Functional Collaboration',
+        copy: 'Improve communication with product, sales, and leadership teams.',
+      },
     ],
-    metric: '73% reduction in time-to-competency',
-    score: '73%',
+    metric: 'Clearer technical handoffs',
+    score: '3x',
+    accent: '#BFEAFF',
+    icon: Code2,
+    point: { x: '75%', y: '28%' },
+  },
+  {
+    label: 'University Admissions',
+    cards: [
+      {
+        eyebrow: 'UNIVERSITY ADMISSIONS',
+        title: 'Applicant Interviews',
+        copy: 'Conduct consistent applicant interviews at scale.',
+      },
+      {
+        eyebrow: 'UNIVERSITY ADMISSIONS',
+        title: 'Scholarship Interviews',
+        copy: 'Assess motivation, potential, and communication skills.',
+      },
+      {
+        eyebrow: 'UNIVERSITY ADMISSIONS',
+        title: 'Student Support Conversations',
+        copy: 'Handle applicant questions with professionalism and consistency.',
+      },
+    ],
+    metric: '90% lower interview load',
+    score: '90%',
     accent: brand.clay,
-    icon: Layers3,
+    icon: GraduationCap,
     point: { x: '88%', y: '68%' },
   },
 ];
@@ -77,35 +146,71 @@ function RouteStop({ item, index, selected, onSelect }) {
       type="button"
       onClick={onSelect}
       aria-pressed={selected}
+      aria-label={`Show ${item.label} use case`}
       sx={{
         position: { xs: 'relative', md: 'absolute' },
         left: { md: item.point.x },
         top: { md: item.point.y },
         transform: { md: 'translate(-50%, -50%)' },
         flex: { xs: '0 0 210px', md: 'initial' },
-        width: { xs: 210, md: selected ? 190 : 68 },
-        height: { xs: 72, md: selected ? 76 : 68 },
+        width: { xs: 230, md: selected ? 270 : 112 },
+        height: { xs: 72, md: selected ? 82 : 104 },
         minWidth: 0,
         minHeight: 0,
         p: 0,
+        cursor: 'pointer',
         borderRadius: selected ? '8px' : { xs: '8px', md: '50%' },
         color: selected ? brand.ink : brand.ivory,
-        background: selected ? item.accent : 'rgba(247,249,232,0.1)',
-        border: `1px solid ${selected ? item.accent : 'rgba(247,249,232,0.2)'}`,
+        background: selected ? item.accent : `linear-gradient(145deg, ${item.accent}34, rgba(247,249,232,0.16))`,
+        border: `1px solid ${selected ? item.accent : `${item.accent}78`}`,
         boxShadow: selected
-          ? `0 20px 54px ${item.accent}38, 0 0 0 8px rgba(247,249,232,0.08)`
-          : '0 16px 40px rgba(0,0,0,0.18)',
+          ? `0 22px 58px ${item.accent}46, 0 0 0 9px rgba(247,249,232,0.1)`
+          : `0 18px 48px rgba(0,0,0,0.22), 0 0 0 7px ${item.accent}16`,
         backdropFilter: 'blur(16px)',
+        overflow: 'visible',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          inset: selected ? -9 : -7,
+          borderRadius: selected ? '14px' : '50%',
+          border: `1px solid ${item.accent}66`,
+          opacity: selected ? 0.72 : 0.42,
+          animation: selected ? 'none' : 'bubbleInvite 2200ms ease-in-out infinite',
+          pointerEvents: 'none',
+        },
+        '&::after': {
+          content: '""',
+          position: 'absolute',
+          right: { xs: 9, md: selected ? 10 : 8 },
+          top: { xs: 9, md: selected ? 10 : 8 },
+          width: 8,
+          height: 8,
+          borderRadius: '50%',
+          background: selected ? brand.ink : item.accent,
+          boxShadow: `0 0 0 4px ${selected ? 'rgba(7,28,20,0.1)' : `${item.accent}20`}`,
+          pointerEvents: 'none',
+        },
         '&:hover': {
-          background: selected ? item.accent : 'rgba(247,249,232,0.16)',
-          transform: { xs: 'translateY(-2px)', md: 'translate(-50%, -50%) scale(1.04)' },
-          borderColor: selected ? item.accent : 'rgba(247,249,232,0.34)',
+          background: selected ? item.accent : `linear-gradient(145deg, ${item.accent}58, rgba(247,249,232,0.2))`,
+          transform: { xs: 'translateY(-3px)', md: 'translate(-50%, -50%) scale(1.07)' },
+          borderColor: item.accent,
+          boxShadow: `0 24px 58px ${item.accent}34, 0 0 0 9px ${item.accent}18`,
         },
         transition:
-          'width 220ms ease, height 220ms ease, border-radius 220ms ease, transform 160ms ease, background 160ms ease, border-color 160ms ease',
+          'width 220ms ease, height 220ms ease, border-radius 220ms ease, transform 160ms ease, background 160ms ease, border-color 160ms ease, box-shadow 160ms ease',
       }}
     >
-      <Stack direction="row" alignItems="center" justifyContent="center" spacing={0.85} sx={{ minWidth: 0, px: 1 }}>
+      <Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="center"
+        spacing={0.85}
+        sx={{
+          minWidth: 0,
+          px: 1,
+          flexDirection: { md: selected ? 'row' : 'column' },
+        }}
+      >
         <Box
           sx={{
             width: 40,
@@ -115,7 +220,8 @@ function RouteStop({ item, index, selected, onSelect }) {
             placeItems: 'center',
             borderRadius: selected ? '8px' : '50%',
             color: selected ? brand.ink : item.accent,
-            background: selected ? 'rgba(7,28,20,0.08)' : 'rgba(247,249,232,0.1)',
+            background: selected ? 'rgba(7,28,20,0.08)' : 'rgba(247,249,232,0.14)',
+            boxShadow: selected ? 'none' : `0 0 0 7px ${item.accent}18`,
           }}
         >
           <Icon size={19} strokeWidth={2.4} />
@@ -123,27 +229,23 @@ function RouteStop({ item, index, selected, onSelect }) {
 
         <Box
           sx={{
-            display: selected ? 'block' : { xs: 'block', md: 'none' },
+            display: 'block',
             minWidth: 0,
-            textAlign: 'left',
+            textAlign: 'center',
           }}
         >
-          <Typography sx={{ fontSize: '0.68rem', lineHeight: 1, fontWeight: 900 }}>
-            0{index + 1} / {item.label}
-          </Typography>
           <Typography
             sx={{
-              mt: 0.55,
-              maxWidth: 118,
+              maxWidth: { xs: 150, md: selected ? 220 : 96 },
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               whiteSpace: 'nowrap',
-              fontSize: '0.82rem',
-              lineHeight: 1.1,
-              fontWeight: 850,
+              fontSize: { xs: selected ? '0.92rem' : '0.82rem', md: selected ? '1.02rem' : '0.72rem' },
+              lineHeight: 1,
+              fontWeight: 900,
             }}
           >
-            {item.metric}
+            {item.label}
           </Typography>
         </Box>
       </Stack>
@@ -151,28 +253,81 @@ function RouteStop({ item, index, selected, onSelect }) {
   );
 }
 
-function ScenarioToken({ children, accent }) {
+function UseCaseCard({ card, index, accent }) {
   return (
-    <Typography
-      component="span"
+    <Box
       sx={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        minHeight: 34,
-        px: 1.2,
-        py: 0.6,
-        borderRadius: 999,
-        color: brand.ivory,
-        background: 'rgba(247,249,232,0.08)',
-        border: '1px solid rgba(247,249,232,0.14)',
-        boxShadow: `inset 0 0 0 1px ${accent}28`,
-        fontSize: '0.76rem',
-        lineHeight: 1.15,
-        fontWeight: 760,
+        position: 'relative',
+        minHeight: 235,
+        p: { xs: 2, md: 2.25 },
+        borderRadius: '8px',
+        background: 'linear-gradient(145deg, rgba(247,249,232,0.13), rgba(247,249,232,0.055))',
+        border: `1px solid ${accent}4D`,
+        boxShadow: '0 24px 70px rgba(0,0,0,0.16)',
+        backdropFilter: 'blur(18px)',
+        overflow: 'hidden',
+        transition: 'transform 190ms ease, border-color 190ms ease, background 190ms ease',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          inset: 0,
+          background: `radial-gradient(circle at 18% 8%, ${accent}30, transparent 34%)`,
+          opacity: 0.9,
+          pointerEvents: 'none',
+        },
+        '&:hover': {
+          transform: 'translateY(-6px)',
+          borderColor: `${accent}B3`,
+          background: 'linear-gradient(145deg, rgba(247,249,232,0.17), rgba(247,249,232,0.075))',
+        },
       }}
     >
-      {children}
-    </Typography>
+      <Stack sx={{ position: 'relative', zIndex: 1, minHeight: '100%' }}>
+        <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1.4}>
+          <Typography sx={{ color: accent, fontSize: '0.68rem', lineHeight: 1, fontWeight: 950 }}>
+            {card.eyebrow}
+          </Typography>
+          <Box
+            sx={{
+              width: 32,
+              height: 32,
+              flex: '0 0 auto',
+              display: 'grid',
+              placeItems: 'center',
+              borderRadius: '50%',
+              color: brand.ink,
+              background: accent,
+              fontSize: '0.78rem',
+              fontWeight: 950,
+            }}
+          >
+            {index + 1}
+          </Box>
+        </Stack>
+
+        <Typography
+          variant="h3"
+          sx={{
+            mt: 2,
+            color: brand.ivory,
+            fontSize: { xs: '1.45rem', md: '1.72rem' },
+            lineHeight: 1.02,
+            maxWidth: 330,
+          }}
+        >
+          {card.title}
+        </Typography>
+
+        <Typography sx={{ mt: 1.45, color: 'rgba(247,249,232,0.72)', fontSize: '0.95rem', lineHeight: 1.65 }}>
+          {card.copy}
+        </Typography>
+
+        <Stack direction="row" spacing={0.8} alignItems="center" sx={{ mt: 'auto', pt: 2.4, color: accent }}>
+          <Box sx={{ width: 22, height: 2, borderRadius: 999, background: accent }} />
+          <ArrowRight size={15} strokeWidth={2.8} />
+        </Stack>
+      </Stack>
+    </Box>
   );
 }
 
@@ -271,94 +426,32 @@ function StoryPanel({ active }) {
           </Typography>
         </Stack>
 
-        <Box sx={{ mt: { xs: 5, md: 6 }, maxWidth: 720 }}>
+        <Box sx={{ mt: { xs: 4, md: 5 }, maxWidth: 850 }}>
           <Typography
             variant="h3"
             sx={{
               color: brand.ivory,
-              fontSize: { xs: '2.25rem', sm: '3.05rem', md: '4.1rem' },
+              fontSize: { xs: '2.25rem', sm: '3.05rem', md: '4rem' },
               lineHeight: 0.98,
               maxWidth: 740,
             }}
           >
-            {active.title}
-          </Typography>
-
-          <Typography
-            sx={{
-              mt: { xs: 2.1, md: 2.6 },
-              maxWidth: 650,
-              color: 'rgba(247,249,232,0.72)',
-              fontSize: { xs: '1rem', md: '1.08rem' },
-              lineHeight: 1.8,
-            }}
-          >
-            {active.copy}
+            {active.label}
           </Typography>
         </Box>
 
-        <Stack direction="row" sx={{ mt: 3.2, flexWrap: 'wrap', gap: 1 }}>
-          {active.chips.map((chip) => (
-            <ScenarioToken key={chip} accent={active.accent}>
-              {chip}
-            </ScenarioToken>
-          ))}
-        </Stack>
-
-        <Stack
-          direction={{ xs: 'column', sm: 'row' }}
-          spacing={2}
-          alignItems={{ xs: 'flex-start', sm: 'flex-end' }}
-          justifyContent="space-between"
-          sx={{ mt: 'auto', pt: { xs: 5, md: 6 } }}
+        <Box
+          sx={{
+            mt: { xs: 3, md: 4 },
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', md: 'repeat(3, minmax(0, 1fr))' },
+            gap: { xs: 1.4, md: 1.6 },
+          }}
         >
-          <Box>
-            <Stack direction="row" spacing={0.8} alignItems="center">
-              <BadgeCheck size={15} color={active.accent} />
-              <Typography
-                sx={{
-                  color: 'rgba(247,249,232,0.58)',
-                  fontSize: '0.7rem',
-                  lineHeight: 1,
-                  fontWeight: 900,
-                }}
-              >
-                Customer impact
-              </Typography>
-            </Stack>
-            <Typography
-              sx={{
-                mt: 0.95,
-                color: active.accent,
-                fontFamily: '"Sora", "Inter", Arial, sans-serif',
-                fontSize: { xs: '1.35rem', sm: '1.72rem' },
-                lineHeight: 1.1,
-                fontWeight: 850,
-              }}
-            >
-              {active.metric}
-            </Typography>
-          </Box>
-
-          <Button
-            endIcon={<ArrowRight size={16} />}
-            sx={{
-              minHeight: 48,
-              px: 2.1,
-              color: brand.ink,
-              background: active.accent,
-              boxShadow: `0 20px 52px ${active.accent}30`,
-              '&:hover': {
-                background: active.accent,
-                transform: 'translateY(-2px)',
-                boxShadow: `0 26px 62px ${active.accent}42`,
-              },
-              transition: 'transform 180ms ease, box-shadow 180ms ease',
-            }}
-          >
-            See it in action
-          </Button>
-        </Stack>
+          {active.cards.map((card, index) => (
+            <UseCaseCard key={card.title} card={card} index={index} accent={active.accent} />
+          ))}
+        </Box>
       </Stack>
     </Box>
   );
@@ -366,7 +459,23 @@ function StoryPanel({ active }) {
 
 function UseCases() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isAutoPaused, setIsAutoPaused] = useState(false);
   const active = useCases[activeIndex];
+
+  useEffect(() => {
+    if (isAutoPaused) return undefined;
+
+    const timer = window.setInterval(() => {
+      setActiveIndex((current) => (current + 1) % useCases.length);
+    }, 3000);
+
+    return () => window.clearInterval(timer);
+  }, [isAutoPaused]);
+
+  const handleSelect = (index) => {
+    setIsAutoPaused(true);
+    setActiveIndex(index);
+  };
 
   return (
     <Box
@@ -482,13 +591,13 @@ function UseCases() {
               }}
             >
               <path
-                d="M 72 242 C 210 74 305 62 392 126 C 508 212 594 238 710 130 C 812 34 874 120 936 244"
+                d="M 72 242 C 184 74 278 62 350 116 C 448 190 530 228 626 144 C 728 54 806 66 884 146 C 916 180 928 214 936 244"
                 fill="none"
                 stroke="rgba(247,249,232,0.18)"
                 strokeWidth="2"
               />
               <path
-                d="M 72 242 C 210 74 305 62 392 126 C 508 212 594 238 710 130 C 812 34 874 120 936 244"
+                d="M 72 242 C 184 74 278 62 350 116 C 448 190 530 228 626 144 C 728 54 806 66 884 146 C 916 180 928 214 936 244"
                 fill="none"
                 stroke={active.accent}
                 strokeWidth="3"
@@ -504,7 +613,7 @@ function UseCases() {
                 item={item}
                 index={index}
                 selected={index === activeIndex}
-                onSelect={() => setActiveIndex(index)}
+                onSelect={() => handleSelect(index)}
               />
             ))}
           </Box>

@@ -5,211 +5,121 @@ import { brand } from '../theme.js';
 
 const features = [
   {
-    tab: 'Admin Dashboard',
-    eyebrow: '01 / ADMIN DASHBOARD',
-    title: 'Manage performance across teams, roles, and regions.',
+    tab: 'Customization',
+    eyebrow: '01 / CUSTOMIZATION',
+    title: 'Training tailored to your business.',
     copy:
-      'A premium analytics dashboard for L&D and people leaders to track progress, completion, skill lift, and training impact.',
+      'Build communication programs that reflect your industry, customer scenarios, and learning objectives to create relevant practice experiences.',
     bullets: [
-      'Cohort dashboards by team, region, and role',
-      'Scenario-level performance benchmarks',
-      'Custom KPIs tied to business metrics',
+      'Discovery Meeting',
+      'Industry-Specific Customization',
+      'Customized Learning Journeys',
     ],
-    visual: 'dashboard',
+    visual: 'customization',
   },
   {
-    tab: 'Quadrant Analysis',
-    eyebrow: '02 / QUADRANT ANALYSIS',
-    title: 'See exactly who is ready and who needs coaching.',
+    tab: 'Team Management',
+    eyebrow: '02 / TEAM MANAGEMENT',
+    title: 'Organize, assign, and assess with ease.',
     copy:
-      'Map learners by confidence, accuracy, fluency, and readiness to identify high performers and coaching priorities.',
+      'Manage teams, assign roleplays and learning journeys, and evaluate progress through structured assessments and completion tracking.',
     bullets: [
-      'Clear skill-gap visualization',
-      'Performance clusters by learner group',
-      'Manager-ready coaching insights',
+      'Team Roster Creation',
+      'Assign Roleplays & Learning Journeys',
+      'Assessments',
     ],
-    visual: 'quadrant',
+    visual: 'team',
   },
   {
-    tab: 'Assign Roleplays',
-    eyebrow: '03 / ASSIGN ROLEPLAYS',
-    title: 'Assign the right practice to the right team.',
+    tab: 'Content Library',
+    eyebrow: '03 / CONTENT LIBRARY',
+    title: 'Scale training across the organization',
     copy:
-      'Create roleplays by team, department, persona, region, or business scenario with deadlines and completion tracking.',
+      'Access a centralized library of roleplays, learning journeys, and communication scenarios designed for different teams, functions, and business goals.',
     bullets: [
-      'Persona-based roleplay assignments',
-      'Team and department targeting',
-      'Progress and completion tracking',
+      'Roleplay Library',
+      'Micro Learning Videos',
+      'Training Programs',
     ],
-    visual: 'roleplay',
+    visual: 'library',
   },
   {
-    tab: 'Assessments',
-    eyebrow: '04 / ASSESSMENTS',
-    title: 'Measure readiness before and after training.',
+    tab: 'Reporting',
+    eyebrow: '04 / REPORTING',
+    title: 'Turn practice data into actionable insights.',
     copy:
-      'Benchmark learners, evaluate improvement, and prove training ROI with structured AI-powered assessments.',
+      'Track participation, monitor performance, identify skill gaps, and measure improvement across teams with clear reporting and analytics.',
     bullets: [
-      'Pre and post assessment flows',
-      'AI-powered feedback and scoring',
-      'Exportable enterprise reports',
+      'Admin Dashboard',
+      'Quadrant Analysis',
+      'Progress Tracking & Feedback',
+      'Export Excel Reports',
     ],
-    visual: 'assessment',
+    visual: 'reporting',
   },
 ];
 
-function DashboardVisual() {
-  const metrics = [
-    { label: 'Avg Score', value: '81%', delta: '+18%', bg: '#E5F3C9' },
-    { label: 'Sessions', value: '1,240', delta: '+612', bg: '#E9DFF0' },
-    { label: 'At Risk', value: '3', delta: '-4', bg: '#FFE0D1' },
-  ];
-  const bars = ['45%', '76%', '58%', '88%', '64%', '82%'];
-
+function CustomizationVisual() {
   return (
-    <Box sx={visualSx}>
-      <Stack direction="row" justifyContent="space-between" spacing={2} sx={{ mb: 2.25 }}>
-        <Box>
-          <Typography sx={{ color: '#111111', fontSize: 15, fontWeight: 800, mb: 0.75 }}>
-            Sales Team - KSA Region
-          </Typography>
-          <Typography sx={{ color: '#637062', fontSize: 12 }}>
-            Q1 Cohort - 24 reps - Updated 2 min ago
-          </Typography>
-        </Box>
-        <Typography
-          sx={{
-            height: 'max-content',
-            px: 1.5,
-            py: 1,
-            borderRadius: 999,
-            color: brand.forest,
-            background: '#E5F3C9',
-            fontSize: 11,
-            fontWeight: 900,
-            whiteSpace: 'nowrap',
-          }}
-        >
-          Last 30 days
-        </Typography>
-      </Stack>
-
-      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(3, 1fr)' }, gap: 1.5, mb: 2.5 }}>
-        {metrics.map((metric) => (
-          <Box key={metric.label} sx={{ borderRadius: '18px', p: 2.25, background: metric.bg }}>
-            <Typography sx={{ color: '#485747', fontSize: 11, fontWeight: 800, mb: 1 }}>
-              {metric.label}
-            </Typography>
-            <Typography component="b" sx={{ color: brand.forest, fontSize: 32, fontWeight: 900 }}>
-              {metric.value}
-            </Typography>
-            <Typography component="small" sx={{ color: '#3C9B69', fontSize: 11, fontWeight: 900, ml: 0.75 }}>
-              {metric.delta}
-            </Typography>
-          </Box>
-        ))}
-      </Box>
-
-      <Stack
-        direction="row"
-        alignItems="flex-end"
-        justifyContent="space-around"
-        sx={{
-          height: 150,
-          p: 2.75,
-          borderRadius: '20px',
-          background: '#FFFDF2',
-          border: '1px solid rgba(0,66,37,.1)',
-        }}
-      >
-        {bars.map((height, index) => (
-          <Box
-            key={`${height}-${index}`}
-            sx={{
-              width: 36,
-              height,
-              borderRadius: '10px 10px 0 0',
-              background: `linear-gradient(180deg, #8AC63F, ${brand.forest})`,
-            }}
-          />
-        ))}
-      </Stack>
-    </Box>
-  );
-}
-
-function QuadrantVisual() {
-  const dots = [
-    { left: '24%', top: '28%' },
-    { left: '68%', top: '22%' },
-    { left: '42%', top: '62%' },
-    { left: '75%', top: '66%' },
-    { left: '58%', top: '40%', color: '#F56431' },
-  ];
-
-  return (
-    <Box sx={{ ...visualSx, position: 'relative', background: brand.ivory }}>
-      <Box sx={{ position: 'absolute', width: 1, height: '78%', left: '50%', top: '11%', background: 'rgba(0,66,37,.22)' }} />
-      <Box sx={{ position: 'absolute', height: 1, width: '78%', left: '11%', top: '50%', background: 'rgba(0,66,37,.22)' }} />
-      <Typography sx={quadLabelSx({ top: 22, left: '50%', transform: 'translateX(-50%)' })}>High Confidence</Typography>
-      <Typography sx={quadLabelSx({ bottom: 22, left: '50%', transform: 'translateX(-50%)' })}>Low Confidence</Typography>
-      <Typography sx={quadLabelSx({ right: 22, top: '50%', transform: 'translateY(-50%)' })}>High Accuracy</Typography>
-      {dots.map((dot, index) => (
-        <Box
-          key={index}
-          sx={{
-            position: 'absolute',
-            width: 20,
-            height: 20,
-            borderRadius: '50%',
-            left: dot.left,
-            top: dot.top,
-            background: dot.color || brand.forest,
-            boxShadow: '0 0 0 10px rgba(0,66,37,.08)',
-          }}
-        />
-      ))}
-    </Box>
-  );
-}
-
-function RoleplayVisual() {
-  const cards = [
-    ['Customer Care Team', 'Assigned'],
-    ['Sales Team', 'In Progress'],
-    ['University Cohort', 'Completed'],
-  ];
-
-  return (
-    <Stack sx={{ ...visualSx, justifyContent: 'center' }} spacing={2.25}>
-      {cards.map(([team, status]) => (
+    <Stack sx={{ ...visualSx, justifyContent: 'center' }} spacing={2}>
+      {['Industry', 'Scenario', 'Learning journey'].map((label, index) => (
         <Stack
-          key={team}
-          direction={{ xs: 'column', sm: 'row' }}
-          spacing={1.5}
+          key={label}
+          direction="row"
+          spacing={1.4}
           justifyContent="space-between"
-          alignItems={{ xs: 'flex-start', sm: 'center' }}
+          alignItems="center"
           sx={{
-            p: 2.75,
-            borderRadius: '20px',
+            p: 2.2,
+            borderRadius: '18px',
             background: '#FFFDF2',
             border: '1px solid rgba(0,66,37,.12)',
             boxShadow: '0 12px 28px rgba(0,66,37,.07)',
           }}
         >
-          <Typography sx={{ color: brand.forest, fontSize: 18, fontWeight: 850 }}>{team}</Typography>
-          <Typography
-            sx={{
-              px: 1.75,
-              py: 1,
-              borderRadius: 999,
-              background: brand.forest,
-              color: '#ffffff',
-              fontSize: 12,
-              fontWeight: 900,
-            }}
-          >
-            {status}
+          <Box>
+            <Typography sx={{ color: brand.forest, fontSize: 13, fontWeight: 900 }}>
+              {label}
+            </Typography>
+            <Typography sx={{ mt: 0.55, color: '#637062', fontSize: 12 }}>
+              {index === 0 ? 'Customer-facing teams' : index === 1 ? 'Discovery meeting' : 'Custom path'}
+            </Typography>
+          </Box>
+          <Box sx={{ width: `${48 + index * 18}%`, maxWidth: 190, height: 9, borderRadius: 999, background: index === 1 ? '#E9DFF0' : '#D7F36A' }} />
+        </Stack>
+      ))}
+    </Stack>
+  );
+}
+
+function TeamVisual() {
+  const teams = [
+    ['Sales cohort', '24 learners', '#E5F3C9'],
+    ['Support team', '18 learners', '#E9DFF0'],
+    ['Admissions', '31 learners', '#FFE0D1'],
+  ];
+
+  return (
+    <Stack sx={{ ...visualSx, justifyContent: 'center' }} spacing={1.6}>
+      {teams.map(([team, count, bg]) => (
+        <Stack
+          key={team}
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+          sx={{
+            p: 2,
+            borderRadius: '18px',
+            background: bg,
+            border: '1px solid rgba(0,66,37,.1)',
+          }}
+        >
+          <Box>
+            <Typography sx={{ color: brand.forest, fontSize: 16, fontWeight: 900 }}>{team}</Typography>
+            <Typography sx={{ mt: 0.45, color: '#637062', fontSize: 12, fontWeight: 750 }}>{count}</Typography>
+          </Box>
+          <Typography sx={{ px: 1.4, py: 0.75, borderRadius: 999, color: brand.ivory, background: brand.forest, fontSize: 11, fontWeight: 900 }}>
+            Assigned
           </Typography>
         </Stack>
       ))}
@@ -217,43 +127,68 @@ function RoleplayVisual() {
   );
 }
 
-function AssessmentVisual() {
+function LibraryVisual() {
+  const items = ['Roleplay Library', 'Micro Learning Videos', 'Training Programs'];
+
   return (
-    <Stack sx={visualSx} alignItems="center" justifyContent="center" textAlign="center">
-      <Box
-        sx={{
-          width: 175,
-          height: 175,
-          borderRadius: '50%',
-          display: 'grid',
-          placeItems: 'center',
-          color: brand.forest,
-          fontSize: 44,
-          fontWeight: 900,
-          mb: 3,
-          background: `
-            radial-gradient(circle at center, ${brand.ivory} 56%, transparent 57%),
-            conic-gradient(${brand.forest} 0 92%, rgba(0,66,37,.12) 92% 100%)
-          `,
-        }}
-      >
-        92%
+    <Box sx={visualSx}>
+      <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 1.5 }}>
+        {items.map((item, index) => (
+          <Box
+            key={item}
+            sx={{
+              minHeight: index === 2 ? 118 : 150,
+              gridColumn: index === 2 ? '1 / -1' : 'auto',
+              p: 2.2,
+              borderRadius: '20px',
+              background: index === 1 ? '#E9DFF0' : '#FFFDF2',
+              border: '1px solid rgba(0,66,37,.1)',
+            }}
+          >
+            <Typography sx={{ color: brand.forest, fontSize: 17, fontWeight: 900 }}>{item}</Typography>
+            <Box sx={{ mt: 2, display: 'flex', gap: 0.7 }}>
+              {[0, 1, 2].map((dot) => (
+                <Box key={dot} sx={{ width: dot === index % 3 ? 30 : 10, height: 10, borderRadius: 999, background: dot === index % 3 ? brand.forest : 'rgba(0,66,37,.18)' }} />
+              ))}
+            </Box>
+          </Box>
+        ))}
       </Box>
-      <Typography sx={{ m: '0 0 10px', color: brand.forest, fontSize: 24, fontWeight: 900 }}>
-        Enterprise Readiness Score
-      </Typography>
-      <Typography sx={{ m: 0, maxWidth: 360, color: '#213528', fontSize: 15, lineHeight: 1.6 }}>
-        Based on accuracy, clarity, confidence, and scenario completion.
-      </Typography>
-    </Stack>
+    </Box>
+  );
+}
+
+function ReportingVisual() {
+  const bars = ['52%', '70%', '46%', '88%', '64%', '78%'];
+
+  return (
+    <Box sx={visualSx}>
+      <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 1.2, mb: 2.2 }}>
+        {[
+          ['Completion', '87%'],
+          ['Skill lift', '+24%'],
+          ['Exports', '12'],
+        ].map(([label, value]) => (
+          <Box key={label} sx={{ p: 1.8, borderRadius: '18px', background: '#FFFDF2', border: '1px solid rgba(0,66,37,.1)' }}>
+            <Typography sx={{ color: '#637062', fontSize: 11, fontWeight: 850 }}>{label}</Typography>
+            <Typography sx={{ mt: 0.65, color: brand.forest, fontSize: 24, fontWeight: 950 }}>{value}</Typography>
+          </Box>
+        ))}
+      </Box>
+      <Stack direction="row" alignItems="flex-end" justifyContent="space-around" sx={{ height: 165, p: 2.4, borderRadius: '20px', background: '#FFFDF2', border: '1px solid rgba(0,66,37,.1)' }}>
+        {bars.map((height, index) => (
+          <Box key={`${height}-${index}`} sx={{ width: 34, height, borderRadius: '10px 10px 0 0', background: `linear-gradient(180deg, ${index % 2 ? '#D7F36A' : '#8AC63F'}, ${brand.forest})` }} />
+        ))}
+      </Stack>
+    </Box>
   );
 }
 
 function FeatureVisual({ type }) {
-  if (type === 'quadrant') return <QuadrantVisual />;
-  if (type === 'roleplay') return <RoleplayVisual />;
-  if (type === 'assessment') return <AssessmentVisual />;
-  return <DashboardVisual />;
+  if (type === 'team') return <TeamVisual />;
+  if (type === 'library') return <LibraryVisual />;
+  if (type === 'reporting') return <ReportingVisual />;
+  return <CustomizationVisual />;
 }
 
 const visualSx = {
@@ -266,14 +201,6 @@ const visualSx = {
   boxSizing: 'border-box',
   backdropFilter: 'blur(10px)',
 };
-
-const quadLabelSx = (position) => ({
-  position: 'absolute',
-  color: brand.forest,
-  fontSize: 12,
-  fontWeight: 900,
-  ...position,
-});
 
 function EnterpriseFeatures() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -339,7 +266,7 @@ function EnterpriseFeatures() {
               mb: 2.25,
             }}
           >
-            ENTERPRISE FEATURES
+            ENTERPRISE MODULES
           </Typography>
           <Typography
             variant="h2"
@@ -351,11 +278,12 @@ function EnterpriseFeatures() {
               fontWeight: 900,
             }}
           >
-            Built for real-world conversation complexity
+            Everything you need to manage communication training at scale
           </Typography>
           <Typography sx={{ m: 0, color: '#213528', fontSize: 16, lineHeight: 1.7, fontWeight: 500 }}>
-            Speekr helps teams practice, assign, assess, and improve enterprise conversations
-            with measurable insights.
+            From onboarding and roleplay assignment to performance reporting and learning
+            customization, Speekr gives teams the tools to deliver measurable communication
+            improvement across the organization.
           </Typography>
         </Stack>
 

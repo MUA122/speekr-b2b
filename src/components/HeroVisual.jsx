@@ -1,19 +1,57 @@
 import { useRef } from 'react';
-import { Box, LinearProgress, Stack, Typography } from '@mui/material';
-import {
-  AudioLines,
-  BrainCircuit,
-  MessageSquare,
-  Radar,
-  ShieldCheck,
-  TrendingUp,
-} from 'lucide-react';
+import { Box, Stack, Typography } from '@mui/material';
+import { ArrowRight, AudioLines } from 'lucide-react';
 import { brand } from '../theme.js';
+import heroCare from '../assets/hero-customer-care-gulf-office.png';
+import heroSaleswoman from '../assets/hero-saleswoman-gulf-office.png';
+import heroUniversity from '../assets/hero-university-gulf-career-lab.png';
 
-const iconMap = {
-  sales: TrendingUp,
-  care: MessageSquare,
-  education: BrainCircuit,
+const heroImages = {
+  sales: {
+    src: heroSaleswoman,
+    alt: 'Confident Middle Eastern saleswoman on a video call in a modern Gulf office',
+    position: { xs: '42% center', md: 'center center' },
+  },
+  care: {
+    src: heroCare,
+    alt: 'Middle Eastern customer care specialist on a support call in a modern Gulf office',
+    position: { xs: '42% center', md: 'center center' },
+  },
+  education: {
+    src: heroUniversity,
+    alt: 'Middle Eastern university student practicing an interview in a modern Gulf career lab',
+    position: { xs: '42% center', md: 'center center' },
+  },
+};
+
+const insightCards = {
+  sales: {
+    signalLabel: 'Manager signal',
+    metric: 'Ramp reps 34% faster',
+    cards: [
+      ['Persona challenge', '"Prove ROI. Now."'],
+      ['AI coach', '"Tie it to impact. Close the step."'],
+      ['Manager signal', '"Coaching priority spotted"'],
+    ],
+  },
+  care: {
+    signalLabel: 'Manager signal',
+    metric: '91% of tough calls recovered',
+    cards: [
+      ['Persona challenge', '"Angry VIP. Billing error."'],
+      ['AI coach', '"Own it. Offer the fix."'],
+      ['Manager signal', '"Coaching priority spotted"'],
+    ],
+  },
+  education: {
+    signalLabel: 'Faculty signal',
+    metric: 'Save 90% costs on physical interviews for candidates',
+    cards: [
+      ['Persona challenge', '"Tough interview. Probing questions."'],
+      ['AI coach', '"STAR answer. Close with reflection."'],
+      ['Faculty signal', '"Readiness flagged"'],
+    ],
+  },
 };
 
 function Waveform({ accent }) {
@@ -38,51 +76,68 @@ function Waveform({ accent }) {
   );
 }
 
-function MiniMetric({ label, value, accent, wide = false }) {
+function InsightCard({ title, copy, metric, accent, filled = false }) {
   return (
     <Box
       sx={{
-        minHeight: 84,
-        p: 1.5,
-        borderRadius: 2,
-        background: 'rgba(255,255,255,0.08)',
-        border: '1px solid rgba(247,249,232,0.12)',
-        gridColumn: wide ? { xs: 'auto', sm: 'span 2' } : 'auto',
+        minWidth: 0,
+        flex: '1 1 0',
+        minHeight: { xs: 82, md: 94 },
+        p: { xs: 1.15, md: 1.35 },
+        borderRadius: 3,
+        background: filled
+          ? accent
+          : 'linear-gradient(145deg, rgba(4,21,15,0.82), rgba(4,21,15,0.58))',
+        color: filled ? brand.ink : brand.ivory,
+        border: `1px solid ${filled ? 'rgba(7,28,20,0.08)' : `${accent}72`}`,
+        boxShadow: filled
+          ? `0 18px 48px ${accent}42`
+          : '0 18px 46px rgba(7,28,20,0.28)',
+        backdropFilter: 'blur(18px)',
       }}
     >
-      <Typography sx={{ color: 'rgba(247,249,232,0.62)', fontSize: '0.73rem', fontWeight: 750 }}>
-        {label}
-      </Typography>
-      <Typography sx={{ color: brand.ivory, fontWeight: 850, fontSize: '1.35rem', mt: 0.5 }}>
-        {value}
-      </Typography>
-      <Box
+      <Typography
         sx={{
-          mt: 1.1,
-          height: 3,
-          borderRadius: 999,
-          background: 'rgba(247,249,232,0.14)',
-          overflow: 'hidden',
+          color: filled ? 'rgba(7,28,20,0.78)' : accent,
+          fontSize: { xs: '0.62rem', md: '0.68rem' },
+          lineHeight: 1,
+          fontWeight: 900,
         }}
       >
-        <Box
+        {title}
+      </Typography>
+      <Typography
+        sx={{
+          mt: 0.65,
+          color: filled ? brand.ink : brand.ivory,
+          fontSize: { xs: '0.78rem', md: '0.86rem' },
+          lineHeight: 1.2,
+          fontWeight: 850,
+        }}
+      >
+        {copy}
+      </Typography>
+      {metric ? (
+        <Typography
           sx={{
-            width: wide ? '76%' : '62%',
-            height: '100%',
-            borderRadius: 999,
-            background: accent,
-            transformOrigin: 'left',
-            animation: 'pulseLine 1800ms ease-in-out infinite',
+            mt: 0.9,
+            color: filled ? brand.ink : accent,
+            fontSize: { xs: '0.68rem', md: '0.74rem' },
+            lineHeight: 1.18,
+            fontWeight: 900,
           }}
-        />
-      </Box>
+        >
+          {metric}
+        </Typography>
+      ) : null}
     </Box>
   );
 }
 
-function HeroVisual({ active, activeIndex }) {
+function HeroVisual({ active }) {
   const cardRef = useRef(null);
-  const ScenarioIcon = iconMap[active.id] || BrainCircuit;
+  const image = heroImages[active.id] || heroImages.sales;
+  const insights = insightCards[active.id] || insightCards.sales;
 
   const handleMouseMove = (event) => {
     const node = cardRef.current;
@@ -109,7 +164,7 @@ function HeroVisual({ active, activeIndex }) {
     <Box
       sx={{
         position: 'relative',
-        minHeight: { xs: 560, sm: 610, md: 660, lg: 700 },
+        minHeight: { xs: 460, sm: 520, md: 600, lg: 660 },
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -122,315 +177,206 @@ function HeroVisual({ active, activeIndex }) {
           inset: { xs: '20px 2px', md: '20px 18px' },
           borderRadius: 6,
           background:
-            'linear-gradient(135deg, rgba(0,66,37,0.12), rgba(255,255,255,0.18) 42%, rgba(53,92,255,0.08))',
+            'linear-gradient(135deg, rgba(0,66,37,0.12), rgba(255,255,255,0.22) 42%, rgba(215,243,106,0.14))',
           border: '1px solid rgba(0,66,37,0.12)',
           transform: 'rotate(-2deg)',
         }}
       />
 
-      <Box
-        ref={cardRef}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={resetTilt}
+      <Stack
         sx={{
-          '--rx': '0deg',
-          '--ry': '0deg',
-          '--mx': '50%',
-          '--my': '50%',
           position: 'relative',
-          width: 'min(100%, 590px)',
-          minHeight: { xs: 530, sm: 574, md: 610 },
-          p: { xs: 1.4, sm: 2 },
-          borderRadius: { xs: 4, md: 5 },
-          color: brand.ivory,
-          background: `
-            radial-gradient(circle at var(--mx) var(--my), ${active.glow}, transparent 34%),
-            linear-gradient(145deg, #08251A 0%, #04150F 58%, #101A33 100%)
-          `,
-          border: '1px solid rgba(247,249,232,0.18)',
-          boxShadow: '0 34px 100px rgba(7,28,20,0.34)',
-          transform: 'perspective(1200px) rotateX(var(--rx)) rotateY(var(--ry))',
-          transition: 'transform 180ms ease, background 320ms ease',
-          overflow: 'hidden',
-          '&::before': {
-            content: '""',
-            position: 'absolute',
-            inset: 0,
-            backgroundImage: `
-              linear-gradient(90deg, rgba(247,249,232,0.055) 1px, transparent 1px),
-              linear-gradient(180deg, rgba(247,249,232,0.055) 1px, transparent 1px)
-            `,
-            backgroundSize: '36px 36px',
-            maskImage: 'linear-gradient(180deg, rgba(0,0,0,0.72), rgba(0,0,0,0.1))',
-            pointerEvents: 'none',
-          },
-          '&::after': {
-            content: '""',
-            position: 'absolute',
-            top: 0,
-            bottom: 0,
-            width: '46%',
-            background:
-              'linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)',
-            transform: 'translateX(-120%)',
-            animation: 'sweep 4200ms ease-in-out infinite',
-            pointerEvents: 'none',
-          },
+          width: 'min(100%, 660px)',
+          zIndex: 1,
+          gap: { xs: 1.2, md: 1.5 },
         }}
       >
-        <Stack spacing={1.5} sx={{ position: 'relative', zIndex: 1 }}>
-          <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-            sx={{
-              minHeight: 50,
-              px: { xs: 1, sm: 1.4 },
-            }}
-          >
-            <Stack direction="row" alignItems="center" spacing={1.15}>
-              <Box
-                sx={{
-                  width: 38,
-                  height: 38,
-                  borderRadius: 2,
-                  display: 'grid',
-                  placeItems: 'center',
-                  background: active.accent,
-                  color: brand.ink,
-                  boxShadow: `0 0 0 7px ${active.glow}`,
-                }}
-              >
-                <ScenarioIcon size={19} strokeWidth={2.5} />
-              </Box>
-              <Box>
-                <Typography sx={{ fontSize: '0.78rem', color: 'rgba(247,249,232,0.58)', fontWeight: 750 }}>
-                  Speekr simulation
-                </Typography>
-                <Typography sx={{ fontWeight: 850, color: brand.ivory, lineHeight: 1.2 }}>
-                  {active.agent}
-                </Typography>
-              </Box>
-            </Stack>
-            <Stack direction="row" alignItems="center" spacing={0.8}>
-              <Box
-                sx={{
-                  width: 8,
-                  height: 8,
-                  borderRadius: '50%',
-                  background: active.accent,
-                  boxShadow: `0 0 0 5px ${active.glow}`,
-                }}
-              />
-              <Typography sx={{ fontSize: '0.76rem', color: 'rgba(247,249,232,0.66)', fontWeight: 750 }}>
-                Live AI
-              </Typography>
-            </Stack>
-          </Stack>
-
-          <Box
-            key={`visual-${active.id}-${activeIndex}`}
-            sx={{
-              display: 'grid',
-              gridTemplateColumns: { xs: '1fr', sm: '1.15fr 0.85fr' },
-              gap: 1.5,
-              animation: 'visualEnter 520ms ease both',
-            }}
-          >
+        <Stack
+          key={`insights-${active.id}`}
+          direction="row"
+          alignItems="stretch"
+          sx={{
+            position: 'relative',
+            zIndex: 2,
+            gap: { xs: 0.75, md: 0.95 },
+            animation: 'visualEnter 420ms ease both',
+          }}
+        >
+          {insights.cards.map(([title, copy], index) => (
             <Stack
-              spacing={1.35}
-              sx={{
-                p: { xs: 1.3, sm: 1.6 },
-                minHeight: 322,
-                borderRadius: 3,
-                background: 'rgba(255,255,255,0.1)',
-                border: '1px solid rgba(247,249,232,0.12)',
-                backdropFilter: 'blur(18px)',
-              }}
+              key={title}
+              direction="row"
+              alignItems="center"
+              sx={{ flex: '1 1 0', minWidth: 0, gap: { xs: 0.55, md: 0.75 } }}
             >
-              <Stack direction="row" justifyContent="space-between" spacing={1} alignItems="center">
-                <Stack direction="row" spacing={0.8} alignItems="center">
-                  <AudioLines size={17} color={active.accent} />
-                  <Typography sx={{ color: brand.ivory, fontWeight: 850 }}>Roleplay stream</Typography>
-                </Stack>
-                <Typography sx={{ fontSize: '0.72rem', color: 'rgba(247,249,232,0.58)', fontWeight: 750 }}>
-                  Session 0{activeIndex + 4}
-                </Typography>
-              </Stack>
-
-              <Box
-                sx={{
-                  p: 1.5,
-                  borderRadius: 2,
-                  background: 'rgba(247,249,232,0.92)',
-                  color: brand.ink,
-                  boxShadow: '0 16px 36px rgba(0,0,0,0.18)',
-                }}
-              >
-                <Typography sx={{ fontSize: '0.72rem', fontWeight: 850, color: active.accentDark }}>
-                  Persona challenge
-                </Typography>
-                <Typography sx={{ fontSize: '0.91rem', fontWeight: 720, lineHeight: 1.55, mt: 0.5 }}>
-                  {active.prompt}
-                </Typography>
-              </Box>
-
-              <Box
-                sx={{
-                  p: 1.5,
-                  borderRadius: 2,
-                  background: 'rgba(0,66,37,0.82)',
-                  border: `1px solid ${active.accent}`,
-                  color: brand.ivory,
-                }}
-              >
-                <Typography sx={{ fontSize: '0.72rem', color: active.accent, fontWeight: 850 }}>
-                  AI coach feedback
-                </Typography>
-                <Typography sx={{ fontSize: '0.9rem', lineHeight: 1.58, mt: 0.5 }}>
-                  {active.reply}
-                </Typography>
-              </Box>
-
-              <Box
-                sx={{
-                  mt: 'auto',
-                  p: 1.2,
-                  borderRadius: 2,
-                  background: 'rgba(255,255,255,0.08)',
-                  border: '1px solid rgba(247,249,232,0.11)',
-                }}
-              >
-                <Waveform accent={active.accent} />
-              </Box>
-            </Stack>
-
-            <Stack spacing={1.5}>
-              <Box
-                sx={{
-                  minHeight: 166,
-                  p: 1.5,
-                  borderRadius: 3,
-                  background: active.accent,
-                  color: brand.ink,
-                  boxShadow: `0 18px 44px ${active.glow}`,
-                  animation: 'floatSoft 4200ms ease-in-out infinite',
-                }}
-              >
-                <Stack direction="row" alignItems="center" justifyContent="space-between">
-                  <Typography sx={{ fontSize: '0.75rem', fontWeight: 850 }}>Training lift</Typography>
-                  <Radar size={17} />
-                </Stack>
-                <Typography sx={{ fontFamily: '"Sora", "Inter", sans-serif', fontWeight: 850, fontSize: '2.45rem', mt: 1 }}>
-                  {active.metric}
-                </Typography>
-                <Typography sx={{ fontSize: '0.86rem', fontWeight: 760 }}>{active.metricLabel}</Typography>
-                <Stack direction="row" spacing={0.7} sx={{ mt: 1.4, flexWrap: 'wrap', gap: 0.7 }}>
-                  {active.chips.slice(0, 2).map((chip) => (
-                    <Box
-                      key={chip}
-                      sx={{
-                        px: 0.85,
-                        py: 0.45,
-                        borderRadius: 999,
-                        background: 'rgba(7,28,20,0.12)',
-                        fontSize: '0.66rem',
-                        fontWeight: 850,
-                      }}
-                    >
-                      {chip}
-                    </Box>
-                  ))}
-                </Stack>
-              </Box>
-
-              <Box
-                sx={{
-                  p: 1.5,
-                  borderRadius: 3,
-                  background: 'rgba(255,255,255,0.1)',
-                  border: '1px solid rgba(247,249,232,0.12)',
-                }}
-              >
-                <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 1.1 }}>
-                  <Typography sx={{ color: brand.ivory, fontWeight: 850, fontSize: '0.86rem' }}>
-                    {active.scoreLabel}
-                  </Typography>
-                  <Typography sx={{ color: active.accent, fontWeight: 900 }}>{active.score}</Typography>
-                </Stack>
-                <LinearProgress
-                  variant="determinate"
-                  value={active.score}
+              <InsightCard
+                title={title}
+                copy={copy}
+                metric={index === 2 ? insights.metric : null}
+                accent={active.accent}
+                filled={index === 0}
+              />
+              {index < insights.cards.length - 1 ? (
+                <Box
                   sx={{
-                    height: 9,
-                    borderRadius: 999,
-                    background: 'rgba(247,249,232,0.12)',
-                    '& .MuiLinearProgress-bar': {
-                      borderRadius: 999,
-                      background: `linear-gradient(90deg, ${active.accent}, ${brand.mint})`,
-                    },
+                    width: { xs: 24, md: 30 },
+                    height: { xs: 24, md: 30 },
+                    flex: '0 0 auto',
+                    display: 'grid',
+                    placeItems: 'center',
+                    borderRadius: '50%',
+                    background: 'rgba(247,249,232,0.9)',
+                    color: brand.ink,
+                    border: `1px solid ${active.accent}`,
+                    boxShadow: `0 12px 30px ${active.glow}`,
                   }}
-                />
-                <Typography sx={{ color: 'rgba(247,249,232,0.62)', fontSize: '0.72rem', lineHeight: 1.55, mt: 1.2 }}>
-                  {active.insight}
-                </Typography>
-              </Box>
+                >
+                  <ArrowRight size={14} strokeWidth={2.8} />
+                </Box>
+              ) : null}
             </Stack>
-          </Box>
+          ))}
+        </Stack>
+
+        <Box
+          ref={cardRef}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={resetTilt}
+          sx={{
+            '--rx': '0deg',
+            '--ry': '0deg',
+            '--mx': '50%',
+            '--my': '50%',
+            position: 'relative',
+            width: '100%',
+            aspectRatio: '16 / 9',
+            borderRadius: { xs: 4, md: 5 },
+            color: brand.ivory,
+            background: `
+              radial-gradient(circle at var(--mx) var(--my), ${active.glow}, transparent 34%),
+              linear-gradient(145deg, rgba(8,37,26,0.42), rgba(4,21,15,0.18))
+            `,
+            border: '1px solid rgba(247,249,232,0.18)',
+            boxShadow: '0 34px 100px rgba(7,28,20,0.34)',
+            transform: 'perspective(1200px) rotateX(var(--rx)) rotateY(var(--ry))',
+            transition: 'transform 180ms ease, background 320ms ease',
+            overflow: 'hidden',
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              inset: 0,
+              background:
+                'linear-gradient(90deg, rgba(3,18,13,0.18), transparent 38%, rgba(247,249,232,0.06))',
+              pointerEvents: 'none',
+              zIndex: 1,
+            },
+            '&::after': {
+              content: '""',
+              position: 'absolute',
+              top: 0,
+              bottom: 0,
+              width: '46%',
+              background:
+                'linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)',
+              transform: 'translateX(-120%)',
+              animation: 'sweep 4200ms ease-in-out infinite',
+              pointerEvents: 'none',
+              zIndex: 2,
+            },
+          }}
+        >
+          <Box
+            component="img"
+            key={active.id}
+            src={image.src}
+            alt={image.alt}
+            loading="eager"
+            decoding="async"
+            sx={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: image.position,
+              filter: 'saturate(1.03) contrast(1.02)',
+              animation: 'visualEnter 420ms ease both',
+            }}
+          />
 
           <Box
             sx={{
+              position: 'absolute',
+              inset: 0,
+              background:
+                'linear-gradient(180deg, rgba(0,66,37,0.08), transparent 47%, rgba(0,66,37,0.2))',
+              zIndex: 1,
+              pointerEvents: 'none',
+            }}
+          />
+
+        <Stack
+          direction="row"
+          alignItems="center"
+          spacing={1.2}
+          aria-hidden
+          sx={{
+            position: 'absolute',
+            right: { xs: 18, sm: 24, md: 30 },
+            bottom: { xs: 18, sm: 24, md: 30 },
+            zIndex: 3,
+            width: { xs: 'calc(100% - 36px)', sm: 330, md: 360 },
+            minHeight: { xs: 76, md: 84 },
+            px: { xs: 1.4, sm: 1.7 },
+            py: 1.25,
+            borderRadius: 3,
+            background: 'rgba(4, 21, 15, 0.72)',
+            border: '1px solid rgba(247,249,232,0.22)',
+            boxShadow: `0 24px 70px rgba(7,28,20,0.34), 0 0 0 7px ${active.glow}`,
+            backdropFilter: 'blur(18px)',
+            animation: 'floatSoft 5200ms ease-in-out infinite',
+          }}
+        >
+          <Box
+            sx={{
+              width: { xs: 46, md: 52 },
+              height: { xs: 46, md: 52 },
+              flex: '0 0 auto',
+              borderRadius: 2,
               display: 'grid',
-              gridTemplateColumns: { xs: '1fr', sm: 'repeat(3, minmax(0, 1fr))' },
-              gap: 1.2,
+              placeItems: 'center',
+              background: active.accent,
+              color: brand.ink,
+              boxShadow: `0 0 0 8px ${active.glow}`,
             }}
           >
-            <MiniMetric label="Scenario depth" value="128 paths" accent={active.accent} />
-            <MiniMetric label="Quality signals" value="42 live" accent={active.accent} />
-            <MiniMetric label="Governance" value="Admin" accent={active.accent} />
+            <AudioLines size={24} strokeWidth={2.4} />
           </Box>
-
           <Box
             sx={{
-              position: { xs: 'relative', md: 'absolute' },
-              left: { xs: 'auto', md: -22 },
-              bottom: { xs: 'auto', md: 54 },
-              width: { xs: '100%', md: 268 },
-              p: 1.45,
-              borderRadius: 3,
-              background: 'rgba(247,249,232,0.96)',
-              color: brand.ink,
-              boxShadow: '0 24px 58px rgba(0,0,0,0.2)',
-              border: '1px solid rgba(0,66,37,0.1)',
-              animation: 'floatSoft 5200ms ease-in-out infinite',
+              flex: 1,
+              minWidth: 0,
+              p: 1.1,
+              borderRadius: 2,
+              background: 'rgba(255,255,255,0.08)',
+              border: '1px solid rgba(247,249,232,0.12)',
             }}
           >
-            <Stack direction="row" spacing={1} alignItems="center">
-              <Box
-                sx={{
-                  width: 35,
-                  height: 35,
-                  borderRadius: 2,
-                  display: 'grid',
-                  placeItems: 'center',
-                  background: brand.forest,
-                  color: brand.ivory,
-                }}
-              >
-                <ShieldCheck size={18} />
-              </Box>
-              <Box>
-                <Typography sx={{ fontSize: '0.72rem', color: 'text.secondary', fontWeight: 750 }}>
-                  Manager signal
-                </Typography>
-                <Typography sx={{ fontSize: '0.89rem', fontWeight: 850, lineHeight: 1.25 }}>
-                  Coaching priority detected
-                </Typography>
-              </Box>
-            </Stack>
+            <Waveform accent={active.accent} />
           </Box>
+          <Box
+            sx={{
+              width: 10,
+              height: 10,
+              flex: '0 0 auto',
+              borderRadius: '50%',
+              background: active.accent,
+              boxShadow: `0 0 0 6px ${active.glow}`,
+            }}
+          />
         </Stack>
       </Box>
+      </Stack>
     </Box>
   );
 }

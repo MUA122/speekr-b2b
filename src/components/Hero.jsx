@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -12,7 +12,6 @@ import {
   ArrowRight,
   BadgeCheck,
   Check,
-  ChevronRight,
   PlayCircle,
   Sparkles,
 } from 'lucide-react';
@@ -24,6 +23,8 @@ function Hero() {
   const [activeIndex, setActiveIndex] = useState(0);
   const reduceMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const active = heroScenarios[activeIndex];
+  const staticHero = heroScenarios[0];
+  const activeAudience = active.audience || active.headline.replace(/^AI Roleplay for\s+/, '');
 
   useEffect(() => {
     if (reduceMotion) return undefined;
@@ -32,14 +33,6 @@ function Hero() {
     }, 7000);
     return () => window.clearInterval(timer);
   }, [reduceMotion]);
-
-  const activeTrust = useMemo(() => {
-    return [
-      { label: 'SOC2-ready controls', value: 'Enterprise' },
-      { label: active.metricLabel, value: active.metric },
-      { label: 'AI feedback loops', value: 'Live' },
-    ];
-  }, [active]);
 
   return (
     <Box
@@ -103,7 +96,7 @@ function Hero() {
             <Stack direction="row" spacing={1.2} alignItems="center" sx={{ flexWrap: 'wrap', rowGap: 1 }}>
               <Chip
                 icon={<Sparkles size={15} />}
-                label="AI performance platform"
+                label="AI Roleplay Experiences"
                 sx={{
                   height: 32,
                   width: 'fit-content',
@@ -130,19 +123,21 @@ function Hero() {
               />
             </Stack>
 
-            <Box key={active.headline} sx={{ animation: 'fadeLift 520ms ease both' }}>
+            <Box sx={{ animation: 'fadeLift 520ms ease both' }}>
               <Typography
                 variant="h1"
                 sx={{
                   fontSize: { xs: '2.85rem', sm: '3.6rem', md: '4.55rem', lg: '5.25rem' },
                   color: brand.ink,
                   maxWidth: 740,
-                  '& span': {
+                  '& .audience': {
                     color: brand.forest,
                     position: 'relative',
                     display: 'inline-block',
+                    whiteSpace: 'nowrap',
+                    fontSize: '0.76em',
                   },
-                  '& span::after': {
+                  '& .audience::after': {
                     content: '""',
                     position: 'absolute',
                     left: 2,
@@ -155,19 +150,22 @@ function Hero() {
                   },
                 }}
               >
-                {active.headline.replace('AI Roleplay', '') === active.headline ? (
-                  active.headline
-                ) : (
-                  <>
-                    <span>AI Roleplay</span>
-                    {active.headline.replace('AI Roleplay', '')}
-                  </>
-                )}
+                AI Roleplay
+                <br />
+                for
+                <br />
+                <Box
+                  component="span"
+                  className="audience"
+                  key={activeAudience}
+                  sx={{ animation: 'fadeLift 420ms ease both' }}
+                >
+                  {activeAudience}
+                </Box>
               </Typography>
             </Box>
 
             <Typography
-              key={active.copy}
               sx={{
                 maxWidth: 610,
                 color: 'text.secondary',
@@ -176,7 +174,7 @@ function Hero() {
                 animation: 'fadeLift 560ms ease both',
               }}
             >
-              {active.copy}
+              {staticHero.copy}
             </Typography>
 
             <Stack
@@ -193,16 +191,16 @@ function Hero() {
                   px: 3,
                   background: brand.forest,
                   color: brand.ivory,
-                  boxShadow: `0 18px 46px rgba(0, 66, 37, 0.22), 0 0 0 6px ${active.glow}`,
+                  boxShadow: `0 18px 46px rgba(0, 66, 37, 0.22), 0 0 0 6px ${staticHero.glow}`,
                   '&:hover': {
                     background: '#062F1C',
                     transform: 'translateY(-2px)',
-                    boxShadow: `0 24px 54px rgba(0, 66, 37, 0.28), 0 0 0 7px ${active.glow}`,
+                    boxShadow: `0 24px 54px rgba(0, 66, 37, 0.28), 0 0 0 7px ${staticHero.glow}`,
                   },
                   transition: 'transform 180ms ease, box-shadow 180ms ease, background 180ms ease',
                 }}
               >
-                {active.primaryCta}
+                {staticHero.primaryCta}
               </Button>
               <Button
                 size="large"
@@ -223,80 +221,9 @@ function Hero() {
                   transition: 'transform 180ms ease, border-color 180ms ease, background 180ms ease',
                 }}
               >
-                {active.secondaryCta}
+                {staticHero.secondaryCta}
               </Button>
             </Stack>
-
-            <Stack
-              direction="row"
-              spacing={1}
-              sx={{
-                pt: 0.5,
-                flexWrap: 'wrap',
-                gap: 1,
-              }}
-            >
-              {heroScenarios.map((scenario, index) => {
-                const selected = index === activeIndex;
-                return (
-                  <Button
-                    key={scenario.id}
-                    onClick={() => setActiveIndex(index)}
-                    endIcon={selected ? <ChevronRight size={15} /> : null}
-                    sx={{
-                      minHeight: 38,
-                      px: 1.4,
-                      color: selected ? brand.ink : 'rgba(7,28,20,0.64)',
-                      background: selected ? scenario.accent : 'rgba(255,255,255,0.42)',
-                      border: `1px solid ${selected ? 'rgba(7,28,20,0.14)' : 'rgba(0,66,37,0.1)'}`,
-                      fontSize: '0.82rem',
-                      '&:hover': {
-                        background: selected ? scenario.accent : 'rgba(255,255,255,0.75)',
-                        transform: 'translateY(-1px)',
-                      },
-                    }}
-                  >
-                    {scenario.tab}
-                  </Button>
-                );
-              })}
-            </Stack>
-
-            <Box
-              sx={{
-                display: 'grid',
-                gridTemplateColumns: { xs: '1fr', sm: 'repeat(3, minmax(0, 1fr))' },
-                gap: 1.2,
-                maxWidth: 650,
-                pt: 1,
-              }}
-            >
-              {activeTrust.map((item) => (
-                <Box
-                  key={`${active.id}-${item.label}`}
-                  sx={{
-                    minHeight: 74,
-                    p: 1.6,
-                    borderRadius: 2,
-                    border: `1px solid ${brand.line}`,
-                    background: 'rgba(255,255,255,0.52)',
-                    backdropFilter: 'blur(12px)',
-                    transition: 'transform 180ms ease, border-color 180ms ease',
-                    '&:hover': {
-                      transform: 'translateY(-3px)',
-                      borderColor: 'rgba(0,66,37,0.3)',
-                    },
-                  }}
-                >
-                  <Typography sx={{ fontWeight: 850, color: brand.forest, lineHeight: 1.1 }}>
-                    {item.value}
-                  </Typography>
-                  <Typography sx={{ color: 'text.secondary', fontSize: '0.78rem', mt: 0.65 }}>
-                    {item.label}
-                  </Typography>
-                </Box>
-              ))}
-            </Box>
 
             <Stack
               direction="row"

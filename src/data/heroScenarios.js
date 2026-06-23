@@ -1,11 +1,12 @@
 export const heroScenarios = [
   {
     id: 'sales',
-    tab: 'Sales',
-    eyebrow: 'Revenue teams',
-    headline: 'AI Roleplay for Sales Teams',
+    tab: 'Sales Training',
+    audience: 'Sales Training',
+    eyebrow: 'Revenue Teams',
+    headline: 'AI Roleplay for Sales Training',
     copy:
-      'Turn every rep into a sharper closer with realistic buyer simulations, instant coaching, and manager-ready performance intelligence.',
+      'Practice real conversations, get instant coaching, and track growth - in AI roleplays across English and 15+ Arabic dialects.',
     primaryCta: 'Book a demo',
     secondaryCta: 'Explore sales AI',
     accent: '#D7F36A',
@@ -24,16 +25,17 @@ export const heroScenarios = [
   },
   {
     id: 'care',
-    tab: 'Care',
-    eyebrow: 'Customer operations',
-    headline: 'AI Roleplay for Customer Care Teams',
+    tab: 'Support Teams',
+    audience: 'Support Teams',
+    eyebrow: 'Support Teams',
+    headline: 'AI Roleplay for Support Teams',
     copy:
       'Practice the hardest customer conversations before they happen, with AI personas that measure empathy, resolution quality, and escalation readiness.',
     primaryCta: 'See care workflows',
     secondaryCta: 'View coaching loop',
-    accent: '#7DD7F7',
-    accentDark: '#0F6D8D',
-    glow: 'rgba(125, 215, 247, 0.34)',
+    accent: '#E7D4F4',
+    accentDark: '#6F4F86',
+    glow: 'rgba(231, 212, 244, 0.38)',
     agent: 'VIP customer simulation',
     prompt: 'High-friction billing issue with rising sentiment risk and retention pressure.',
     reply:
@@ -47,9 +49,10 @@ export const heroScenarios = [
   },
   {
     id: 'education',
-    tab: 'Universities',
-    eyebrow: 'Higher education',
-    headline: 'AI Roleplay for Universities',
+    tab: 'Applicant Screening',
+    audience: 'Applicant Screening',
+    eyebrow: 'Interview Automation',
+    headline: 'AI Roleplay for Applicant Screening',
     copy:
       'Give students a safe space to rehearse interviews, advising sessions, and workplace scenarios while faculty track progress with rich competency data.',
     primaryCta: 'Design a pilot',
