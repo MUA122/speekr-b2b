@@ -200,26 +200,9 @@ function MenaNative() {
         >
           <Box>
             <Typography
-              sx={{
-                width: 'fit-content',
-                px: 1.55,
-                py: 0.72,
-                borderRadius: 999,
-                color: brand.forest,
-                background: 'rgba(215,243,106,0.28)',
-                fontSize: '0.72rem',
-                lineHeight: 1,
-                fontWeight: 950,
-                letterSpacing: '0.12em',
-              }}
-            >
-              BUILT FOR MENA
-            </Typography>
-
-            <Typography
               variant="h2"
               sx={{
-                mt: 2.8,
+                mt: 0,
                 maxWidth: 670,
                 color: brand.forest,
                 fontSize: { xs: '2.75rem', sm: '3.7rem', md: '4.35rem' },

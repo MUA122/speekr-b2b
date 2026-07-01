@@ -214,25 +214,7 @@ function SocialProof() {
             mb: { xs: 5.2, md: 7 },
           }}
         >
-          <Stack spacing={2.1} sx={{ maxWidth: 880, animation: 'fadeLift 620ms ease both' }}>
-            <Typography
-              component="p"
-              sx={{
-                width: 'fit-content',
-                px: 1.35,
-                py: 0.55,
-                borderRadius: 999,
-                color: brand.forest,
-                background: 'rgba(0,66,37,0.08)',
-                border: `1px solid ${brand.line}`,
-                fontSize: '0.69rem',
-                lineHeight: 1,
-                fontWeight: 900,
-              }}
-            >
-              Social Proof
-            </Typography>
-
+          <Stack spacing={1.7} sx={{ maxWidth: 880, animation: 'fadeLift 620ms ease both' }}>
             <Typography
               variant="h2"
               sx={{
@@ -263,28 +245,6 @@ function SocialProof() {
             >
               Proven track record with MENA's biggest people-centric organizations.
             </Typography>
-
-            <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', gap: 1 }}>
-              {['5 video proofs', 'MENA teams', 'Multi-industry'].map((item) => (
-                <Typography
-                  key={item}
-                  component="span"
-                  sx={{
-                    px: 1.1,
-                    py: 0.65,
-                    borderRadius: 999,
-                    color: brand.forest,
-                    background: 'rgba(255,255,255,0.62)',
-                    border: `1px solid ${brand.line}`,
-                    fontSize: '0.76rem',
-                    lineHeight: 1,
-                    fontWeight: 800,
-                  }}
-                >
-                  {item}
-                </Typography>
-              ))}
-            </Stack>
           </Stack>
         </Box>
 

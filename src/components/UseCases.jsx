@@ -509,25 +509,7 @@ function UseCases() {
             mb: { xs: 5.4, md: 7.2 },
           }}
         >
-          <Stack spacing={2.1} sx={{ maxWidth: 900, animation: 'fadeLift 520ms ease both' }}>
-            <Typography
-              component="p"
-              sx={{
-                width: 'fit-content',
-                px: 1.35,
-                py: 0.55,
-                borderRadius: 999,
-                color: brand.ink,
-                background: brand.signal,
-                border: '1px solid rgba(247,249,232,0.2)',
-                fontSize: '0.69rem',
-                lineHeight: 1,
-                fontWeight: 900,
-              }}
-            >
-              USE CASES
-            </Typography>
-
+          <Stack spacing={1.7} sx={{ maxWidth: 900, animation: 'fadeLift 520ms ease both' }}>
             <Typography
               variant="h2"
               sx={{

@@ -237,25 +237,6 @@ function FaqSection() {
         <Box sx={{ position: 'relative', zIndex: 1, maxWidth: 1200, mx: 'auto' }}>
           <Box sx={{ textAlign: 'center', mb: { xs: 6, md: 9 } }}>
             <Typography
-              component="p"
-              sx={{
-                width: 'fit-content',
-                mx: 'auto',
-                mb: 2,
-                px: 1.4,
-                py: 0.62,
-                borderRadius: '100px',
-                color: '#074225',
-                background: 'rgba(232,220,235,0.7)',
-                border: '1px solid rgba(7,66,37,0.14)',
-                fontSize: 11,
-                lineHeight: 1,
-                fontWeight: 950,
-              }}
-            >
-              FAQ
-            </Typography>
-            <Typography
               id="faq-title"
               component="h2"
               sx={{

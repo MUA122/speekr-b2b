@@ -250,24 +250,7 @@ function EnterpriseFeatures() {
           },
         }}
       >
-        <Stack alignItems="center" textAlign="center" sx={{ maxWidth: 760, mx: 'auto', mb: 4.5, position: 'relative', zIndex: 2 }}>
-          <Typography
-            component="span"
-            sx={{
-              display: 'inline-flex',
-              px: 2,
-              py: 1,
-              borderRadius: 999,
-              background: '#E5F3C9',
-              color: brand.forest,
-              fontSize: 12,
-              fontWeight: 900,
-              letterSpacing: '1.6px',
-              mb: 2.25,
-            }}
-          >
-            ENTERPRISE MODULES
-          </Typography>
+        <Stack alignItems="center" textAlign="center" sx={{ maxWidth: 760, mx: 'auto', mb: 4, position: 'relative', zIndex: 2 }}>
           <Typography
             variant="h2"
             sx={{

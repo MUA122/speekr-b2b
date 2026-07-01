@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import {
   Box,
   Button,
-  Chip,
   Container,
   Stack,
   Typography,
@@ -13,7 +12,6 @@ import {
   BadgeCheck,
   Check,
   PlayCircle,
-  Sparkles,
 } from 'lucide-react';
 import { brand } from '../theme.js';
 import { heroScenarios, trustSignals } from '../data/heroScenarios.js';
@@ -87,42 +85,12 @@ function Hero() {
           }}
         >
           <Stack
-            spacing={{ xs: 3, md: 3.5 }}
+            spacing={{ xs: 2.6, md: 3.1 }}
             sx={{
               maxWidth: 690,
               animation: 'fadeLift 680ms ease both',
             }}
           >
-            <Stack direction="row" spacing={1.2} alignItems="center" sx={{ flexWrap: 'wrap', rowGap: 1 }}>
-              <Chip
-                icon={<Sparkles size={15} />}
-                label="AI Roleplay Experiences"
-                sx={{
-                  height: 32,
-                  width: 'fit-content',
-                  borderRadius: 999,
-                  color: brand.forest,
-                  background: 'rgba(0, 66, 37, 0.08)',
-                  border: `1px solid ${brand.line}`,
-                  fontWeight: 800,
-                  '& .MuiChip-icon': { color: brand.forest },
-                }}
-              />
-              <Chip
-                label={active.eyebrow}
-                key={active.eyebrow}
-                sx={{
-                  height: 32,
-                  width: 'fit-content',
-                  borderRadius: 999,
-                  color: brand.ink,
-                  background: active.accent,
-                  fontWeight: 850,
-                  animation: 'fadeLift 420ms ease both',
-                }}
-              />
-            </Stack>
-
             <Box sx={{ animation: 'fadeLift 520ms ease both' }}>
               <Typography
                 variant="h1"
@@ -134,8 +102,9 @@ function Hero() {
                     color: brand.forest,
                     position: 'relative',
                     display: 'inline-block',
-                    whiteSpace: 'nowrap',
-                    fontSize: '0.76em',
+                    maxWidth: '100%',
+                    whiteSpace: { xs: 'normal', sm: 'nowrap' },
+                    fontSize: activeAudience.length > 18 ? '0.68em' : '0.76em',
                   },
                   '& .audience::after': {
                     content: '""',
