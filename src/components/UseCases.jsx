@@ -253,7 +253,7 @@ function RouteStop({ item, index, selected, onSelect }) {
   );
 }
 
-function UseCaseCard({ card, index, accent }) {
+function UseCaseCard({ card, index, accent, onDemoClick }) {
   return (
     <Box
       sx={{
@@ -322,16 +322,46 @@ function UseCaseCard({ card, index, accent }) {
           {card.copy}
         </Typography>
 
-        <Stack direction="row" spacing={0.8} alignItems="center" sx={{ mt: 'auto', pt: 2.4, color: accent }}>
-          <Box sx={{ width: 22, height: 2, borderRadius: 999, background: accent }} />
-          <ArrowRight size={15} strokeWidth={2.8} />
-        </Stack>
+        <Box
+          component="button"
+          type="button"
+          onClick={onDemoClick}
+          sx={{
+            mt: 'auto',
+            pt: 0,
+            alignSelf: 'flex-start',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 0.9,
+            px: 2.1,
+            py: 1.15,
+            borderRadius: '999px',
+            border: `1px solid ${accent}88`,
+            background: accent,
+            color: brand.ink,
+            fontSize: 13,
+            fontWeight: 950,
+            cursor: 'pointer',
+            fontFamily: 'inherit',
+            boxShadow: `0 16px 34px ${accent}26`,
+            transition:
+              'transform 180ms ease, filter 180ms ease, box-shadow 180ms ease',
+            '&:hover': {
+              transform: 'translateY(-2px)',
+              filter: 'brightness(1.04)',
+              boxShadow: `0 20px 44px ${accent}34`,
+            },
+          }}
+        >
+          Book Demo
+          <ArrowRight size={14} strokeWidth={2.8} aria-hidden />
+        </Box>
       </Stack>
     </Box>
   );
 }
 
-function StoryPanel({ active }) {
+function StoryPanel({ active, onDemoClick }) {
   const Icon = active.icon;
 
   return (
@@ -449,7 +479,13 @@ function StoryPanel({ active }) {
           }}
         >
           {active.cards.map((card, index) => (
-            <UseCaseCard key={card.title} card={card} index={index} accent={active.accent} />
+            <UseCaseCard
+              key={card.title}
+              card={card}
+              index={index}
+              accent={active.accent}
+              onDemoClick={onDemoClick}
+            />
           ))}
         </Box>
       </Stack>
@@ -457,7 +493,7 @@ function StoryPanel({ active }) {
   );
 }
 
-function UseCases() {
+function UseCases({ onDemoClick }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAutoPaused, setIsAutoPaused] = useState(false);
   const active = useCases[activeIndex];
@@ -600,7 +636,7 @@ function UseCases() {
             ))}
           </Box>
 
-          <StoryPanel active={active} />
+          <StoryPanel active={active} onDemoClick={onDemoClick} />
         </Box>
       </Container>
     </Box>

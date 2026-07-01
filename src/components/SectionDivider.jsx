@@ -1,14 +1,14 @@
 import { Box, Stack } from '@mui/material';
 import { brand } from '../theme.js';
 
-function SectionDivider() {
+function SectionDivider({ compact = false }) {
   return (
     <Box
       aria-hidden
       sx={{
         background: brand.ivory,
         px: { xs: 2, sm: 3, lg: 4 },
-        py: { xs: 4.5, md: 5.5 },
+        py: compact ? { xs: 1.75, md: 2.25 } : { xs: 4.5, md: 5.5 },
       }}
     >
       <Stack

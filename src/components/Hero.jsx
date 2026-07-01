@@ -17,7 +17,7 @@ import { brand } from '../theme.js';
 import { heroScenarios, trustSignals } from '../data/heroScenarios.js';
 import HeroVisual from './HeroVisual.jsx';
 
-function Hero() {
+function Hero({ onDemoClick }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const reduceMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const active = heroScenarios[activeIndex];
@@ -28,7 +28,7 @@ function Hero() {
     if (reduceMotion) return undefined;
     const timer = window.setInterval(() => {
       setActiveIndex((current) => (current + 1) % heroScenarios.length);
-    }, 7000);
+    }, 5000);
     return () => window.clearInterval(timer);
   }, [reduceMotion]);
 
@@ -157,6 +157,7 @@ function Hero() {
                 variant="contained"
                 size="large"
                 endIcon={<ArrowRight size={18} />}
+                onClick={onDemoClick}
                 sx={{
                   minHeight: 54,
                   px: 3,

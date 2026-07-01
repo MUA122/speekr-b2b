@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Box, GlobalStyles } from "@mui/material";
 import Header from "./components/Header.jsx";
 import Hero from "./components/Hero.jsx";
+import LogosMarquee from "./components/LogosMarquee.jsx";
 import HowItWorks from "./components/HowItWorks.jsx";
 import GrowthOpportunities from "./components/GrowthOpportunities.jsx";
 import UseCases from "./components/UseCases.jsx";
@@ -12,13 +13,17 @@ import MenaNative from "./components/MenaNative.jsx";
 import FaqSection from "./components/FaqSection.jsx";
 import FinalCta from "./components/FinalCta.jsx";
 import Footer from "./components/Footer.jsx";
+import ContactModal from "./components/ContactModal.jsx";
 import PricingPage from "./pages/PricingPage.jsx";
 import { splitLocalePath } from "./utils/i18n.js";
 import { brand } from "./theme.js";
 
 function App() {
+  const [isContactOpen, setIsContactOpen] = useState(false);
   const { locale, path } = splitLocalePath(window.location.pathname);
   const isPricingPage = path === "/pricing";
+  const openContactModal = () => setIsContactOpen(true);
+  const closeContactModal = () => setIsContactOpen(false);
 
   useEffect(() => {
     document.documentElement.lang = locale === "ar" ? "ar" : "en";
@@ -132,16 +137,16 @@ function App() {
           },
         }}
       />
-      <Header />
+      <Header onDemoClick={openContactModal} />
       {isPricingPage ? (
         <PricingPage locale={locale} />
       ) : (
         <>
-          <Hero />
-          <SectionDivider />
+          <Hero onDemoClick={openContactModal} />
+          <LogosMarquee />
           <HowItWorks />
           {/* <SectionDivider /> */}
-          <UseCases />
+          <UseCases onDemoClick={openContactModal} />
           {/* <SocialProof /> */}
           {/* <SectionDivider />
           <GrowthOpportunities /> */}
@@ -156,6 +161,11 @@ function App() {
         </>
       )}
       <Footer />
+      <ContactModal
+        locale={locale}
+        open={isContactOpen}
+        onClose={closeContactModal}
+      />
     </Box>
   );
 }

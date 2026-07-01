@@ -5,11 +5,11 @@ import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { navItems } from '../data/heroScenarios.js';
 
 const LOGO = '/images/logo.svg';
-const DEMO_HREF = 'mailto:hello@speekr.ai?subject=Speekr%20Business%20demo';
 const LOGIN_HREF = 'https://app.speekr.ai';
 
 function getNavHref(item) {
   if (item === 'Pricing') return '/pricing';
+  if (item === 'Blog') return 'https://speekr-b2c.vercel.app/blog';
   if (item === 'Solutions') return '/#solutions';
   if (item === 'Platform') return '/#platform';
   if (item === 'Customers') return '/#customers';
@@ -17,7 +17,7 @@ function getNavHref(item) {
   return '/';
 }
 
-function MobileMenu({ open, onClose }) {
+function MobileMenu({ open, onClose, onDemoClick }) {
   useEffect(() => {
     if (!open) return undefined;
     const prev = document.body.style.overflow;
@@ -202,8 +202,12 @@ function MobileMenu({ open, onClose }) {
           }}
         >
           <Box
-            component="a"
-            href={DEMO_HREF}
+            component="button"
+            type="button"
+            onClick={() => {
+              onClose();
+              onDemoClick?.();
+            }}
             sx={{
               display: 'flex',
               alignItems: 'center',
@@ -216,6 +220,9 @@ function MobileMenu({ open, onClose }) {
               fontSize: 14.5,
               fontWeight: 800,
               textDecoration: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              fontFamily: 'inherit',
             }}
           >
             Book a demo
@@ -249,7 +256,7 @@ function MobileMenu({ open, onClose }) {
   );
 }
 
-function Header() {
+function Header({ onDemoClick }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -405,8 +412,9 @@ function Header() {
               Log in
             </Box>
             <Box
-              component="a"
-              href={DEMO_HREF}
+              component="button"
+              type="button"
+              onClick={onDemoClick}
               sx={{
                 display: { xs: 'none', md: 'inline-flex' },
                 alignItems: 'center',
@@ -415,12 +423,21 @@ function Header() {
                 height: 40,
                 px: { md: 1.8, lg: 2.5 },
                 borderRadius: '100px',
-                border: scrolled ? '1px solid rgba(238,243,205,0.12)' : '1px solid rgba(7,66,37,0.14)',
-                color: scrolled ? 'rgba(238,243,205,0.78)' : 'rgba(7,66,37,0.76)',
+                border: scrolled ? '1px solid rgba(238,243,205,0.16)' : '1px solid rgba(7,66,37,0.18)',
+                bgcolor: scrolled ? 'rgba(238,243,205,0.02)' : 'rgba(7,66,37,0.025)',
+                color: scrolled ? '#EEF3CD' : '#3C6B4C',
                 textDecoration: 'none',
                 fontSize: 13,
                 fontWeight: 900,
                 whiteSpace: 'nowrap',
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+                transition: 'background 0.2s ease, border-color 0.2s ease, color 0.2s ease',
+                '&:hover': {
+                  bgcolor: scrolled ? 'rgba(238,243,205,0.07)' : 'rgba(7,66,37,0.055)',
+                  borderColor: scrolled ? 'rgba(238,243,205,0.26)' : 'rgba(7,66,37,0.28)',
+                  color: scrolled ? '#EEF3CD' : '#074225',
+                },
               }}
             >
               Book a demo
@@ -453,7 +470,11 @@ function Header() {
           </Box>
         </Box>
       </Box>
-      <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} />
+      <MobileMenu
+        open={mobileOpen}
+        onClose={() => setMobileOpen(false)}
+        onDemoClick={onDemoClick}
+      />
     </>
   );
 }
