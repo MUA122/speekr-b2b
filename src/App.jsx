@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Box, GlobalStyles } from "@mui/material";
 import Header from "./components/Header.jsx";
 import Hero from "./components/Hero.jsx";
@@ -11,9 +12,19 @@ import MenaNative from "./components/MenaNative.jsx";
 import FaqSection from "./components/FaqSection.jsx";
 import FinalCta from "./components/FinalCta.jsx";
 import Footer from "./components/Footer.jsx";
+import PricingPage from "./pages/PricingPage.jsx";
+import { splitLocalePath } from "./utils/i18n.js";
 import { brand } from "./theme.js";
 
 function App() {
+  const { locale, path } = splitLocalePath(window.location.pathname);
+  const isPricingPage = path === "/pricing";
+
+  useEffect(() => {
+    document.documentElement.lang = locale === "ar" ? "ar" : "en";
+    document.documentElement.dir = locale === "ar" ? "rtl" : "ltr";
+  }, [locale]);
+
   return (
     <Box
       sx={{
@@ -122,22 +133,28 @@ function App() {
         }}
       />
       <Header />
-      <Hero />
-      <SectionDivider />
-      <HowItWorks />
-      {/* <SectionDivider /> */}
-      <UseCases />
-      {/* <SocialProof /> */}
-      {/* <SectionDivider />
-      <GrowthOpportunities /> */}
-      {/* <SectionDivider /> */}
-      <EnterpriseFeatures />
-      <SectionDivider />
-      <MenaNative />
-      <SectionDivider />
-      <FaqSection />
-      {/* <SectionDivider />
-      <FinalCta /> */}
+      {isPricingPage ? (
+        <PricingPage locale={locale} />
+      ) : (
+        <>
+          <Hero />
+          <SectionDivider />
+          <HowItWorks />
+          {/* <SectionDivider /> */}
+          <UseCases />
+          {/* <SocialProof /> */}
+          {/* <SectionDivider />
+          <GrowthOpportunities /> */}
+          {/* <SectionDivider /> */}
+          <EnterpriseFeatures />
+          <SectionDivider />
+          <MenaNative />
+          <SectionDivider />
+          <FaqSection />
+          {/* <SectionDivider />
+          <FinalCta /> */}
+        </>
+      )}
       <Footer />
     </Box>
   );

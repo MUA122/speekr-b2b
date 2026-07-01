@@ -82,12 +82,14 @@ function Hero() {
             gap: { xs: 5, md: 7, lg: 7 },
             alignItems: 'center',
             minHeight: { xs: 'auto', lg: 'calc(100vh - 150px)' },
+            minWidth: 0,
           }}
         >
           <Stack
             spacing={{ xs: 2.6, md: 3.1 }}
             sx={{
               maxWidth: 690,
+              minWidth: 0,
               animation: 'fadeLift 680ms ease both',
             }}
           >
@@ -96,7 +98,7 @@ function Hero() {
                 variant="h1"
                 sx={{
                   fontSize: { xs: '2.85rem', sm: '3.6rem', md: '4.55rem', lg: '5.25rem' },
-                  color: brand.ink,
+                  color: brand.orange,
                   maxWidth: 740,
                   '& .audience': {
                     color: brand.forest,

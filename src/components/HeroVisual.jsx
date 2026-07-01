@@ -17,7 +17,7 @@ const heroImages = {
   education: {
     src: '/images/b2b-hero-premium-education.png',
     alt: 'Middle Eastern university student practicing an interview in a modern Gulf career lab',
-    position: { xs: '42% center', md: 'center center' },
+    position: { xs: '50% center', md: '50% center' },
   },
 };
 
@@ -104,6 +104,8 @@ function HeroVisual({ active }) {
       sx={{
         position: 'relative',
         minHeight: { xs: 460, sm: 540, md: 620, lg: 660 },
+        minWidth: 0,
+        width: '100%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -125,7 +127,9 @@ function HeroVisual({ active }) {
       <Box
         sx={{
           position: 'relative',
-          width: 'min(100%, 760px)',
+          width: '100%',
+          maxWidth: { xs: 760, lg: 680, xl: 720 },
+          minWidth: 0,
           zIndex: 1,
         }}
       >
@@ -241,7 +245,7 @@ function HeroVisual({ active }) {
                 right: { xs: 16, md: 20 },
                 zIndex: 3,
                 display: { xs: 'none', sm: 'block' },
-                maxWidth: { sm: 320, md: 360 },
+                maxWidth: { sm: 260, md: 300, lg: 280, xl: 320 },
                 px: 1.55,
                 py: 1.05,
                 borderRadius: 3,
@@ -257,8 +261,8 @@ function HeroVisual({ active }) {
                   fontSize: { sm: 21, md: 24 },
                   fontFamily: (theme) => theme.palette.brand.fontHeadline,
                   fontWeight: 900,
-                  lineHeight: 0.95,
-                  whiteSpace: 'nowrap',
+                  lineHeight: 1,
+                  whiteSpace: 'normal',
                 }}
               >
                 {insights.metric}

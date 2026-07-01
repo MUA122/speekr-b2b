@@ -8,27 +8,31 @@ const featureCards = [
     icon: Globe2,
     title: '15+ Arabic Dialects',
     copy: 'Train in the language your teams use every day.',
+    accent: brand.clay,
   },
   {
     icon: Building2,
     title: 'Local Business Context',
     copy: 'Practice conversations that reflect regional markets and industries.',
+    accent: brand.limeStrong,
   },
   {
     icon: UserRound,
     title: 'Realistic AI Personas',
     copy: 'Voices, names, and communication styles that feel familiar.',
+    accent: brand.lavender,
   },
   {
     icon: UsersRound,
     title: 'Built for Enterprise Teams',
     copy: 'Deploy communication training across teams and regions.',
+    accent: '#BFEAFF',
   },
   {
     icon: TrendingUp,
     title: 'Measurable Practice Impact',
     copy: 'Track progress, skill development, and learning outcomes across teams.',
-    wide: true,
+    accent: '#FFB86B',
   },
 ];
 
@@ -36,49 +40,87 @@ function FeatureCard({ card }) {
   const Icon = card.icon;
 
   return (
-    <Stack
-      direction="row"
+    <Box
       spacing={1.45}
       sx={{
-        gridColumn: card.wide ? { xs: 'auto', sm: '1 / -1' } : 'auto',
-        minHeight: 132,
-        p: { xs: 1.7, md: 2 },
+        position: 'relative',
+        minHeight: { xs: 190, md: 214 },
+        p: { xs: 2.2, md: 2.55 },
         borderRadius: '8px',
-        background: 'rgba(255,255,255,0.78)',
-        border: `1px solid ${brand.line}`,
-        boxShadow: '0 20px 56px rgba(7,28,20,0.08)',
-        backdropFilter: 'blur(14px)',
-        transition: 'transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease',
+        background:
+          'linear-gradient(145deg, rgba(255,253,242,0.92), rgba(238,243,205,0.72))',
+        border: '1px solid rgba(7,66,37,0.13)',
+        boxShadow: '0 22px 58px rgba(7,28,20,0.09)',
+        overflow: 'hidden',
+        isolation: 'isolate',
+        transition:
+          'transform 190ms ease, box-shadow 190ms ease, border-color 190ms ease',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          inset: 0,
+          zIndex: -1,
+          background: `radial-gradient(circle at 86% 12%, ${card.accent}52, transparent 34%)`,
+          opacity: 0.68,
+          pointerEvents: 'none',
+        },
+        '&::after': {
+          content: '""',
+          position: 'absolute',
+          right: -34,
+          bottom: -38,
+          width: 120,
+          height: 120,
+          borderRadius: '50%',
+          border: `1px solid ${card.accent}70`,
+          opacity: 0.5,
+          pointerEvents: 'none',
+        },
         '&:hover': {
           transform: 'translateY(-4px)',
-          borderColor: 'rgba(0,66,37,0.24)',
-          boxShadow: '0 26px 68px rgba(7,28,20,0.12)',
+          borderColor: 'rgba(7,66,37,0.22)',
+          boxShadow: '0 30px 76px rgba(7,28,20,0.13)',
         },
       }}
     >
       <Box
         sx={{
-          width: 50,
-          height: 50,
-          flex: '0 0 auto',
+          width: 52,
+          height: 52,
           display: 'grid',
           placeItems: 'center',
-          borderRadius: '50%',
-          color: brand.forest,
-          background: 'rgba(215,243,106,0.34)',
+          borderRadius: '8px',
+          color: card.accent === brand.lavender || card.accent === '#BFEAFF' ? brand.forest : brand.ink,
+          background: card.accent,
+          boxShadow: `0 0 0 8px ${card.accent}26`,
         }}
       >
-        <Icon size={24} strokeWidth={2.1} />
+        <Icon size={23} strokeWidth={2.2} />
       </Box>
-      <Box>
-        <Typography sx={{ color: brand.forest, fontSize: '1rem', lineHeight: 1.18, fontWeight: 900 }}>
-          {card.title}
-        </Typography>
-        <Typography sx={{ mt: 0.8, color: 'rgba(7,28,20,0.74)', fontSize: '0.92rem', lineHeight: 1.55 }}>
-          {card.copy}
-        </Typography>
-      </Box>
-    </Stack>
+
+      <Typography
+        sx={{
+          mt: 3,
+          color: brand.forest,
+          fontSize: { xs: '1.08rem', md: '1.18rem' },
+          lineHeight: 1.12,
+          fontWeight: 950,
+        }}
+      >
+        {card.title}
+      </Typography>
+      <Typography
+        sx={{
+          mt: 1.15,
+          color: 'rgba(7,28,20,0.68)',
+          fontSize: '0.94rem',
+          lineHeight: 1.6,
+          fontWeight: 560,
+        }}
+      >
+        {card.copy}
+      </Typography>
+    </Box>
   );
 }
 
@@ -88,13 +130,14 @@ function MenaMapPanel() {
       sx={{
         position: 'relative',
         width: '100%',
-        maxWidth: { xs: 760, lg: 820 },
+        maxWidth: 1180,
         aspectRatio: '1451 / 941',
-        borderRadius: { xs: '18px', md: '28px' },
+        borderRadius: { xs: '18px', md: '26px' },
         overflow: 'hidden',
-        background: brand.forest,
-        border: '1px solid rgba(0,66,37,0.18)',
-        boxShadow: '0 32px 90px rgba(0,66,37,0.2)',
+        background: '#032114',
+        border: '1px solid rgba(7,66,37,0.22)',
+        boxShadow:
+          '0 44px 120px rgba(7,28,20,0.24), 0 0 0 10px rgba(238,243,205,0.64)',
         transform: 'translateY(0) scale(1)',
         transition:
           'transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease, filter 260ms ease',
@@ -116,14 +159,15 @@ function MenaMapPanel() {
           inset: 0,
           zIndex: 1,
           borderRadius: 'inherit',
-          boxShadow: 'inset 0 0 0 1px rgba(247,249,232,0.12)',
+          boxShadow:
+            'inset 0 0 0 1px rgba(247,249,232,0.16), inset 0 -90px 120px rgba(3,18,13,0.16)',
           pointerEvents: 'none',
         },
         '&:hover': {
-          transform: 'translateY(-10px) scale(1.012)',
-          borderColor: 'rgba(215,243,106,0.56)',
+          transform: 'translateY(-8px) scale(1.008)',
+          borderColor: 'rgba(242,100,51,0.48)',
           boxShadow:
-            '0 44px 120px rgba(0,66,37,0.28), 0 0 0 8px rgba(215,243,106,0.1)',
+            '0 54px 140px rgba(7,28,20,0.28), 0 0 0 10px rgba(242,100,51,0.1)',
           filter: 'saturate(1.04) contrast(1.02)',
         },
         '&:hover::before': {
@@ -148,6 +192,26 @@ function MenaMapPanel() {
           transition: 'transform 420ms ease',
         }}
       />
+      <Box
+        sx={{
+          position: 'absolute',
+          left: { xs: 14, md: 22 },
+          top: { xs: 14, md: 22 },
+          zIndex: 2,
+          px: { xs: 1.4, md: 1.8 },
+          py: { xs: 0.9, md: 1.1 },
+          borderRadius: '8px',
+          color: brand.ivory,
+          background: 'rgba(3,18,13,0.72)',
+          border: '1px solid rgba(238,243,205,0.16)',
+          backdropFilter: 'blur(14px)',
+          boxShadow: '0 18px 50px rgba(0,0,0,0.18)',
+        }}
+      >
+        <Typography sx={{ fontSize: { xs: 12, md: 13 }, fontWeight: 900, lineHeight: 1 }}>
+          Regional dialect coverage
+        </Typography>
+      </Box>
     </Box>
   );
 }
@@ -162,9 +226,10 @@ function MenaNative() {
         overflow: 'hidden',
         py: { xs: 8, md: 11, lg: 13 },
         background: `
-          radial-gradient(circle at 15% 17%, rgba(215,243,106,0.16), transparent 28%),
-          radial-gradient(circle at 86% 74%, rgba(0,66,37,0.09), transparent 28%),
-          linear-gradient(180deg, ${brand.ivory} 0%, #F4F7E3 52%, ${brand.ivory} 100%)
+          radial-gradient(circle at 12% 12%, rgba(242,100,51,0.12), transparent 25%),
+          radial-gradient(circle at 86% 28%, rgba(232,220,235,0.52), transparent 26%),
+          radial-gradient(circle at 50% 96%, rgba(142,198,64,0.18), transparent 30%),
+          linear-gradient(180deg, ${brand.ivory} 0%, #F6F8E6 48%, ${brand.ivory} 100%)
         `,
         '&::after': {
           content: '""',
@@ -186,68 +251,70 @@ function MenaNative() {
         sx={{
           position: 'relative',
           zIndex: 1,
-          width: 'min(100%, 1320px)',
+          width: 'min(100%, 1360px)',
           px: { xs: 2, sm: 3, lg: 4 },
         }}
       >
-        <Box
+        <Stack
+          spacing={{ xs: 2.2, md: 2.6 }}
           sx={{
-            display: 'grid',
-            gridTemplateColumns: { xs: '1fr', lg: '0.86fr 1.24fr' },
-            gap: { xs: 5, lg: 5 },
+            maxWidth: 1120,
+            mx: 'auto',
+            textAlign: 'center',
             alignItems: 'center',
           }}
         >
-          <Box>
-            <Typography
-              variant="h2"
-              sx={{
-                mt: 0,
-                maxWidth: 670,
-                color: brand.forest,
-                fontSize: { xs: '2.75rem', sm: '3.7rem', md: '4.35rem' },
-                lineHeight: 0.98,
-              }}
-            >
-              Built for the Way MENA Teams Communicate
-            </Typography>
-
-            <Typography
-              sx={{
-                mt: 2.4,
-                maxWidth: 560,
-                color: 'rgba(7,28,20,0.76)',
-                fontSize: { xs: '1rem', md: '1.08rem' },
-                lineHeight: 1.75,
-              }}
-            >
-              From dialects and accents to customer expectations and workplace dynamics, every roleplay is built for the realities of MENA organizations.
-            </Typography>
-
-            <Box
-              sx={{
-                mt: { xs: 4, md: 5 },
-                display: 'grid',
-                gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, minmax(0, 1fr))' },
-                gap: 1.5,
-                maxWidth: 670,
-              }}
-            >
-              {featureCards.map((card) => (
-                <FeatureCard key={card.title} card={card} />
-              ))}
-            </Box>
-          </Box>
-          <Box
+          <Typography
+            variant="h2"
             sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              minHeight: { lg: 690 },
+              m: 0,
+              maxWidth: 1040,
+              color: brand.forest,
+              fontSize: { xs: '2.6rem', sm: '3.7rem', md: '5rem' },
+              lineHeight: 0.95,
             }}
           >
-            <MenaMapPanel />
-          </Box>
+            Built for the Way MENA Teams Communicate
+          </Typography>
+
+          <Typography
+            sx={{
+              maxWidth: 760,
+              color: 'rgba(7,28,20,0.72)',
+              fontSize: { xs: '1rem', md: '1.12rem' },
+              lineHeight: 1.78,
+              fontWeight: 560,
+            }}
+          >
+            From dialects and accents to customer expectations and workplace dynamics, every roleplay is built for the realities of MENA organizations.
+          </Typography>
+        </Stack>
+
+        <Box
+          sx={{
+            mt: { xs: 4.5, md: 6 },
+            display: 'grid',
+            gridTemplateColumns: {
+              xs: '1fr',
+              sm: 'repeat(2, minmax(0, 1fr))',
+              lg: 'repeat(5, minmax(0, 1fr))',
+            },
+            gap: { xs: 1.4, md: 1.6 },
+          }}
+        >
+          {featureCards.map((card) => (
+            <FeatureCard key={card.title} card={card} />
+          ))}
+        </Box>
+
+        <Box
+          sx={{
+            mt: { xs: 5.5, md: 7 },
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          <MenaMapPanel />
         </Box>
       </Container>
     </Box>

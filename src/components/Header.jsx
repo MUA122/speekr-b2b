@@ -5,6 +5,17 @@ import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { navItems } from '../data/heroScenarios.js';
 
 const LOGO = '/images/logo.svg';
+const DEMO_HREF = 'mailto:hello@speekr.ai?subject=Speekr%20Business%20demo';
+const LOGIN_HREF = 'https://app.speekr.ai';
+
+function getNavHref(item) {
+  if (item === 'Pricing') return '/pricing';
+  if (item === 'Solutions') return '/#solutions';
+  if (item === 'Platform') return '/#platform';
+  if (item === 'Customers') return '/#customers';
+  if (item === 'Resources') return '/#resources';
+  return '/';
+}
 
 function MobileMenu({ open, onClose }) {
   useEffect(() => {
@@ -152,7 +163,7 @@ function MobileMenu({ open, onClose }) {
             <Box
               key={item}
               component="a"
-              href="#"
+              href={getNavHref(item)}
               onClick={onClose}
               sx={{
                 display: 'flex',
@@ -192,7 +203,7 @@ function MobileMenu({ open, onClose }) {
         >
           <Box
             component="a"
-            href="#"
+            href={DEMO_HREF}
             sx={{
               display: 'flex',
               alignItems: 'center',
@@ -212,7 +223,9 @@ function MobileMenu({ open, onClose }) {
           </Box>
           <Box
             component="a"
-            href="#"
+            href={LOGIN_HREF}
+            target="_blank"
+            rel="noreferrer"
             sx={{
               display: 'flex',
               alignItems: 'center',
@@ -305,7 +318,7 @@ function Header() {
           >
             <Box
               component="a"
-              href="#"
+              href="/"
               aria-label="Speekr home"
               sx={{
                 display: 'inline-flex',
@@ -363,7 +376,7 @@ function Header() {
               }}
             >
               {navItems.map((item) => (
-                <Box key={item} component="a" href="#" sx={desktopLinkSx}>
+                <Box key={item} component="a" href={getNavHref(item)} sx={desktopLinkSx}>
                   {item}
                 </Box>
               ))}
@@ -371,7 +384,9 @@ function Header() {
 
             <Box
               component="a"
-              href="#"
+              href={LOGIN_HREF}
+              target="_blank"
+              rel="noreferrer"
               sx={{
                 display: { xs: 'none', md: 'inline-flex' },
                 alignItems: 'center',
@@ -391,7 +406,7 @@ function Header() {
             </Box>
             <Box
               component="a"
-              href="#"
+              href={DEMO_HREF}
               sx={{
                 display: { xs: 'none', md: 'inline-flex' },
                 alignItems: 'center',
