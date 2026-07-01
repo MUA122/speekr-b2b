@@ -1,264 +1,445 @@
 import { useEffect, useState } from 'react';
-import {
-  AppBar,
-  Box,
-  Button,
-  Container,
-  Drawer,
-  IconButton,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { createPortal } from 'react-dom';
+import { Box } from '@mui/material';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
-import { brand } from '../theme.js';
 import { navItems } from '../data/heroScenarios.js';
 
-const logoUrl =
-  'https://cdn.builder.io/api/v1/image/assets%2F7a4e07e52a2c4a8bb3890e0c17931328%2Fb0239fd38bc4444280a1f3bf9ca34a6a';
+const LOGO = '/images/logo.svg';
 
-function NavLink({ children, mobile = false }) {
-  return (
-    <Button
-      color="primary"
-      sx={{
-        px: mobile ? 0 : 1.25,
-        minHeight: mobile ? 48 : 38,
-        justifyContent: mobile ? 'flex-start' : 'center',
-        fontSize: mobile ? '1.25rem' : '0.84rem',
-        color: mobile ? brand.ivory : brand.ink,
-        position: 'relative',
-        '&::after': {
-          content: '""',
+function MobileMenu({ open, onClose }) {
+  useEffect(() => {
+    if (!open) return undefined;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  return createPortal(
+    <Box sx={{ position: 'fixed', inset: 0, zIndex: 1400 }}>
+      <Box
+        onClick={onClose}
+        aria-hidden
+        sx={{
           position: 'absolute',
-          left: mobile ? 0 : 12,
-          right: mobile ? 'auto' : 12,
-          bottom: mobile ? 8 : 3,
-          width: mobile ? 34 : 'auto',
-          height: 2,
-          borderRadius: 999,
-          background: mobile ? brand.mint : brand.forest,
-          transform: 'scaleX(0)',
-          transformOrigin: 'left',
-          transition: 'transform 220ms ease',
-        },
-        '&:hover': {
-          background: 'transparent',
-          color: mobile ? brand.mint : brand.forest,
-        },
-        '&:hover::after': {
-          transform: 'scaleX(1)',
-        },
-      }}
-    >
-      {children}
-    </Button>
+          inset: 0,
+          background: 'rgba(2,21,13,0.84)',
+          backdropFilter: { xs: 'none', md: 'blur(14px)' },
+        }}
+      />
+      <Box
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navigation menu"
+        sx={{
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          bottom: 0,
+          width: 'min(84vw, 320px)',
+          background: '#074225',
+          borderLeft: '1px solid rgba(242,100,51,0.12)',
+          boxShadow: '-24px 0 72px rgba(0,0,0,0.65)',
+          display: 'flex',
+          flexDirection: 'column',
+          overflow: 'hidden',
+        }}
+      >
+        <Box
+          aria-hidden
+          sx={{
+            position: 'absolute',
+            top: '-20%',
+            right: '-20%',
+            width: '80%',
+            height: '80%',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(242,100,51,0.07) 0%, transparent 70%)',
+            filter: { xs: 'none', md: 'blur(40px)' },
+            pointerEvents: 'none',
+          }}
+        />
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            px: 2.5,
+            py: 2.5,
+            borderBottom: '1px solid rgba(238,243,205,0.06)',
+            position: 'relative',
+            zIndex: 1,
+          }}
+        >
+          <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1 }}>
+            <Box
+              component="img"
+              src={LOGO}
+              alt="Speekr"
+              decoding="async"
+              sx={{ height: 42, width: 'auto', filter: 'brightness(0) invert(1)' }}
+            />
+            <Box
+              component="span"
+              sx={{
+                px: 1,
+                py: 0.55,
+                borderRadius: '100px',
+                bgcolor: 'rgba(238,243,205,0.09)',
+                color: '#EEF3CD',
+                fontSize: 10,
+                fontWeight: 900,
+                lineHeight: 1,
+              }}
+            >
+              for Business
+            </Box>
+          </Box>
+          <Box
+            component="button"
+            type="button"
+            onClick={onClose}
+            aria-label="Close menu"
+            sx={{
+              width: 40,
+              height: 40,
+              borderRadius: '10px',
+              border: '1px solid rgba(238,243,205,0.1)',
+              bgcolor: 'rgba(238,243,205,0.04)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              color: 'rgba(238,243,205,0.5)',
+              '&:hover': {
+                bgcolor: 'rgba(238,243,205,0.09)',
+                color: 'rgba(238,243,205,0.95)',
+              },
+            }}
+          >
+            <X size={15} aria-hidden />
+          </Box>
+        </Box>
+
+        <Box
+          component="nav"
+          aria-label="Mobile navigation"
+          sx={{
+            flex: 1,
+            overflowY: 'auto',
+            px: 2,
+            py: 2.5,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 0.75,
+            position: 'relative',
+            zIndex: 1,
+          }}
+        >
+          {navItems.map((item) => (
+            <Box
+              key={item}
+              component="a"
+              href="#"
+              onClick={onClose}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                px: 2,
+                py: 1.4,
+                borderRadius: '12px',
+                fontSize: 15,
+                fontWeight: 600,
+                color: 'rgba(238,243,205,0.68)',
+                textDecoration: 'none',
+                transition: 'background 0.2s ease, color 0.2s ease',
+                '&:hover': {
+                  bgcolor: 'rgba(238,243,205,0.05)',
+                  color: 'rgba(238,243,205,0.96)',
+                },
+              }}
+            >
+              {item}
+            </Box>
+          ))}
+        </Box>
+
+        <Box
+          sx={{
+            px: 2,
+            pb: 3,
+            pt: 2,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 1.2,
+            borderTop: '1px solid rgba(238,243,205,0.06)',
+            position: 'relative',
+            zIndex: 1,
+          }}
+        >
+          <Box
+            component="a"
+            href="#"
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 0.75,
+              py: 1.7,
+              borderRadius: '12px',
+              bgcolor: '#F26433',
+              color: '#ffffff',
+              fontSize: 14.5,
+              fontWeight: 800,
+              textDecoration: 'none',
+            }}
+          >
+            Book a demo
+            <ArrowUpRight size={14} aria-hidden />
+          </Box>
+          <Box
+            component="a"
+            href="#"
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              py: 1.7,
+              borderRadius: '12px',
+              border: '1px solid rgba(238,243,205,0.1)',
+              bgcolor: 'rgba(238,243,205,0.04)',
+              color: 'rgba(238,243,205,0.6)',
+              fontSize: 14.5,
+              fontWeight: 600,
+              textDecoration: 'none',
+            }}
+          >
+            Log in
+          </Box>
+        </Box>
+      </Box>
+    </Box>,
+    document.body,
   );
 }
 
 function Header() {
-  const [open, setOpen] = useState(false);
-  const [elevated, setElevated] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setElevated(window.scrollY > 8);
+    const onScroll = () => setScrolled(window.scrollY > 20);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  const desktopLinkSx = {
+    display: 'inline-flex',
+    alignItems: 'center',
+    px: { md: 1.15, lg: 1.45 },
+    py: 0.9,
+    borderRadius: '100px',
+    fontSize: { md: 13, lg: 13.5 },
+    fontWeight: 600,
+    color: scrolled ? 'rgba(238,243,205,0.62)' : 'rgba(7,66,37,0.72)',
+    textDecoration: 'none',
+    whiteSpace: 'nowrap',
+    transition: 'color 0.2s ease, background 0.2s ease',
+    '&:hover': {
+      color: scrolled ? 'rgba(238,243,205,0.96)' : '#074225',
+      bgcolor: scrolled ? 'rgba(238,243,205,0.07)' : 'rgba(7,66,37,0.06)',
+    },
+  };
+
   return (
-    <AppBar
-      position="sticky"
-      elevation={0}
-      sx={{
-        top: 0,
-        zIndex: (theme) => theme.zIndex.drawer + 1,
-        background: elevated ? 'rgba(247, 249, 232, 0.86)' : 'rgba(247, 249, 232, 0.72)',
-        color: brand.ink,
-        borderBottom: `1px solid ${elevated ? 'rgba(0, 66, 37, 0.16)' : 'rgba(0, 66, 37, 0.08)'}`,
-        backdropFilter: 'blur(18px)',
-        transition: 'background 220ms ease, border-color 220ms ease, box-shadow 220ms ease',
-        boxShadow: elevated ? '0 18px 60px rgba(7, 28, 20, 0.08)' : 'none',
-      }}
-    >
-      <Container
-        maxWidth={false}
+    <>
+      <Box
+        component="header"
         sx={{
-          width: 'min(100%, 1280px)',
-          minHeight: { xs: 68, md: 78 },
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: 2,
-          px: { xs: 2, sm: 3, lg: 4 },
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1200,
+          pt: { xs: 1.5, md: 2 },
+          pointerEvents: 'none',
         }}
       >
-        <Box
-          component="a"
-          href="#"
-          aria-label="Speekr home"
-          sx={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 1.2,
-            textDecoration: 'none',
-            color: brand.forest,
-            minWidth: 0,
-          }}
-        >
+        <Box sx={{ maxWidth: 1352, mx: 'auto', px: { xs: 2, sm: 3, lg: 5 } }}>
           <Box
-            component="img"
-            src={logoUrl}
-            alt="Speekr"
             sx={{
-              height: { xs: 31, md: 35 },
-              width: 'auto',
-              display: 'block',
-              objectFit: 'contain',
-            }}
-          />
-          <Typography
-            component="span"
-            sx={{
-              display: { xs: 'none', sm: 'inline-flex' },
+              pointerEvents: 'auto',
+              display: 'grid',
+              gridTemplateColumns: { xs: '1fr auto', md: 'auto minmax(0, 1fr) auto auto' },
               alignItems: 'center',
-              height: 22,
-              px: 1.1,
-              borderRadius: 999,
-              background: brand.forest,
-              color: brand.ivory,
-              fontSize: '0.66rem',
-              fontWeight: 800,
-              lineHeight: 1,
+              columnGap: { xs: 1.5, md: 1.2, lg: 2 },
+              px: { xs: 1.8, sm: 2.2 },
+              height: { xs: 60, md: 64 },
+              borderRadius: '100px',
+              border: '1px solid',
+              borderColor: scrolled ? 'rgba(242,100,51,0.18)' : 'rgba(7,66,37,0.18)',
+              bgcolor: scrolled ? 'rgba(0,34,19,0.94)' : '#EEF3CD',
+              background: scrolled
+                ? 'rgba(0,34,19,0.94)'
+                : 'radial-gradient(circle at 82% 18%, rgba(142,198,64,0.16) 0%, transparent 30%), radial-gradient(circle at 12% 82%, rgba(7,66,37,0.12) 0%, transparent 34%), linear-gradient(135deg, #EEF3CD 0%, #F4F7DE 58%, rgba(7,66,37,0.08) 100%)',
+              backdropFilter: { xs: 'none', md: 'blur(32px) saturate(1.5)' },
+              boxShadow: scrolled
+                ? '0 8px 48px rgba(0,0,0,0.55), inset 0 1px 0 rgba(238,243,205,0.04)'
+                : '0 14px 34px rgba(7,66,37,0.12)',
+              transition: 'background-color 380ms ease, border-color 380ms ease, box-shadow 380ms ease',
             }}
           >
-            for Business
-          </Typography>
-        </Box>
-
-        <Stack
-          component="nav"
-          direction="row"
-          alignItems="center"
-          spacing={1.4}
-          sx={{ display: { xs: 'none', md: 'flex' } }}
-          aria-label="Primary navigation"
-        >
-          {navItems.map((item) => (
-            <NavLink key={item}>{item}</NavLink>
-          ))}
-        </Stack>
-
-        <Stack direction="row" alignItems="center" spacing={1.2}>
-          <Button
-            sx={{
-              display: { xs: 'none', md: 'inline-flex' },
-              color: brand.forest,
-              minHeight: 42,
-              px: 1.6,
-              '&:hover': {
-                background: 'rgba(0, 66, 37, 0.08)',
-              },
-            }}
-          >
-            Log in
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            endIcon={<ArrowUpRight size={17} strokeWidth={2.4} />}
-            sx={{
-              display: { xs: 'none', sm: 'inline-flex' },
-              minHeight: 44,
-              background: brand.forest,
-              color: brand.ivory,
-              boxShadow: '0 14px 34px rgba(0, 66, 37, 0.2)',
-              '&:hover': {
-                background: '#07361F',
-                transform: 'translateY(-1px)',
-                boxShadow: '0 18px 44px rgba(0, 66, 37, 0.24)',
-              },
-              transition: 'transform 180ms ease, box-shadow 180ms ease, background 180ms ease',
-            }}
-          >
-            Book a demo
-          </Button>
-          <IconButton
-            aria-label="Open navigation"
-            onClick={() => setOpen(true)}
-            sx={{
-              display: { xs: 'inline-flex', md: 'none' },
-              color: brand.forest,
-              border: `1px solid ${brand.line}`,
-              background: 'rgba(255,255,255,0.52)',
-              '&:hover': { background: 'rgba(0,66,37,0.08)' },
-            }}
-          >
-            <Menu size={22} />
-          </IconButton>
-        </Stack>
-      </Container>
-
-      <Drawer
-        anchor="right"
-        open={open}
-        onClose={() => setOpen(false)}
-        PaperProps={{
-          sx: {
-            width: 'min(88vw, 390px)',
-            background: brand.ink,
-            color: brand.ivory,
-            p: 2.5,
-          },
-        }}
-      >
-        <Stack spacing={4} sx={{ minHeight: '100%' }}>
-          <Stack direction="row" alignItems="center" justifyContent="space-between">
-            <Box component="img" src={logoUrl} alt="Speekr" sx={{ height: 32, filter: 'brightness(0) invert(1)' }} />
-            <IconButton
-              aria-label="Close navigation"
-              onClick={() => setOpen(false)}
-              sx={{ color: brand.ivory, border: '1px solid rgba(247,249,232,0.18)' }}
-            >
-              <X size={21} />
-            </IconButton>
-          </Stack>
-          <Stack component="nav" spacing={1} aria-label="Mobile navigation">
-            {navItems.map((item) => (
-              <NavLink key={item} mobile>
-                {item}
-              </NavLink>
-            ))}
-          </Stack>
-          <Stack spacing={1.4} sx={{ mt: 'auto' }}>
-            <Button
-              variant="outlined"
+            <Box
+              component="a"
+              href="#"
+              aria-label="Speekr home"
               sx={{
-                borderColor: 'rgba(247,249,232,0.28)',
-                color: brand.ivory,
-                '&:hover': {
-                  borderColor: brand.mint,
-                  background: 'rgba(170,255,200,0.08)',
-                },
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 1,
+                textDecoration: 'none',
+                minWidth: 0,
+              }}
+            >
+              <Box
+                component="img"
+                src={LOGO}
+                alt="Speekr"
+                decoding="async"
+                sx={{
+                  width: { xs: 108, sm: 120 },
+                  display: 'block',
+                  filter: scrolled
+                    ? 'brightness(0) invert(1)'
+                    : 'brightness(0) saturate(100%) invert(17%) sepia(34%) saturate(1031%) hue-rotate(104deg) brightness(92%) contrast(97%)',
+                }}
+              />
+              <Box
+                component="span"
+                sx={{
+                  display: { xs: 'none', sm: 'inline-flex' },
+                  alignItems: 'center',
+                  height: 24,
+                  px: 1.1,
+                  borderRadius: '100px',
+                  bgcolor: scrolled ? 'rgba(238,243,205,0.08)' : '#074225',
+                  color: scrolled ? '#EEF3CD' : '#EEF3CD',
+                  fontSize: 10,
+                  fontWeight: 900,
+                  lineHeight: 1,
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                for Business
+              </Box>
+            </Box>
+
+            <Box
+              component="nav"
+              aria-label="Primary navigation"
+              sx={{
+                display: { xs: 'none', md: 'flex' },
+                justifySelf: 'center',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: { md: 0.05, lg: 0.25 },
+                minWidth: 0,
+                maxWidth: '100%',
+                overflow: 'hidden',
+              }}
+            >
+              {navItems.map((item) => (
+                <Box key={item} component="a" href="#" sx={desktopLinkSx}>
+                  {item}
+                </Box>
+              ))}
+            </Box>
+
+            <Box
+              component="a"
+              href="#"
+              sx={{
+                display: { xs: 'none', md: 'inline-flex' },
+                alignItems: 'center',
+                justifySelf: 'end',
+                height: 40,
+                px: { md: 1.8, lg: 2.5 },
+                borderRadius: '100px',
+                fontSize: { md: 13, lg: 13.5 },
+                fontWeight: 700,
+                whiteSpace: 'nowrap',
+                bgcolor: '#F26433',
+                color: '#ffffff',
+                textDecoration: 'none',
               }}
             >
               Log in
-            </Button>
-            <Button
-              variant="contained"
-              endIcon={<ArrowUpRight size={17} />}
+            </Box>
+            <Box
+              component="a"
+              href="#"
               sx={{
-                background: brand.mint,
-                color: brand.ink,
-                '&:hover': { background: '#C5FFD9' },
+                display: { xs: 'none', md: 'inline-flex' },
+                alignItems: 'center',
+                gap: 0.6,
+                justifySelf: 'end',
+                height: 40,
+                px: { md: 1.8, lg: 2.5 },
+                borderRadius: '100px',
+                border: scrolled ? '1px solid rgba(238,243,205,0.12)' : '1px solid rgba(7,66,37,0.14)',
+                color: scrolled ? 'rgba(238,243,205,0.78)' : 'rgba(7,66,37,0.76)',
+                textDecoration: 'none',
+                fontSize: 13,
+                fontWeight: 900,
+                whiteSpace: 'nowrap',
               }}
             >
               Book a demo
-            </Button>
-          </Stack>
-        </Stack>
-      </Drawer>
-    </AppBar>
+              <ArrowUpRight size={14} strokeWidth={2.6} aria-hidden />
+            </Box>
+
+            <Box
+              component="button"
+              type="button"
+              aria-label="Open navigation menu"
+              aria-expanded={mobileOpen}
+              onClick={() => setMobileOpen(true)}
+              sx={{
+                display: { xs: 'inline-flex', md: 'none' },
+                justifySelf: 'end',
+                width: 40,
+                height: 40,
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#F26433',
+                border: '1px solid rgba(242,100,51,0.22)',
+                borderRadius: '12px',
+                bgcolor: 'transparent',
+                cursor: 'pointer',
+                '&:hover': { bgcolor: 'rgba(242,100,51,0.1)' },
+              }}
+            >
+              <Menu size={20} strokeWidth={2} aria-hidden />
+            </Box>
+          </Box>
+        </Box>
+      </Box>
+      <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} />
+    </>
   );
 }
 

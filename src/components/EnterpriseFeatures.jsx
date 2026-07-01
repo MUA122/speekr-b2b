@@ -236,7 +236,7 @@ function EnterpriseFeatures() {
           mx: 'auto',
           p: { xs: 3, md: 7 },
           borderRadius: { xs: '26px', md: '34px' },
-          background: 'linear-gradient(135deg,#E9DFF0 0%,#F7F9E8 58%,#EAF4D6 100%)',
+          background: 'linear-gradient(135deg,#E8DCEB 0%,#EEF3CD 58%,rgba(142,198,64,0.18) 100%)',
           border: '1px solid rgba(0,66,37,.14)',
           boxShadow: '0 26px 80px rgba(0,66,37,.12)',
           position: 'relative',

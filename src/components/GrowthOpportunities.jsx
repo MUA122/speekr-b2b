@@ -46,7 +46,7 @@ function GrowthOpportunities() {
           sx={{
             m: { xs: '0 0 34px', md: '0 0 46px' },
             textAlign: 'center',
-            fontFamily: '"Inter", Arial, sans-serif',
+            fontFamily: (theme) => theme.palette.brand.fontBody,
             fontSize: { xs: 22, md: 28 },
             lineHeight: 1.3,
             fontWeight: 500,
@@ -70,7 +70,7 @@ function GrowthOpportunities() {
                 component="h3"
                 sx={{
                   m: '0 0 14px',
-                  fontFamily: '"Inter", Arial, sans-serif',
+                  fontFamily: (theme) => theme.palette.brand.fontBody,
                   fontSize: { xs: 52, sm: 58, md: 68 },
                   lineHeight: 1,
                   fontWeight: 800,
@@ -83,7 +83,7 @@ function GrowthOpportunities() {
               <Typography
                 sx={{
                   m: 0,
-                  fontFamily: '"Inter", Arial, sans-serif',
+                  fontFamily: (theme) => theme.palette.brand.fontBody,
                   fontSize: 16,
                   lineHeight: 1.25,
                   fontWeight: 700,
@@ -201,7 +201,7 @@ function GrowthOpportunities() {
               sx={{
                 m: '0 0 22px',
                 color: '#36A06A',
-                fontFamily: '"Inter", Arial, sans-serif',
+                fontFamily: (theme) => theme.palette.brand.fontBody,
                 fontSize: 15,
                 lineHeight: 1.6,
                 fontWeight: 700,
@@ -218,7 +218,7 @@ function GrowthOpportunities() {
                 sx={{
                   display: 'block',
                   mb: 0.5,
-                  fontFamily: '"Inter", Arial, sans-serif',
+                  fontFamily: (theme) => theme.palette.brand.fontBody,
                   fontSize: 13,
                   color: '#111111',
                   fontWeight: 700,
@@ -230,7 +230,7 @@ function GrowthOpportunities() {
                 component="span"
                 sx={{
                   display: 'block',
-                  fontFamily: '"Inter", Arial, sans-serif',
+                  fontFamily: (theme) => theme.palette.brand.fontBody,
                   fontSize: 11,
                   color: '#F0642E',
                   fontWeight: 700,
@@ -257,7 +257,7 @@ function GrowthOpportunities() {
               borderRadius: 999,
               background: brand.forest,
               color: '#ffffff',
-              fontFamily: '"Inter", Arial, sans-serif',
+              fontFamily: (theme) => theme.palette.brand.fontBody,
               fontSize: 16,
               fontWeight: 800,
               '&:hover': {
@@ -279,7 +279,7 @@ function GrowthOpportunities() {
               borderRadius: 999,
               background: '#FF6432',
               color: '#ffffff',
-              fontFamily: '"Inter", Arial, sans-serif',
+              fontFamily: (theme) => theme.palette.brand.fontBody,
               fontSize: 16,
               fontWeight: 800,
               '&:hover': {

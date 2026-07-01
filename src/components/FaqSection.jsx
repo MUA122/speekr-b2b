@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Box, Button, Collapse, Container, Stack, Typography } from '@mui/material';
-import { Plus } from 'lucide-react';
-import { brand } from '../theme.js';
+import { Box, Typography } from '@mui/material';
+import { ChevronDown } from 'lucide-react';
+
+const NOISE = `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`;
 
 const faqs = [
   {
@@ -36,118 +37,126 @@ const faqs = [
   },
 ];
 
-function FaqCard({ faq, index, open, onToggle }) {
-  const answerId = `faq-answer-${index}`;
-
+function FaqItem({ faq, isOpen, onToggle }) {
   return (
     <Box
+      component="article"
       sx={{
-        position: 'relative',
-        borderRadius: '8px',
-        background: open ? brand.forest : 'rgba(255,255,255,0.72)',
-        border: `1px solid ${open ? 'rgba(0,66,37,0.36)' : brand.line}`,
-        boxShadow: open ? '0 26px 72px rgba(0,66,37,0.16)' : '0 18px 48px rgba(0,66,37,0.055)',
+        borderRadius: '16px',
+        border: `1px solid ${isOpen ? 'rgba(242,100,51,0.28)' : 'rgba(7,66,37,0.12)'}`,
+        bgcolor: '#EEF3CD',
+        boxShadow: isOpen
+          ? '0 18px 50px rgba(242,100,51,0.12), 0 0 0 1px rgba(242,100,51,0.08)'
+          : '0 12px 34px rgba(7,66,37,0.06)',
+        transition:
+          'border-color 0.35s ease, background-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease',
+        transform: isOpen ? 'translateY(-1px)' : 'translateY(0)',
         overflow: 'hidden',
-        transition: 'transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background 180ms ease',
-        animation: 'fadeLift 520ms ease both',
-        animationDelay: `${index * 55}ms`,
-        '&:hover': {
-          transform: { md: 'translateY(-3px)' },
-          borderColor: open ? 'rgba(0,66,37,0.42)' : 'rgba(0,66,37,0.24)',
-          boxShadow: open ? '0 30px 82px rgba(0,66,37,0.18)' : '0 24px 64px rgba(0,66,37,0.09)',
-        },
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          left: 0,
-          top: 0,
-          bottom: 0,
-          width: 4,
-          background:
-            index % 3 === 0
-              ? brand.signal
-              : index % 3 === 1
-                ? 'rgba(125,215,247,0.9)'
-                : 'rgba(217,107,66,0.9)',
-          opacity: 0.9,
-        },
       }}
     >
-      <Button
+      <Box
+        component="button"
+        type="button"
         onClick={onToggle}
-        aria-expanded={open}
-        aria-controls={answerId}
-        disableRipple
+        aria-expanded={isOpen}
         sx={{
           width: '100%',
-          minHeight: { xs: 74, md: 82 },
-          justifyContent: 'space-between',
-          gap: 2,
-          px: { xs: 2.1, md: 2.6 },
-          py: { xs: 1.7, md: 2 },
-          color: open ? brand.ivory : brand.forest,
+          display: 'flex',
+          alignItems: 'flex-start',
+          gap: { xs: 2, sm: 2, md: 3 },
+          p: { xs: '22px 20px', sm: '26px 28px', md: '30px 36px' },
           textAlign: 'left',
-          borderRadius: 0,
+          cursor: 'pointer',
+          bgcolor: 'transparent',
+          border: 'none',
+          fontFamily: 'inherit',
+          transition: 'background-color 0.24s ease',
           '&:hover': {
-            background: 'transparent',
+            bgcolor: 'rgba(7,66,37,0.025)',
           },
         }}
       >
+        <Box
+          aria-hidden
+          sx={{
+            flexShrink: 0,
+            width: 8,
+            height: 8,
+            borderRadius: '3px',
+            bgcolor: '#F26433',
+            mt: '8px',
+            display: { xs: 'none', sm: 'block' },
+            boxShadow: '0 0 8px rgba(242,100,51,0.5)',
+          }}
+        />
         <Typography
           sx={{
-            color: 'inherit',
-            fontFamily: '"Sora", "Inter", Arial, sans-serif',
-            fontSize: { xs: '1rem', md: '1.1rem' },
-            lineHeight: 1.25,
-            fontWeight: 850,
+            flex: 1,
+            fontSize: { xs: 16.5, sm: 18, md: 20 },
+            fontWeight: 700,
+            lineHeight: 1.3,
+            color: isOpen ? '#074225' : 'rgba(7,66,37,0.78)',
+            transition: 'color 0.25s ease',
+            textAlign: 'left',
           }}
         >
           {faq.question}
         </Typography>
-
         <Box
           aria-hidden
           sx={{
-            width: 32,
-            height: 32,
-            flex: '0 0 auto',
-            display: 'grid',
-            placeItems: 'center',
+            flexShrink: 0,
+            width: 28,
+            height: 28,
             borderRadius: '50%',
-            color: open ? brand.ink : brand.forest,
-            background: open ? brand.signal : 'rgba(215,243,106,0.5)',
-            border: `1px solid ${open ? 'rgba(247,249,232,0.22)' : brand.line}`,
-            transform: open ? 'rotate(45deg)' : 'rotate(0deg)',
-            transition: 'transform 180ms ease, background 180ms ease, color 180ms ease',
+            border: `1.5px solid ${isOpen ? 'rgba(242,100,51,0.32)' : 'rgba(7,66,37,0.12)'}`,
+            bgcolor: isOpen ? 'rgba(242,100,51,0.09)' : '#EEF3CD',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition:
+              'transform 0.48s cubic-bezier(0.22,1,0.36,1), border-color 0.3s ease, background-color 0.3s ease',
+            transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+            mt: '2px',
           }}
         >
-          <Plus size={15} strokeWidth={3} />
+          <ChevronDown size={14} color={isOpen ? '#F26433' : 'rgba(7,66,37,0.5)'} aria-hidden />
         </Box>
-      </Button>
+      </Box>
 
-      <Collapse in={open} timeout={260} unmountOnExit>
-        <Box
-          id={answerId}
-          sx={{
-            mx: { xs: 2.1, md: 2.6 },
-            pb: { xs: 2.2, md: 2.6 },
-            pt: { xs: 0.2, md: 0.4 },
-            borderTop: '1px solid rgba(247,249,232,0.14)',
-          }}
-        >
-          <Typography
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateRows: isOpen ? '1fr' : '0fr',
+          opacity: isOpen ? 1 : 0,
+          transition:
+            'grid-template-rows 0.52s cubic-bezier(0.22,1,0.36,1), opacity 0.32s ease',
+        }}
+      >
+        <Box sx={{ minHeight: 0, overflow: 'hidden' }}>
+          <Box
             sx={{
-              mt: 1.25,
-              maxWidth: 940,
-              color: 'rgba(247,249,232,0.75)',
-              fontSize: { xs: '0.92rem', md: '0.99rem' },
-              lineHeight: 1.78,
+              pl: { xs: '20px', sm: '52px', md: '68px' },
+              pr: { xs: '20px', sm: '28px', md: '36px' },
+              pb: { xs: '22px', sm: '26px', md: '30px' },
+              transform: isOpen ? 'translateY(0)' : 'translateY(-6px)',
+              transition: 'transform 0.44s cubic-bezier(0.22,1,0.36,1)',
             }}
           >
-            {faq.answer}
-          </Typography>
+            <Typography
+              sx={{
+                fontSize: { xs: 14, md: 15 },
+                fontWeight: 500,
+                lineHeight: 1.8,
+                color: 'rgba(7,66,37,0.58)',
+                textAlign: 'left',
+              }}
+            >
+              {faq.answer}
+            </Typography>
+          </Box>
         </Box>
-      </Collapse>
+      </Box>
     </Box>
   );
 }
@@ -157,39 +166,89 @@ function FaqSection() {
 
   return (
     <Box
-      component="section"
-      id="faq"
       sx={{
-        position: 'relative',
-        overflow: 'hidden',
-        py: { xs: 8, md: 10, lg: 11 },
-        background: `
-          radial-gradient(circle at 14% 18%, rgba(215,243,106,0.18), transparent 28%),
-          radial-gradient(circle at 88% 76%, rgba(125,215,247,0.1), transparent 26%),
-          linear-gradient(180deg, ${brand.ivory} 0%, #F1F6DE 52%, ${brand.ivory} 100%)
-        `,
+        bgcolor: '#EEF3CD',
+        px: { xs: '12px', sm: '18px', md: '24px' },
+        py: { xs: 3, md: 4 },
       }}
     >
-      <Container
-        maxWidth={false}
+      <Box
+        component="section"
+        id="faq"
+        aria-labelledby="faq-title"
         sx={{
-          width: 'min(100%, 1120px)',
-          px: { xs: 2, sm: 3, lg: 4 },
+          position: 'relative',
+          bgcolor: '#EEF3CD',
+          borderRadius: { xs: '24px', md: '32px' },
+          overflow: 'hidden',
+          px: { xs: 2.5, sm: 4, md: 6, lg: 8 },
+          pt: { xs: 6, md: 8 },
+          pb: { xs: 8, md: 10 },
         }}
       >
-        <Stack spacing={{ xs: 3.4, md: 4.4 }} alignItems="center">
-          <Stack spacing={1.8} alignItems="center" sx={{ textAlign: 'center' }}>
+        <Box
+          component="img"
+          src="/images/brand-patterns/faq-bg.png"
+          alt=""
+          aria-hidden
+          loading="lazy"
+          decoding="async"
+          sx={{
+            position: 'absolute',
+            top: { xs: 8, md: 18 },
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: { xs: 760, md: 1120 },
+            maxWidth: 'none',
+            opacity: 0.09,
+            pointerEvents: 'none',
+          }}
+        />
+        <Box
+          aria-hidden
+          sx={{
+            position: 'absolute',
+            top: '-12%',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '70vw',
+            height: '70vw',
+            maxWidth: 800,
+            maxHeight: 800,
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(242,100,51,0.055) 0%, transparent 62%)',
+            filter: 'blur(80px)',
+            pointerEvents: 'none',
+          }}
+        />
+        <Box
+          aria-hidden
+          sx={{
+            position: 'absolute',
+            inset: 0,
+            pointerEvents: 'none',
+            opacity: 0.018,
+            backgroundImage: NOISE,
+            backgroundRepeat: 'repeat',
+            backgroundSize: '200px 200px',
+          }}
+        />
+
+        <Box sx={{ position: 'relative', zIndex: 1, maxWidth: 1200, mx: 'auto' }}>
+          <Box sx={{ textAlign: 'center', mb: { xs: 6, md: 9 } }}>
             <Typography
               component="p"
               sx={{
                 width: 'fit-content',
+                mx: 'auto',
+                mb: 2,
                 px: 1.4,
                 py: 0.62,
-                borderRadius: 999,
-                color: brand.forest,
-                background: 'rgba(210,193,226,0.7)',
-                border: `1px solid ${brand.line}`,
-                fontSize: '0.68rem',
+                borderRadius: '100px',
+                color: '#074225',
+                background: 'rgba(232,220,235,0.7)',
+                border: '1px solid rgba(7,66,37,0.14)',
+                fontSize: 11,
                 lineHeight: 1,
                 fontWeight: 950,
               }}
@@ -197,30 +256,41 @@ function FaqSection() {
               FAQ
             </Typography>
             <Typography
-              variant="h2"
+              id="faq-title"
+              component="h2"
               sx={{
-                color: brand.forest,
-                fontSize: { xs: '2.6rem', sm: '3.75rem', md: '4.7rem' },
-                lineHeight: 0.96,
+                m: 0,
+                fontSize: { xs: 38, sm: 50, md: 58, lg: 64 },
+                fontFamily: (theme) => theme.palette.brand.fontHeadline,
+                fontWeight: 900,
+                lineHeight: 1,
+                color: '#074225',
               }}
             >
               The questions we get most.
             </Typography>
-          </Stack>
+          </Box>
 
-          <Stack spacing={1.45} sx={{ width: '100%' }}>
+          <Box
+            sx={{
+              maxWidth: 880,
+              mx: 'auto',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 1.5,
+            }}
+          >
             {faqs.map((faq, index) => (
-              <FaqCard
+              <FaqItem
                 key={faq.question}
                 faq={faq}
-                index={index}
-                open={openIndex === index}
+                isOpen={openIndex === index}
                 onToggle={() => setOpenIndex(openIndex === index ? null : index)}
               />
             ))}
-          </Stack>
-        </Stack>
-      </Container>
+          </Box>
+        </Box>
+      </Box>
     </Box>
   );
 }

@@ -34,7 +34,7 @@ const useCases = [
     score: '31%',
     accent: brand.signal,
     icon: PhoneCall,
-    point: { x: '12%', y: '66%' },
+    point: { x: '12%', y: '50%' },
   },
   {
     label: 'Customer Service',
@@ -59,7 +59,7 @@ const useCases = [
     score: '+22',
     accent: '#E7D4F4',
     icon: Headphones,
-    point: { x: '32%', y: '28%' },
+    point: { x: '31%', y: '50%' },
   },
   {
     label: 'Leadership',
@@ -84,7 +84,7 @@ const useCases = [
     score: '2x',
     accent: brand.mint,
     icon: UsersRound,
-    point: { x: '54%', y: '50%' },
+    point: { x: '50%', y: '50%' },
   },
   {
     label: 'Technical Teams',
@@ -109,7 +109,7 @@ const useCases = [
     score: '3x',
     accent: '#BFEAFF',
     icon: Code2,
-    point: { x: '75%', y: '28%' },
+    point: { x: '69%', y: '50%' },
   },
   {
     label: 'University Admissions',
@@ -134,7 +134,7 @@ const useCases = [
     score: '90%',
     accent: brand.clay,
     icon: GraduationCap,
-    point: { x: '88%', y: '68%' },
+    point: { x: '88%', y: '50%' },
   },
 ];
 
@@ -374,7 +374,7 @@ function StoryPanel({ active }) {
           right: { xs: -36, sm: 10, lg: 34 },
           top: { xs: 88, sm: 74, lg: 62 },
           color: 'rgba(247,249,232,0.08)',
-          fontFamily: '"Sora", "Inter", Arial, sans-serif',
+          fontFamily: (theme) => theme.palette.brand.fontHeadline,
           fontSize: { xs: '8rem', sm: '10rem', lg: '13rem' },
           lineHeight: 0.8,
           fontWeight: 850,
@@ -591,13 +591,13 @@ function UseCases() {
               }}
             >
               <path
-                d="M 72 242 C 184 74 278 62 350 116 C 448 190 530 228 626 144 C 728 54 806 66 884 146 C 916 180 928 214 936 244"
+                d="M 72 180 L 936 180"
                 fill="none"
                 stroke="rgba(247,249,232,0.18)"
                 strokeWidth="2"
               />
               <path
-                d="M 72 242 C 184 74 278 62 350 116 C 448 190 530 228 626 144 C 728 54 806 66 884 146 C 916 180 928 214 936 244"
+                d="M 72 180 L 936 180"
                 fill="none"
                 stroke={active.accent}
                 strokeWidth="3"

@@ -34,7 +34,26 @@ function App() {
           body: {
             margin: 0,
             minWidth: 320,
-            zoom: 0.9,
+            fontFamily: "var(--font-body)",
+            background: brand.ivory,
+          },
+          ":root": {
+            "--font-headline":
+              '"Caprasimo", "Belwe Bold", "Belwe", "Cooper Black", Georgia, serif',
+            "--font-body":
+              '"Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif',
+            fontSynthesis: "none",
+            textRendering: "optimizeLegibility",
+            WebkitTextSizeAdjust: "100%",
+            WebkitFontSmoothing: "antialiased",
+            MozOsxFontSmoothing: "grayscale",
+          },
+          ".MuiTypography-root, button, input, textarea, select": {
+            fontFamily: "var(--font-body)",
+          },
+          "h1, h2, h3, .MuiTypography-h1, .MuiTypography-h2, .MuiTypography-h3": {
+            fontFamily: "var(--font-headline)",
+            letterSpacing: 0,
           },
           "::selection": {
             background: brand.forest,

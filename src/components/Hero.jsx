@@ -73,7 +73,7 @@ function Hero() {
         sx={{
           width: 'min(100%, 1280px)',
           px: { xs: 2, sm: 3, lg: 4 },
-          pt: { xs: 5, md: 8, lg: 9 },
+          pt: { xs: 12, md: 14, lg: 15 },
           pb: { xs: 8, md: 9, lg: 10 },
         }}
       >
