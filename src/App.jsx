@@ -15,6 +15,7 @@ import FinalCta from "./components/FinalCta.jsx";
 import Footer from "./components/Footer.jsx";
 import ContactModal from "./components/ContactModal.jsx";
 import PricingPage from "./pages/PricingPage.jsx";
+import SolutionsPage from "./pages/SolutionsPage.jsx";
 import { splitLocalePath } from "./utils/i18n.js";
 import { brand } from "./theme.js";
 
@@ -22,6 +23,7 @@ function App() {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const { locale, path } = splitLocalePath(window.location.pathname);
   const isPricingPage = path === "/pricing";
+  const isSolutionsPage = path === "/solutions";
   const openContactModal = () => setIsContactOpen(true);
   const closeContactModal = () => setIsContactOpen(false);
 
@@ -140,6 +142,8 @@ function App() {
       <Header onDemoClick={openContactModal} />
       {isPricingPage ? (
         <PricingPage locale={locale} />
+      ) : isSolutionsPage ? (
+        <SolutionsPage onDemoClick={openContactModal} />
       ) : (
         <>
           <Hero onDemoClick={openContactModal} />
