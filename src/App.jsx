@@ -16,6 +16,7 @@ import Footer from "./components/Footer.jsx";
 import ContactModal from "./components/ContactModal.jsx";
 import PricingPage from "./pages/PricingPage.jsx";
 import SolutionsPage from "./pages/SolutionsPage.jsx";
+import PlatformPage from "./pages/PlatformPage.jsx";
 import { splitLocalePath } from "./utils/i18n.js";
 import { brand } from "./theme.js";
 
@@ -24,6 +25,7 @@ function App() {
   const { locale, path } = splitLocalePath(window.location.pathname);
   const isPricingPage = path === "/pricing";
   const isSolutionsPage = path === "/solutions";
+  const isPlatformPage = path === "/platform";
   const openContactModal = () => setIsContactOpen(true);
   const closeContactModal = () => setIsContactOpen(false);
 
@@ -38,7 +40,7 @@ function App() {
         minHeight: "100vh",
         color: "text.primary",
         backgroundColor: brand.ivory,
-        overflowX: "hidden",
+        overflowX: "clip",
       }}
     >
       <GlobalStyles
@@ -141,9 +143,11 @@ function App() {
       />
       <Header onDemoClick={openContactModal} />
       {isPricingPage ? (
-        <PricingPage locale={locale} />
+        <PricingPage locale={locale} onDemoClick={openContactModal} />
       ) : isSolutionsPage ? (
         <SolutionsPage onDemoClick={openContactModal} />
+      ) : isPlatformPage ? (
+        <PlatformPage onDemoClick={openContactModal} />
       ) : (
         <>
           <Hero onDemoClick={openContactModal} />

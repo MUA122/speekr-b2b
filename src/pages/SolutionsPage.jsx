@@ -1,31 +1,48 @@
+import { useEffect, useRef, useState } from 'react';
 import { Box, Button, Container, Stack, Typography } from '@mui/material';
-import {
-  ArrowRight,
-  BadgeCheck,
-} from 'lucide-react';
-import { brand } from '../theme.js';
+import { ArrowDown, ArrowRight } from 'lucide-react';
 
-const solutions = [
+const metrics = [
+  ['15+', 'Arabic dialects'],
+  ['5', 'business conversations'],
+  ['1', 'platform to train them'],
+];
+
+const sections = [
   {
-    label: 'SALES',
-    title: 'Sales',
+    id: 'sec-sales',
+    number: '01',
+    label: 'Sales',
+    title: "Practice the deal before it's real",
+    copy:
+      "Reps rehearse the exact calls they'll make this quarter — with an AI buyer that pushes back in the dialect your market speaks — and ramp in weeks, not months.",
+    cta: 'Book a demo for Sales',
     stat: '31%',
     statLabel: 'faster ramp',
-    accent: '#D7F36A',
-    pattern: '/images/08.svg',
+    image: '/images/b2b-hero-premium-sales.png',
+    imageAlt: 'Salesperson on a call in a bright office',
+    imageFirst: true,
+    statVariant: 'orange',
     items: [
-      ['Cold Calling', 'Practice opening conversations, handling objections, and engaging prospects.'],
-      ['Discovery Calls', 'Sharpen questioning, active listening, and qualification skills.'],
-      ['Closing Deals', 'Master negotiation, stakeholder alignment, and closing conversations.'],
+      ['Cold Calling', 'Openings, objections, and keeping prospects engaged past the first minute.'],
+      ['Discovery Calls', 'Sharper questioning, active listening, and qualification skills.'],
+      ['Closing Deals', 'Negotiation, stakeholder alignment, and closing conversations.'],
     ],
   },
   {
-    label: 'CUSTOMER SERVICE',
-    title: 'Customer Care',
+    id: 'sec-care',
+    number: '02',
+    label: 'Customer Care',
+    title: 'Turn tough calls into loyal customers',
+    copy:
+      "Agents face the angriest customer they'll ever meet — before they meet one. High-pressure practice that shows up as calmer calls and higher CSAT.",
+    cta: 'Book a demo for Customer Care',
     stat: '+22',
     statLabel: 'CSAT points',
-    accent: '#E8DCEB',
-    pattern: '/images/03.svg',
+    image: '/images/b2b-hero-premium-care.png',
+    imageAlt: 'Support agent with headset and a calm expression',
+    imageFirst: false,
+    statVariant: 'orange',
     items: [
       ['Customer Complaints', 'Handle complaints with confidence and empathy.'],
       ['Escalation Management', 'Practice high-pressure conversations before they reach a real customer.'],
@@ -33,527 +50,743 @@ const solutions = [
     ],
   },
   {
-    label: 'LEADERSHIP',
-    title: 'Leadership',
-    stat: '2x',
+    id: 'sec-lead',
+    number: '03',
+    label: 'Leadership',
+    title: 'Say the hard thing, well',
+    copy:
+      'Feedback, coaching, and accountability conversations are the ones managers avoid. Rehearsing them privately makes them happen - and land.',
+    cta: 'Book a demo for Leadership',
+    stat: '2×',
     statLabel: 'manager confidence',
-    accent: '#BFE8C9',
-    pattern: '/images/05.svg',
+    image: '/images/b2b-hero-premium-education.png',
+    imageAlt: 'Manager in a one on one conversation',
+    imageFirst: true,
+    statVariant: 'orange',
     items: [
-      ['Giving Feedback', 'Practice constructive, performance-based feedback conversations.'],
-      ['Coaching Employees', 'Improve coaching and development discussions that move people forward.'],
-      ['Difficult Conversations', 'Handle accountability, conflict, and performance issues with steadiness.'],
+      ['Giving Feedback', 'Constructive, performance-based feedback conversations.'],
+      ['Coaching Employees', 'Development discussions that move people forward.'],
+      ['Difficult Conversations', 'Accountability, conflict, and performance issues — handled with steadiness.'],
     ],
   },
   {
-    label: 'TECHNICAL TEAMS',
-    title: 'Technical Teams',
-    stat: '3x',
+    id: 'sec-tech',
+    number: '04',
+    label: 'Technical Teams',
+    title: 'Make complex work make sense',
+    copy:
+      'Engineers and specialists practice explaining technical decisions to clients, executives, and other teams — until clarity is the default.',
+    cta: 'Book a demo for Technical Teams',
+    stat: '3×',
     statLabel: 'practice volume',
-    accent: '#BFEAFF',
-    pattern: '/images/card-pattern.svg',
+    image: '/images/landing-page-hero.jpg',
+    imageAlt: 'Engineer presenting to a small group',
+    imageFirst: false,
+    statVariant: 'orange',
     items: [
       ['Stakeholder Communication', 'Explain technical concepts clearly to non-technical audiences.'],
-      ['Build Client Confidence', 'Practice customer-facing technical discussions and demos.'],
-      ['Cross-Functional Collaboration', 'Improve communication with product, sales, and leadership teams.'],
+      ['Build Client Confidence', 'Customer-facing technical discussions and demos.'],
+      ['Cross-Functional Collaboration', 'Better communication with product, sales, and leadership teams.'],
     ],
   },
   {
-    label: 'APPLICANT SCREENING',
-    title: 'Applicant Screening',
+    id: 'sec-screen',
+    number: '05',
+    label: 'Applicant Screening',
+    title: 'Interview every candidate, any hour',
+    copy:
+      "AI runs structured first-round interviews on the candidate's schedule; your team reviews scored, human-verified notes and decides. No scheduler bottleneck.",
+    cta: 'Book a demo for Screening',
     stat: '90%',
     statLabel: 'screening coverage',
-    accent: brand.orange,
-    pattern: '/images/orange.png',
+    image: '/images/hero.png',
+    imageAlt: 'Candidate in a video interview on a laptop',
+    imageFirst: true,
+    statVariant: 'purple',
     items: [
-      [
-        'On-Demand AI Interviews',
-        'AI conducts structured first-round interviews any time, so no candidate waits on a scheduler.',
-      ],
-      [
-        'Admissions & Recruiter Screening',
-        'Run consistent interviews across admissions intakes and hiring pipelines at scale.',
-      ],
-      [
-        'Human-Reviewed Scoring',
-        'Every interview returns structured notes and competency signals for your team to review and decide.',
-      ],
+      ['On-Demand AI Interviews', 'Structured first rounds any time — no candidate waits on a scheduler.'],
+      ['Admissions & Recruiter Screening', 'Consistent interviews across intakes and hiring pipelines at scale.'],
+      ['Human-Reviewed Scoring', 'Every interview returns structured notes and competency signals for your team.'],
     ],
   },
 ];
 
-const metrics = [
+const ctaMetrics = [
   ['15+', 'English + Arabic dialects'],
-  ['5', 'business conversations'],
-  ['1', 'platform to train them'],
+  ['5', 'conversation types trained'],
+  ['1', 'platform — practice, measure, improve, in one place'],
 ];
 
-function SolutionCard({ solution, index }) {
+function ImagePanel({ section }) {
+  const isPurple = section.statVariant === 'purple';
+
   return (
     <Box
-      component="article"
       sx={{
         position: 'relative',
-        overflow: 'hidden',
-        borderRadius: '8px',
-        background: '#FFFDF2',
-        border: '1px solid rgba(7,66,37,0.13)',
-        boxShadow: '0 22px 70px rgba(7,66,37,0.1)',
-        display: 'grid',
-        gridTemplateColumns: { xs: '1fr', lg: '310px minmax(0, 1fr)' },
-        minHeight: { xs: 'auto', lg: 286 },
-        transition:
-          'transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease',
-        '&:hover': {
-          transform: { xs: 'none', md: 'translateY(-5px)' },
-          borderColor: `${solution.accent}`,
-          boxShadow: '0 32px 92px rgba(7,66,37,0.16)',
-        },
-        '&:hover .solution-pattern': {
-          opacity: 0.16,
-          transform: 'translate3d(-10px, 8px, 0) scale(1.04)',
-        },
-        '&:hover .solution-stat': {
-          background: 'rgba(7,66,37,0.082)',
-          borderColor: 'rgba(7,66,37,0.18)',
-        },
-        '&:hover .solution-item': {
-          background: 'rgba(255,253,242,0.78)',
-          borderColor: 'rgba(7,66,37,0.16)',
-        },
+        width: '100%',
+        minHeight: { xs: 280, md: 340 },
       }}
     >
       <Box
-        aria-hidden
-        sx={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage: `
-            linear-gradient(90deg, rgba(7,66,37,0.035) 1px, transparent 1px),
-            linear-gradient(180deg, rgba(7,66,37,0.032) 1px, transparent 1px)
-          `,
-          backgroundSize: '38px 38px',
-          pointerEvents: 'none',
-        }}
-      />
-      <Box
         component="img"
-        className="solution-pattern"
-        src={solution.pattern}
-        alt=""
-        aria-hidden
+        src={section.image}
+        alt={section.imageAlt}
         sx={{
-          position: 'absolute',
-          right: { xs: -120, md: -96 },
-          bottom: { xs: -128, md: -118 },
-          width: { xs: 330, md: 420 },
-          opacity: 0.08,
-          pointerEvents: 'none',
-          transition: 'opacity 260ms ease, transform 260ms ease',
+          width: '100%',
+          height: { xs: 280, md: 340 },
+          display: 'block',
+          objectFit: 'cover',
+          borderRadius: '20px',
+          border: '1px solid rgba(22,55,31,.11)',
+          boxShadow: '0 16px 44px rgba(22,55,31,.14)',
+          background: '#EEF3CD',
         }}
       />
-
       <Box
         sx={{
-          position: 'relative',
-          zIndex: 1,
-          p: { xs: 2.2, md: 2.6 },
-          color: brand.forest,
-          background: 'rgba(255,253,242,0.2)',
-          borderRight: { xs: 'none', lg: '1px solid rgba(7,66,37,0.1)' },
-          borderBottom: { xs: '1px solid rgba(7,66,37,0.1)', lg: 'none' },
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          gap: 3,
-          overflow: 'hidden',
-          '&::before': {
-            content: '""',
-            position: 'absolute',
-            inset: 0,
-            backgroundImage: `url("${solution.pattern}")`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: { xs: 'right -76px top -62px', lg: 'right -88px top -70px' },
-            backgroundSize: { xs: '280px auto', lg: '350px auto' },
-            opacity: 0.2,
-            mixBlendMode: 'multiply',
-            pointerEvents: 'none',
-            transition: 'opacity 260ms ease, transform 260ms ease',
-          },
-          '&::after': {
-            content: '""',
-            position: 'absolute',
-            inset: 0,
-            backgroundImage: `
-              linear-gradient(90deg, rgba(7,66,37,0.035) 1px, transparent 1px),
-              linear-gradient(180deg, rgba(7,66,37,0.03) 1px, transparent 1px)
-            `,
-            backgroundSize: '34px 34px',
-            opacity: 0.7,
-            pointerEvents: 'none',
-          },
+          position: 'absolute',
+          left: section.imageFirst ? 'auto' : { xs: 12, sm: -14 },
+          right: section.imageFirst ? { xs: 12, sm: -14 } : 'auto',
+          top: 20,
+          background: isPurple ? '#E7D4F4' : '#EEF3CD',
+          border: isPurple
+            ? '1.5px solid rgba(91,62,119,.2)'
+            : '1.5px solid rgba(22,55,31,.15)',
+          borderRadius: '14px',
+          p: '12px 18px',
+          boxShadow: isPurple
+            ? '0 8px 24px rgba(91,62,119,.18)'
+            : '0 8px 24px rgba(22,55,31,.14)',
         }}
       >
-        <Stack direction="row" alignItems="center" justifyContent="flex-end" spacing={2} sx={{ position: 'relative', zIndex: 1 }}>
-          <Typography sx={{ fontSize: 13, fontWeight: 950, opacity: 0.76 }}>
-            0{index + 1}
-          </Typography>
-        </Stack>
+        <Typography
+          variant="h3"
+          sx={{
+            fontWeight: 800,
+            fontSize: 40,
+            lineHeight: 1,
+            color: isPurple ? '#5B3E77' : '#E8552A',
+          }}
+        >
+          {section.stat}
+        </Typography>
+        <Typography sx={{ fontSize: 12.5, fontWeight: 500, color: '#16371F' }}>
+          {section.statLabel}
+        </Typography>
+      </Box>
+    </Box>
+  );
+}
 
-        <Box sx={{ position: 'relative', zIndex: 1 }}>
-          <Typography sx={{ color: brand.orange, fontSize: 10.5, fontWeight: 950, letterSpacing: 1.3 }}>
-            {solution.label}
-          </Typography>
-          <Typography
-            variant="h2"
-            sx={{
-              mt: 1,
-              color: 'inherit',
-              fontSize: { xs: '2.1rem', md: '2.85rem' },
-              lineHeight: 0.94,
-            }}
-          >
-            {solution.title}
-          </Typography>
+function SectionText({ section, onDemoClick }) {
+  return (
+    <Box>
+      <Stack
+        direction="row"
+        alignItems="center"
+        spacing={1.25}
+        useFlexGap
+        flexWrap="wrap"
+        sx={{ mb: 1.75 }}
+      >
+        <Typography
+          variant="h3"
+          sx={{ fontSize: 16, color: 'rgba(22,55,31,.4)', fontWeight: 700 }}
+        >
+          {section.number}
+        </Typography>
+        <Typography
+          sx={{
+            fontSize: 12.5,
+            fontWeight: 600,
+            letterSpacing: '.12em',
+            textTransform: 'uppercase',
+            color: '#5D8A3C',
+          }}
+        >
+          {section.label}
+        </Typography>
+        <Box
+          component="span"
+          sx={{
+            fontSize: 11.5,
+            fontWeight: 600,
+            px: 1.25,
+            py: '3px',
+            borderRadius: 99,
+            background: '#E7D4F4',
+            color: '#5B3E77',
+          }}
+        >
+          عربي · Arabic route
+        </Box>
+      </Stack>
+      <Typography
+        variant="h2"
+        sx={{
+          fontWeight: 700,
+          fontSize: { xs: '2rem', md: '2.75rem' },
+          lineHeight: 1.04,
+          mb: 2,
+          color: '#16371F',
+        }}
+      >
+        {section.title}
+      </Typography>
+      <Typography
+        sx={{
+          fontSize: { xs: 15.5, md: 16.5 },
+          lineHeight: 1.6,
+          color: 'rgba(22,55,31,.72)',
+          mb: 2.75,
+        }}
+      >
+        {section.copy}
+      </Typography>
+      <Button
+        variant="text"
+        endIcon={<ArrowRight size={16} />}
+        onClick={onDemoClick}
+        sx={{
+          minHeight: 'auto',
+          px: 0,
+          color: '#E8552A',
+          fontSize: 15,
+          fontWeight: 600,
+          '&:hover': { background: 'transparent', color: '#c94518' },
+        }}
+      >
+        {section.cta}
+      </Button>
+    </Box>
+  );
+}
+
+function SolutionSection({ section, onDemoClick }) {
+  const media = <ImagePanel section={section} />;
+  const text = <SectionText section={section} onDemoClick={onDemoClick} />;
+
+  return (
+    <Box
+      component="section"
+      id={section.id}
+      data-spy
+      sx={{
+        py: { xs: 6, md: 8 },
+        borderBottom:
+          section.id === 'sec-screen' ? 'none' : '1px solid rgba(22,55,31,.1)',
+        scrollMarginTop: '96px',
+      }}
+    >
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', lg: 'minmax(0, 1fr) minmax(0, 1.15fr)' },
+          gap: { xs: 3.5, md: 5.5 },
+          alignItems: 'center',
+          mb: 4.5,
+        }}
+      >
+        <Box sx={{ order: { xs: 1, lg: section.imageFirst ? 1 : 2 } }}>
+          {section.imageFirst ? media : text}
+        </Box>
+        <Box sx={{ order: { xs: 2, lg: section.imageFirst ? 2 : 1 } }}>
+          {section.imageFirst ? text : media}
         </Box>
       </Box>
 
       <Box
         sx={{
-          position: 'relative',
-          zIndex: 1,
-          p: { xs: 2.2, md: 2.6 },
           display: 'grid',
-          gridTemplateColumns: { xs: '1fr', md: '170px minmax(0, 1fr)' },
-          gap: { xs: 2, md: 2.4 },
-          alignItems: 'stretch',
+          gridTemplateColumns: { xs: '1fr', md: 'repeat(3, minmax(0, 1fr))' },
+          gap: 2,
         }}
       >
-        <Box
-          className="solution-stat"
-          sx={{
-            p: 1.7,
-            borderRadius: '8px',
-            background: 'rgba(7,66,37,0.055)',
-            border: '1px solid rgba(7,66,37,0.1)',
-            display: 'flex',
-            flexDirection: { xs: 'row', md: 'column' },
-            alignItems: { xs: 'flex-end', md: 'flex-start' },
-            justifyContent: 'space-between',
-            gap: 1.5,
-            minHeight: { xs: 110, md: '100%' },
-            transition: 'background 220ms ease, border-color 220ms ease',
-          }}
-        >
-          <Box>
-            <Typography variant="h3" sx={{ color: brand.forest, fontSize: { xs: '2.8rem', md: '3.55rem' }, lineHeight: 0.86 }}>
-              {solution.stat}
+        {section.items.map(([title, copy]) => (
+          <Box
+            key={title}
+            sx={{
+              background: '#fff',
+              border: '1.5px solid rgba(22,55,31,.1)',
+              borderRadius: '16px',
+              p: { xs: 2.25, md: '20px 22px' },
+            }}
+          >
+            <Typography variant="h3" sx={{ fontWeight: 700, fontSize: 21, mb: 0.75 }}>
+              {title}
             </Typography>
-            <Typography sx={{ mt: 0.9, color: 'rgba(7,66,37,0.68)', fontSize: 13, fontWeight: 950 }}>
-              {solution.statLabel}
+            <Typography sx={{ fontSize: 14.5, lineHeight: 1.5, color: 'rgba(22,55,31,.65)' }}>
+              {copy}
             </Typography>
           </Box>
-          <Typography sx={{ color: brand.orange, fontSize: 11, fontWeight: 950, lineHeight: 1.3, textAlign: { xs: 'right', md: 'left' } }}>
-            Arabic conversation route
-          </Typography>
-        </Box>
-
-        <Box
-          sx={{
-            display: 'grid',
-            gridTemplateColumns: { xs: '1fr', sm: 'repeat(3, minmax(0, 1fr))' },
-            gap: 1,
-          }}
-        >
-          {solution.items.map(([title, copy]) => (
-            <Box
-              key={title}
-              className="solution-item"
-              sx={{
-                p: 1.65,
-                borderRadius: '8px',
-                background: 'rgba(238,243,205,0.46)',
-                border: '1px solid rgba(7,66,37,0.105)',
-                transition: 'background 220ms ease, border-color 220ms ease',
-              }}
-            >
-              <Typography
-                variant="h3"
-                sx={{
-                  color: brand.forest,
-                  fontSize: { xs: '1.18rem', md: '1.25rem' },
-                  lineHeight: 1.06,
-                }}
-              >
-                {title}
-              </Typography>
-              <Typography sx={{ mt: 1, color: 'rgba(7,66,37,0.66)', fontSize: 13.2, lineHeight: 1.55, fontWeight: 620 }}>
-                {copy}
-              </Typography>
-            </Box>
-          ))}
-        </Box>
+        ))}
       </Box>
     </Box>
   );
 }
 
 function SolutionsPage({ onDemoClick }) {
+  const [activeSection, setActiveSection] = useState(sections[0].id);
+  const indexRegionRef = useRef(null);
+  const indexNavRef = useRef(null);
+  const [indexMode, setIndexMode] = useState('static');
+
+  useEffect(() => {
+    const observedSections = sections
+      .map((section) => document.getElementById(section.id))
+      .filter(Boolean);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.find((entry) => entry.isIntersecting);
+        if (visible) setActiveSection(visible.target.id);
+      },
+      { rootMargin: '-30% 0px -55% 0px' },
+    );
+
+    observedSections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    let frame = 0;
+
+    const updateIndexMode = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        if (!indexRegionRef.current || !indexNavRef.current || window.innerWidth < 1200) {
+          setIndexMode('static');
+          return;
+        }
+
+        const topOffset = 126;
+        const regionRect = indexRegionRef.current.getBoundingClientRect();
+        const navHeight = indexNavRef.current.offsetHeight;
+
+        if (regionRect.top > topOffset) {
+          setIndexMode('static');
+        } else if (regionRect.bottom <= topOffset + navHeight) {
+          setIndexMode('bottom');
+        } else {
+          setIndexMode('fixed');
+        }
+      });
+    };
+
+    updateIndexMode();
+    window.addEventListener('scroll', updateIndexMode, { passive: true });
+    window.addEventListener('resize', updateIndexMode);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', updateIndexMode);
+      window.removeEventListener('resize', updateIndexMode);
+    };
+  }, []);
+
   return (
     <Box
       component="main"
       sx={{
-        minHeight: '100vh',
-        color: brand.ink,
-        background: `
-          radial-gradient(circle at 12% 4%, rgba(142,198,64,0.2), transparent 22%),
-          radial-gradient(circle at 88% 6%, rgba(232,220,235,0.46), transparent 24%),
-          linear-gradient(180deg, #EEF3CD 0%, #F8FAEA 42%, #EEF3CD 100%)
-        `,
-        position: 'relative',
-        overflow: 'hidden',
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          inset: 0,
-          backgroundImage: 'url("/images/brand-patterns/line-pattern-wide.png")',
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: { xs: 'right -420px top 24px', md: 'right -240px top -72px' },
-          backgroundSize: { xs: '780px auto', md: '1040px auto' },
-          opacity: 0.19,
-          mixBlendMode: 'multiply',
-          pointerEvents: 'none',
-        },
-        '&::after': {
-          content: '""',
-          position: 'absolute',
-          left: { xs: -220, md: -170 },
-          top: { xs: 210, md: 180 },
-          width: { xs: 560, md: 760 },
-          height: { xs: 560, md: 760 },
-          backgroundImage: 'url("/images/brand-patterns/block.png")',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'contain',
-          opacity: 0.09,
-          pointerEvents: 'none',
-        },
+        background: '#F6F7E8',
+        color: '#16371F',
+        overflowX: 'clip',
       }}
     >
+      <Box sx={{ background: '#EEF3CD', borderBottom: '1px solid rgba(22,55,31,.08)' }}>
+        <Container
+          maxWidth={false}
+          sx={{
+            maxWidth: 1240,
+            mx: 'auto',
+            px: { xs: 2.5, md: 4 },
+            pt: { xs: 12, md: 14 },
+            pb: { xs: 7, md: 9 },
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', lg: '1.25fr 1fr' },
+            gap: { xs: 5, lg: 8 },
+            alignItems: 'center',
+          }}
+        >
+          <Box>
+            <Typography
+              sx={{
+                fontSize: 13,
+                fontWeight: 600,
+                letterSpacing: '.14em',
+                textTransform: 'uppercase',
+                color: '#5D8A3C',
+                mb: 2.25,
+              }}
+            >
+              Solutions
+            </Typography>
+            <Typography
+              variant="h1"
+              sx={{
+                fontWeight: 800,
+                fontSize: { xs: '3rem', sm: '4.25rem', md: '4.625rem' },
+                lineHeight: 0.98,
+                mb: 3.25,
+                color: '#16371F',
+                '& span': { color: '#E8552A' },
+              }}
+            >
+              One platform, every <span>conversation</span> that matters
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: { xs: 17, md: 19 },
+                lineHeight: 1.55,
+                color: 'rgba(22,55,31,.75)',
+                maxWidth: 520,
+                mb: 4.25,
+              }}
+            >
+              From the deals you close to the candidates you screen — practice, measure, and
+              improve the conversations that move your business. In English and 15+ Arabic
+              dialects.
+            </Typography>
+            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.75} alignItems="stretch">
+              <Button
+                variant="contained"
+                endIcon={<ArrowRight size={18} />}
+                onClick={onDemoClick}
+                sx={{
+                  fontSize: 16,
+                  fontWeight: 600,
+                  px: 3.5,
+                  background: '#16371F',
+                  color: '#fff',
+                  '&:hover': { background: '#E8552A', color: '#fff' },
+                }}
+              >
+                Book a demo
+              </Button>
+              <Button
+                component="a"
+                href="#sec-sales"
+                variant="outlined"
+                endIcon={<ArrowDown size={17} />}
+                sx={{
+                  fontSize: 16,
+                  fontWeight: 500,
+                  px: 3,
+                  border: '1.5px solid rgba(22,55,31,.3)',
+                  color: '#16371F',
+                  '&:hover': {
+                    borderColor: '#E8552A',
+                    background: 'rgba(232,85,42,.06)',
+                  },
+                }}
+              >
+                Explore the five teams
+              </Button>
+            </Stack>
+          </Box>
+
+          <Box sx={{ position: 'relative' }}>
+            <Box
+              component="img"
+              src="/images/b2b-hero-premium-sales.png"
+              alt="Confident person mid conversation in a bright office"
+              sx={{
+                width: '100%',
+                height: { xs: 320, md: 400 },
+                objectFit: 'cover',
+                display: 'block',
+                borderRadius: '24px',
+                border: '1px solid rgba(22,55,31,.1)',
+                boxShadow: '0 16px 44px rgba(22,55,31,.16)',
+              }}
+            />
+            <Box
+              sx={{
+                position: { xs: 'relative', sm: 'absolute' },
+                left: { sm: -22 },
+                bottom: { sm: -22 },
+                mt: { xs: -4, sm: 0 },
+                mx: { xs: 1.5, sm: 0 },
+                background: '#16371F',
+                color: '#fff',
+                borderRadius: '18px',
+                p: { xs: 2, md: '18px 22px' },
+                display: 'flex',
+                gap: { xs: 2, md: 3.25 },
+                boxShadow: '0 12px 32px rgba(22,55,31,.25)',
+              }}
+            >
+              {metrics.map(([value, label]) => (
+                <Box key={label} sx={{ minWidth: 0 }}>
+                  <Typography
+                    variant="h3"
+                    sx={{ fontWeight: 700, fontSize: 30, lineHeight: 1, color: '#EEF3CD' }}
+                  >
+                    {value}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: 12,
+                      color: 'rgba(255,255,255,.75)',
+                      mt: 0.4,
+                      lineHeight: 1.25,
+                    }}
+                  >
+                    {label}
+                  </Typography>
+                </Box>
+              ))}
+            </Box>
+          </Box>
+        </Container>
+      </Box>
+
       <Container
+        ref={indexRegionRef}
         maxWidth={false}
         sx={{
-          width: 'min(100%, 1280px)',
-          px: { xs: 2, sm: 3, lg: 4 },
-          pt: { xs: 18, md: 21 },
-          pb: { xs: 5.5, md: 7 },
+          maxWidth: 1240,
+          mx: 'auto',
+          px: { xs: 2.5, md: 4 },
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', lg: '230px 1fr' },
+          gap: { xs: 0, lg: 7 },
+          alignItems: 'start',
           position: 'relative',
-          zIndex: 1,
         }}
       >
         <Box
           sx={{
-            display: 'grid',
-            gridTemplateColumns: { xs: '1fr', lg: 'minmax(0, 0.98fr) 440px' },
-            gap: { xs: 3, lg: 5 },
-            alignItems: 'end',
-            mb: { xs: 3, md: 3.4 },
+            display: { xs: 'none', lg: 'flex' },
+            minHeight: 1,
+            position: 'relative',
           }}
         >
-          <Stack spacing={1.8} sx={{ maxWidth: 800 }}>
-            <Typography
-              variant="h1"
-              sx={{
-                color: brand.forest,
-                fontSize: { xs: '2.8rem', sm: '3.7rem', md: '5.15rem', lg: '5.9rem' },
-                lineHeight: 0.9,
-                maxWidth: 880,
-                '& .orange': {
-                  color: brand.orange,
-                },
-              }}
-            >
-              One platform, every{' '}
-              <Box component="span" className="orange">
-                conversation that matters
-              </Box>
-            </Typography>
-
-            <Typography sx={{ maxWidth: 690, color: 'rgba(7,66,37,0.7)', fontSize: { xs: '1rem', md: '1.08rem' }, lineHeight: 1.68, fontWeight: 650 }}>
-              From the deals you close to the candidates you screen - practice, measure, and
-              improve the conversations that move your business. In English and 15+ Arabic
-              dialects.
-            </Typography>
-          </Stack>
-
           <Box
+            ref={indexNavRef}
+            component="nav"
+            aria-label="Solutions sections"
             sx={{
-              position: 'relative',
-              overflow: 'hidden',
-              borderRadius: '8px',
-              background: `
-                linear-gradient(145deg, #06381F 0%, #074225 48%, #032F1A 100%)
-              `,
-              color: brand.ivory,
-              p: { xs: 2.5, md: 3.1 },
-              minHeight: { xs: 300, md: 318 },
-              boxShadow: '0 30px 90px rgba(7,66,37,0.24)',
-              border: '1px solid rgba(238,243,205,0.12)',
-              '&::before': {
-                content: '""',
-                position: 'absolute',
-                inset: 0,
-                backgroundImage: 'url("/images/01.svg")',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'center',
-                backgroundSize: 'cover',
-                opacity: 0.1,
-              },
-              '&::after': {
-                content: '""',
-                position: 'absolute',
-                inset: 1,
-                borderRadius: '7px',
-                border: '1px solid rgba(238,243,205,0.08)',
-                pointerEvents: 'none',
-              },
+              position:
+                indexMode === 'fixed'
+                  ? 'fixed'
+                  : indexMode === 'bottom'
+                    ? 'absolute'
+                    : 'relative',
+              top: indexMode === 'fixed' ? 126 : 'auto',
+              bottom: indexMode === 'bottom' ? 0 : 'auto',
+              left:
+                indexMode === 'fixed'
+                  ? 'max(calc((100vw - 1240px) / 2 + 32px), 32px)'
+                  : 'auto',
+              width: 230,
+              zIndex: 10,
+              py: 5,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 0.5,
             }}
           >
-            <Stack sx={{ position: 'relative', zIndex: 1, height: '100%' }}>
-              <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={2}>
-                <Typography sx={{ color: brand.orange, fontSize: 11, fontWeight: 950, letterSpacing: 1.35 }}>
-                  READY FOR EVERY TEAM
-                </Typography>
+            <Typography
+              sx={{
+                fontSize: 12,
+                fontWeight: 600,
+                letterSpacing: '.14em',
+                textTransform: 'uppercase',
+                color: 'rgba(22,55,31,.45)',
+                mb: 1.25,
+                pl: 1.75,
+              }}
+            >
+              On this page
+            </Typography>
+            {sections.map((section) => {
+              const isActive = activeSection === section.id;
+              return (
                 <Box
+                  key={section.id}
+                  component="a"
+                  href={`#${section.id}`}
                   sx={{
-                    width: 42,
-                    height: 6,
-                    borderRadius: 999,
-                    background: brand.orange,
-                    boxShadow: '0 0 0 6px rgba(242,100,51,0.12)',
-                  }}
-                />
-              </Stack>
-              <Typography
-                variant="h3"
-                sx={{
-                  mt: 2,
-                  maxWidth: 360,
-                  color: brand.ivory,
-                  fontSize: { xs: '1.55rem', md: '1.8rem' },
-                  lineHeight: 1.02,
-                }}
-              >
-                Train the moments your business cannot afford to improvise.
-              </Typography>
-              <Box
-                sx={{
-                  mt: 2,
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
-                  gap: 1.15,
-                }}
-              >
-                {metrics.map(([value, label]) => (
-                  <Box
-                    key={label}
-                    sx={{
-                      minHeight: 104,
-                      p: { xs: 1.35, md: 1.5 },
-                      borderRadius: '8px',
-                      background: 'linear-gradient(145deg, rgba(238,243,205,0.12), rgba(238,243,205,0.045))',
-                      border: '1px solid rgba(238,243,205,0.15)',
-                      boxShadow: 'inset 0 1px 0 rgba(238,243,205,0.1)',
-                      backdropFilter: 'blur(10px)',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'space-between',
-                    }}
-                  >
-                    <Typography variant="h3" sx={{ color: brand.ivory, fontSize: { xs: '1.65rem', md: '2.05rem' }, lineHeight: 0.92 }}>
-                      {value}
-                    </Typography>
-                    <Typography sx={{ mt: 1, color: 'rgba(238,243,205,0.68)', fontSize: 11.5, fontWeight: 850, lineHeight: 1.35 }}>
-                      {label}
-                    </Typography>
-                  </Box>
-                ))}
-              </Box>
-              <Stack direction="row" alignItems="center" spacing={1.4} sx={{ mt: 1.7 }}>
-                <Button
-                  variant="contained"
-                  endIcon={<ArrowRight size={17} />}
-                  onClick={onDemoClick}
-                  sx={{
-                    minHeight: 52,
-                    px: 2.8,
-                    flex: '0 0 auto',
-                    background: brand.orange,
-                    color: '#fff',
-                    boxShadow: '0 18px 38px rgba(242,100,51,0.26)',
-                    '&:hover': { background: brand.orangeDeep },
+                    display: 'flex',
+                    alignItems: 'baseline',
+                    gap: 1.25,
+                    px: 1.75,
+                    py: 1.1,
+                    borderRadius: '10px',
+                    fontSize: 15,
+                    fontWeight: 500,
+                    color: isActive ? '#F6F7E8' : '#16371F',
+                    background: isActive ? '#16371F' : 'transparent',
+                    textDecoration: 'none',
+                    transition: 'background .2s, color .2s',
+                    '&:hover': {
+                      background: isActive ? '#16371F' : 'rgba(22,55,31,.07)',
+                      color: isActive ? '#F6F7E8' : '#16371F',
+                    },
                   }}
                 >
-                  Book a demo
-                </Button>
-                <Box
-                  aria-hidden
-                  sx={{
-                    display: { xs: 'none', sm: 'block' },
-                    flex: 1,
-                    height: 1,
-                    background: 'linear-gradient(90deg, rgba(242,100,51,0.5), rgba(238,243,205,0.08))',
-                  }}
-                />
-              </Stack>
-            </Stack>
+                  <Box component="span" sx={{ fontSize: 11, opacity: 0.5 }}>
+                    {section.number}
+                  </Box>
+                  {section.label}
+                </Box>
+              );
+            })}
+            <Box
+              sx={{
+                mt: 2.75,
+                p: '16px 14px',
+                border: '1.5px solid rgba(22,55,31,.14)',
+                borderRadius: '14px',
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: 13.5,
+                  lineHeight: 1.45,
+                  color: 'rgba(22,55,31,.7)',
+                  mb: 1.5,
+                }}
+              >
+                Not sure which fits? We'll map it with you in 20 minutes.
+              </Typography>
+              <Button
+                variant="contained"
+                onClick={onDemoClick}
+                sx={{
+                  minHeight: 36,
+                  px: 2,
+                  fontSize: 13.5,
+                  fontWeight: 600,
+                  background: '#E8552A',
+                  color: '#fff',
+                  '&:hover': { background: '#c94518', color: '#fff' },
+                }}
+              >
+                Book a demo
+              </Button>
+            </Box>
           </Box>
         </Box>
 
-        <Stack spacing={1.4}>
-          {solutions.map((solution, index) => (
-            <SolutionCard key={solution.title} solution={solution} index={index} />
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          {sections.map((section) => (
+            <SolutionSection key={section.id} section={section} onDemoClick={onDemoClick} />
           ))}
-        </Stack>
+        </Box>
+      </Container>
 
-        <Stack
-          direction={{ xs: 'column', md: 'row' }}
-          alignItems={{ xs: 'stretch', md: 'center' }}
-          justifyContent="space-between"
-          spacing={2}
+      <Box id="cta" sx={{ background: '#16371F', scrollMarginTop: '80px' }}>
+        <Container
+          maxWidth={false}
           sx={{
-            mt: 1.4,
-            p: { xs: 2, md: 2.35 },
-            borderRadius: '8px',
-            background: 'rgba(255,253,242,0.78)',
-            border: '1px solid rgba(7,66,37,0.12)',
-            boxShadow: '0 18px 44px rgba(7,66,37,0.08)',
+            maxWidth: 1240,
+            mx: 'auto',
+            px: { xs: 2.5, md: 4 },
+            py: { xs: 7, md: 11 },
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', lg: '1.3fr 1fr' },
+            gap: { xs: 5, lg: 8 },
+            alignItems: 'center',
           }}
         >
-          <Stack direction="row" spacing={1.15} alignItems="center">
-            <BadgeCheck size={20} color={brand.orange} />
-            <Typography sx={{ color: 'rgba(7,66,37,0.74)', fontSize: 14.5, fontWeight: 850, lineHeight: 1.5 }}>
-              Built for roleplay training and structured assessment across Arabic-speaking teams.
+          <Box>
+            <Typography
+              variant="h2"
+              sx={{
+                fontWeight: 800,
+                fontSize: { xs: '2.6rem', md: '3.375rem' },
+                lineHeight: 1.02,
+                mb: 2.5,
+                color: '#F6F7E8',
+                '& span': { color: '#E8552A' },
+              }}
+            >
+              Train the moments your business cannot afford to <span>improvise</span>
             </Typography>
-          </Stack>
-          <Button
-            variant="outlined"
-            endIcon={<ArrowRight size={16} />}
-            onClick={onDemoClick}
+            <Typography
+              sx={{
+                fontSize: 17,
+                lineHeight: 1.6,
+                color: 'rgba(246,247,232,.7)',
+                maxWidth: 480,
+                mb: 4,
+              }}
+            >
+              Built for roleplay training and structured assessment across Arabic-speaking teams —
+              in the dialects your customers actually speak.
+            </Typography>
+            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.75}>
+              <Button
+                variant="contained"
+                endIcon={<ArrowRight size={18} />}
+                onClick={onDemoClick}
+                sx={{
+                  fontSize: 16,
+                  fontWeight: 600,
+                  px: 3.75,
+                  background: '#E8552A',
+                  color: '#fff',
+                  '&:hover': { background: '#fff', color: '#16371F' },
+                }}
+              >
+                Book a demo
+              </Button>
+              <Button
+                variant="outlined"
+                onClick={onDemoClick}
+                sx={{
+                  fontSize: 16,
+                  fontWeight: 500,
+                  px: 3,
+                  border: '1.5px solid rgba(246,247,232,.3)',
+                  color: '#F6F7E8',
+                  '&:hover': {
+                    color: '#E8552A',
+                    borderColor: 'rgba(246,247,232,.45)',
+                    background: 'rgba(246,247,232,.04)',
+                  },
+                }}
+              >
+                Design your solution
+              </Button>
+            </Stack>
+          </Box>
+
+          <Box
             sx={{
-              alignSelf: { xs: 'stretch', md: 'center' },
-              borderColor: 'rgba(7,66,37,0.22)',
-              color: brand.forest,
-              background: 'rgba(7,66,37,0.025)',
-              '&:hover': {
-                borderColor: brand.orange,
-                background: 'rgba(7,66,37,0.055)',
-              },
+              display: 'grid',
+              gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
+              gap: 1.75,
             }}
           >
-            Design your solution
-          </Button>
-        </Stack>
-      </Container>
+            {ctaMetrics.map(([value, label], index) => (
+              <Box
+                key={label}
+                sx={{
+                  background: 'rgba(238,243,205,.08)',
+                  border: '1px solid rgba(238,243,205,.15)',
+                  borderRadius: '16px',
+                  p: 2.75,
+                  gridColumn: index === 2 ? { sm: '1 / -1' } : 'auto',
+                }}
+              >
+                <Typography
+                  variant="h3"
+                  sx={{ fontWeight: 700, fontSize: 34, lineHeight: 1, color: '#EEF3CD' }}
+                >
+                  {value}
+                </Typography>
+                <Typography sx={{ fontSize: 13, color: 'rgba(246,247,232,.65)', mt: 0.6 }}>
+                  {label}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
+        </Container>
+      </Box>
     </Box>
   );
 }

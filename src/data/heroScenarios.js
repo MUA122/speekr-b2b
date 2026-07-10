@@ -73,6 +73,6 @@ export const heroScenarios = [
   },
 ];
 
-export const navItems = ['Solutions', 'Platform', 'Pricing', 'Customers', 'Resources', 'Blog'];
+export const navItems = ['Platform', 'Solution', 'Pricing', 'Resource'];
 
 export const trustSignals = ['20-min demo', 'Pilot in 2 weeks', 'Arabic + English', 'Enterprise admin'];
