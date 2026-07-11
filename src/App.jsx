@@ -14,6 +14,7 @@ import FaqSection from "./components/FaqSection.jsx";
 import FinalCta from "./components/FinalCta.jsx";
 import Footer from "./components/Footer.jsx";
 import ContactModal from "./components/ContactModal.jsx";
+import LoadingScreen from "./components/LoadingScreen.jsx";
 import PricingPage from "./pages/PricingPage.jsx";
 import SolutionsPage from "./pages/SolutionsPage.jsx";
 import PlatformPage from "./pages/PlatformPage.jsx";
@@ -22,9 +23,15 @@ import BlogPostPage from "./pages/BlogPostPage.jsx";
 import { splitLocalePath } from "./utils/i18n.js";
 import { brand } from "./theme.js";
 
+function getRoute() {
+  return splitLocalePath(window.location.pathname);
+}
+
 function App() {
   const [isContactOpen, setIsContactOpen] = useState(false);
-  const { locale, path } = splitLocalePath(window.location.pathname);
+  const [route, setRoute] = useState(getRoute);
+  const [isPageLoading, setIsPageLoading] = useState(true);
+  const { locale, path } = route;
   const isPricingPage = path === "/pricing";
   const isSolutionsPage = path === "/solutions";
   const isPlatformPage = path === "/platform";
@@ -33,6 +40,61 @@ function App() {
   const blogSlug = isBlogPostPage ? decodeURIComponent(path.replace("/blog/", "")) : "";
   const openContactModal = () => setIsContactOpen(true);
   const closeContactModal = () => setIsContactOpen(false);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setIsPageLoading(false), 820);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const handleInternalLink = (event) => {
+      if (
+        event.defaultPrevented ||
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey
+      ) {
+        return;
+      }
+
+      const link = event.target.closest?.("a[href]");
+      if (!link || link.target || link.hasAttribute("download")) return;
+
+      const url = new URL(link.href, window.location.href);
+      if (url.origin !== window.location.origin) return;
+      if (url.hash && url.pathname === window.location.pathname) return;
+      if (
+        url.pathname === window.location.pathname &&
+        url.search === window.location.search
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+      setIsPageLoading(true);
+      window.setTimeout(() => {
+        window.history.pushState({}, "", url.href);
+        setRoute(getRoute());
+        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+        window.setTimeout(() => setIsPageLoading(false), 620);
+      }, 120);
+    };
+
+    document.addEventListener("click", handleInternalLink, true);
+    return () => document.removeEventListener("click", handleInternalLink, true);
+  }, []);
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setIsPageLoading(true);
+      setRoute(getRoute());
+      window.setTimeout(() => setIsPageLoading(false), 620);
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
 
   useEffect(() => {
     document.documentElement.lang = locale === "ar" ? "ar" : "en";
@@ -183,6 +245,7 @@ function App() {
         open={isContactOpen}
         onClose={closeContactModal}
       />
+      {isPageLoading && <LoadingScreen fixed />}
     </Box>
   );
 }
