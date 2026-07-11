@@ -1,87 +1,109 @@
 import { Box, Button, Container, Stack, Typography } from '@mui/material';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Check } from 'lucide-react';
 import { brand } from '../theme.js';
 
-function FinalCta() {
+const ctaChecks = ['No credit card', 'Arabic + English', 'Enterprise admin'];
+
+function FinalCta({ onDemoClick }) {
   return (
     <Box
       component="section"
       id="book-demo"
       sx={{
         background: brand.ivory,
-        py: { xs: 0, md: 0 },
+        py: { xs: 3.5, md: 5 },
       }}
     >
       <Container
         maxWidth={false}
         sx={{
-          width: '100%',
-          maxWidth: 'none',
-          px: { xs: 0.6, md: 0.8 },
+          width: 'min(100%, 1240px)',
+          px: { xs: 2, sm: 3, lg: 4 },
         }}
       >
         <Box
           sx={{
-            minHeight: { xs: 390, md: 470 },
-            borderTop: `1px solid ${brand.line}`,
-            borderBottom: `1px solid ${brand.line}`,
-            px: { xs: 2.4, sm: 5, md: 8, lg: 12 },
-            py: { xs: 7, md: 9.5, lg: 10.5 },
+            minHeight: { xs: 300, md: 330 },
+            borderRadius: { xs: '22px', md: '26px' },
+            px: { xs: 2.4, sm: 4, md: 6, lg: 8 },
+            py: { xs: 4.5, md: 5.5 },
             display: 'grid',
             placeItems: 'center',
             textAlign: 'center',
             color: brand.ivory,
-            background: '#FF5A2E',
+            overflow: 'hidden',
+            position: 'relative',
+            background:
+              'linear-gradient(135deg, #FF6A42 0%, #F2542C 48%, #B93617 100%)',
+            boxShadow: '0 34px 90px rgba(185,54,23,0.18)',
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              inset: 0,
+              background:
+                'radial-gradient(circle at 18% 12%, rgba(238,243,205,0.16), transparent 32%), radial-gradient(circle at 76% 64%, rgba(7,66,37,0.16), transparent 34%)',
+              pointerEvents: 'none',
+            },
           }}
         >
-          <Stack spacing={2.25} alignItems="center" sx={{ maxWidth: 920 }}>
+          <Stack spacing={1.8} alignItems="center" sx={{ maxWidth: 760, position: 'relative', zIndex: 1 }}>
+            <Typography
+              component="p"
+              sx={{
+                m: 0,
+                px: 1.7,
+                py: 0.65,
+                borderRadius: '999px',
+                bgcolor: 'rgba(238,243,205,0.16)',
+                color: brand.ivory,
+                fontSize: 11,
+                fontWeight: 950,
+                lineHeight: 1,
+              }}
+            >
+              Book a demo
+            </Typography>
+
             <Typography
               variant="h2"
               sx={{
                 color: brand.ivory,
-                fontSize: { xs: '2.55rem', sm: '3.9rem', md: '5.05rem' },
-                lineHeight: 0.98,
-                fontWeight: 850,
-              }}
-            >
-              Are you an individual looking to improve your communication skills?
-            </Typography>
-
-            <Typography
-              variant="h3"
-              sx={{
-                color: brand.forest,
-                fontSize: { xs: '2rem', sm: '3.05rem', md: '4rem' },
+                fontSize: { xs: '2rem', sm: '2.7rem', md: '3.45rem' },
                 lineHeight: 1,
-                fontWeight: 850,
+                fontWeight: 900,
+                maxWidth: 680,
               }}
             >
-              Try out Speekr for individuals.
+              See Speekr trained on your team's conversations.
             </Typography>
 
             <Typography
               sx={{
                 color: 'rgba(255,255,255,0.9)',
-                fontSize: { xs: '0.95rem', md: '1.02rem' },
-                lineHeight: 1.7,
+                fontSize: { xs: '0.94rem', md: '1.05rem' },
+                lineHeight: 1.55,
+                fontWeight: 700,
+                maxWidth: 560,
               }}
             >
-              Practice real conversations, sharpen your delivery, and build confidence.
+              A 20-minute walkthrough, a scenario built for your team, and a pilot you can run in two weeks.
             </Typography>
 
             <Stack
               direction={{ xs: 'column', sm: 'row' }}
-              spacing={1.2}
+              spacing={1.3}
               alignItems="center"
-              sx={{ pt: 1.1 }}
+              sx={{ pt: 0.6 }}
             >
               <Button
                 endIcon={<ArrowRight size={16} />}
+                onClick={onDemoClick}
                 sx={{
-                  minWidth: 160,
-                  minHeight: 50,
+                  minWidth: 158,
+                  minHeight: 48,
                   color: brand.ivory,
                   background: brand.forest,
+                  fontSize: 14.5,
                   '&:hover': {
                     background: '#062F1C',
                     transform: 'translateY(-2px)',
@@ -93,22 +115,46 @@ function FinalCta() {
               </Button>
               <Button
                 variant="outlined"
+                href="mailto:sales@speekr.ai"
                 sx={{
                   minWidth: 150,
-                  minHeight: 50,
-                  color: brand.forest,
-                  borderColor: brand.forest,
-                  background: 'transparent',
+                  minHeight: 48,
+                  color: brand.ivory,
+                  borderColor: 'rgba(238,243,205,0.48)',
+                  background: 'rgba(238,243,205,0.08)',
+                  fontSize: 14.5,
                   '&:hover': {
-                    borderColor: brand.forest,
-                    background: 'rgba(0,66,37,0.08)',
+                    borderColor: brand.ivory,
+                    background: 'rgba(238,243,205,0.14)',
                     transform: 'translateY(-2px)',
                   },
                   transition: 'transform 180ms ease, background 180ms ease',
                 }}
               >
-                Learn more
+                Talk to sales
               </Button>
+            </Stack>
+
+            <Stack
+              direction="row"
+              spacing={{ xs: 1.2, sm: 2.8 }}
+              alignItems="center"
+              justifyContent="center"
+              sx={{
+                pt: 0.5,
+                flexWrap: 'wrap',
+                color: brand.ivory,
+                rowGap: 1,
+              }}
+            >
+              {ctaChecks.map((item) => (
+                <Stack key={item} direction="row" spacing={0.45} alignItems="center">
+                  <Check size={16} strokeWidth={3} />
+                  <Typography sx={{ fontSize: { xs: 12.5, md: 13.5 }, fontWeight: 900 }}>
+                    {item}
+                  </Typography>
+                </Stack>
+              ))}
             </Stack>
           </Stack>
         </Box>

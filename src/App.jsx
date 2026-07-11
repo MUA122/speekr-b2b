@@ -10,6 +10,8 @@ import SocialProof from "./components/SocialProof.jsx";
 import EnterpriseFeatures from "./components/EnterpriseFeatures.jsx";
 import SectionDivider from "./components/SectionDivider.jsx";
 import MenaNative from "./components/MenaNative.jsx";
+import CaseStudiesCarousel from "./components/CaseStudiesCarousel.jsx";
+import SecurityTrustSection from "./components/SecurityTrustSection.jsx";
 import FaqSection from "./components/FaqSection.jsx";
 import FinalCta from "./components/FinalCta.jsx";
 import Footer from "./components/Footer.jsx";
@@ -233,10 +235,12 @@ function App() {
           <EnterpriseFeatures />
           <SectionDivider />
           <MenaNative />
+          <CaseStudiesCarousel locale={locale} />
+          <SectionDivider variant="dark" />
+          <SecurityTrustSection />
           <SectionDivider />
           <FaqSection />
-          {/* <SectionDivider />
-          <FinalCta /> */}
+          <FinalCta onDemoClick={openContactModal} />
         </>
       )}
       <Footer />
