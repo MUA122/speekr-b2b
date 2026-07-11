@@ -9,7 +9,7 @@ const LOGIN_HREF = 'https://app.speekr.ai';
 
 function getNavHref(item) {
   if (item === 'Pricing') return '/pricing';
-  if (item === 'Resource') return 'https://speekr-b2c.vercel.app/blog';
+  if (item === 'Resource') return '/blog';
   if (item === 'Solution') return '/solutions';
   if (item === 'Platform') return '/platform';
   return '/';

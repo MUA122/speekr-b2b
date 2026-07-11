@@ -17,6 +17,8 @@ import ContactModal from "./components/ContactModal.jsx";
 import PricingPage from "./pages/PricingPage.jsx";
 import SolutionsPage from "./pages/SolutionsPage.jsx";
 import PlatformPage from "./pages/PlatformPage.jsx";
+import BlogPage from "./pages/BlogPage.jsx";
+import BlogPostPage from "./pages/BlogPostPage.jsx";
 import { splitLocalePath } from "./utils/i18n.js";
 import { brand } from "./theme.js";
 
@@ -26,6 +28,9 @@ function App() {
   const isPricingPage = path === "/pricing";
   const isSolutionsPage = path === "/solutions";
   const isPlatformPage = path === "/platform";
+  const isBlogPage = path === "/blog";
+  const isBlogPostPage = path.startsWith("/blog/");
+  const blogSlug = isBlogPostPage ? decodeURIComponent(path.replace("/blog/", "")) : "";
   const openContactModal = () => setIsContactOpen(true);
   const closeContactModal = () => setIsContactOpen(false);
 
@@ -148,6 +153,10 @@ function App() {
         <SolutionsPage onDemoClick={openContactModal} />
       ) : isPlatformPage ? (
         <PlatformPage onDemoClick={openContactModal} />
+      ) : isBlogPage ? (
+        <BlogPage locale={locale} />
+      ) : isBlogPostPage ? (
+        <BlogPostPage slug={blogSlug} locale={locale} />
       ) : (
         <>
           <Hero onDemoClick={openContactModal} />
