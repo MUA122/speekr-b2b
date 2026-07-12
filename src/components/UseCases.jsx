@@ -115,17 +115,17 @@ const useCases = [
     label: 'Admissions',
     cards: [
       {
-        eyebrow: 'UNIVERSITY ADMISSIONS',
+        eyebrow: 'ADMISSIONS',
         title: 'Applicant Interviews',
         copy: 'Conduct consistent applicant interviews at scale.',
       },
       {
-        eyebrow: 'UNIVERSITY ADMISSIONS',
+        eyebrow: 'ADMISSIONS',
         title: 'Scholarship Interviews',
         copy: 'Assess motivation, potential, and communication skills.',
       },
       {
-        eyebrow: 'UNIVERSITY ADMISSIONS',
+        eyebrow: 'ADMISSIONS',
         title: 'Student Support Conversations',
         copy: 'Handle applicant questions with professionalism and consistency.',
       },
