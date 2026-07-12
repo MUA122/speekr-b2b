@@ -48,23 +48,6 @@ function FinalCta({ onDemoClick }) {
         >
           <Stack spacing={1.8} alignItems="center" sx={{ maxWidth: 760, position: 'relative', zIndex: 1 }}>
             <Typography
-              component="p"
-              sx={{
-                m: 0,
-                px: 1.7,
-                py: 0.65,
-                borderRadius: '999px',
-                bgcolor: 'rgba(238,243,205,0.16)',
-                color: brand.ivory,
-                fontSize: 11,
-                fontWeight: 950,
-                lineHeight: 1,
-              }}
-            >
-              Book a demo
-            </Typography>
-
-            <Typography
               variant="h2"
               sx={{
                 color: brand.ivory,

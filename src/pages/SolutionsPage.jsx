@@ -401,7 +401,7 @@ function SolutionsPage({ onDemoClick }) {
             maxWidth: 1240,
             mx: 'auto',
             px: { xs: 2.5, md: 4 },
-            pt: { xs: 12, md: 14 },
+            pt: { xs: 12, md: 14, lg: 15 },
             pb: { xs: 7, md: 9 },
             display: 'grid',
             gridTemplateColumns: { xs: '1fr', lg: '1.25fr 1fr' },

@@ -90,13 +90,20 @@ function App() {
 
   useEffect(() => {
     const handlePopState = () => {
+      const nextRoute = getRoute();
+
+      if (nextRoute.locale === route.locale && nextRoute.path === route.path) {
+        setRoute(nextRoute);
+        return;
+      }
+
       setIsPageLoading(true);
-      setRoute(getRoute());
+      setRoute(nextRoute);
       window.setTimeout(() => setIsPageLoading(false), 620);
     };
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
-  }, []);
+  }, [route]);
 
   useEffect(() => {
     document.documentElement.lang = locale === "ar" ? "ar" : "en";

@@ -685,10 +685,18 @@ function PlatformPage({ onDemoClick }) {
         }}
       >
         <Container maxWidth={false} sx={{ maxWidth: 1240, mx: 'auto', px: { xs: 2.5, md: 4 }, position: 'relative' }}>
-          <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, background: 'rgba(0,66,37,.08)', color: forest, fontSize: 13, fontWeight: 700, px: 1.75, py: 0.9, borderRadius: 20, mb: 3 }}>
-            <Box sx={{ width: 7, height: 7, borderRadius: '50%', background: lime }} />
-            The Speekr platform
-          </Box>
+          <Typography
+            sx={{
+              fontSize: 13,
+              fontWeight: 600,
+              letterSpacing: '.14em',
+              textTransform: 'uppercase',
+              color: '#5D8A3C',
+              mb: 2.25,
+            }}
+          >
+            Platform
+          </Typography>
           <Typography variant="h1" sx={{ maxWidth: 880, mx: 'auto', color: forest, fontSize: { xs: '3rem', sm: '4.25rem', md: '4.125rem' }, lineHeight: 1.04, mb: 2.5 }}>
             One platform for every <Box component="span" sx={{ color: orange }}>conversation</Box> your teams need to win
           </Typography>
@@ -745,9 +753,6 @@ function PlatformPage({ onDemoClick }) {
           <Box sx={{ position: 'relative', background: 'linear-gradient(135deg,#F56431 0%,#e0431a 100%)', borderRadius: '28px', p: { xs: 3.5, md: '64px 60px' }, overflow: 'hidden', textAlign: 'center' }}>
             <Box sx={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle at 15% 20%,rgba(255,255,255,.14) 0,transparent 40%),radial-gradient(circle at 85% 90%,rgba(0,66,37,.25) 0,transparent 45%)' }} />
             <Box sx={{ position: 'relative' }}>
-              <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, background: 'rgba(255,255,255,.18)', color: '#fff', fontSize: 13, fontWeight: 700, px: 1.9, py: 0.9, borderRadius: 20, mb: 2.75 }}>
-                See the platform live
-              </Box>
               <Typography variant="h2" sx={{ color: '#fff', fontSize: { xs: '2.5rem', md: '3.125rem' }, maxWidth: 720, mx: 'auto', lineHeight: 1.05, mb: 2 }}>
                 Put the whole platform to work on your team's conversations.
               </Typography>

@@ -389,10 +389,18 @@ function PricingPage({ onDemoClick }) {
     <Box component="main" sx={{ background: cream, color: forest, overflowX: 'clip' }}>
       <Box sx={{ position: 'relative', pt: { xs: 13, md: 16 }, pb: { xs: 5, md: 5 }, background: `radial-gradient(120% 90% at 80% 0%,#F4F8D6 0%,${cream} 55%,#E9F0C2 100%)`, textAlign: 'center', '&::before': { content: '""', position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(0,66,37,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,66,37,.05) 1px,transparent 1px)', backgroundSize: '46px 46px', pointerEvents: 'none' } }}>
         <Container maxWidth={false} sx={{ maxWidth: 1240, mx: 'auto', px: { xs: 2.5, md: 4 }, position: 'relative' }}>
-          <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, background: 'rgba(0,66,37,.08)', color: forest, fontSize: 13, fontWeight: 700, px: 1.75, py: 0.9, borderRadius: 20, mb: 2.75 }}>
-            <Box sx={{ width: 7, height: 7, borderRadius: '50%', background: lime }} />
+          <Typography
+            sx={{
+              fontSize: 13,
+              fontWeight: 600,
+              letterSpacing: '.14em',
+              textTransform: 'uppercase',
+              color: '#5D8A3C',
+              mb: 2.25,
+            }}
+          >
             Pricing
-          </Box>
+          </Typography>
           <Typography variant="h1" sx={{ maxWidth: 760, mx: 'auto', color: forest, fontSize: { xs: '3rem', sm: '4rem', md: '3.75rem' }, lineHeight: 1.04, mb: 2.25 }}>
             Pricing that scales from <Box component="span" sx={{ color: orange }}>one</Box> to thousands
           </Typography>

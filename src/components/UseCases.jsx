@@ -112,7 +112,7 @@ const useCases = [
     point: { x: '69%', y: '50%' },
   },
   {
-    label: 'University Admissions',
+    label: 'Admissions',
     cards: [
       {
         eyebrow: 'UNIVERSITY ADMISSIONS',

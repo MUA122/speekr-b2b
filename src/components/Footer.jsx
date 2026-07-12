@@ -1,21 +1,21 @@
-import { Box, Stack, Typography } from '@mui/material';
-import { ArrowRight, MapPin } from 'lucide-react';
+import { Box, Stack, Typography } from "@mui/material";
+import { ArrowRight, MapPin } from "lucide-react";
 
 const NOISE = `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`;
-const LOGO = '/images/logo.svg';
+const LOGO = "/images/logo.svg";
 
 const footerGroups = [
   {
-    title: 'Product',
-    links: ['How it works', 'AI roleplays', 'Arabic dialects', 'Analytics'],
+    title: "Product",
+    links: ["How it works", "AI roleplays", "Arabic dialects", "Analytics"],
   },
   {
-    title: 'Use cases',
-    links: ['Sales training', 'Customer care', 'Leadership', 'Onboarding'],
+    title: "Use cases",
+    links: ["Sales training", "Customer care", "Leadership", "Onboarding"],
   },
   {
-    title: 'Company',
-    links: ['About', 'Customers', 'Security', 'Careers'],
+    title: "Company",
+    links: ["About", "Customers", "Security", "Careers"],
   },
 ];
 
@@ -25,16 +25,16 @@ function FooterLink({ children }) {
       component="a"
       href="#"
       sx={{
-        width: 'fit-content',
-        color: 'rgba(238,243,205,0.56)',
-        textDecoration: 'none',
+        width: "fit-content",
+        color: "rgba(238,243,205,0.56)",
+        textDecoration: "none",
         fontSize: 14,
         fontWeight: 650,
         lineHeight: 1.35,
-        transition: 'color 0.2s ease, transform 0.2s ease',
-        '&:hover': {
-          color: '#F26433',
-          transform: 'translateX(2px)',
+        transition: "color 0.2s ease, transform 0.2s ease",
+        "&:hover": {
+          color: "#F26433",
+          transform: "translateX(2px)",
         },
       }}
     >
@@ -49,33 +49,34 @@ function Footer() {
       component="footer"
       id="site-footer"
       sx={{
-        position: 'relative',
-        bgcolor: '#074225',
-        color: '#EEF3CD',
-        overflow: 'hidden',
-        borderTop: '1px solid rgba(238,243,205,0.08)',
+        position: "relative",
+        bgcolor: "#074225",
+        color: "#EEF3CD",
+        overflow: "hidden",
+        borderTop: "1px solid rgba(238,243,205,0.08)",
       }}
     >
       <Box
         aria-hidden
         sx={{
-          position: 'absolute',
+          position: "absolute",
           inset: 0,
-          pointerEvents: 'none',
-          background: 'linear-gradient(180deg, rgba(7,66,37,0.2) 0%, rgba(3,32,18,0.86) 100%)',
+          pointerEvents: "none",
+          background:
+            "linear-gradient(180deg, rgba(7,66,37,0.2) 0%, rgba(3,32,18,0.86) 100%)",
           zIndex: 0,
         }}
       />
       <Box
         aria-hidden
         sx={{
-          position: 'absolute',
+          position: "absolute",
           inset: 0,
-          pointerEvents: 'none',
+          pointerEvents: "none",
           opacity: 0.03,
           backgroundImage: NOISE,
-          backgroundRepeat: 'repeat',
-          backgroundSize: '200px 200px',
+          backgroundRepeat: "repeat",
+          backgroundSize: "200px 200px",
           zIndex: 0,
         }}
       />
@@ -87,13 +88,13 @@ function Footer() {
         loading="lazy"
         decoding="async"
         sx={{
-          position: 'absolute',
+          position: "absolute",
           top: { xs: 18, md: -12 },
-          right: { xs: '-52%', md: '-12%' },
+          right: { xs: "-52%", md: "-12%" },
           width: { xs: 680, md: 980 },
-          maxWidth: 'none',
+          maxWidth: "none",
           opacity: 0.42,
-          pointerEvents: 'none',
+          pointerEvents: "none",
           zIndex: 0,
         }}
       />
@@ -105,23 +106,23 @@ function Footer() {
         loading="lazy"
         decoding="async"
         sx={{
-          position: 'absolute',
-          left: { xs: '-66%', md: '-16%' },
+          position: "absolute",
+          left: { xs: "-66%", md: "-16%" },
           bottom: { xs: -220, md: -300 },
           width: { xs: 780, md: 1120 },
-          maxWidth: 'none',
+          maxWidth: "none",
           opacity: 0.26,
-          pointerEvents: 'none',
+          pointerEvents: "none",
           zIndex: 0,
         }}
       />
 
       <Box
         sx={{
-          position: 'relative',
+          position: "relative",
           zIndex: 1,
           maxWidth: 1240,
-          mx: 'auto',
+          mx: "auto",
           px: { xs: 2.5, sm: 4, md: 6, lg: 8 },
           pt: { xs: 8, md: 10 },
           pb: { xs: 3.5, md: 4 },
@@ -129,14 +130,16 @@ function Footer() {
       >
         <Box
           sx={{
-            display: 'grid',
-            gridTemplateColumns: { xs: '1fr', lg: '0.95fr 1.05fr 1fr' },
+            display: "grid",
+            gridTemplateColumns: { xs: "1fr", lg: "0.95fr 1.05fr 1fr" },
             gap: { xs: 5.5, md: 7, lg: 8 },
-            alignItems: 'start',
+            alignItems: "start",
           }}
         >
           <Box sx={{ maxWidth: 460 }}>
-            <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1.2 }}>
+            <Box
+              sx={{ display: "inline-flex", alignItems: "center", gap: 1.2 }}
+            >
               <Box
                 component="img"
                 src={LOGO}
@@ -145,26 +148,11 @@ function Footer() {
                 decoding="async"
                 sx={{
                   height: { xs: 56, sm: 64, md: 72 },
-                  width: 'auto',
-                  objectFit: 'contain',
-                  filter: 'brightness(0) invert(1)',
+                  width: "auto",
+                  objectFit: "contain",
+                  filter: "brightness(0) invert(1)",
                 }}
               />
-              <Typography
-                component="span"
-                sx={{
-                  px: 1.1,
-                  py: 0.65,
-                  borderRadius: '100px',
-                  color: '#074225',
-                  bgcolor: '#F26433',
-                  fontSize: 11,
-                  lineHeight: 1,
-                  fontWeight: 900,
-                }}
-              >
-                for Business
-              </Typography>
             </Box>
 
             <Typography
@@ -174,18 +162,21 @@ function Footer() {
                 fontSize: 14.5,
                 fontWeight: 550,
                 lineHeight: 1.7,
-                color: 'rgba(238,243,205,0.52)',
+                color: "rgba(238,243,205,0.52)",
               }}
             >
-              AI roleplay training for enterprise teams that need better conversations in Arabic,
-              English, and real regional contexts.
+              AI roleplay training for enterprise teams that need better
+              conversations in Arabic, English, and real regional contexts.
             </Typography>
           </Box>
 
           <Box
             sx={{
-              display: 'grid',
-              gridTemplateColumns: { xs: '1fr 1fr', sm: 'repeat(3, minmax(120px, 1fr))' },
+              display: "grid",
+              gridTemplateColumns: {
+                xs: "1fr 1fr",
+                sm: "repeat(3, minmax(120px, 1fr))",
+              },
               gap: { xs: 4, sm: 5 },
             }}
           >
@@ -196,8 +187,8 @@ function Footer() {
                     fontSize: 10.5,
                     fontWeight: 850,
                     letterSpacing: 1.8,
-                    textTransform: 'uppercase',
-                    color: 'rgba(238,243,205,0.34)',
+                    textTransform: "uppercase",
+                    color: "rgba(238,243,205,0.34)",
                   }}
                 >
                   {group.title}
@@ -213,34 +204,34 @@ function Footer() {
 
           <Box
             sx={{
-              position: 'relative',
-              overflow: 'hidden',
-              borderRadius: { xs: '22px', md: '26px' },
-              border: '1px solid rgba(242,100,51,0.24)',
-              bgcolor: 'rgba(238,243,205,0.055)',
+              position: "relative",
+              overflow: "hidden",
+              borderRadius: { xs: "22px", md: "26px" },
+              border: "1px solid rgba(242,100,51,0.24)",
+              bgcolor: "rgba(238,243,205,0.055)",
               p: { xs: 2.8, sm: 3.2, md: 3.6 },
               minHeight: 260,
-              boxShadow: '0 28px 90px rgba(0,0,0,0.22)',
-              isolation: 'isolate',
-              '&::before': {
+              boxShadow: "0 28px 90px rgba(0,0,0,0.22)",
+              isolation: "isolate",
+              "&::before": {
                 content: '""',
-                position: 'absolute',
+                position: "absolute",
                 inset: 0,
                 background:
-                  'linear-gradient(135deg, rgba(242,100,51,0.16), rgba(238,243,205,0.045) 44%, rgba(7,66,37,0.42))',
-                pointerEvents: 'none',
+                  "linear-gradient(135deg, rgba(242,100,51,0.16), rgba(238,243,205,0.045) 44%, rgba(7,66,37,0.42))",
+                pointerEvents: "none",
                 zIndex: -2,
               },
-              '&::after': {
+              "&::after": {
                 content: '""',
-                position: 'absolute',
+                position: "absolute",
                 inset: 0,
                 backgroundImage: 'url("/images/brand-patterns/block.png")',
-                backgroundPosition: 'right -120px bottom -150px',
-                backgroundRepeat: 'no-repeat',
-                backgroundSize: { xs: '420px auto', md: '520px auto' },
+                backgroundPosition: "right -120px bottom -150px",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: { xs: "420px auto", md: "520px auto" },
                 opacity: 0.34,
-                pointerEvents: 'none',
+                pointerEvents: "none",
                 zIndex: -1,
               },
             }}
@@ -253,13 +244,13 @@ function Footer() {
               loading="lazy"
               decoding="async"
               sx={{
-                display: 'block',
+                display: "block",
                 width: { xs: 188, sm: 208, md: 230 },
-                maxWidth: '82%',
-                height: 'auto',
-                objectFit: 'contain',
-                objectPosition: 'left center',
-                filter: 'drop-shadow(0 14px 26px rgba(0,0,0,0.28))',
+                maxWidth: "82%",
+                height: "auto",
+                objectFit: "contain",
+                objectPosition: "left center",
+                filter: "drop-shadow(0 14px 26px rgba(0,0,0,0.28))",
               }}
             />
             <Typography
@@ -269,7 +260,7 @@ function Footer() {
                 fontSize: { xs: 15, md: 16 },
                 fontWeight: 700,
                 lineHeight: 1.58,
-                color: 'rgba(238,243,205,0.76)',
+                color: "rgba(238,243,205,0.76)",
               }}
             >
               Offline public speaking and presentation masterclasses.
@@ -278,14 +269,16 @@ function Footer() {
             <Box
               sx={{
                 mt: 3,
-                display: 'flex',
-                alignItems: 'flex-start',
+                display: "flex",
+                alignItems: "flex-start",
                 gap: 1,
-                color: 'rgba(238,243,205,0.5)',
+                color: "rgba(238,243,205,0.5)",
               }}
             >
               <MapPin size={15} strokeWidth={2.3} aria-hidden />
-              <Typography sx={{ fontSize: 13, fontWeight: 600, lineHeight: 1.55 }}>
+              <Typography
+                sx={{ fontSize: 13, fontWeight: 600, lineHeight: 1.55 }}
+              >
                 Workshops, bootcamps, and live coaching experiences.
               </Typography>
             </Box>
@@ -297,22 +290,22 @@ function Footer() {
               rel="noopener noreferrer"
               sx={{
                 mt: 4,
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
                 gap: 1,
                 px: 2.4,
                 py: 1.35,
-                borderRadius: '100px',
-                bgcolor: '#F26433',
-                color: '#ffffff',
+                borderRadius: "100px",
+                bgcolor: "#F26433",
+                color: "#ffffff",
                 fontSize: 13.5,
                 fontWeight: 850,
-                textDecoration: 'none',
-                transition: 'transform 0.22s ease, filter 0.22s ease',
-                '&:hover': {
-                  transform: 'translateY(-2px)',
-                  filter: 'brightness(1.04)',
+                textDecoration: "none",
+                transition: "transform 0.22s ease, filter 0.22s ease",
+                "&:hover": {
+                  transform: "translateY(-2px)",
+                  filter: "brightness(1.04)",
                 },
               }}
             >
@@ -326,18 +319,28 @@ function Footer() {
           sx={{
             mt: { xs: 6, md: 8 },
             pt: { xs: 3, md: 3.5 },
-            borderTop: '1px solid rgba(238,243,205,0.09)',
-            display: 'flex',
-            flexDirection: { xs: 'column', sm: 'row' },
-            alignItems: { xs: 'flex-start', sm: 'center' },
-            justifyContent: 'space-between',
+            borderTop: "1px solid rgba(238,243,205,0.09)",
+            display: "flex",
+            flexDirection: { xs: "column", sm: "row" },
+            alignItems: { xs: "flex-start", sm: "center" },
+            justifyContent: "space-between",
             gap: 2.2,
           }}
         >
-          <Typography sx={{ fontSize: 12, fontWeight: 650, color: 'rgba(238,243,205,0.36)' }}>
+          <Typography
+            sx={{
+              fontSize: 12,
+              fontWeight: 650,
+              color: "rgba(238,243,205,0.36)",
+            }}
+          >
             &copy; 2026 Speekr AI. All rights reserved.
           </Typography>
-          <Stack direction="row" spacing={{ xs: 1.6, sm: 2.4 }} sx={{ flexWrap: 'wrap' }}>
+          <Stack
+            direction="row"
+            spacing={{ xs: 1.6, sm: 2.4 }}
+            sx={{ flexWrap: "wrap" }}
+          >
             <FooterLink>Privacy</FooterLink>
             <FooterLink>Terms</FooterLink>
             <FooterLink>LinkedIn</FooterLink>
