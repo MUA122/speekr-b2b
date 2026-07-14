@@ -83,8 +83,8 @@ function Footer() {
       <Box
         component="img"
         src="/images/brand-patterns/line-pattern-wide.png"
-        alt=""
-        aria-hidden
+        alt="Speekr footer line pattern"
+        title="Speekr footer line pattern"
         loading="lazy"
         decoding="async"
         sx={{
@@ -101,8 +101,8 @@ function Footer() {
       <Box
         component="img"
         src="/images/brand-patterns/block.png"
-        alt=""
-        aria-hidden
+        alt="Speekr footer brand pattern"
+        title="Speekr footer brand pattern"
         loading="lazy"
         decoding="async"
         sx={{
@@ -143,7 +143,8 @@ function Footer() {
               <Box
                 component="img"
                 src={LOGO}
-                alt="Speekr"
+                alt="Speekr.ai logo"
+                title="Speekr.ai logo"
                 loading="lazy"
                 decoding="async"
                 sx={{

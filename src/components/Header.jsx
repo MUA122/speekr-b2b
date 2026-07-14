@@ -97,7 +97,8 @@ function MobileMenu({ open, onClose, onDemoClick }) {
             <Box
               component="img"
               src={LOGO}
-              alt="Speekr"
+              alt="Speekr.ai logo"
+              title="Speekr.ai logo"
               decoding="async"
               sx={{
                 height: 42,
@@ -332,7 +333,8 @@ function Header({ onDemoClick }) {
               <Box
                 component="img"
                 src={LOGO}
-                alt="Speekr"
+                alt="Speekr.ai logo"
+                title="Speekr.ai logo"
                 decoding="async"
                 sx={{
                   width: { xs: 108, sm: 120 },

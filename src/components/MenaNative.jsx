@@ -182,6 +182,7 @@ function MenaMapPanel() {
         component="img"
         src={menaDialectsMap}
         alt="MENA dialect map with Arabic voice message cards"
+        title="MENA dialect map with Arabic voice message cards"
         loading="lazy"
         decoding="async"
         sx={{

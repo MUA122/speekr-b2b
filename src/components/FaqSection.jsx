@@ -189,8 +189,8 @@ function FaqSection() {
         <Box
           component="img"
           src="/images/brand-patterns/faq-bg.png"
-          alt=""
-          aria-hidden
+          alt="Speekr FAQ background pattern"
+          title="Speekr FAQ background pattern"
           loading="lazy"
           decoding="async"
           sx={{

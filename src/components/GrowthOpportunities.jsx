@@ -187,7 +187,8 @@ function GrowthOpportunities() {
             <Box
               component="img"
               src="https://placehold.co/120x120?text=Logo"
-              alt="Company Logo"
+              alt="Simplex company logo"
+              title="Simplex company logo"
               sx={{
                 width: 96,
                 height: 'auto',

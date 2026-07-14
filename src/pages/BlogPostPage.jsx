@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { getBlogPostBySlug, getBlogPosts } from "../data/blogPosts";
 import { localizedPath } from "../utils/i18n";
-import { applySeo, organizationSchema, setJsonLd } from "../utils/seo";
+import { absoluteUrl, applySeo, organizationSchema, setJsonLd, websiteSchema } from "../utils/seo";
 
 const slugify = (value) =>
   value
@@ -62,6 +62,7 @@ function ArticleSeo({ post, locale }) {
     const removePost = setJsonLd("blog-post", {
       "@context": "https://schema.org",
       "@type": "BlogPosting",
+      "@id": `${postUrl}#article`,
       headline: post.title,
       description: post.metaDescription,
       image: `${window.location.origin}${post.image}`,
@@ -80,6 +81,31 @@ function ArticleSeo({ post, locale }) {
       },
       articleSection: post.category,
       keywords: post.tags.join(", "),
+    });
+
+    const removeArticleWebPage = setJsonLd("article-webpage", {
+      "@context": "https://schema.org",
+      "@graph": [
+        organizationSchema(),
+        websiteSchema(locale),
+        {
+          "@type": "WebPage",
+          "@id": `${postUrl}#webpage`,
+          url: postUrl,
+          name: post.metaTitle,
+          headline: post.title,
+          description: post.metaDescription,
+          inLanguage: locale === "ar" ? "ar" : "en",
+          isPartOf: { "@id": `${window.location.origin}/#website` },
+          mainEntity: { "@id": `${postUrl}#article` },
+          publisher: { "@id": `${window.location.origin}/#organization` },
+          primaryImageOfPage: {
+            "@type": "ImageObject",
+            url: absoluteUrl(post.image),
+            name: post.imageAlt || post.title,
+          },
+        },
+      ],
     });
 
     const removeBreadcrumb = setJsonLd("article-breadcrumb", {
@@ -109,6 +135,7 @@ function ArticleSeo({ post, locale }) {
 
     return () => {
       removePost();
+      removeArticleWebPage();
       removeBreadcrumb();
     };
   }, [locale, post]);

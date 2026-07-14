@@ -115,6 +115,7 @@ function HeroVisual() {
               component="img"
               src={IMAN_AVATAR}
               alt="Iman Rashidi"
+              title="Iman Rashidi, Head of Recruitment"
               decoding="async"
               sx={{
                 width: { xs: 42, sm: 48 },

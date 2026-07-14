@@ -132,6 +132,7 @@ function ImagePanel({ section }) {
         component="img"
         src={section.image}
         alt={section.imageAlt}
+        title={section.imageAlt}
         sx={{
           width: '100%',
           height: { xs: 280, md: 340 },
@@ -491,6 +492,7 @@ function SolutionsPage({ onDemoClick }) {
               component="img"
               src="/images/b2b-hero-premium-sales.png"
               alt="Confident person mid conversation in a bright office"
+              title="Confident person mid conversation in a bright office"
               sx={{
                 width: '100%',
                 height: { xs: 320, md: 400 },

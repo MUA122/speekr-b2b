@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Box, Button, Container, Stack, Typography } from '@mui/material';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import { splitPrice, useLocalizedPrices } from '../utils/pricing.js';
+import { absoluteUrl, organizationSchema, setJsonLd, websiteSchema } from '../utils/seo.js';
+import { localizedPath } from '../utils/i18n.js';
 import SectionDivider from '../components/SectionDivider.jsx';
 
 const cream = '#EEF4CC';
@@ -82,6 +84,195 @@ const pricingFaqs = [
 ];
 
 const logoAssets = Array.from({ length: 9 }, (_, index) => `/images/pricing/pricing-asset-${String(index + 1).padStart(2, '0')}.svg`);
+
+function numericPrice(price) {
+  const value = String(price).replace(/[^\d.]/g, '');
+  return value || undefined;
+}
+
+function pricingUrl(locale) {
+  return absoluteUrl(localizedPath('/pricing', locale));
+}
+
+function planOffer({ locale, planId, name, description, price, currency, billingDuration, unitText, features }) {
+  const priceValue = numericPrice(price);
+
+  return {
+    '@type': 'Offer',
+    '@id': `${pricingUrl(locale)}#${planId}-${billingDuration === 'P1Y' ? 'annual' : 'monthly'}`,
+    name,
+    description,
+    url: pricingUrl(locale),
+    availability: 'https://schema.org/InStock',
+    price: priceValue,
+    priceCurrency: currency,
+    category: 'SaaS subscription',
+    priceSpecification: {
+      '@type': 'UnitPriceSpecification',
+      price: priceValue,
+      priceCurrency: currency,
+      billingDuration,
+      unitText,
+    },
+    itemOffered: {
+      '@type': 'SoftwareApplication',
+      '@id': `${pricingUrl(locale)}#${planId}`,
+      name,
+      description,
+      applicationCategory: 'EducationalApplication',
+      applicationSubCategory: 'AI communication practice platform',
+      operatingSystem: 'Web',
+      featureList: features,
+      provider: { '@id': `${window.location.origin}/#organization` },
+    },
+    seller: { '@id': `${window.location.origin}/#organization` },
+  };
+}
+
+function customEnterpriseOffer(locale) {
+  return {
+    '@type': 'Offer',
+    '@id': `${pricingUrl(locale)}#enterprise-custom`,
+    name: 'Speekr Enterprise',
+    description:
+      'Custom enterprise pricing for organizations that need API and LMS integration, custom KPIs, SSO, SCIM, data residency, and dedicated success support.',
+    url: pricingUrl(locale),
+    availability: 'https://schema.org/InStock',
+    category: 'Enterprise SaaS subscription',
+    itemOffered: {
+      '@type': 'SoftwareApplication',
+      '@id': `${pricingUrl(locale)}#enterprise`,
+      name: 'Speekr Enterprise',
+      applicationCategory: 'EducationalApplication',
+      applicationSubCategory: 'AI communication practice platform',
+      operatingSystem: 'Web',
+      featureList: planFeatures.enterprise,
+      provider: { '@id': `${window.location.origin}/#organization` },
+    },
+    seller: { '@id': `${window.location.origin}/#organization` },
+  };
+}
+
+function pricingStructuredData({ locale, prices }) {
+  const url = pricingUrl(locale);
+  const currency = prices.currency || 'USD';
+  const offers = [
+    planOffer({
+      locale,
+      planId: 'you',
+      name: 'Speekr for You - Monthly',
+      description: 'Monthly Speekr plan for individuals building communication, presentation, and workplace soft skills.',
+      price: prices.starterMonthly,
+      currency,
+      billingDuration: 'P1M',
+      unitText: 'month',
+      features: planFeatures.you,
+    }),
+    planOffer({
+      locale,
+      planId: 'you',
+      name: 'Speekr for You - Annual',
+      description: 'Annual Speekr plan for individuals building communication, presentation, and workplace soft skills.',
+      price: prices.starterAnnual,
+      currency,
+      billingDuration: 'P1Y',
+      unitText: 'year',
+      features: planFeatures.you,
+    }),
+    planOffer({
+      locale,
+      planId: 'teams',
+      name: 'Speekr for Teams - Monthly',
+      description: 'Monthly per-seat plan for teams that need shared AI roleplay practice, coaching, analytics, and admin controls.',
+      price: prices.teamMonthly,
+      currency,
+      billingDuration: 'P1M',
+      unitText: 'seat per month',
+      features: planFeatures.teams,
+    }),
+    planOffer({
+      locale,
+      planId: 'teams',
+      name: 'Speekr for Teams - Annual',
+      description: 'Annual per-seat plan for teams that need shared AI roleplay practice, coaching, analytics, and admin controls.',
+      price: prices.teamAnnual,
+      currency,
+      billingDuration: 'P1Y',
+      unitText: 'seat per year',
+      features: planFeatures.teams,
+    }),
+    customEnterpriseOffer(locale),
+  ];
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      organizationSchema(),
+      websiteSchema(locale),
+      {
+        '@type': 'WebPage',
+        '@id': `${url}#webpage`,
+        url,
+        name: 'Speekr Pricing | Plans for Individuals, Teams & Enterprise',
+        headline: 'Speekr pricing plans',
+        description:
+          'Compare Speekr pricing for individuals, teams, and enterprise. Start free, train together, or scale AI communication practice across your business.',
+        inLanguage: locale === 'ar' ? 'ar' : 'en',
+        isPartOf: { '@id': `${window.location.origin}/#website` },
+        about: { '@id': `${url}#pricing-catalog` },
+        publisher: { '@id': `${window.location.origin}/#organization` },
+        breadcrumb: { '@id': `${url}#breadcrumb` },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${url}#breadcrumb`,
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: absoluteUrl(localizedPath('/', locale)),
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Pricing',
+            item: url,
+          },
+        ],
+      },
+      {
+        '@type': 'OfferCatalog',
+        '@id': `${url}#pricing-catalog`,
+        name: 'Speekr pricing plans',
+        url,
+        itemListElement: offers,
+      },
+      {
+        '@type': 'FAQPage',
+        '@id': `${url}#faq`,
+        url,
+        inLanguage: locale === 'ar' ? 'ar' : 'en',
+        mainEntity: pricingFaqs.map((faq) => ({
+          '@type': 'Question',
+          name: faq.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: faq.answer,
+          },
+        })),
+      },
+    ],
+  };
+}
+
+function PricingSchema({ locale, prices }) {
+  const schema = useMemo(() => pricingStructuredData({ locale, prices }), [locale, prices]);
+
+  useEffect(() => setJsonLd('pricing-structured-data', schema), [schema]);
+
+  return null;
+}
 
 function PriceValue({ price, dark }) {
   const { prefix, amount } = splitPrice(price);
@@ -282,7 +473,14 @@ function TrustSection() {
       <Box sx={{ mt: 6, overflow: 'hidden', WebkitMaskImage: 'linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)', maskImage: 'linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)' }}>
         <Box sx={{ display: 'flex', gap: { xs: 4, md: 7.5 }, alignItems: 'center', width: 'max-content', animation: 'pricingMarquee 34s linear infinite' }}>
           {marquee.map((src, index) => (
-            <Box key={`${src}-${index}`} component="img" src={src} alt="" aria-hidden sx={{ height: [28, 36, 30, 28, 32, 26, 38, 38, 24][index % 9], filter: 'brightness(0) invert(1)', opacity: 0.55, flex: '0 0 auto' }} />
+            <Box
+              key={`${src}-${index}`}
+              component="img"
+              src={src}
+              alt={`Speekr pricing customer logo ${index % 9 + 1}`}
+              title={`Speekr pricing customer logo ${index % 9 + 1}`}
+              sx={{ height: [28, 36, 30, 28, 32, 26, 38, 38, 24][index % 9], filter: 'brightness(0) invert(1)', opacity: 0.55, flex: '0 0 auto' }}
+            />
           ))}
         </Box>
       </Box>
@@ -350,7 +548,15 @@ function PricingFaqSection() {
   return (
     <Box sx={{ bgcolor: '#EEF3CD', px: { xs: '12px', sm: '18px', md: '24px' }, py: { xs: 3, md: 4 } }}>
       <Box component="section" id="faq" aria-labelledby="pricing-faq-title" sx={{ position: 'relative', bgcolor: '#EEF3CD', borderRadius: { xs: '24px', md: '32px' }, overflow: 'hidden', px: { xs: 2.5, sm: 4, md: 6, lg: 8 }, pt: { xs: 6, md: 8 }, pb: { xs: 8, md: 10 } }}>
-        <Box component="img" src="/images/brand-patterns/faq-bg.png" alt="" aria-hidden loading="lazy" decoding="async" sx={{ position: 'absolute', top: { xs: 8, md: 18 }, left: '50%', transform: 'translateX(-50%)', width: { xs: 760, md: 1120 }, maxWidth: 'none', opacity: 0.09, pointerEvents: 'none' }} />
+        <Box
+          component="img"
+          src="/images/brand-patterns/faq-bg.png"
+          alt="Speekr pricing FAQ background pattern"
+          title="Speekr pricing FAQ background pattern"
+          loading="lazy"
+          decoding="async"
+          sx={{ position: 'absolute', top: { xs: 8, md: 18 }, left: '50%', transform: 'translateX(-50%)', width: { xs: 760, md: 1120 }, maxWidth: 'none', opacity: 0.09, pointerEvents: 'none' }}
+        />
         <Box aria-hidden sx={{ position: 'absolute', top: '-12%', left: '50%', transform: 'translateX(-50%)', width: '70vw', height: '70vw', maxWidth: 800, maxHeight: 800, borderRadius: '50%', background: 'radial-gradient(circle, rgba(242,100,51,0.055) 0%, transparent 62%)', filter: 'blur(80px)', pointerEvents: 'none' }} />
         <Box aria-hidden sx={{ position: 'absolute', inset: 0, pointerEvents: 'none', opacity: 0.018, backgroundImage: NOISE, backgroundRepeat: 'repeat', backgroundSize: '200px 200px' }} />
         <Box sx={{ position: 'relative', zIndex: 1, maxWidth: 1200, mx: 'auto' }}>
@@ -375,7 +581,7 @@ function PricingFaqSection() {
   );
 }
 
-function PricingPage({ onDemoClick }) {
+function PricingPage({ locale = 'en', onDemoClick }) {
   const prices = useLocalizedPrices();
   const [billing, setBilling] = useState('annual');
   const isAnnual = billing === 'annual';
@@ -387,6 +593,7 @@ function PricingPage({ onDemoClick }) {
 
   return (
     <Box component="main" sx={{ background: cream, color: forest, overflowX: 'clip' }}>
+      <PricingSchema locale={locale} prices={prices} />
       <Box sx={{ position: 'relative', pt: { xs: 13, md: 16 }, pb: { xs: 5, md: 5 }, background: `radial-gradient(120% 90% at 80% 0%,#F4F8D6 0%,${cream} 55%,#E9F0C2 100%)`, textAlign: 'center', '&::before': { content: '""', position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(0,66,37,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,66,37,.05) 1px,transparent 1px)', backgroundSize: '46px 46px', pointerEvents: 'none' } }}>
         <Container maxWidth={false} sx={{ maxWidth: 1240, mx: 'auto', px: { xs: 2.5, md: 4 }, position: 'relative' }}>
           <Typography

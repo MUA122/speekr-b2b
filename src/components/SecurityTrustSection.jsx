@@ -118,8 +118,8 @@ function SecurityTrustSection() {
         <Box
           component="img"
           src="/images/brand-patterns/block.png"
-          alt=""
-          aria-hidden
+          alt="Speekr security background pattern"
+          title="Speekr security background pattern"
           loading="lazy"
           decoding="async"
           sx={{

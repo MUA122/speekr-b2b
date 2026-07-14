@@ -22,8 +22,314 @@ import SolutionsPage from "./pages/SolutionsPage.jsx";
 import PlatformPage from "./pages/PlatformPage.jsx";
 import BlogPage from "./pages/BlogPage.jsx";
 import BlogPostPage from "./pages/BlogPostPage.jsx";
-import { splitLocalePath } from "./utils/i18n.js";
+import { localizedPath, splitLocalePath } from "./utils/i18n.js";
+import { absoluteUrl, applySeo, organizationSchema, setJsonLd, websiteSchema } from "./utils/seo.js";
 import { brand } from "./theme.js";
+
+const routeSeo = {
+  "/": {
+    title: "Speekr.ai | AI-Powered Communication Practice Platform",
+    description:
+      "Practice presentations, meetings, and leadership conversations with AI. Build real communication confidence - anytime, anywhere.",
+    keywords:
+      "AI communication practice, presentation practice, meeting practice, leadership conversations, communication confidence, Speekr.ai",
+    image: "/images/hero.png",
+  },
+  "/platform": {
+    title: "Speekr Platform | AI Roleplay, Coaching & Team Analytics",
+    description:
+      "Explore Speekr's AI communication platform for realistic roleplays, instant feedback, learning journeys, team management, analytics, and LMS integration.",
+    keywords:
+      "AI roleplay platform, communication coaching, team training analytics, learning journeys, LMS integration, Speekr platform",
+    image: "/images/platform/micro-learning-video.png",
+  },
+  "/solutions": {
+    title: "Speekr Solutions | AI Practice for Sales, Care & Leadership Teams",
+    description:
+      "Train sales, customer care, leadership, technical, and screening teams with AI roleplays built for real workplace conversations in English and Arabic.",
+    keywords:
+      "sales roleplay training, customer care training, leadership communication training, AI interview screening, Arabic roleplay training",
+    image: "/images/b2b-hero-premium-sales.png",
+  },
+  "/pricing": {
+    title: "Speekr Pricing | Plans for Individuals, Teams & Enterprise",
+    description:
+      "Compare Speekr pricing for individuals, teams, and enterprise. Start free, train together, or scale AI communication practice across your business.",
+    keywords:
+      "Speekr pricing, communication training pricing, AI roleplay plans, enterprise communication training, team training platform",
+    image: "/images/pricing/pricing-asset-11.png",
+  },
+};
+
+const globalFaqs = [
+  {
+    question: "How is this different from generic AI roleplay tools?",
+    answer:
+      "Two things. First, Arabic - 10+ dialects, MENA buyer personas, RTL-first product. Second, the manager layer - cohort dashboards, custom KPIs, and ties to your business metrics, not just completion data.",
+  },
+  {
+    question: "How long does rollout take?",
+    answer:
+      "Most teams go from kickoff to live cohorts in 2-4 weeks. We help map your scenarios, configure SSO, and train your first batch of managers as part of onboarding.",
+  },
+  {
+    question: "Can we build our own scenarios?",
+    answer:
+      "Yes. Your L&D team builds custom scenarios with your products, personas, and objections - no engineering required. Speekr handles the AI persona, voice, and feedback automatically.",
+  },
+  {
+    question: "What integrations are supported?",
+    answer:
+      "SSO via SAML / Okta / Azure AD. SCIM for user provisioning. CSV exports + API access for piping practice data into your BI tools. CRM-side integrations such as Salesforce and HubSpot are available on request.",
+  },
+  {
+    question: "How do you handle data privacy?",
+    answer:
+      "All audio is encrypted in transit and at rest. Recordings can be retained, summarized-only, or auto-deleted based on your policy. EU and KSA data residency are available.",
+  },
+  {
+    question: "What's the pricing model?",
+    answer:
+      "Speekr uses per-user pricing with volume tiers. Enterprise pricing is custom and includes professional services, custom scenarios, and dedicated customer success support.",
+  },
+];
+
+const routeFaqs = {
+  "/": globalFaqs,
+};
+
+const platformFeatures = [
+  "Realistic AI roleplays",
+  "Instant feedback and coaching",
+  "Guided learning journeys",
+  "Custom scenario and persona builder",
+  "Team administration and cohort management",
+  "Skill analytics and business reporting",
+  "API, LMS, SSO, and SCIM integrations",
+  "English and 15+ Arabic dialects",
+];
+
+const solutionItems = [
+  ["Sales training", "AI practice for cold calls, discovery, objections, negotiations, and closing conversations."],
+  ["Customer care training", "AI practice for complaints, escalations, empathy, and service recovery conversations."],
+  ["Leadership development", "AI practice for feedback, coaching, accountability, conflict, and difficult conversations."],
+  ["Technical communication", "AI practice for explaining complex work to clients, leaders, and cross-functional teams."],
+  ["Applicant screening", "Structured AI interview workflows for first-round candidate conversations."],
+];
+
+function pageUrl(path, locale) {
+  return absoluteUrl(localizedPath(path, locale));
+}
+
+function imageObject(image, name) {
+  return {
+    "@type": "ImageObject",
+    url: absoluteUrl(image),
+    name,
+  };
+}
+
+function breadcrumbSchema(path, locale, label) {
+  const items = [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: pageUrl("/", locale),
+    },
+  ];
+
+  if (path !== "/") {
+    items.push({
+      "@type": "ListItem",
+      position: 2,
+      name: label,
+      item: pageUrl(path, locale),
+    });
+  }
+
+  return {
+    "@type": "BreadcrumbList",
+    "@id": `${pageUrl(path, locale)}#breadcrumb`,
+    itemListElement: items,
+  };
+}
+
+function faqSchema(path, locale, faqs) {
+  return {
+    "@type": "FAQPage",
+    "@id": `${pageUrl(path, locale)}#faq`,
+    url: pageUrl(path, locale),
+    inLanguage: locale === "ar" ? "ar" : "en",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
+}
+
+function softwareApplicationSchema(locale) {
+  const url = pageUrl("/", locale);
+
+  return {
+    "@type": "SoftwareApplication",
+    "@id": `${window.location.origin}/#speekr-platform`,
+    name: "Speekr.ai",
+    alternateName: "Speekr",
+    applicationCategory: "EducationalApplication",
+    applicationSubCategory: "AI communication coaching platform",
+    operatingSystem: "Web",
+    url,
+    image: absoluteUrl("/images/hero.png"),
+    description:
+      "AI-powered communication practice platform for presentations, meetings, sales conversations, customer care, leadership, and workplace soft skills.",
+    featureList: platformFeatures,
+    audience: [
+      { "@type": "BusinessAudience", audienceType: "Enterprise training teams" },
+      { "@type": "BusinessAudience", audienceType: "Sales enablement teams" },
+      { "@type": "BusinessAudience", audienceType: "Customer care teams" },
+      { "@type": "BusinessAudience", audienceType: "Leadership development teams" },
+    ],
+    offers: {
+      "@type": "Offer",
+      url: pageUrl("/pricing", locale),
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+      category: "SaaS subscription",
+    },
+    publisher: { "@id": `${window.location.origin}/#organization` },
+  };
+}
+
+function featureItemList(path, locale) {
+  return {
+    "@type": "ItemList",
+    "@id": `${pageUrl(path, locale)}#features`,
+    name: "Speekr platform features",
+    itemListElement: platformFeatures.map((feature, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: feature,
+    })),
+  };
+}
+
+function solutionItemList(locale) {
+  return {
+    "@type": "ItemList",
+    "@id": `${pageUrl("/solutions", locale)}#solutions-list`,
+    name: "Speekr communication training solutions",
+    itemListElement: solutionItems.map(([name, description], index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "Service",
+        name,
+        description,
+        provider: { "@id": `${window.location.origin}/#organization` },
+        serviceType: "AI communication practice",
+        areaServed: ["MENA", "Saudi Arabia", "Egypt", "United Arab Emirates"],
+      },
+    })),
+  };
+}
+
+function buildRouteSchema({ locale, path, seo }) {
+  const normalizedPath = routeSeo[path] ? path : "/";
+  const url = pageUrl(normalizedPath, locale);
+  const orgId = `${window.location.origin}/#organization`;
+  const websiteId = `${window.location.origin}/#website`;
+  const pageId = `${url}#webpage`;
+  const organization = {
+    ...organizationSchema(),
+    "@id": orgId,
+  };
+  const website = {
+    ...websiteSchema(locale),
+    "@id": websiteId,
+    publisher: { "@id": orgId },
+  };
+  const pageType =
+    normalizedPath === "/solutions"
+      ? "CollectionPage"
+      : normalizedPath === "/pricing"
+        ? "WebPage"
+        : "WebPage";
+  const graph = [
+    organization,
+    website,
+    {
+      "@type": pageType,
+      "@id": pageId,
+      url,
+      name: seo.title,
+      headline: seo.title,
+      description: seo.description,
+      inLanguage: locale === "ar" ? "ar" : "en",
+      isPartOf: { "@id": websiteId },
+      about: { "@id": `${window.location.origin}/#speekr-platform` },
+      publisher: { "@id": orgId },
+      primaryImageOfPage: imageObject(seo.image, seo.title),
+      breadcrumb: { "@id": `${url}#breadcrumb` },
+    },
+    breadcrumbSchema(normalizedPath, locale, seo.title.replace(" | ", " - ")),
+  ];
+
+  if (normalizedPath === "/") {
+    graph.push(softwareApplicationSchema(locale), featureItemList(normalizedPath, locale));
+  }
+
+  if (normalizedPath === "/platform") {
+    graph.push(softwareApplicationSchema(locale), featureItemList(normalizedPath, locale));
+  }
+
+  if (normalizedPath === "/solutions") {
+    graph.push(softwareApplicationSchema(locale), solutionItemList(locale));
+  }
+
+  if (normalizedPath === "/pricing") {
+    graph.push(softwareApplicationSchema(locale));
+  }
+
+  const faqs = routeFaqs[normalizedPath];
+  if (faqs?.length) {
+    graph.push(faqSchema(normalizedPath, locale, faqs));
+  }
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": graph,
+  };
+}
+
+function useRouteSeo({ locale, path, skip }) {
+  useEffect(() => {
+    if (skip) return undefined;
+
+    const normalizedPath = routeSeo[path] ? path : "/";
+    const seo = routeSeo[normalizedPath];
+
+    applySeo({
+      ...seo,
+      path: normalizedPath,
+      locale,
+      type: "website",
+    });
+
+    const removeRouteSchema = setJsonLd(
+      "route-structured-data",
+      buildRouteSchema({ locale, path: normalizedPath, seo }),
+    );
+
+    return () => {
+      removeRouteSchema();
+    };
+  }, [locale, path, skip]);
+}
 
 function getRoute() {
   return splitLocalePath(window.location.pathname);
@@ -42,6 +348,8 @@ function App() {
   const blogSlug = isBlogPostPage ? decodeURIComponent(path.replace("/blog/", "")) : "";
   const openContactModal = () => setIsContactOpen(true);
   const closeContactModal = () => setIsContactOpen(false);
+
+  useRouteSeo({ locale, path, skip: isBlogPage || isBlogPostPage });
 
   useEffect(() => {
     const timer = window.setTimeout(() => setIsPageLoading(false), 820);

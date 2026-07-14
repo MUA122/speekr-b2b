@@ -358,7 +358,13 @@ function JourneyVisual() {
         <JourneyRow status="⌕" title="Ep.3 · Handle tough questions" meta="Locked" muted />
       </Stack>
       <Box sx={{ position: 'relative', borderRadius: '14px', overflow: 'hidden', height: 120 }}>
-        <Box component="img" src="/images/platform/micro-learning-video.png" alt="Micro-learning video" sx={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+        <Box
+          component="img"
+          src="/images/platform/micro-learning-video.png"
+          alt="Speekr micro-learning video preview"
+          title="Speekr micro-learning video preview"
+          sx={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+        />
         <Box sx={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(4,26,16,.25)' }}>
           <Box sx={{ width: 44, height: 44, borderRadius: '50%', background: 'rgba(255,255,255,.92)', color: forest, display: 'flex', alignItems: 'center', justifyContent: 'center', pl: 0.4 }}>
             <Play size={18} fill="currentColor" />

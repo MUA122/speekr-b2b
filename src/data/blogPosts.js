@@ -1,4 +1,4 @@
-import { arabicBlogPosts } from "./arabicBlogPosts";
+import { arabicBlogPosts } from "./arabicBlogPosts.js";
 
 export const blogPosts = [
   {

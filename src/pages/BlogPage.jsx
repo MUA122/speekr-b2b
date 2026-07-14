@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { getBlogPosts } from "../data/blogPosts";
 import { localizedPath } from "../utils/i18n";
-import { applySeo, organizationSchema, setJsonLd } from "../utils/seo";
+import { absoluteUrl, applySeo, organizationSchema, setJsonLd, websiteSchema } from "../utils/seo";
 
 const UI = {
   en: {
@@ -97,6 +97,8 @@ const UI = {
 
 function BlogSeo({ locale, posts, ui }) {
   useEffect(() => {
+    const blogUrl = `${window.location.origin}${localizedPath("/blog", locale)}`;
+
     applySeo({
       title: ui.seoTitle,
       description: ui.seoDescription,
@@ -110,8 +112,9 @@ function BlogSeo({ locale, posts, ui }) {
     const removeBlog = setJsonLd("blog-list", {
       "@context": "https://schema.org",
       "@type": "Blog",
+      "@id": `${blogUrl}#blog`,
       name: ui.badge,
-      url: `${window.location.origin}${localizedPath("/blog", locale)}`,
+      url: blogUrl,
       inLanguage: locale === "ar" ? "ar" : "en",
       description:
         "Communication, sales, leadership, and AI coaching insights from Speekr.",
@@ -126,6 +129,31 @@ function BlogSeo({ locale, posts, ui }) {
         description: post.metaDescription,
         author: { "@type": "Organization", name: post.author },
       })),
+    });
+
+    const removeBlogWebPage = setJsonLd("blog-webpage", {
+      "@context": "https://schema.org",
+      "@graph": [
+        organizationSchema(),
+        websiteSchema(locale),
+        {
+          "@type": "CollectionPage",
+          "@id": `${blogUrl}#webpage`,
+          url: blogUrl,
+          name: ui.seoTitle,
+          headline: ui.title,
+          description: ui.seoDescription,
+          inLanguage: locale === "ar" ? "ar" : "en",
+          isPartOf: { "@id": `${window.location.origin}/#website` },
+          about: { "@id": `${blogUrl}#blog` },
+          publisher: { "@id": `${window.location.origin}/#organization` },
+          primaryImageOfPage: {
+            "@type": "ImageObject",
+            url: absoluteUrl("/images/blog/speekr-communication-skills-ai-riyadh-cairo.png"),
+            name: ui.seoTitle,
+          },
+        },
+      ],
     });
 
     const removeBreadcrumb = setJsonLd("blog-breadcrumb", {
@@ -149,6 +177,7 @@ function BlogSeo({ locale, posts, ui }) {
 
     return () => {
       removeBlog();
+      removeBlogWebPage();
       removeBreadcrumb();
     };
   }, [locale, posts, ui]);

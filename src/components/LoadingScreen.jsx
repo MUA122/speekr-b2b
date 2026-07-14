@@ -56,6 +56,7 @@ export default function LoadingScreen({ fixed = false }) {
           component="img"
           src="/images/logo.svg"
           alt="Speekr.ai"
+          title="Speekr.ai logo"
           decoding="async"
           sx={{
             width: { xs: 132, sm: 148 },

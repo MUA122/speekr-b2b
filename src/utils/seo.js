@@ -120,6 +120,7 @@ export function applySeo({
 export const organizationSchema = () => ({
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": `${window.location.origin}/#organization`,
   name: "Speekr",
   url: window.location.origin,
   logo: absoluteUrl("/images/logo.svg"),
@@ -133,8 +134,9 @@ export const organizationSchema = () => ({
 export const websiteSchema = (locale = "en") => ({
   "@context": "https://schema.org",
   "@type": "WebSite",
+  "@id": `${window.location.origin}/#website`,
   name: "Speekr",
   url: absoluteUrl(localizedPath("/", locale)),
   inLanguage: locale === "ar" ? "ar" : "en",
-  publisher: organizationSchema(),
+  publisher: { "@id": `${window.location.origin}/#organization` },
 });
