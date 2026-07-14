@@ -8,6 +8,9 @@ const metrics = [
   ['1', 'platform to train them'],
 ];
 
+const SALES_ROLEPLAY_IMAGE =
+  'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=85';
+
 const sections = [
   {
     id: 'sec-sales',
@@ -19,8 +22,10 @@ const sections = [
     cta: 'Book a demo for Sales',
     stat: '31%',
     statLabel: 'faster ramp',
-    image: '/images/b2b-hero-premium-sales.png',
-    imageAlt: 'Salesperson on a call in a bright office',
+    image: SALES_ROLEPLAY_IMAGE,
+    imageAlt: 'Sales team practicing deal conversations and discovery calls with AI roleplay coaching',
+    imageTitle: 'AI sales roleplay practice for deal conversations and discovery calls',
+    imagePriority: true,
     imageFirst: true,
     statVariant: 'orange',
     items: [
@@ -132,7 +137,10 @@ function ImagePanel({ section }) {
         component="img"
         src={section.image}
         alt={section.imageAlt}
-        title={section.imageAlt}
+        title={section.imageTitle || section.imageAlt}
+        loading={section.imagePriority ? 'eager' : 'lazy'}
+        decoding="async"
+        fetchPriority={section.imagePriority ? 'high' : 'auto'}
         sx={{
           width: '100%',
           height: { xs: 280, md: 340 },

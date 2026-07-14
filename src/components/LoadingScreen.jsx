@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-const STEPS = [20, 40, 60, 80, 100];
+const STEPS = [0, 20, 40, 60, 80, 100];
 
 export default function LoadingScreen({ fixed = false }) {
-  const [step, setStep] = useState(20);
+  const [step, setStep] = useState(0);
 
   useEffect(() => {
     const timers = STEPS.slice(1).map((value, index) =>

@@ -56,6 +56,7 @@ export function applySeo({
   locale = "en",
   type = "website",
   image = DEFAULT_IMAGE,
+  imageAlt,
 }) {
   const localized = localizedPath(path, locale);
   const canonical = absoluteUrl(localized);
@@ -97,7 +98,7 @@ export function applySeo({
   upsertMeta('meta[property="og:description"]', { property: "og:description", content: description });
   upsertMeta('meta[property="og:url"]', { property: "og:url", content: canonical });
   upsertMeta('meta[property="og:image"]', { property: "og:image", content: imageUrl });
-  upsertMeta('meta[property="og:image:alt"]', { property: "og:image:alt", content: title });
+  upsertMeta('meta[property="og:image:alt"]', { property: "og:image:alt", content: imageAlt || title });
   upsertMeta('meta[property="og:locale"]', {
     property: "og:locale",
     content: locale === "ar" ? "ar_AR" : "en_US",
@@ -111,7 +112,7 @@ export function applySeo({
   upsertMeta('meta[name="twitter:title"]', { name: "twitter:title", content: title });
   upsertMeta('meta[name="twitter:description"]', { name: "twitter:description", content: description });
   upsertMeta('meta[name="twitter:image"]', { name: "twitter:image", content: imageUrl });
-  upsertMeta('meta[name="twitter:image:alt"]', { name: "twitter:image:alt", content: title });
+  upsertMeta('meta[name="twitter:image:alt"]', { name: "twitter:image:alt", content: imageAlt || title });
   upsertMeta('meta[name="twitter:url"]', { name: "twitter:url", content: canonical });
 
   return { canonical, imageUrl, alternatePath };

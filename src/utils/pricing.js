@@ -97,12 +97,21 @@ async function fetchCountryPriceKey() {
 }
 
 export function splitPrice(price) {
+  const formatAmount = (amount) => {
+    const cleanAmount = String(amount).replace(/,/g, '').trim()
+    if (!/^\d+(\.\d+)?$/.test(cleanAmount)) return amount
+
+    return new Intl.NumberFormat('en-US', {
+      maximumFractionDigits: cleanAmount.includes('.') ? 2 : 0,
+    }).format(Number(cleanAmount))
+  }
+
   if (price.startsWith('$')) {
-    return { prefix: '$', amount: price.slice(1) }
+    return { prefix: '$', amount: formatAmount(price.slice(1)) }
   }
 
   const [prefix, ...rest] = price.split(' ')
-  return { prefix, amount: rest.join(' ') }
+  return { prefix, amount: formatAmount(rest.join(' ')) }
 }
 
 export function useLocalizedPrices() {

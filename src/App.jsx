@@ -26,6 +26,11 @@ import { localizedPath, splitLocalePath } from "./utils/i18n.js";
 import { absoluteUrl, applySeo, organizationSchema, setJsonLd, websiteSchema } from "./utils/seo.js";
 import { brand } from "./theme.js";
 
+const SALES_ROLEPLAY_IMAGE =
+  "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=85";
+const SALES_ROLEPLAY_IMAGE_ALT =
+  "Sales team practicing deal conversations and discovery calls with AI roleplay coaching";
+
 const routeSeo = {
   "/": {
     title: "Speekr.ai | AI-Powered Communication Practice Platform",
@@ -49,7 +54,8 @@ const routeSeo = {
       "Train sales, customer care, leadership, technical, and screening teams with AI roleplays built for real workplace conversations in English and Arabic.",
     keywords:
       "sales roleplay training, customer care training, leadership communication training, AI interview screening, Arabic roleplay training",
-    image: "/images/b2b-hero-premium-sales.png",
+    image: SALES_ROLEPLAY_IMAGE,
+    imageAlt: SALES_ROLEPLAY_IMAGE_ALT,
   },
   "/pricing": {
     title: "Speekr Pricing | Plans for Individuals, Teams & Enterprise",
@@ -273,7 +279,7 @@ function buildRouteSchema({ locale, path, seo }) {
       isPartOf: { "@id": websiteId },
       about: { "@id": `${window.location.origin}/#speekr-platform` },
       publisher: { "@id": orgId },
-      primaryImageOfPage: imageObject(seo.image, seo.title),
+      primaryImageOfPage: imageObject(seo.image, seo.imageAlt || seo.title),
       breadcrumb: { "@id": `${url}#breadcrumb` },
     },
     breadcrumbSchema(normalizedPath, locale, seo.title.replace(" | ", " - ")),

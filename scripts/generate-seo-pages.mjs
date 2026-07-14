@@ -9,6 +9,10 @@ const rootDir = path.resolve(__dirname, "..");
 const distDir = path.join(rootDir, "dist");
 const siteUrl = (process.env.SITE_URL || process.env.VITE_SITE_URL || "https://speekr.ai").replace(/\/+$/, "");
 const now = new Date().toISOString();
+const SALES_ROLEPLAY_IMAGE =
+  "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=85";
+const SALES_ROLEPLAY_IMAGE_ALT =
+  "Sales team practicing deal conversations and discovery calls with AI roleplay coaching";
 
 const staticRoutes = [
   {
@@ -42,7 +46,8 @@ const staticRoutes = [
       "Train sales, customer care, leadership, technical, and screening teams with AI roleplays built for real workplace conversations in English and Arabic.",
     keywords:
       "sales roleplay training, customer care training, leadership communication training, AI interview screening, Arabic roleplay training",
-    image: "/images/b2b-hero-premium-sales.png",
+    image: SALES_ROLEPLAY_IMAGE,
+    imageAlt: SALES_ROLEPLAY_IMAGE_ALT,
     type: "website",
     priority: "0.9",
     changefreq: "monthly",
@@ -106,7 +111,8 @@ const arabicStaticRoutes = [
     description:
       "درّب فرق المبيعات وخدمة العملاء والقيادة والفرق التقنية على محادثات عمل واقعية بالعربية والإنجليزية.",
     keywords: "تدريب المبيعات, تدريب خدمة العملاء, تدريب القيادة, محاكاة ذكية بالعربية",
-    image: "/images/b2b-hero-premium-sales.png",
+    image: SALES_ROLEPLAY_IMAGE,
+    imageAlt: SALES_ROLEPLAY_IMAGE_ALT,
     type: "website",
     priority: "0.8",
     changefreq: "monthly",
@@ -257,7 +263,7 @@ function webpageSchema(route, locale = "en") {
     primaryImageOfPage: {
       "@type": "ImageObject",
       url: absolute(route.image),
-      name: route.title,
+      name: route.imageAlt || route.title,
     },
     breadcrumb: { "@id": `${absolute(route.path)}#breadcrumb` },
   };
@@ -535,14 +541,14 @@ function headTags(route, locale = "en") {
     `<meta property="og:description" content="${escapeHtml(route.description)}" />`,
     `<meta property="og:url" content="${canonical}" />`,
     `<meta property="og:image" content="${image}" />`,
-    `<meta property="og:image:alt" content="${escapeHtml(route.title)}" />`,
+    `<meta property="og:image:alt" content="${escapeHtml(route.imageAlt || route.title)}" />`,
     `<meta property="og:locale" content="${locale === "ar" ? "ar_AR" : "en_US"}" />`,
     `<meta property="og:locale:alternate" content="${locale === "ar" ? "en_US" : "ar_AR"}" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
     `<meta name="twitter:title" content="${escapeHtml(route.title)}" />`,
     `<meta name="twitter:description" content="${escapeHtml(route.description)}" />`,
     `<meta name="twitter:image" content="${image}" />`,
-    `<meta name="twitter:image:alt" content="${escapeHtml(route.title)}" />`,
+    `<meta name="twitter:image:alt" content="${escapeHtml(route.imageAlt || route.title)}" />`,
     `<meta name="twitter:url" content="${canonical}" />`,
     `<script type="application/ld+json" data-seo="static-route">${jsonLd(schema)}</script>`,
   ]

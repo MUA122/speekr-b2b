@@ -411,6 +411,7 @@ function FilterDropdown({ id, label, icon: Icon, value, options, onChange, openD
             top: "calc(100% + 8px)",
             left: 0,
             right: 0,
+            minWidth: { xs: "100%", md: id === "category" ? 310 : 230 },
             zIndex: 20,
             p: 0.65,
             borderRadius: "16px",
@@ -493,10 +494,7 @@ function FilterPanel({
       sx={{
         position: "relative",
         zIndex: openDropdown ? 30 : 2,
-        mb: {
-          xs: openDropdown ? 22 : 3.2,
-          md: openDropdown ? 23 : 4,
-        },
+        mb: { xs: 3.2, md: 4 },
         p: { xs: 1.4, md: 1.55 },
         borderRadius: { xs: "20px", md: "22px" },
         border: "1px solid rgba(7,66,37,0.08)",
@@ -510,9 +508,9 @@ function FilterPanel({
           display: "grid",
           gridTemplateColumns: {
             xs: "1fr",
-            md: "minmax(260px, 1fr) minmax(210px, 0.54fr) minmax(180px, 0.42fr) 116px",
+            md: "minmax(320px, 1fr) minmax(260px, 0.62fr) minmax(220px, 0.48fr) minmax(126px, 0.24fr)",
           },
-          gap: { xs: 1.1, md: 1 },
+          gap: { xs: 1.1, md: 1.2 },
           alignItems: "stretch",
         }}
       >
@@ -601,13 +599,15 @@ function FilterPanel({
           disabled={!hasFilters}
           sx={{
             minHeight: 70,
+            px: { xs: 2, md: 1.6 },
             border: "none",
             borderRadius: "16px",
             bgcolor: hasFilters ? "rgba(242,100,51,0.14)" : "rgba(7,66,37,0.06)",
             color: hasFilters ? "#074225" : "rgba(7,66,37,0.4)",
             fontFamily: "inherit",
-            fontSize: 13,
+            fontSize: { xs: 13, md: 12.5, lg: 13 },
             fontWeight: 950,
+            lineHeight: 1.15,
             cursor: hasFilters ? "pointer" : "default",
             transition: "background-color 180ms ease, color 180ms ease, transform 180ms ease",
             "&:hover": hasFilters
