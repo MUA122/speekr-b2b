@@ -7,7 +7,6 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import {
-  ArrowRight,
   BarChart3,
   Bot,
   CheckCircle2,
@@ -59,6 +58,13 @@ const steps = [
     type: "analytics",
   },
 ];
+
+const stepImages = {
+  scenario: "/images/card4.png",
+  roleplay: "/images/card2.png",
+  feedback: "/images/card-3.png",
+  analytics: "/images/card5.png",
+};
 
 function MiniVisual({ step }) {
   if (step.type === "scenario") {
@@ -378,134 +384,106 @@ function MiniVisual({ step }) {
   );
 }
 
-function StepCard({ step, index }) {
+function StepCard({ step }) {
   return (
-    <Box sx={{ position: "relative", minHeight: 430 }}>
+    <Box sx={{ position: "relative", minHeight: { xs: 470, md: 500 } }}>
       <Box
         sx={{
           position: "relative",
           height: "100%",
-          p: { xs: 2, md: 2.2 },
+          minHeight: { xs: 470, md: 500 },
+          p: { xs: 2.4, md: 2.6 },
           borderRadius: "8px",
-          background: "rgba(255,255,255,0.66)",
-          border: `1px solid ${brand.line}`,
-          boxShadow: "0 26px 70px rgba(7,28,20,0.08)",
-          backdropFilter: "blur(16px)",
+          background: "rgba(255,255,255,0.74)",
+          border: "1px solid rgba(7,66,37,0.08)",
+          boxShadow: "0 28px 72px rgba(7,28,20,0.08)",
           overflow: "hidden",
-          transform: "translateY(0)",
-          transition:
-            "transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease, background 220ms ease",
-          "&::before": {
+          transition: "transform 220ms ease, box-shadow 220ms ease",
+          "&::after": {
             content: '""',
             position: "absolute",
-            inset: 0,
-            background:
-              "linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.34) 36%, transparent 58%)",
-            transform: "translateX(-120%)",
-            transition: "transform 620ms ease",
+            left: 0,
+            right: 0,
+            bottom: 0,
+            height: { xs: 128, md: 132 },
+            background: brand.forest,
             pointerEvents: "none",
           },
           "&:hover": {
-            transform: "translateY(-10px)",
-            borderColor: `${step.accent}AA`,
-            background: "rgba(255,255,255,0.78)",
-            boxShadow: `0 34px 92px rgba(7,28,20,0.13), 0 0 0 7px ${step.wash}`,
-          },
-          "&:hover::before": {
-            transform: "translateX(120%)",
-          },
-          "&:hover .step-visual": {
-            transform: "translateY(-4px) scale(1.015)",
-            boxShadow: `0 18px 42px ${step.wash}`,
-          },
-          "&:hover .step-number": {
-            transform: "scale(1.08)",
-            boxShadow: `0 0 0 8px ${step.wash}`,
+            transform: "translateY(-6px)",
+            boxShadow: "0 34px 82px rgba(7,28,20,0.14)",
           },
         }}
       >
         <Box
           className="step-number"
           sx={{
-            width: 36,
-            height: 36,
+            position: "relative",
+            zIndex: 2,
+            width: 40,
+            height: 40,
             borderRadius: "50%",
             display: "grid",
             placeItems: "center",
-            color: brand.ink,
-            background: step.accent,
-            fontSize: "0.8rem",
-            fontWeight: 900,
-            transition: "transform 220ms ease, box-shadow 220ms ease",
+            color: "#fff",
+            background: brand.orange,
+            fontSize: "1rem",
+            lineHeight: 1,
           }}
         >
           {step.number}
         </Box>
-        <Box
-          className="step-visual"
-          sx={{
-            mt: 1.5,
-            borderRadius: "8px",
-            transition: "transform 220ms ease, box-shadow 220ms ease",
-          }}
-        >
-          <MiniVisual step={step} />
-        </Box>
+
         <Typography
-          variant="h3"
+          component="div"
           sx={{
-            mt: 2,
+            position: "relative",
+            zIndex: 2,
+            mt: 4.2,
             color: brand.forest,
-            fontSize: { xs: "1.25rem", md: "1.42rem" },
-            lineHeight: 1.08,
+            fontSize: { xs: 22, md: 23 },
+            lineHeight: 1.18,
+            maxWidth: 250,
           }}
         >
           {step.title}
         </Typography>
-        <Box
-          sx={{
-            mt: 1.2,
-            width: 28,
-            height: 3,
-            borderRadius: 999,
-            background: step.accent,
-          }}
-        />
+
         <Typography
           sx={{
-            mt: 1.4,
-            color: "rgba(7,28,20,0.74)",
-            fontSize: "0.91rem",
-            lineHeight: 1.6,
+            position: "relative",
+            zIndex: 2,
+            mt: 2,
+            color: "rgba(7,28,20,0.82)",
+            fontSize: { xs: 15.5, md: 16 },
+            lineHeight: 1.28,
+            maxWidth: 260,
           }}
         >
           {step.copy}
         </Typography>
-        {/* <Box sx={{ mt: 2.2, px: 1.2, py: 0.9, borderRadius: '8px', background: step.wash, color: brand.forest, fontSize: '0.78rem', fontWeight: 850 }}>
-          {step.tag}
-        </Box> */}
-      </Box>
-      {index < steps.length - 1 ? (
+
         <Box
+          component="img"
+          src={stepImages[step.type]}
+          alt=""
+          aria-hidden
           sx={{
-            display: { xs: "none", lg: "grid" },
             position: "absolute",
-            top: 168,
-            right: -19,
-            width: 38,
-            height: 38,
-            placeItems: "center",
-            borderRadius: "50%",
-            color: brand.forest,
-            background: brand.ivory,
-            border: `1px solid ${brand.line}`,
-            boxShadow: "0 14px 34px rgba(7,28,20,0.12)",
-            zIndex: 2,
+            zIndex: 3,
+            left: "50%",
+            bottom: { xs: 18, md: 16 },
+            width: {
+              xs: step.type === "scenario" ? "108%" : "104%",
+              md: step.type === "scenario" ? "116%" : "112%",
+            },
+            maxWidth: "none",
+            transform: "translateX(-50%)",
+            filter: "drop-shadow(0 18px 30px rgba(7,28,20,0.18))",
+            pointerEvents: "none",
           }}
-        >
-          <ArrowRight size={17} strokeWidth={2.8} />
-        </Box>
-      ) : null}
+        />
+      </Box>
     </Box>
   );
 }
