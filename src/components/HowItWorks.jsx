@@ -575,6 +575,7 @@ function HowItWorks() {
               color: "rgba(7,28,20,0.78)",
               fontSize: { xs: "1rem", md: "1.1rem" },
               lineHeight: 1.7,
+              letterSpacing: "-0.7px",
             }}
           >
             From practice to performance, in four steps.
@@ -672,6 +673,7 @@ function HowItWorks() {
           sx={{
             mt: { xs: 7, md: 9.5, lg: 10 },
             display: "grid",
+            letterSpacing: "-0.5px",
             gridTemplateColumns: {
               xs: "1fr",
               md: "repeat(2, minmax(0, 1fr))",

@@ -446,6 +446,9 @@ function App() {
             minWidth: 320,
             fontFamily: "var(--font-body)",
             background: brand.ivory,
+            "@media (min-width: 900px)": {
+              zoom: 0.9,
+            },
           },
           ":root": {
             "--font-headline":

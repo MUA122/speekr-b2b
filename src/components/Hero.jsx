@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -6,23 +6,19 @@ import {
   Stack,
   Typography,
   useMediaQuery,
-} from '@mui/material';
-import {
-  ArrowRight,
-  BadgeCheck,
-  Check,
-  PlayCircle,
-} from 'lucide-react';
-import { brand } from '../theme.js';
-import { heroScenarios, trustSignals } from '../data/heroScenarios.js';
-import HeroVisual from './HeroVisual.jsx';
+} from "@mui/material";
+import { ArrowRight, BadgeCheck, Check, PlayCircle } from "lucide-react";
+import { brand } from "../theme.js";
+import { heroScenarios, trustSignals } from "../data/heroScenarios.js";
+import HeroVisual from "./HeroVisual.jsx";
 
 function Hero({ onDemoClick }) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const reduceMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+  const reduceMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
   const active = heroScenarios[activeIndex];
   const staticHero = heroScenarios[0];
-  const activeAudience = active.audience || active.headline.replace(/^AI Roleplay for\s+/, '');
+  const activeAudience =
+    active.audience || active.headline.replace(/^AI Roleplay for\s+/, "");
 
   useEffect(() => {
     if (reduceMotion) return undefined;
@@ -36,32 +32,32 @@ function Hero({ onDemoClick }) {
     <Box
       component="main"
       sx={{
-        position: 'relative',
-        isolation: 'isolate',
+        position: "relative",
+        isolation: "isolate",
         backgroundColor: brand.ivory,
         backgroundImage: `
           linear-gradient(90deg, rgba(0,66,37,0.055) 1px, transparent 1px),
           linear-gradient(180deg, rgba(0,66,37,0.045) 1px, transparent 1px)
         `,
-        backgroundSize: '56px 56px',
-        '&::before': {
+        backgroundSize: "56px 56px",
+        "&::before": {
           content: '""',
-          position: 'absolute',
-          inset: '0 0 auto 0',
+          position: "absolute",
+          inset: "0 0 auto 0",
           height: 210,
           background:
-            'linear-gradient(180deg, rgba(255,255,255,0.72), rgba(247,249,232,0))',
+            "linear-gradient(180deg, rgba(255,255,255,0.72), rgba(247,249,232,0))",
           zIndex: -1,
         },
-        '&::after': {
+        "&::after": {
           content: '""',
-          position: 'absolute',
+          position: "absolute",
           right: 0,
           top: 0,
           bottom: 0,
-          width: { xs: '100%', lg: '42%' },
+          width: { xs: "100%", lg: "42%" },
           background:
-            'linear-gradient(180deg, rgba(0,66,37,0.06), rgba(53,92,255,0.045) 50%, rgba(217,107,66,0.055))',
+            "linear-gradient(180deg, rgba(0,66,37,0.06), rgba(53,92,255,0.045) 50%, rgba(217,107,66,0.055))",
           zIndex: -2,
         },
       }}
@@ -69,7 +65,7 @@ function Hero({ onDemoClick }) {
       <Container
         maxWidth={false}
         sx={{
-          width: 'min(100%, 1280px)',
+          width: "min(100%, 1280px)",
           px: { xs: 2, sm: 3, lg: 4 },
           pt: { xs: 12, md: 14, lg: 15 },
           pb: { xs: 8, md: 9, lg: 10 },
@@ -77,11 +73,11 @@ function Hero({ onDemoClick }) {
       >
         <Box
           sx={{
-            display: 'grid',
-            gridTemplateColumns: { xs: '1fr', lg: '0.95fr 1.05fr' },
+            display: "grid",
+            gridTemplateColumns: { xs: "1fr", lg: "0.95fr 1.05fr" },
             gap: { xs: 5, md: 7, lg: 7 },
-            alignItems: 'center',
-            minHeight: { xs: 'auto', lg: 'calc(100vh - 150px)' },
+            alignItems: "center",
+            minHeight: { xs: "auto", lg: "calc(100vh - 150px)" },
             minWidth: 0,
           }}
         >
@@ -90,34 +86,28 @@ function Hero({ onDemoClick }) {
             sx={{
               maxWidth: 690,
               minWidth: 0,
-              animation: 'fadeLift 680ms ease both',
+              animation: "fadeLift 680ms ease both",
             }}
           >
-            <Box sx={{ animation: 'fadeLift 520ms ease both' }}>
+            <Box sx={{ animation: "fadeLift 520ms ease both" }}>
               <Typography
                 variant="h1"
                 sx={{
-                  fontSize: { xs: '2.85rem', sm: '3.6rem', md: '4.55rem', lg: '5.25rem' },
-                  color: brand.orange,
-                  maxWidth: 740,
-                  '& .audience': {
-                    color: brand.forest,
-                    position: 'relative',
-                    display: 'inline-block',
-                    maxWidth: '100%',
-                    whiteSpace: { xs: 'normal', sm: 'nowrap' },
-                    fontSize: activeAudience.length > 18 ? '0.68em' : '0.76em',
+                  fontSize: {
+                    xs: "2.85rem",
+                    sm: "3.6rem",
+                    md: "4.55rem",
+                    lg: "5.25rem",
                   },
-                  '& .audience::after': {
-                    content: '""',
-                    position: 'absolute',
-                    left: 2,
-                    right: 4,
-                    bottom: 4,
-                    height: { xs: 9, md: 13 },
-                    background: active.accent,
-                    zIndex: -1,
-                    opacity: 0.64,
+                  color: brand.forest,
+                  maxWidth: 740,
+                  "& .audience": {
+                    color: brand.orange,
+                    position: "relative",
+                    display: "inline-block",
+                    maxWidth: "100%",
+                    whiteSpace: { xs: "normal", sm: "nowrap" },
+                    fontSize: activeAudience.length > 18 ? "0.68em" : "0.76em",
                   },
                 }}
               >
@@ -129,7 +119,9 @@ function Hero({ onDemoClick }) {
                   component="span"
                   className="audience"
                   key={activeAudience}
-                  sx={{ animation: 'fadeLift 420ms ease both' }}
+                  sx={{
+                    animation: "fadeLift 420ms ease both",
+                  }}
                 >
                   {activeAudience}
                 </Box>
@@ -139,19 +131,21 @@ function Hero({ onDemoClick }) {
             <Typography
               sx={{
                 maxWidth: 610,
-                color: 'text.secondary',
-                fontSize: { xs: '1.04rem', md: '1.17rem' },
-                lineHeight: 1.75,
-                animation: 'fadeLift 560ms ease both',
+                color: "text.secondary",
+                fontSize: { xs: "1.04rem", md: "1.17rem" },
+                letterSpacing: "-0.4px",
+                lineHeight: 1,
+
+                animation: "fadeLift 560ms ease both",
               }}
             >
               {staticHero.copy}
             </Typography>
 
             <Stack
-              direction={{ xs: 'column', sm: 'row' }}
+              direction={{ xs: "column", sm: "row" }}
               spacing={1.5}
-              sx={{ alignItems: { xs: 'stretch', sm: 'center' } }}
+              sx={{ alignItems: { xs: "stretch", sm: "center" } }}
             >
               <Button
                 variant="contained"
@@ -164,12 +158,13 @@ function Hero({ onDemoClick }) {
                   background: brand.forest,
                   color: brand.ivory,
                   boxShadow: `0 18px 46px rgba(0, 66, 37, 0.22), 0 0 0 6px ${staticHero.glow}`,
-                  '&:hover': {
-                    background: '#062F1C',
-                    transform: 'translateY(-2px)',
+                  "&:hover": {
+                    background: "#062F1C",
+                    transform: "translateY(-2px)",
                     boxShadow: `0 24px 54px rgba(0, 66, 37, 0.28), 0 0 0 7px ${staticHero.glow}`,
                   },
-                  transition: 'transform 180ms ease, box-shadow 180ms ease, background 180ms ease',
+                  transition:
+                    "transform 180ms ease, box-shadow 180ms ease, background 180ms ease",
                 }}
               >
                 {staticHero.primaryCta}
@@ -181,16 +176,17 @@ function Hero({ onDemoClick }) {
                 sx={{
                   minHeight: 54,
                   px: 3,
-                  borderColor: 'rgba(0, 66, 37, 0.22)',
+                  borderColor: "rgba(0, 66, 37, 0.22)",
                   color: brand.ink,
-                  background: 'rgba(255,255,255,0.45)',
-                  backdropFilter: 'blur(12px)',
-                  '&:hover': {
+                  background: "rgba(255,255,255,0.45)",
+                  backdropFilter: "blur(12px)",
+                  "&:hover": {
                     borderColor: brand.forest,
-                    background: 'rgba(255,255,255,0.75)',
-                    transform: 'translateY(-2px)',
+                    background: "rgba(255,255,255,0.75)",
+                    transform: "translateY(-2px)",
                   },
-                  transition: 'transform 180ms ease, border-color 180ms ease, background 180ms ease',
+                  transition:
+                    "transform 180ms ease, border-color 180ms ease, background 180ms ease",
                 }}
               >
                 {staticHero.secondaryCta}
@@ -201,13 +197,20 @@ function Hero({ onDemoClick }) {
               direction="row"
               spacing={1.2}
               alignItems="center"
-              sx={{ flexWrap: 'wrap', gap: 1.1, color: 'text.secondary' }}
+              sx={{ flexWrap: "wrap", gap: 1.1, color: "text.secondary" }}
             >
               <BadgeCheck size={19} color={brand.forest} />
               {trustSignals.map((signal) => (
-                <Stack key={signal} direction="row" spacing={0.7} alignItems="center">
+                <Stack
+                  key={signal}
+                  direction="row"
+                  spacing={0.7}
+                  alignItems="center"
+                >
                   <Check size={14} color={brand.moss} />
-                  <Typography sx={{ fontSize: '0.82rem', fontWeight: 650 }}>{signal}</Typography>
+                  <Typography sx={{ fontSize: "0.82rem", fontWeight: 650 }}>
+                    {signal}
+                  </Typography>
                 </Stack>
               ))}
             </Stack>
