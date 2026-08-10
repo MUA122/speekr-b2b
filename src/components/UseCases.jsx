@@ -213,6 +213,7 @@ function UseCaseCard({ card, Icon }) {
             color: brand.orange,
             fontSize: { xs: 30, md: 34 },
             lineHeight: 1.08,
+            letterSpacing: "-0.4px",
             maxWidth: 330,
           }}
         >
@@ -225,6 +226,7 @@ function UseCaseCard({ card, Icon }) {
             color: "#007D50",
             fontSize: { xs: 17, md: 18 },
             lineHeight: 1.42,
+            letterSpacing: "-0.65px",
           }}
         >
           {card.copy}
@@ -255,7 +257,9 @@ function StoryPanel({ active, isChanging, onDemoClick }) {
           position: "relative",
           zIndex: 1,
           opacity: isChanging ? 0 : 1,
-          transform: isChanging ? "translate3d(0, 7px, 0)" : "translate3d(0, 0, 0)",
+          transform: isChanging
+            ? "translate3d(0, 7px, 0)"
+            : "translate3d(0, 0, 0)",
           transition:
             "opacity 220ms ease, transform 280ms cubic-bezier(0.22, 1, 0.36, 1)",
           willChange: "opacity, transform",
