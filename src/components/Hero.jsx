@@ -12,6 +12,8 @@ import { brand } from "../theme.js";
 import { heroScenarios, trustSignals } from "../data/heroScenarios.js";
 import HeroVisual from "./HeroVisual.jsx";
 
+const BELWE_HERO_FONT = '"Belwe Hero", "Belwe", "Cooper Black", Georgia, serif';
+
 function Hero({ locale = "en", onDemoClick }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const reduceMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
@@ -39,32 +41,7 @@ function Hero({ locale = "en", onDemoClick }) {
       sx={{
         position: "relative",
         isolation: "isolate",
-        backgroundColor: brand.ivory,
-        backgroundImage: `
-          linear-gradient(90deg, rgba(0,66,37,0.055) 1px, transparent 1px),
-          linear-gradient(180deg, rgba(0,66,37,0.045) 1px, transparent 1px)
-        `,
-        backgroundSize: "56px 56px",
-        "&::before": {
-          content: '""',
-          position: "absolute",
-          inset: "0 0 auto 0",
-          height: 210,
-          background:
-            "linear-gradient(180deg, rgba(255,255,255,0.72), rgba(247,249,232,0))",
-          zIndex: -1,
-        },
-        "&::after": {
-          content: '""',
-          position: "absolute",
-          right: 0,
-          top: 0,
-          bottom: 0,
-          width: { xs: "100%", lg: "42%" },
-          background:
-            "linear-gradient(180deg, rgba(0,66,37,0.06), rgba(53,92,255,0.045) 50%, rgba(217,107,66,0.055))",
-          zIndex: -2,
-        },
+        backgroundColor: "#F7F9E8",
       }}
     >
       <Container
@@ -106,13 +83,22 @@ function Hero({ locale = "en", onDemoClick }) {
                   },
                   color: brand.forest,
                   maxWidth: 740,
+                  fontFamily: locale === "en" ? BELWE_HERO_FONT : undefined,
+                  fontWeight: locale === "en" ? 700 : undefined,
+                  "& .hero-prefix": {
+                    display: "block",
+                    whiteSpace: "nowrap",
+                    fontFamily: BELWE_HERO_FONT,
+                    fontSize: { xs: "0.68em", sm: "0.76em", lg: "0.78em" },
+                  },
                   "& .audience": {
                     color: brand.orange,
                     position: "relative",
                     display: "inline-block",
                     maxWidth: "100%",
                     whiteSpace: { xs: "normal", sm: "nowrap" },
-                    fontSize: activeAudience.length > 18 ? "0.68em" : "0.76em",
+                    fontFamily: BELWE_HERO_FONT,
+                    fontSize: "0.76em",
                   },
                 }}
               >
@@ -131,15 +117,21 @@ function Hero({ locale = "en", onDemoClick }) {
                   </>
                 ) : (
                   <>
-                    AI Roleplay
-                    <br />
-                    for
-                    <br />
+                    <Box
+                      component="span"
+                      className="hero-prefix"
+                      sx={{ letterSpacing: "-4px" }}
+                    >
+                      AI Roleplay for
+                    </Box>
                     <Box
                       component="span"
                       className="audience"
                       key={activeAudience}
-                      sx={{ animation: "fadeLift 420ms ease both" }}
+                      sx={{
+                        animation: "fadeLift 420ms ease both",
+                        letterSpacing: "-4px",
+                      }}
                     >
                       {activeAudience}
                     </Box>
@@ -154,7 +146,8 @@ function Hero({ locale = "en", onDemoClick }) {
                 color: "text.secondary",
                 fontSize: { xs: "1.04rem", md: "1.17rem" },
                 letterSpacing: "-0.4px",
-                lineHeight: 1,
+                lineHeight: 1.5,
+                mt: { xs: 0.5, md: 2 },
 
                 animation: "fadeLift 560ms ease both",
               }}
@@ -165,7 +158,10 @@ function Hero({ locale = "en", onDemoClick }) {
             <Stack
               direction={{ xs: "column", sm: "row" }}
               spacing={1.5}
-              sx={{ alignItems: { xs: "stretch", sm: "center" } }}
+              sx={{
+                alignItems: { xs: "stretch", sm: "center" },
+                mt: { xs: 0.5, md: 2 },
+              }}
             >
               <Button
                 variant="contained"
@@ -177,7 +173,7 @@ function Hero({ locale = "en", onDemoClick }) {
                   px: 3,
                   background: brand.forest,
                   color: brand.ivory,
-                  boxShadow: `0 18px 46px rgba(0, 66, 37, 0.22), 0 0 0 6px ${staticHero.glow}`,
+                  // boxShadow: `0 18px 46px rgba(0, 66, 37, 0.22), 0 0 0 6px ${staticHero.glow}`,
                   "&:hover": {
                     background: "#062F1C",
                     transform: "translateY(-2px)",
@@ -198,11 +194,10 @@ function Hero({ locale = "en", onDemoClick }) {
                   px: 3,
                   borderColor: "rgba(0, 66, 37, 0.22)",
                   color: brand.ink,
-                  background: "rgba(255,255,255,0.45)",
+                  // background: "rgba(255,255,255,0.45)",
                   backdropFilter: "blur(12px)",
                   "&:hover": {
                     borderColor: brand.forest,
-                    background: "rgba(255,255,255,0.75)",
                     transform: "translateY(-2px)",
                   },
                   transition:
@@ -217,7 +212,12 @@ function Hero({ locale = "en", onDemoClick }) {
               direction="row"
               spacing={1.2}
               alignItems="center"
-              sx={{ flexWrap: "wrap", gap: 1.1, color: "text.secondary" }}
+              sx={{
+                flexWrap: "wrap",
+                gap: 1.1,
+                color: "text.secondary",
+                mt: { xs: 0.5, md: 1 },
+              }}
             >
               <BadgeCheck size={19} color={brand.forest} />
               {trustSignals.map((signal) => (

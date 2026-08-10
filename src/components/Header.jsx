@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { Box } from "@mui/material";
-import { ArrowUpRight, Languages, Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import { navItems } from "../data/heroScenarios.js";
 import { localizedPath } from "../utils/i18n.js";
 
-const LOGO = "/images/logo.svg";
+const LOGO = "/images/logo_white.svg";
+const SCROLLED_LOGO = "/images/green.png";
+const LANGUAGE_ICON_LIGHT = "/images/globe.png";
+const LANGUAGE_ICON_DARK = "/images/globe2.png";
 const LOGIN_HREF = "https://app.speekr.ai";
 
 const NAV_LABELS = {
@@ -121,6 +124,7 @@ function MobileMenu({ locale, path, open, onClose, onDemoClick }) {
               sx={{
                 height: 42,
                 width: "auto",
+                ml: 1,
                 filter: "brightness(0) invert(1)",
               }}
             />
@@ -180,7 +184,7 @@ function MobileMenu({ locale, path, open, onClose, onDemoClick }) {
                 py: 1.4,
                 borderRadius: "12px",
                 fontSize: 15,
-                fontWeight: 600,
+                fontWeight: 400,
                 color: "rgba(238,243,205,0.68)",
                 textDecoration: "none",
                 transition: "background 0.2s ease, color 0.2s ease",
@@ -202,7 +206,7 @@ function MobileMenu({ locale, path, open, onClose, onDemoClick }) {
             pt: 2,
             display: "flex",
             flexDirection: "column",
-            gap: 1.2,
+            gap: 0.8,
             borderTop: "1px solid rgba(238,243,205,0.06)",
             position: "relative",
             zIndex: 1,
@@ -218,7 +222,7 @@ function MobileMenu({ locale, path, open, onClose, onDemoClick }) {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              gap: 0.8,
+              gap: 0.5,
               py: 1.45,
               borderRadius: "12px",
               border: "1px solid rgba(238,243,205,0.14)",
@@ -229,8 +233,13 @@ function MobileMenu({ locale, path, open, onClose, onDemoClick }) {
               textDecoration: "none",
             }}
           >
-            <Languages size={16} aria-hidden />
-            {isArabic ? "English" : "العربية"}
+            <Box
+              component="img"
+              src={LANGUAGE_ICON_LIGHT}
+              alt=""
+              aria-hidden
+              sx={{ width: 17, height: 17, objectFit: "contain" }}
+            />
           </Box>
           <Box
             component="button"
@@ -243,7 +252,7 @@ function MobileMenu({ locale, path, open, onClose, onDemoClick }) {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              gap: 0.75,
+              gap: 0.5,
               py: 1.7,
               borderRadius: "12px",
               bgcolor: "#F26433",
@@ -291,6 +300,7 @@ function Header({ locale = "en", path = "/", onDemoClick }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const isArabic = locale === "ar";
+  const darkHeader = !scrolled;
   const alternateLocale = isArabic ? "en" : "ar";
   const languageHref = localizedPath(path, alternateLocale);
 
@@ -308,14 +318,14 @@ function Header({ locale = "en", path = "/", onDemoClick }) {
     py: 0.9,
     borderRadius: "100px",
     fontSize: { md: 13, lg: 13.5 },
-    fontWeight: 600,
-    color: scrolled ? "rgba(238,243,205,0.62)" : "rgba(7,66,37,0.72)",
+    fontWeight: 400,
+    color: darkHeader ? "rgba(238,243,205,0.62)" : "rgba(7,66,37,0.72)",
     textDecoration: "none",
     whiteSpace: "nowrap",
     transition: "color 0.2s ease, background 0.2s ease",
     "&:hover": {
-      color: scrolled ? "rgba(238,243,205,0.96)" : "#074225",
-      bgcolor: scrolled ? "rgba(238,243,205,0.07)" : "rgba(7,66,37,0.06)",
+      color: darkHeader ? "rgba(238,243,205,0.96)" : "#074225",
+      bgcolor: darkHeader ? "rgba(238,243,205,0.07)" : "rgba(7,66,37,0.06)",
     },
   };
 
@@ -348,15 +358,15 @@ function Header({ locale = "en", path = "/", onDemoClick }) {
               height: { xs: 60, md: 64 },
               borderRadius: "100px",
               border: "1px solid",
-              borderColor: scrolled
+              borderColor: darkHeader
                 ? "rgba(242,100,51,0.18)"
                 : "rgba(7,66,37,0.18)",
-              bgcolor: scrolled ? "rgba(0,34,19,0.94)" : "#EEF3CD",
-              background: scrolled
+              bgcolor: darkHeader ? "rgba(0,34,19,0.94)" : "#EEF3CD",
+              background: darkHeader
                 ? "rgba(0,34,19,0.94)"
                 : "radial-gradient(circle at 82% 18%, rgba(142,198,64,0.16) 0%, transparent 30%), radial-gradient(circle at 12% 82%, rgba(7,66,37,0.12) 0%, transparent 34%), linear-gradient(135deg, #EEF3CD 0%, #F4F7DE 58%, rgba(7,66,37,0.08) 100%)",
               backdropFilter: { xs: "none", md: "blur(32px) saturate(1.5)" },
-              boxShadow: scrolled
+              boxShadow: darkHeader
                 ? "0 8px 48px rgba(0,0,0,0.55), inset 0 1px 0 rgba(238,243,205,0.04)"
                 : "0 14px 34px rgba(7,66,37,0.12)",
               transition:
@@ -366,27 +376,33 @@ function Header({ locale = "en", path = "/", onDemoClick }) {
             <Box
               component="a"
               href={localizedPath("/", locale)}
-              aria-label={isArabic ? "الصفحة الرئيسية لـ Speekr" : "Speekr home"}
+              aria-label={
+                isArabic ? "الصفحة الرئيسية لـ Speekr" : "Speekr home"
+              }
               sx={{
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 1,
                 textDecoration: "none",
                 minWidth: 0,
+                width: { xs: 108, sm: 120 },
               }}
             >
               <Box
                 component="img"
-                src={LOGO}
+                src={scrolled ? SCROLLED_LOGO : LOGO}
                 alt="Speekr.ai logo"
                 title="Speekr.ai logo"
                 decoding="async"
                 sx={{
-                  width: { xs: 108, sm: 120 },
+                  width: scrolled ? { xs: 32, sm: 34 } : { xs: 108, sm: 120 },
+                  height: scrolled ? { xs: 32, sm: 34 } : "auto",
+                  ml: 1,
+                  objectFit: "contain",
                   display: "block",
-                  filter: scrolled
-                    ? "brightness(0) invert(1)"
-                    : "brightness(0) saturate(100%) invert(17%) sepia(34%) saturate(1031%) hue-rotate(104deg) brightness(92%) contrast(97%)",
+                  filter: "none",
+                  transition:
+                    "width 380ms ease, height 380ms ease, margin-left 380ms ease, filter 380ms ease",
                 }}
               />
             </Box>
@@ -422,7 +438,9 @@ function Header({ locale = "en", path = "/", onDemoClick }) {
               href={languageHref}
               lang={alternateLocale}
               hrefLang={alternateLocale}
-              aria-label={isArabic ? "Switch to English" : "التبديل إلى العربية"}
+              aria-label={
+                isArabic ? "Switch to English" : "التبديل إلى العربية"
+              }
               sx={{
                 display: { xs: "none", md: "inline-flex" },
                 alignItems: "center",
@@ -430,22 +448,30 @@ function Header({ locale = "en", path = "/", onDemoClick }) {
                 gap: 0.65,
                 justifySelf: "end",
                 height: 40,
-                minWidth: 48,
-                px: { md: 1.25, lg: 1.65 },
+                width: 40,
+                minWidth: 40,
+                px: 0,
                 borderRadius: "100px",
-                border: scrolled
+                border: darkHeader
                   ? "1px solid rgba(238,243,205,0.16)"
                   : "1px solid rgba(7,66,37,0.18)",
-                color: scrolled ? "#EEF3CD" : "#074225",
-                bgcolor: scrolled ? "rgba(238,243,205,0.04)" : "rgba(255,255,255,0.32)",
+                color: darkHeader ? "#EEF3CD" : "#074225",
+                bgcolor: darkHeader
+                  ? "rgba(238,243,205,0.04)"
+                  : "rgba(255,255,255,0.32)",
                 fontSize: 13,
                 fontWeight: 800,
                 whiteSpace: "nowrap",
                 textDecoration: "none",
               }}
             >
-              <Languages size={15} aria-hidden />
-              {isArabic ? "EN" : "العربية"}
+              <Box
+                component="img"
+                src={darkHeader ? LANGUAGE_ICON_LIGHT : LANGUAGE_ICON_DARK}
+                alt=""
+                aria-hidden
+                sx={{ width: 16, height: 16, objectFit: "contain" }}
+              />
             </Box>
 
             <Box
@@ -482,13 +508,13 @@ function Header({ locale = "en", path = "/", onDemoClick }) {
                 height: 40,
                 px: { md: 1.8, lg: 2.5 },
                 borderRadius: "100px",
-                border: scrolled
+                border: darkHeader
                   ? "1px solid rgba(238,243,205,0.16)"
                   : "1px solid rgba(7,66,37,0.18)",
-                bgcolor: scrolled
+                bgcolor: darkHeader
                   ? "rgba(238,243,205,0.02)"
                   : "rgba(7,66,37,0.025)",
-                color: scrolled ? "#EEF3CD" : "#3C6B4C",
+                color: darkHeader ? "#EEF3CD" : "#3C6B4C",
                 textDecoration: "none",
                 fontSize: 13,
                 fontWeight: 900,
@@ -498,13 +524,13 @@ function Header({ locale = "en", path = "/", onDemoClick }) {
                 transition:
                   "background 0.2s ease, border-color 0.2s ease, color 0.2s ease",
                 "&:hover": {
-                  bgcolor: scrolled
+                  bgcolor: darkHeader
                     ? "rgba(238,243,205,0.07)"
                     : "rgba(7,66,37,0.055)",
-                  borderColor: scrolled
+                  borderColor: darkHeader
                     ? "rgba(238,243,205,0.26)"
                     : "rgba(7,66,37,0.28)",
-                  color: scrolled ? "#EEF3CD" : "#074225",
+                  color: darkHeader ? "#EEF3CD" : "#074225",
                 },
               }}
             >
@@ -512,36 +538,54 @@ function Header({ locale = "en", path = "/", onDemoClick }) {
               <ArrowUpRight size={14} strokeWidth={2.6} aria-hidden />
             </Box>
 
-            <Box sx={{ display: { xs: "flex", md: "none" }, alignItems: "center", gap: 0.8 }}>
+            <Box
+              sx={{
+                display: { xs: "flex", md: "none" },
+                alignItems: "center",
+                gap: 0.8,
+              }}
+            >
               <Box
                 component="a"
                 href={languageHref}
                 lang={alternateLocale}
                 hrefLang={alternateLocale}
-                aria-label={isArabic ? "Switch to English" : "التبديل إلى العربية"}
+                aria-label={
+                  isArabic ? "Switch to English" : "التبديل إلى العربية"
+                }
                 sx={{
                   height: 40,
-                  minWidth: 42,
-                  px: 1.15,
+                  width: 40,
+                  minWidth: 40,
+                  px: 0,
                   display: "inline-flex",
                   alignItems: "center",
                   justifyContent: "center",
                   gap: 0.55,
-                  border: "1px solid rgba(7,66,37,0.16)",
+                  border: darkHeader
+                    ? "1px solid rgba(238,243,205,0.16)"
+                    : "1px solid rgba(7,66,37,0.16)",
                   borderRadius: "12px",
-                  color: scrolled ? "#EEF3CD" : "#074225",
+                  color: darkHeader ? "#EEF3CD" : "#074225",
                   textDecoration: "none",
                   fontSize: 12.5,
                   fontWeight: 900,
                 }}
               >
-                <Languages size={15} aria-hidden />
-                {isArabic ? "EN" : "ع"}
+                <Box
+                  component="img"
+                  src={darkHeader ? LANGUAGE_ICON_LIGHT : LANGUAGE_ICON_DARK}
+                  alt=""
+                  aria-hidden
+                  sx={{ width: 16, height: 16, objectFit: "contain" }}
+                />
               </Box>
               <Box
                 component="button"
                 type="button"
-                aria-label={isArabic ? "فتح قائمة التنقل" : "Open navigation menu"}
+                aria-label={
+                  isArabic ? "فتح قائمة التنقل" : "Open navigation menu"
+                }
                 aria-expanded={mobileOpen}
                 onClick={() => setMobileOpen(true)}
                 sx={{

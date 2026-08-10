@@ -16,24 +16,14 @@ function HeroVisual() {
         minHeight: { xs: 360, sm: 440, md: 560, lg: 620 },
         minWidth: 0,
         width: '100%',
+        ml: { xs: 0, lg: 4, xl: 6 },
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: '#F7F9E8',
         animation: 'fadeLift 760ms ease both',
       }}
     >
-      <Box
-        sx={{
-          position: 'absolute',
-          inset: { xs: '18px 8px', md: '24px 18px' },
-          borderRadius: { xs: 5, md: 7 },
-          background:
-            'linear-gradient(135deg, rgba(7,66,37,0.1), rgba(238,243,205,0.28) 48%, rgba(142,198,64,0.12))',
-          border: '1px solid rgba(0,66,37,0.12)',
-          transform: 'rotate(-1.6deg)',
-        }}
-      />
-
       <Box
         sx={{
           position: 'relative',
