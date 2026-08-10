@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Box, Button, Container, Stack, Typography } from '@mui/material';
-import { ArrowRight, ChevronDown } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { splitPrice, useLocalizedPrices } from '../utils/pricing.js';
 import { absoluteUrl, organizationSchema, setJsonLd, websiteSchema } from '../utils/seo.js';
 import { localizedPath } from '../utils/i18n.js';
 import SectionDivider from '../components/SectionDivider.jsx';
+import { FaqItem } from '../components/FaqSection.jsx';
+import { getFaqContent, pricingFaqContent } from '../data/faqContent.js';
 
 const cream = '#EEF4CC';
 const creamSoft = '#F7F9E4';
@@ -48,39 +50,6 @@ const comparisonRows = [
   ['API & LMS integration', false, false, true],
   ['SSO, SCIM & data residency', false, false, true],
   ['Dedicated success manager', false, false, true],
-];
-
-const pricingFaqs = [
-  {
-    question: 'Is there a free trial?',
-    answer:
-      'Yes. Speekr for You lets you start for free — no credit card — so you can experience roleplay and coaching before you buy. Teams also offers a guided trial.',
-  },
-  {
-    question: 'How is Speekr for Teams billed?',
-    answer:
-      'Per seat, monthly or annually. Annual billing saves 20%. You can add or remove seats as your team changes.',
-  },
-  {
-    question: 'Can I switch plans later?',
-    answer:
-      'Absolutely. Upgrade from You to Teams, or from Teams to Enterprise, at any time — your data and progress carry over.',
-  },
-  {
-    question: 'What makes Enterprise different?',
-    answer:
-      'Enterprise adds API and LMS integration, custom KPIs tied to business metrics, SSO/SCIM, data residency control, and a dedicated success manager.',
-  },
-  {
-    question: 'Do you offer annual discounts?',
-    answer:
-      'Yes — annual billing is roughly 20% cheaper than monthly across the You and Teams plans.',
-  },
-  {
-    question: 'What payment methods do you accept?',
-    answer:
-      'Major cards for You and Teams, plus invoicing and purchase orders for Teams and Enterprise customers.',
-  },
 ];
 
 const logoAssets = Array.from({ length: 9 }, (_, index) => `/images/pricing/pricing-asset-${String(index + 1).padStart(2, '0')}.svg`);
@@ -156,6 +125,7 @@ function customEnterpriseOffer(locale) {
 function pricingStructuredData({ locale, prices }) {
   const url = pricingUrl(locale);
   const currency = prices.currency || 'USD';
+  const faqCopy = getFaqContent(pricingFaqContent, locale);
   const offers = [
     planOffer({
       locale,
@@ -253,7 +223,7 @@ function pricingStructuredData({ locale, prices }) {
         '@id': `${url}#faq`,
         url,
         inLanguage: locale === 'ar' ? 'ar' : 'en',
-        mainEntity: pricingFaqs.map((faq) => ({
+        mainEntity: faqCopy.items.map((faq) => ({
           '@type': 'Question',
           name: faq.question,
           acceptedAnswer: {
@@ -408,7 +378,7 @@ function PlanCard({ type, title, copy, price, suffix, note, cta, features, onCli
   );
 }
 
-function ComparisonTable() {
+function ComparisonTable({ locale = 'en' }) {
   return (
     <Box sx={{ background: 'linear-gradient(180deg,#EEF4CC,#F3EFD4)', pt: { xs: 5, md: 6 }, pb: { xs: 7, md: 9.5 } }}>
       <Container maxWidth={false} sx={{ maxWidth: 1080, mx: 'auto', px: { xs: 2.5, md: 4 } }}>
@@ -421,7 +391,7 @@ function ComparisonTable() {
         <Box sx={{ overflowX: 'auto', borderRadius: '20px', boxShadow: '0 20px 50px rgba(0,50,25,.1)' }}>
           <Box sx={{ minWidth: 720, background: '#fff' }}>
             <Box sx={{ display: 'grid', gridTemplateColumns: '2fr repeat(3, 1fr)', background: forestDark, p: '18px 26px', color: cream, fontSize: 13, fontWeight: 900 }}>
-              <span>Feature</span><Box textAlign="center">You</Box><Box textAlign="center">Teams</Box><Box textAlign="center">Enterprise</Box>
+              <span>Feature</span><Box textAlign="center">{locale === 'ar' ? 'الأفراد' : 'You'}</Box><Box textAlign="center">Teams</Box><Box textAlign="center">Enterprise</Box>
             </Box>
             {comparisonRows.map(([feature, you, teams, enterprise], index) => (
               <Box
@@ -464,7 +434,7 @@ function TrustSection() {
         </Typography>
         <Stack direction="row" spacing={1.5} justifyContent="center" alignItems="center">
           <Box sx={{ width: 44, height: 44, borderRadius: '50%', background: lime, color: forestDark, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 15, fontWeight: 900 }}>RA</Box>
-          <Box sx={{ textAlign: 'left' }}>
+          <Box sx={{ textAlign: 'start' }}>
             <Typography sx={{ color: cream, fontSize: 15, fontWeight: 800 }}>Rana A.</Typography>
             <Typography sx={{ color: 'rgba(238,244,204,.6)', fontSize: 13 }}>Head of L&D · Enterprise Telecom</Typography>
           </Box>
@@ -488,62 +458,9 @@ function TrustSection() {
   );
 }
 
-function PricingFaqItem({ faq, isOpen, onToggle }) {
-  return (
-    <Box
-      component="article"
-      sx={{
-        borderRadius: '16px',
-        border: `1px solid ${isOpen ? 'rgba(242,100,51,0.28)' : 'rgba(7,66,37,0.12)'}`,
-        bgcolor: '#EEF3CD',
-        boxShadow: isOpen ? '0 18px 50px rgba(242,100,51,0.12), 0 0 0 1px rgba(242,100,51,0.08)' : '0 12px 34px rgba(7,66,37,0.06)',
-        transition: 'border-color 0.35s ease, background-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease',
-        transform: isOpen ? 'translateY(-1px)' : 'translateY(0)',
-        overflow: 'hidden',
-      }}
-    >
-      <Box
-        component="button"
-        type="button"
-        onClick={onToggle}
-        aria-expanded={isOpen}
-        sx={{
-          width: '100%',
-          display: 'flex',
-          alignItems: 'flex-start',
-          gap: { xs: 2, md: 3 },
-          p: { xs: '22px 20px', sm: '26px 28px', md: '30px 36px' },
-          textAlign: 'left',
-          cursor: 'pointer',
-          bgcolor: 'transparent',
-          border: 'none',
-          fontFamily: 'inherit',
-          '&:hover': { bgcolor: 'rgba(7,66,37,0.025)' },
-        }}
-      >
-        <Box aria-hidden sx={{ flexShrink: 0, width: 8, height: 8, borderRadius: '3px', bgcolor: '#F26433', mt: '8px', display: { xs: 'none', sm: 'block' }, boxShadow: '0 0 8px rgba(242,100,51,0.5)' }} />
-        <Typography sx={{ flex: 1, fontSize: { xs: 16.5, sm: 18, md: 20 }, fontWeight: 700, lineHeight: 1.3, color: isOpen ? '#074225' : 'rgba(7,66,37,0.78)' }}>
-          {faq.question}
-        </Typography>
-        <Box aria-hidden sx={{ flexShrink: 0, width: 28, height: 28, borderRadius: '50%', border: `1.5px solid ${isOpen ? 'rgba(242,100,51,0.32)' : 'rgba(7,66,37,0.12)'}`, bgcolor: isOpen ? 'rgba(242,100,51,0.09)' : '#EEF3CD', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform 0.48s cubic-bezier(0.22,1,0.36,1), border-color 0.3s ease, background-color 0.3s ease', transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', mt: '2px' }}>
-          <ChevronDown size={14} color={isOpen ? '#F26433' : 'rgba(7,66,37,0.5)'} />
-        </Box>
-      </Box>
-      <Box sx={{ display: 'grid', gridTemplateRows: isOpen ? '1fr' : '0fr', opacity: isOpen ? 1 : 0, transition: 'grid-template-rows 0.52s cubic-bezier(0.22,1,0.36,1), opacity 0.32s ease' }}>
-        <Box sx={{ minHeight: 0, overflow: 'hidden' }}>
-          <Box sx={{ pl: { xs: '20px', sm: '52px', md: '68px' }, pr: { xs: '20px', sm: '28px', md: '36px' }, pb: { xs: '22px', sm: '26px', md: '30px' }, transform: isOpen ? 'translateY(0)' : 'translateY(-6px)', transition: 'transform 0.44s cubic-bezier(0.22,1,0.36,1)' }}>
-            <Typography sx={{ fontSize: { xs: 14, md: 15 }, fontWeight: 500, lineHeight: 1.8, color: 'rgba(7,66,37,0.58)' }}>
-              {faq.answer}
-            </Typography>
-          </Box>
-        </Box>
-      </Box>
-    </Box>
-  );
-}
-
-function PricingFaqSection() {
+function PricingFaqSection({ locale = 'en' }) {
   const [openIndex, setOpenIndex] = useState(0);
+  const copy = getFaqContent(pricingFaqContent, locale);
 
   return (
     <Box sx={{ bgcolor: '#EEF3CD', px: { xs: '12px', sm: '18px', md: '24px' }, py: { xs: 3, md: 4 } }}>
@@ -551,8 +468,8 @@ function PricingFaqSection() {
         <Box
           component="img"
           src="/images/brand-patterns/faq-bg.png"
-          alt="Speekr pricing FAQ background pattern"
-          title="Speekr pricing FAQ background pattern"
+          alt={copy.patternAlt}
+          title={copy.patternAlt}
           loading="lazy"
           decoding="async"
           sx={{ position: 'absolute', top: { xs: 8, md: 18 }, left: '50%', transform: 'translateX(-50%)', width: { xs: 760, md: 1120 }, maxWidth: 'none', opacity: 0.09, pointerEvents: 'none' }}
@@ -562,13 +479,14 @@ function PricingFaqSection() {
         <Box sx={{ position: 'relative', zIndex: 1, maxWidth: 1200, mx: 'auto' }}>
           <Box sx={{ textAlign: 'center', mb: { xs: 6, md: 9 } }}>
             <Typography id="pricing-faq-title" component="h2" sx={{ m: 0, fontSize: { xs: 38, sm: 50, md: 58, lg: 64 }, fontFamily: (theme) => theme.palette.brand.fontHeadline, fontWeight: 900, lineHeight: 1, color: '#074225' }}>
-              Pricing questions
+              {copy.title}
             </Typography>
           </Box>
           <Box sx={{ maxWidth: 880, mx: 'auto', display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-            {pricingFaqs.map((faq, index) => (
-              <PricingFaqItem
+            {copy.items.map((faq, index) => (
+              <FaqItem
                 key={faq.question}
+                id={`pricing-faq-${index + 1}`}
                 faq={faq}
                 isOpen={openIndex === index}
                 onToggle={() => setOpenIndex(openIndex === index ? null : index)}
@@ -592,7 +510,7 @@ function PricingPage({ locale = 'en', onDemoClick }) {
   const billingNote = isAnnual ? 'billed annually' : 'billed monthly';
 
   return (
-    <Box component="main" sx={{ background: cream, color: forest, overflowX: 'clip' }}>
+    <Box component="main" dir={locale === 'ar' ? 'rtl' : 'ltr'} sx={{ background: cream, color: forest, overflowX: 'clip' }}>
       <PricingSchema locale={locale} prices={prices} />
       <Box sx={{ position: 'relative', pt: { xs: 13, md: 16 }, pb: { xs: 5, md: 5 }, background: `radial-gradient(120% 90% at 80% 0%,#F4F8D6 0%,${cream} 55%,#E9F0C2 100%)`, textAlign: 'center', '&::before': { content: '""', position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(0,66,37,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,66,37,.05) 1px,transparent 1px)', backgroundSize: '46px 46px', pointerEvents: 'none' } }}>
         <Container maxWidth={false} sx={{ maxWidth: 1240, mx: 'auto', px: { xs: 2.5, md: 4 }, position: 'relative' }}>
@@ -652,9 +570,9 @@ function PricingPage({ locale = 'en', onDemoClick }) {
       </Container>
 
       <SectionDivider />
-      <ComparisonTable />
+      <ComparisonTable locale={locale} />
       <TrustSection />
-      <PricingFaqSection />
+      <PricingFaqSection locale={locale} />
 
       <Box sx={{ px: { xs: 2.5, md: 4 }, py: { xs: 7, md: '56px' }, background: cream }}>
         <Container maxWidth={false} sx={{ maxWidth: 1240, mx: 'auto', px: 0 }}>

@@ -12,13 +12,18 @@ import { brand } from "../theme.js";
 import { heroScenarios, trustSignals } from "../data/heroScenarios.js";
 import HeroVisual from "./HeroVisual.jsx";
 
-function Hero({ onDemoClick }) {
+function Hero({ locale = "en", onDemoClick }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const reduceMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
   const active = heroScenarios[activeIndex];
   const staticHero = heroScenarios[0];
   const activeAudience =
     active.audience || active.headline.replace(/^AI Roleplay for\s+/, "");
+  const arabicAudience = {
+    sales: "لتدريب المبيعات",
+    care: "لفرق خدمة العملاء",
+    education: "لفرز المتقدمين",
+  }[active.id];
 
   useEffect(() => {
     if (reduceMotion) return undefined;
@@ -111,20 +116,35 @@ function Hero({ onDemoClick }) {
                   },
                 }}
               >
-                AI Roleplay
-                <br />
-                for
-                <br />
-                <Box
-                  component="span"
-                  className="audience"
-                  key={activeAudience}
-                  sx={{
-                    animation: "fadeLift 420ms ease both",
-                  }}
-                >
-                  {activeAudience}
-                </Box>
+                {locale === "ar" ? (
+                  <>
+                    محاكاة حوارية ذكية
+                    <br />
+                    <Box
+                      component="span"
+                      className="audience"
+                      key={arabicAudience}
+                      sx={{ animation: "fadeLift 420ms ease both" }}
+                    >
+                      {arabicAudience}
+                    </Box>
+                  </>
+                ) : (
+                  <>
+                    AI Roleplay
+                    <br />
+                    for
+                    <br />
+                    <Box
+                      component="span"
+                      className="audience"
+                      key={activeAudience}
+                      sx={{ animation: "fadeLift 420ms ease both" }}
+                    >
+                      {activeAudience}
+                    </Box>
+                  </>
+                )}
               </Typography>
             </Box>
 

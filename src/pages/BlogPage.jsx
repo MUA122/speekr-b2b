@@ -921,7 +921,7 @@ export default function BlogPage({ locale = "en" }) {
                   </>
                 ) : (
                   <>
-                    رؤى تواصل مصممة لـ
+                    رؤى تواصل مصممة لـ{" "}
                     <Box component="span" sx={{ color: "#F26433" }}>
                       المحادثات المهنية الحقيقية.
                     </Box>

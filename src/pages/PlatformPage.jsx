@@ -336,7 +336,7 @@ function FeedbackVisual() {
           </Box>
         ))}
       </Stack>
-      <Box sx={{ background: creamSoft, borderLeft: `3px solid ${lime}`, borderRadius: '8px', p: 2 }}>
+      <Box sx={{ background: creamSoft, borderInlineStart: `3px solid ${lime}`, borderRadius: '8px', p: 2 }}>
         <Typography sx={{ color: forest, fontSize: 12, fontWeight: 800, mb: 0.6 }}>AI coaching note</Typography>
         <Typography sx={{ color: '#4b5a4e', fontSize: 14, lineHeight: 1.5 }}>
           Strong empathy on the objection. Next time, ask one more discovery question before proposing the ROI framing.
@@ -517,9 +517,9 @@ function ApiVisual() {
     <Box sx={{ background: '#03170f', border: '1px solid rgba(141,198,63,.2)', borderRadius: '18px', overflow: 'hidden', boxShadow: '0 30px 70px rgba(0,0,0,.45)' }}>
       <Stack direction="row" spacing={1} alignItems="center" sx={{ background: '#062c1d', p: '12px 18px' }}>
         {[orange, '#f6c85f', lime].map((color) => <Box key={color} sx={{ width: 11, height: 11, borderRadius: '50%', background: color }} />)}
-        <Typography sx={{ ml: 1.25, color: 'rgba(238,244,204,.55)', fontSize: 12, fontWeight: 700 }}>POST /v1/roleplays</Typography>
+        <Typography sx={{ marginInlineStart: 1.25, color: 'rgba(238,244,204,.55)', fontSize: 12, fontWeight: 700 }}>POST /v1/roleplays</Typography>
       </Stack>
-      <Box sx={{ p: 2.75, fontFamily: 'ui-monospace, Menlo, monospace', color: '#cfe0a0', fontSize: { xs: 11.5, sm: 13 }, lineHeight: 1.7, overflowX: 'auto' }}>
+      <Box data-no-translate="true" dir="ltr" sx={{ p: 2.75, fontFamily: 'ui-monospace, Menlo, monospace', color: '#cfe0a0', fontSize: { xs: 11.5, sm: 13 }, lineHeight: 1.7, overflowX: 'auto', textAlign: 'left' }}>
         <div><span style={{ color: lime }}>curl</span> -X POST https://api.speekr.ai/v1/roleplays \</div>
         <div style={{ paddingLeft: 18 }}><span style={{ color: lavender }}>-H</span> <span style={{ color: '#f6c85f' }}>"Authorization: Bearer sk_live_•••"</span> \</div>
         <div style={{ paddingLeft: 18 }}><span style={{ color: lavender }}>-d</span> <span style={{ color: '#f6c85f' }}>'{'{'} "scenario":"objection_pricing",</span></div>
@@ -632,7 +632,7 @@ const statusDot = {
   height: 8,
   borderRadius: '50%',
   background: lime,
-  mr: 1,
+  marginInlineEnd: 1,
 };
 
 const smallIcon = {
@@ -669,9 +669,9 @@ const mutedTiny = {
   fontSize: 11,
 };
 
-function PlatformPage({ onDemoClick }) {
+function PlatformPage({ locale = 'en', onDemoClick }) {
   return (
-    <Box component="main" sx={{ background: cream, color: forest, overflowX: 'clip' }}>
+    <Box component="main" dir={locale === 'ar' ? 'rtl' : 'ltr'} sx={{ background: cream, color: forest, overflowX: 'clip' }}>
       <Box
         sx={{
           position: 'relative',

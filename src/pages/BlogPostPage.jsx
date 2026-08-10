@@ -18,9 +18,14 @@ import { absoluteUrl, applySeo, organizationSchema, setJsonLd, websiteSchema } f
 
 const slugify = (value) =>
   value
+    .normalize("NFKC")
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/[^\p{L}\p{N}]+/gu, "-")
     .replace(/(^-|-$)/g, "");
+
+const FAQ_HEADINGS = new Set(["faq", "faqs", "الأسئلة الشائعة"]);
+const isFaqSection = (section) =>
+  FAQ_HEADINGS.has(section?.heading?.trim().toLowerCase()) && Boolean(section?.callouts?.length);
 
 const UI = {
   en: {
@@ -60,6 +65,7 @@ function ArticleSeo({ post, locale }) {
     });
 
     const postUrl = `${window.location.origin}${localizedPath(`/blog/${post.slug}`, locale)}`;
+    const faqSection = post.sections.find(isFaqSection);
     const removePost = setJsonLd("blog-post", {
       "@context": "https://schema.org",
       "@type": "BlogPosting",
@@ -134,10 +140,29 @@ function ArticleSeo({ post, locale }) {
       ],
     });
 
+    const removeFaq = faqSection
+      ? setJsonLd("article-faq", {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "@id": `${postUrl}#faq`,
+          url: postUrl,
+          inLanguage: locale === "ar" ? "ar" : "en",
+          mainEntity: faqSection.callouts.map((item) => ({
+            "@type": "Question",
+            name: item.title,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: item.text,
+            },
+          })),
+        })
+      : () => {};
+
     return () => {
       removePost();
       removeArticleWebPage();
       removeBreadcrumb();
+      removeFaq();
     };
   }, [locale, post]);
 
@@ -223,12 +248,13 @@ function MetaChip({ icon: Icon, children }) {
 
 function BlogFaqSection({ section, index }) {
   const [openIndex, setOpenIndex] = useState(0);
-  const headingId = "article-faq-title";
+  const headingId = `article-faq-title-${index}`;
+  const sectionId = slugify(section.heading) || `article-faq-${index}`;
 
   return (
     <Box
       component="section"
-      id={slugify(section.heading)}
+      id={sectionId}
       aria-labelledby={headingId}
       sx={{
         scrollMarginTop: 120,
@@ -285,6 +311,7 @@ function BlogFaqSection({ section, index }) {
             {section.callouts.map((item, faqIndex) => (
               <FaqItem
                 key={item.title}
+                id={`article-faq-${index}-${faqIndex + 1}`}
                 faq={{ question: item.title, answer: item.text }}
                 isOpen={openIndex === faqIndex}
                 onToggle={() => setOpenIndex(openIndex === faqIndex ? null : faqIndex)}
@@ -298,7 +325,7 @@ function BlogFaqSection({ section, index }) {
 }
 
 function SectionBlock({ section, index }) {
-  if (section.heading?.toLowerCase() === "faqs" && section.callouts?.length) {
+  if (isFaqSection(section)) {
     return <BlogFaqSection section={section} index={index} />;
   }
 

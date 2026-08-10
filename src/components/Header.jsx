@@ -1,21 +1,34 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { Box } from "@mui/material";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { ArrowUpRight, Languages, Menu, X } from "lucide-react";
 import { navItems } from "../data/heroScenarios.js";
+import { localizedPath } from "../utils/i18n.js";
 
 const LOGO = "/images/logo.svg";
 const LOGIN_HREF = "https://app.speekr.ai";
 
-function getNavHref(item) {
-  if (item === "Pricing") return "/pricing";
-  if (item === "Resource") return "/blog";
-  if (item === "Solution") return "/solutions";
-  if (item === "Platform") return "/platform";
-  return "/";
+const NAV_LABELS = {
+  ar: {
+    Platform: "المنصة",
+    Solution: "الحلول",
+    Pricing: "الأسعار",
+    Resource: "المعرفة",
+  },
+};
+
+function getNavHref(item, locale) {
+  if (item === "Pricing") return localizedPath("/pricing", locale);
+  if (item === "Resource") return localizedPath("/blog", locale);
+  if (item === "Solution") return localizedPath("/solutions", locale);
+  if (item === "Platform") return localizedPath("/platform", locale);
+  return localizedPath("/", locale);
 }
 
-function MobileMenu({ open, onClose, onDemoClick }) {
+function MobileMenu({ locale, path, open, onClose, onDemoClick }) {
+  const isArabic = locale === "ar";
+  const alternateLocale = isArabic ? "en" : "ar";
+  const languageHref = localizedPath(path, alternateLocale);
   useEffect(() => {
     if (!open) return undefined;
     const prev = document.body.style.overflow;
@@ -51,16 +64,21 @@ function MobileMenu({ open, onClose, onDemoClick }) {
       <Box
         role="dialog"
         aria-modal="true"
-        aria-label="Navigation menu"
+        aria-label={isArabic ? "قائمة التنقل" : "Navigation menu"}
+        dir={isArabic ? "rtl" : "ltr"}
         sx={{
           position: "absolute",
           top: 0,
-          right: 0,
+          right: isArabic ? "auto" : 0,
+          left: isArabic ? 0 : "auto",
           bottom: 0,
           width: "min(84vw, 320px)",
           background: "#074225",
-          borderLeft: "1px solid rgba(242,100,51,0.12)",
-          boxShadow: "-24px 0 72px rgba(0,0,0,0.65)",
+          borderLeft: isArabic ? "none" : "1px solid rgba(242,100,51,0.12)",
+          borderRight: isArabic ? "1px solid rgba(242,100,51,0.12)" : "none",
+          boxShadow: isArabic
+            ? "24px 0 72px rgba(0,0,0,0.65)"
+            : "-24px 0 72px rgba(0,0,0,0.65)",
           display: "flex",
           flexDirection: "column",
           overflow: "hidden",
@@ -111,7 +129,7 @@ function MobileMenu({ open, onClose, onDemoClick }) {
             component="button"
             type="button"
             onClick={onClose}
-            aria-label="Close menu"
+            aria-label={isArabic ? "إغلاق القائمة" : "Close menu"}
             sx={{
               width: 40,
               height: 40,
@@ -135,7 +153,7 @@ function MobileMenu({ open, onClose, onDemoClick }) {
 
         <Box
           component="nav"
-          aria-label="Mobile navigation"
+          aria-label={isArabic ? "التنقل عبر الجوال" : "Mobile navigation"}
           sx={{
             flex: 1,
             overflowY: "auto",
@@ -152,7 +170,7 @@ function MobileMenu({ open, onClose, onDemoClick }) {
             <Box
               key={item}
               component="a"
-              href={getNavHref(item)}
+              href={getNavHref(item, locale)}
               onClick={onClose}
               sx={{
                 display: "flex",
@@ -172,7 +190,7 @@ function MobileMenu({ open, onClose, onDemoClick }) {
                 },
               }}
             >
-              {item}
+              {NAV_LABELS[locale]?.[item] || item}
             </Box>
           ))}
         </Box>
@@ -190,6 +208,30 @@ function MobileMenu({ open, onClose, onDemoClick }) {
             zIndex: 1,
           }}
         >
+          <Box
+            component="a"
+            href={languageHref}
+            onClick={onClose}
+            lang={alternateLocale}
+            hrefLang={alternateLocale}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 0.8,
+              py: 1.45,
+              borderRadius: "12px",
+              border: "1px solid rgba(238,243,205,0.14)",
+              color: "#EEF3CD",
+              bgcolor: "rgba(238,243,205,0.055)",
+              fontSize: 14.5,
+              fontWeight: 800,
+              textDecoration: "none",
+            }}
+          >
+            <Languages size={16} aria-hidden />
+            {isArabic ? "English" : "العربية"}
+          </Box>
           <Box
             component="button"
             type="button"
@@ -214,7 +256,7 @@ function MobileMenu({ open, onClose, onDemoClick }) {
               fontFamily: "inherit",
             }}
           >
-            Book a demo
+            {isArabic ? "احجز عرضاً توضيحياً" : "Book a demo"}
             <ArrowUpRight size={14} aria-hidden />
           </Box>
           <Box
@@ -236,7 +278,7 @@ function MobileMenu({ open, onClose, onDemoClick }) {
               textDecoration: "none",
             }}
           >
-            Log in
+            {isArabic ? "تسجيل الدخول" : "Log in"}
           </Box>
         </Box>
       </Box>
@@ -245,9 +287,12 @@ function MobileMenu({ open, onClose, onDemoClick }) {
   );
 }
 
-function Header({ onDemoClick }) {
+function Header({ locale = "en", path = "/", onDemoClick }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const isArabic = locale === "ar";
+  const alternateLocale = isArabic ? "en" : "ar";
+  const languageHref = localizedPath(path, alternateLocale);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -295,7 +340,7 @@ function Header({ onDemoClick }) {
               display: "grid",
               gridTemplateColumns: {
                 xs: "1fr auto",
-                md: "auto minmax(0, 1fr) auto auto",
+                md: "auto minmax(0, 1fr) auto auto auto",
               },
               alignItems: "center",
               columnGap: { xs: 1.5, md: 1.2, lg: 2 },
@@ -320,8 +365,8 @@ function Header({ onDemoClick }) {
           >
             <Box
               component="a"
-              href="/"
-              aria-label="Speekr home"
+              href={localizedPath("/", locale)}
+              aria-label={isArabic ? "الصفحة الرئيسية لـ Speekr" : "Speekr home"}
               sx={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -348,7 +393,7 @@ function Header({ onDemoClick }) {
 
             <Box
               component="nav"
-              aria-label="Primary navigation"
+              aria-label={isArabic ? "التنقل الرئيسي" : "Primary navigation"}
               sx={{
                 display: { xs: "none", md: "flex" },
                 justifySelf: "center",
@@ -364,12 +409,43 @@ function Header({ onDemoClick }) {
                 <Box
                   key={item}
                   component="a"
-                  href={getNavHref(item)}
+                  href={getNavHref(item, locale)}
                   sx={desktopLinkSx}
                 >
-                  {item}
+                  {NAV_LABELS[locale]?.[item] || item}
                 </Box>
               ))}
+            </Box>
+
+            <Box
+              component="a"
+              href={languageHref}
+              lang={alternateLocale}
+              hrefLang={alternateLocale}
+              aria-label={isArabic ? "Switch to English" : "التبديل إلى العربية"}
+              sx={{
+                display: { xs: "none", md: "inline-flex" },
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 0.65,
+                justifySelf: "end",
+                height: 40,
+                minWidth: 48,
+                px: { md: 1.25, lg: 1.65 },
+                borderRadius: "100px",
+                border: scrolled
+                  ? "1px solid rgba(238,243,205,0.16)"
+                  : "1px solid rgba(7,66,37,0.18)",
+                color: scrolled ? "#EEF3CD" : "#074225",
+                bgcolor: scrolled ? "rgba(238,243,205,0.04)" : "rgba(255,255,255,0.32)",
+                fontSize: 13,
+                fontWeight: 800,
+                whiteSpace: "nowrap",
+                textDecoration: "none",
+              }}
+            >
+              <Languages size={15} aria-hidden />
+              {isArabic ? "EN" : "العربية"}
             </Box>
 
             <Box
@@ -392,7 +468,7 @@ function Header({ onDemoClick }) {
                 textDecoration: "none",
               }}
             >
-              Log in
+              {isArabic ? "دخول" : "Log in"}
             </Box>
             <Box
               component="button"
@@ -432,37 +508,65 @@ function Header({ onDemoClick }) {
                 },
               }}
             >
-              Book a demo
+              {isArabic ? "احجز عرضاً" : "Book a demo"}
               <ArrowUpRight size={14} strokeWidth={2.6} aria-hidden />
             </Box>
 
-            <Box
-              component="button"
-              type="button"
-              aria-label="Open navigation menu"
-              aria-expanded={mobileOpen}
-              onClick={() => setMobileOpen(true)}
-              sx={{
-                display: { xs: "inline-flex", md: "none" },
-                justifySelf: "end",
-                width: 40,
-                height: 40,
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#F26433",
-                border: "1px solid rgba(242,100,51,0.22)",
-                borderRadius: "12px",
-                bgcolor: "transparent",
-                cursor: "pointer",
-                "&:hover": { bgcolor: "rgba(242,100,51,0.1)" },
-              }}
-            >
-              <Menu size={20} strokeWidth={2} aria-hidden />
+            <Box sx={{ display: { xs: "flex", md: "none" }, alignItems: "center", gap: 0.8 }}>
+              <Box
+                component="a"
+                href={languageHref}
+                lang={alternateLocale}
+                hrefLang={alternateLocale}
+                aria-label={isArabic ? "Switch to English" : "التبديل إلى العربية"}
+                sx={{
+                  height: 40,
+                  minWidth: 42,
+                  px: 1.15,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 0.55,
+                  border: "1px solid rgba(7,66,37,0.16)",
+                  borderRadius: "12px",
+                  color: scrolled ? "#EEF3CD" : "#074225",
+                  textDecoration: "none",
+                  fontSize: 12.5,
+                  fontWeight: 900,
+                }}
+              >
+                <Languages size={15} aria-hidden />
+                {isArabic ? "EN" : "ع"}
+              </Box>
+              <Box
+                component="button"
+                type="button"
+                aria-label={isArabic ? "فتح قائمة التنقل" : "Open navigation menu"}
+                aria-expanded={mobileOpen}
+                onClick={() => setMobileOpen(true)}
+                sx={{
+                  width: 40,
+                  height: 40,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "#F26433",
+                  border: "1px solid rgba(242,100,51,0.22)",
+                  borderRadius: "12px",
+                  bgcolor: "transparent",
+                  cursor: "pointer",
+                  "&:hover": { bgcolor: "rgba(242,100,51,0.1)" },
+                }}
+              >
+                <Menu size={20} strokeWidth={2} aria-hidden />
+              </Box>
             </Box>
           </Box>
         </Box>
       </Box>
       <MobileMenu
+        locale={locale}
+        path={path}
         open={mobileOpen}
         onClose={() => setMobileOpen(false)}
         onDemoClick={onDemoClick}

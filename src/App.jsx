@@ -17,11 +17,13 @@ import FinalCta from "./components/FinalCta.jsx";
 import Footer from "./components/Footer.jsx";
 import ContactModal from "./components/ContactModal.jsx";
 import LoadingScreen from "./components/LoadingScreen.jsx";
+import LocalizedContent from "./components/LocalizedContent.jsx";
 import PricingPage from "./pages/PricingPage.jsx";
 import SolutionsPage from "./pages/SolutionsPage.jsx";
 import PlatformPage from "./pages/PlatformPage.jsx";
 import BlogPage from "./pages/BlogPage.jsx";
 import BlogPostPage from "./pages/BlogPostPage.jsx";
+import { homeFaqContent } from "./data/faqContent.js";
 import { localizedPath, splitLocalePath } from "./utils/i18n.js";
 import { absoluteUrl, applySeo, organizationSchema, setJsonLd, websiteSchema } from "./utils/seo.js";
 import { brand } from "./theme.js";
@@ -67,41 +69,44 @@ const routeSeo = {
   },
 };
 
-const globalFaqs = [
-  {
-    question: "How is this different from generic AI roleplay tools?",
-    answer:
-      "Two things. First, Arabic - 10+ dialects, MENA buyer personas, RTL-first product. Second, the manager layer - cohort dashboards, custom KPIs, and ties to your business metrics, not just completion data.",
+const arabicRouteSeo = {
+  "/": {
+    title: "Speekr.ai | منصة تدريب التواصل بالذكاء الاصطناعي",
+    description:
+      "تدرّب على محادثات العمل والعروض والاجتماعات والقيادة مع الذكاء الاصطناعي، وابنِ ثقة حقيقية في التواصل بالعربية والإنجليزية.",
+    keywords:
+      "تدريب التواصل بالذكاء الاصطناعي, محاكاة حوارية, تدريب العروض, مهارات القيادة, Speekr.ai",
+    image: "/images/hero.png",
   },
-  {
-    question: "How long does rollout take?",
-    answer:
-      "Most teams go from kickoff to live cohorts in 2-4 weeks. We help map your scenarios, configure SSO, and train your first batch of managers as part of onboarding.",
+  "/platform": {
+    title: "منصة Speekr | محاكاة ذكية وتوجيه وتحليلات للفرق",
+    description:
+      "اكتشف منصة Speekr للمحاكاة الذكية والملاحظات الفورية ورحلات التعلم وإدارة الفرق وتحليلات الأداء وتكامل أنظمة التعلم.",
+    keywords:
+      "منصة محاكاة ذكية, تدريب التواصل, تحليلات الفرق, رحلات التعلم, Speekr",
+    image: "/images/platform/micro-learning-video.png",
   },
-  {
-    question: "Can we build our own scenarios?",
-    answer:
-      "Yes. Your L&D team builds custom scenarios with your products, personas, and objections - no engineering required. Speekr handles the AI persona, voice, and feedback automatically.",
+  "/solutions": {
+    title: "حلول Speekr | تدريب ذكي للمبيعات وخدمة العملاء والقيادة",
+    description:
+      "درّب فرق المبيعات وخدمة العملاء والقيادة والفرق التقنية وفرز المتقدمين على محادثات عمل واقعية بالعربية والإنجليزية.",
+    keywords:
+      "تدريب المبيعات, تدريب خدمة العملاء, تدريب القيادة, محاكاة ذكية بالعربية, فرز المتقدمين",
+    image: SALES_ROLEPLAY_IMAGE,
+    imageAlt: "فريق مبيعات يتدرّب على محادثات الصفقات عبر محاكاة ذكية",
   },
-  {
-    question: "What integrations are supported?",
-    answer:
-      "SSO via SAML / Okta / Azure AD. SCIM for user provisioning. CSV exports + API access for piping practice data into your BI tools. CRM-side integrations such as Salesforce and HubSpot are available on request.",
+  "/pricing": {
+    title: "أسعار Speekr | خطط للأفراد والفرق والمؤسسات",
+    description:
+      "قارن خطط Speekr للأفراد والفرق والمؤسسات. ابدأ مجاناً أو درّب فريقك أو وسّع تدريب التواصل داخل مؤسستك.",
+    keywords:
+      "أسعار Speekr, خطط تدريب التواصل, تدريب الفرق بالذكاء الاصطناعي, تدريب المؤسسات",
+    image: "/images/pricing/pricing-asset-11.png",
   },
-  {
-    question: "How do you handle data privacy?",
-    answer:
-      "All audio is encrypted in transit and at rest. Recordings can be retained, summarized-only, or auto-deleted based on your policy. EU and KSA data residency are available.",
-  },
-  {
-    question: "What's the pricing model?",
-    answer:
-      "Speekr uses per-user pricing with volume tiers. Enterprise pricing is custom and includes professional services, custom scenarios, and dedicated customer success support.",
-  },
-];
+};
 
 const routeFaqs = {
-  "/": globalFaqs,
+  "/": { en: homeFaqContent.en.items, ar: homeFaqContent.ar.items },
 };
 
 const platformFeatures = [
@@ -115,12 +120,31 @@ const platformFeatures = [
   "English and 15+ Arabic dialects",
 ];
 
+const arabicPlatformFeatures = [
+  "محاكاة ذكية واقعية",
+  "ملاحظات وتوجيه فوري",
+  "رحلات تعلم موجهة",
+  "منشئ سيناريوهات وشخصيات مخصّصة",
+  "إدارة الفرق والمجموعات",
+  "تحليلات المهارات وتقارير الأعمال",
+  "تكاملات API وLMS وSSO وSCIM",
+  "الإنجليزية وأكثر من 15 لهجة عربية",
+];
+
 const solutionItems = [
   ["Sales training", "AI practice for cold calls, discovery, objections, negotiations, and closing conversations."],
   ["Customer care training", "AI practice for complaints, escalations, empathy, and service recovery conversations."],
   ["Leadership development", "AI practice for feedback, coaching, accountability, conflict, and difficult conversations."],
   ["Technical communication", "AI practice for explaining complex work to clients, leaders, and cross-functional teams."],
   ["Applicant screening", "Structured AI interview workflows for first-round candidate conversations."],
+];
+
+const arabicSolutionItems = [
+  ["تدريب المبيعات", "تدريب ذكي على المكالمات الباردة والاستكشاف والاعتراضات والتفاوض وإتمام الصفقات."],
+  ["تدريب خدمة العملاء", "تدريب ذكي على الشكاوى والتصعيد والتعاطف واستعادة رضا العميل."],
+  ["تطوير القيادات", "تدريب ذكي على الملاحظات والتوجيه والمساءلة والخلافات والمحادثات الصعبة."],
+  ["التواصل التقني", "تدريب ذكي على شرح العمل المعقّد للعملاء والقيادات والفرق الأخرى."],
+  ["فرز المتقدمين", "مقابلات أولية ذكية ومنظمة للمرشحين والمتقدمين."],
 ];
 
 function pageUrl(path, locale) {
@@ -180,6 +204,7 @@ function faqSchema(path, locale, faqs) {
 
 function softwareApplicationSchema(locale) {
   const url = pageUrl("/", locale);
+  const ar = locale === "ar";
 
   return {
     "@type": "SoftwareApplication",
@@ -187,13 +212,14 @@ function softwareApplicationSchema(locale) {
     name: "Speekr.ai",
     alternateName: "Speekr",
     applicationCategory: "EducationalApplication",
-    applicationSubCategory: "AI communication coaching platform",
+    applicationSubCategory: ar ? "منصة تدريب التواصل بالذكاء الاصطناعي" : "AI communication coaching platform",
     operatingSystem: "Web",
     url,
     image: absoluteUrl("/images/hero.png"),
-    description:
-      "AI-powered communication practice platform for presentations, meetings, sales conversations, customer care, leadership, and workplace soft skills.",
-    featureList: platformFeatures,
+    description: ar
+      ? "منصة تدريب على التواصل بالذكاء الاصطناعي للعروض والاجتماعات والمبيعات وخدمة العملاء والقيادة ومهارات العمل."
+      : "AI-powered communication practice platform for presentations, meetings, sales conversations, customer care, leadership, and workplace soft skills.",
+    featureList: ar ? arabicPlatformFeatures : platformFeatures,
     audience: [
       { "@type": "BusinessAudience", audienceType: "Enterprise training teams" },
       { "@type": "BusinessAudience", audienceType: "Sales enablement teams" },
@@ -212,11 +238,12 @@ function softwareApplicationSchema(locale) {
 }
 
 function featureItemList(path, locale) {
+  const features = locale === "ar" ? arabicPlatformFeatures : platformFeatures;
   return {
     "@type": "ItemList",
     "@id": `${pageUrl(path, locale)}#features`,
-    name: "Speekr platform features",
-    itemListElement: platformFeatures.map((feature, index) => ({
+    name: locale === "ar" ? "مزايا منصة Speekr" : "Speekr platform features",
+    itemListElement: features.map((feature, index) => ({
       "@type": "ListItem",
       position: index + 1,
       name: feature,
@@ -225,11 +252,12 @@ function featureItemList(path, locale) {
 }
 
 function solutionItemList(locale) {
+  const items = locale === "ar" ? arabicSolutionItems : solutionItems;
   return {
     "@type": "ItemList",
     "@id": `${pageUrl("/solutions", locale)}#solutions-list`,
-    name: "Speekr communication training solutions",
-    itemListElement: solutionItems.map(([name, description], index) => ({
+    name: locale === "ar" ? "حلول Speekr لتدريب التواصل" : "Speekr communication training solutions",
+    itemListElement: items.map(([name, description], index) => ({
       "@type": "ListItem",
       position: index + 1,
       item: {
@@ -301,7 +329,7 @@ function buildRouteSchema({ locale, path, seo }) {
     graph.push(softwareApplicationSchema(locale));
   }
 
-  const faqs = routeFaqs[normalizedPath];
+  const faqs = routeFaqs[normalizedPath]?.[locale];
   if (faqs?.length) {
     graph.push(faqSchema(normalizedPath, locale, faqs));
   }
@@ -317,7 +345,7 @@ function useRouteSeo({ locale, path, skip }) {
     if (skip) return undefined;
 
     const normalizedPath = routeSeo[path] ? path : "/";
-    const seo = routeSeo[normalizedPath];
+    const seo = (locale === "ar" ? arabicRouteSeo : routeSeo)[normalizedPath];
 
     applySeo({
       ...seo,
@@ -426,6 +454,7 @@ function App() {
 
   return (
     <Box
+      key={locale}
       sx={{
         minHeight: "100vh",
         color: "text.primary",
@@ -460,6 +489,47 @@ function App() {
             WebkitTextSizeAdjust: "100%",
             WebkitFontSmoothing: "antialiased",
             MozOsxFontSmoothing: "grayscale",
+          },
+          'html[dir="rtl"]': {
+            "--font-headline":
+              '"Lalezar", "IBM Plex Sans Arabic", Tahoma, Arial, sans-serif',
+            "--font-body":
+              '"IBM Plex Sans Arabic", Tahoma, Arial, sans-serif',
+          },
+          'html[dir="rtl"] body, html[dir="rtl"] #root': {
+            direction: "rtl",
+            textAlign: "right",
+          },
+          'html[dir="rtl"] .MuiTypography-root, html[dir="rtl"] button, html[dir="rtl"] input, html[dir="rtl"] textarea, html[dir="rtl"] select': {
+            letterSpacing: "0 !important",
+            textTransform: "none !important",
+          },
+          'html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] h3, html[dir="rtl"] .MuiTypography-h1, html[dir="rtl"] .MuiTypography-h2, html[dir="rtl"] .MuiTypography-h3': {
+            lineHeight: "1.16 !important",
+            fontWeight: "400 !important",
+            overflowWrap: "anywhere",
+          },
+          'html[dir="rtl"] p, html[dir="rtl"] .MuiTypography-body1, html[dir="rtl"] .MuiTypography-body2': {
+            overflowWrap: "anywhere",
+          },
+          'html[dir="rtl"] input, html[dir="rtl"] textarea, html[dir="rtl"] select': {
+            direction: "rtl",
+            textAlign: "right",
+          },
+          'html[dir="rtl"] input[type="email"], html[dir="rtl"] input[type="tel"]': {
+            direction: "ltr",
+            textAlign: "left",
+          },
+          'html[dir="rtl"] svg.lucide-arrow-right, html[dir="rtl"] svg.lucide-arrow-up-right, html[dir="rtl"] svg.lucide-chevron-right, html[dir="rtl"] svg.lucide-chevron-left': {
+            transform: "scaleX(-1)",
+          },
+          'html[dir="rtl"] .MuiButton-endIcon': {
+            marginLeft: "-4px",
+            marginRight: "8px",
+          },
+          'html[dir="rtl"] .MuiButton-startIcon': {
+            marginLeft: "8px",
+            marginRight: "-4px",
           },
           ".MuiTypography-root, button, input, textarea, select": {
             fontFamily: "var(--font-body)",
@@ -534,20 +604,20 @@ function App() {
           },
         }}
       />
-      <Header onDemoClick={openContactModal} />
+      <Header locale={locale} path={path} onDemoClick={openContactModal} />
       {isPricingPage ? (
         <PricingPage locale={locale} onDemoClick={openContactModal} />
       ) : isSolutionsPage ? (
-        <SolutionsPage onDemoClick={openContactModal} />
+        <SolutionsPage locale={locale} onDemoClick={openContactModal} />
       ) : isPlatformPage ? (
-        <PlatformPage onDemoClick={openContactModal} />
+        <PlatformPage locale={locale} onDemoClick={openContactModal} />
       ) : isBlogPage ? (
         <BlogPage locale={locale} />
       ) : isBlogPostPage ? (
         <BlogPostPage slug={blogSlug} locale={locale} />
       ) : (
         <>
-          <Hero onDemoClick={openContactModal} />
+          <Hero locale={locale} onDemoClick={openContactModal} />
           <LogosMarquee />
           <HowItWorks />
           {/* <SectionDivider /> */}
@@ -563,7 +633,7 @@ function App() {
           <SectionDivider variant="dark" />
           <SecurityTrustSection />
           <SectionDivider />
-          <FaqSection />
+          <FaqSection locale={locale} />
           <FinalCta onDemoClick={openContactModal} />
         </>
       )}
@@ -574,6 +644,7 @@ function App() {
         onClose={closeContactModal}
       />
       {isPageLoading && <LoadingScreen fixed />}
+      <LocalizedContent locale={locale} />
     </Box>
   );
 }

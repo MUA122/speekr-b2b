@@ -1,4 +1,5 @@
 import { arabicBlogPosts } from "./arabicBlogPosts.js";
+import { arabicNewBlogPosts } from "./arabicNewBlogPosts.js";
 import { newBlogPosts } from "./newBlogPosts.js";
 
 export const blogPosts = [
@@ -831,8 +832,10 @@ export const blogPosts = [
   },
 ];
 
+const allArabicBlogPosts = [...arabicNewBlogPosts, ...arabicBlogPosts];
+
 export const getBlogPosts = (locale = "en") =>
-  locale === "ar" ? arabicBlogPosts : blogPosts;
+  locale === "ar" ? allArabicBlogPosts : blogPosts;
 
 export const getBlogPostBySlug = (slug, locale = "en") =>
   getBlogPosts(locale).find((post) => post.slug === slug);

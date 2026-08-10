@@ -335,7 +335,18 @@ function SolutionSection({ section, onDemoClick }) {
   );
 }
 
-function SolutionsPage({ onDemoClick }) {
+function SolutionsPage({ locale = 'en', onDemoClick }) {
+  const isArabic = locale === 'ar';
+  const heroMetrics = isArabic
+    ? [['15+', 'لهجة عربية'], ['5', 'محادثات أعمال'], ['1', 'منصة واحدة لتدريبها']]
+    : metrics;
+  const localizedCtaMetrics = isArabic
+    ? [
+        ['15+', 'الإنجليزية ولهجات عربية'],
+        ['5', 'أنواع محادثات للتدريب'],
+        ['1', 'منصة واحدة للتدريب والقياس والتحسين'],
+      ]
+    : ctaMetrics;
   const [activeSection, setActiveSection] = useState(sections[0].id);
   const indexRegionRef = useRef(null);
   const indexNavRef = useRef(null);
@@ -397,6 +408,7 @@ function SolutionsPage({ onDemoClick }) {
   return (
     <Box
       component="main"
+      dir={isArabic ? 'rtl' : 'ltr'}
       sx={{
         background: '#F6F7E8',
         color: '#16371F',
@@ -527,7 +539,7 @@ function SolutionsPage({ onDemoClick }) {
                 boxShadow: '0 12px 32px rgba(22,55,31,.25)',
               }}
             >
-              {metrics.map(([value, label]) => (
+              {heroMetrics.map(([value, label]) => (
                 <Box key={label} sx={{ minWidth: 0 }}>
                   <Typography
                     variant="h3"
@@ -576,7 +588,7 @@ function SolutionsPage({ onDemoClick }) {
           <Box
             ref={indexNavRef}
             component="nav"
-            aria-label="Solutions sections"
+            aria-label={isArabic ? 'أقسام الحلول' : 'Solutions sections'}
             sx={{
               position:
                 indexMode === 'fixed'
@@ -587,7 +599,11 @@ function SolutionsPage({ onDemoClick }) {
               top: indexMode === 'fixed' ? 126 : 'auto',
               bottom: indexMode === 'bottom' ? 0 : 'auto',
               left:
-                indexMode === 'fixed'
+                indexMode === 'fixed' && !isArabic
+                  ? 'max(calc((100vw - 1240px) / 2 + 32px), 32px)'
+                  : 'auto',
+              right:
+                indexMode === 'fixed' && isArabic
                   ? 'max(calc((100vw - 1240px) / 2 + 32px), 32px)'
                   : 'auto',
               width: 230,
@@ -606,7 +622,7 @@ function SolutionsPage({ onDemoClick }) {
                 textTransform: 'uppercase',
                 color: 'rgba(22,55,31,.45)',
                 mb: 1.25,
-                pl: 1.75,
+                paddingInlineStart: 1.75,
               }}
             >
               On this page
@@ -772,7 +788,7 @@ function SolutionsPage({ onDemoClick }) {
               gap: 1.75,
             }}
           >
-            {ctaMetrics.map(([value, label], index) => (
+            {localizedCtaMetrics.map(([value, label], index) => (
               <Box
                 key={label}
                 sx={{

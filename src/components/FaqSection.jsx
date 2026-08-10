@@ -1,43 +1,14 @@
 import { useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import { ChevronDown } from 'lucide-react';
+import { getFaqContent, homeFaqContent } from '../data/faqContent.js';
 
 const NOISE = `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`;
 
-const faqs = [
-  {
-    question: 'How is this different from generic AI roleplay tools?',
-    answer:
-      'Two things. First, Arabic - 10+ dialects, MENA buyer personas, RTL-first product. Second, the manager layer - cohort dashboards, custom KPIs, and ties to your business metrics, not just completion data.',
-  },
-  {
-    question: 'How long does rollout take?',
-    answer:
-      'Most teams go from kickoff to live cohorts in 2-4 weeks. We help map your scenarios, configure SSO, and train your first batch of managers as part of onboarding.',
-  },
-  {
-    question: 'Can we build our own scenarios?',
-    answer:
-      'Yes. Your L&D team builds custom scenarios with your products, personas, and objections - no engineering required. Speekr handles the AI persona, voice, and feedback automatically.',
-  },
-  {
-    question: 'What integrations are supported?',
-    answer:
-      'SSO via SAML / Okta / Azure AD. SCIM for user provisioning. CSV exports + API access for piping practice data into your BI tools. CRM-side integrations (Salesforce, HubSpot) on request.',
-  },
-  {
-    question: 'How do you handle data privacy?',
-    answer:
-      'All audio is encrypted in transit and at rest. Recordings can be retained, summarized-only, or auto-deleted based on your policy. EU and KSA data residency available.',
-  },
-  {
-    question: "What's the pricing model?",
-    answer:
-      'Per-user, with volume tiers. Teams start at $48/user/month. Enterprise pricing is custom and includes professional services, custom scenarios, and dedicated CSM. Book a demo for a tailored quote.',
-  },
-];
+export function FaqItem({ faq, isOpen, onToggle, id }) {
+  const triggerId = id ? `${id}-trigger` : undefined;
+  const panelId = id ? `${id}-panel` : undefined;
 
-export function FaqItem({ faq, isOpen, onToggle }) {
   return (
     <Box
       component="article"
@@ -57,15 +28,17 @@ export function FaqItem({ faq, isOpen, onToggle }) {
       <Box
         component="button"
         type="button"
+        id={triggerId}
         onClick={onToggle}
         aria-expanded={isOpen}
+        aria-controls={panelId}
         sx={{
           width: '100%',
           display: 'flex',
           alignItems: 'flex-start',
           gap: { xs: 2, sm: 2, md: 3 },
           p: { xs: '22px 20px', sm: '26px 28px', md: '30px 36px' },
-          textAlign: 'left',
+          textAlign: 'start',
           cursor: 'pointer',
           bgcolor: 'transparent',
           border: 'none',
@@ -97,7 +70,7 @@ export function FaqItem({ faq, isOpen, onToggle }) {
             lineHeight: 1.3,
             color: isOpen ? '#074225' : 'rgba(7,66,37,0.78)',
             transition: 'color 0.25s ease',
-            textAlign: 'left',
+            textAlign: 'start',
           }}
         >
           {faq.question}
@@ -125,6 +98,10 @@ export function FaqItem({ faq, isOpen, onToggle }) {
       </Box>
 
       <Box
+        id={panelId}
+        role="region"
+        aria-labelledby={triggerId}
+        aria-hidden={!isOpen}
         sx={{
           display: 'grid',
           gridTemplateRows: isOpen ? '1fr' : '0fr',
@@ -136,8 +113,8 @@ export function FaqItem({ faq, isOpen, onToggle }) {
         <Box sx={{ minHeight: 0, overflow: 'hidden' }}>
           <Box
             sx={{
-              pl: { xs: '20px', sm: '52px', md: '68px' },
-              pr: { xs: '20px', sm: '28px', md: '36px' },
+              paddingInlineStart: { xs: '20px', sm: '52px', md: '68px' },
+              paddingInlineEnd: { xs: '20px', sm: '28px', md: '36px' },
               pb: { xs: '22px', sm: '26px', md: '30px' },
               transform: isOpen ? 'translateY(0)' : 'translateY(-6px)',
               transition: 'transform 0.44s cubic-bezier(0.22,1,0.36,1)',
@@ -149,7 +126,7 @@ export function FaqItem({ faq, isOpen, onToggle }) {
                 fontWeight: 500,
                 lineHeight: 1.8,
                 color: 'rgba(7,66,37,0.58)',
-                textAlign: 'left',
+                textAlign: 'start',
               }}
             >
               {faq.answer}
@@ -161,8 +138,9 @@ export function FaqItem({ faq, isOpen, onToggle }) {
   );
 }
 
-function FaqSection() {
+function FaqSection({ locale = 'en' }) {
   const [openIndex, setOpenIndex] = useState(0);
+  const copy = getFaqContent(homeFaqContent, locale);
 
   return (
     <Box
@@ -189,8 +167,8 @@ function FaqSection() {
         <Box
           component="img"
           src="/images/brand-patterns/faq-bg.png"
-          alt="Speekr FAQ background pattern"
-          title="Speekr FAQ background pattern"
+          alt={copy.patternAlt}
+          title={copy.patternAlt}
           loading="lazy"
           decoding="async"
           sx={{
@@ -248,7 +226,7 @@ function FaqSection() {
                 color: '#074225',
               }}
             >
-              The questions we get most.
+              {copy.title}
             </Typography>
           </Box>
 
@@ -261,9 +239,10 @@ function FaqSection() {
               gap: 1.5,
             }}
           >
-            {faqs.map((faq, index) => (
+            {copy.items.map((faq, index) => (
               <FaqItem
                 key={faq.question}
+                id={`home-faq-${index + 1}`}
                 faq={faq}
                 isOpen={openIndex === index}
                 onToggle={() => setOpenIndex(openIndex === index ? null : index)}

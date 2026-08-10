@@ -45,7 +45,7 @@ function Field({ label, required, multiline, rows = 4, id, ...rest }) {
       >
         {label}
         {required && (
-          <Box component="span" sx={{ color: '#F26433', ml: 0.4 }}>*</Box>
+          <Box component="span" sx={{ color: '#F26433', marginInlineStart: 0.4 }}>*</Box>
         )}
       </Box>
       <Box
@@ -263,6 +263,7 @@ function ContactModal({ locale = 'en', open, onClose, onSubmit }) {
       <Box
         sx={{
           position: 'relative',
+          direction: locale === 'ar' ? 'rtl' : 'ltr',
           width: '100%',
           maxWidth: 680,
           maxHeight: 'calc(100dvh - 32px)',
@@ -352,7 +353,7 @@ function ContactModal({ locale = 'en', open, onClose, onSubmit }) {
               component="button"
               type="button"
               onClick={handleClose}
-              aria-label="Close"
+              aria-label={locale === 'ar' ? 'إغلاق' : 'Close'}
               sx={{
                 width: 42,
                 height: 42,
@@ -387,7 +388,7 @@ function ContactModal({ locale = 'en', open, onClose, onSubmit }) {
                 maxHeight: { xs: 'calc(100dvh - 132px)', sm: 'none' },
                 overflowY: { xs: 'auto', sm: 'visible' },
                 overflowX: 'hidden',
-                pr: { xs: 0.5, sm: 0 },
+                paddingInlineEnd: { xs: 0.5, sm: 0 },
                 pb: { xs: 0.5, sm: 0 },
                 overscrollBehavior: 'contain',
                 WebkitOverflowScrolling: 'touch',
@@ -396,14 +397,14 @@ function ContactModal({ locale = 'en', open, onClose, onSubmit }) {
               <Box
                 sx={{
                   position: 'relative',
-                  pl: { xs: 2, sm: 2.5 },
+                  paddingInlineStart: { xs: 2, sm: 2.5 },
                   mb: { xs: 2.4, sm: 2.8 },
                   '&::before': {
                     content: '""',
                     position: 'absolute',
                     top: 4,
                     bottom: 4,
-                    left: 0,
+                    insetInlineStart: 0,
                     width: 5,
                     borderRadius: '999px',
                     bgcolor: '#F26433',

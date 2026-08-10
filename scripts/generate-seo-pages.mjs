@@ -1,14 +1,15 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { blogPosts } from "../src/data/blogPosts.js";
-import { arabicBlogPosts } from "../src/data/arabicBlogPosts.js";
+import { blogPosts, getBlogPosts } from "../src/data/blogPosts.js";
+import { getFaqContent, homeFaqContent, pricingFaqContent } from "../src/data/faqContent.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, "..");
 const distDir = path.join(rootDir, "dist");
 const siteUrl = (process.env.SITE_URL || process.env.VITE_SITE_URL || "https://speekr.ai").replace(/\/+$/, "");
 const now = new Date().toISOString();
+const arabicBlogPosts = getBlogPosts("ar");
 const SALES_ROLEPLAY_IMAGE =
   "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=85";
 const SALES_ROLEPLAY_IMAGE_ALT =
@@ -269,34 +270,6 @@ function webpageSchema(route, locale = "en") {
   };
 }
 
-const pricingFaqs = [
-  {
-    question: "Is there a free trial?",
-    answer:
-      "Yes. Speekr for You lets you start for free without a credit card so you can experience roleplay and coaching before you buy. Teams also offers a guided trial.",
-  },
-  {
-    question: "How is Speekr for Teams billed?",
-    answer:
-      "Speekr for Teams is billed per seat, monthly or annually. Annual billing saves 20%. You can add or remove seats as your team changes.",
-  },
-  {
-    question: "Can I switch plans later?",
-    answer:
-      "Yes. You can upgrade from You to Teams, or from Teams to Enterprise, and your data and progress carry over.",
-  },
-  {
-    question: "What makes Enterprise different?",
-    answer:
-      "Enterprise adds API and LMS integration, custom KPIs, SSO, SCIM, data residency control, and a dedicated success manager.",
-  },
-  {
-    question: "What payment methods do you accept?",
-    answer:
-      "Speekr supports major cards for individual and team plans, plus invoicing and purchase orders for team and enterprise customers.",
-  },
-];
-
 function pricingOffer(name, description, price, billingDuration, unitText, features) {
   return {
     "@type": "Offer",
@@ -436,8 +409,15 @@ function routeSchema(route, locale = "en") {
     breadcrumbSchema(route, locale),
   ];
 
-  if (route.path === "/pricing") {
-    graph.push(pricingOfferCatalog(), faqSchema(route, pricingFaqs, locale));
+  if (route.path.endsWith("/pricing")) {
+    graph.push(
+      pricingOfferCatalog(),
+      faqSchema(route, getFaqContent(pricingFaqContent, locale).items, locale),
+    );
+  }
+
+  if (route.path === "/" || route.path === "/ar") {
+    graph.push(faqSchema(route, getFaqContent(homeFaqContent, locale).items, locale));
   }
 
   return {
@@ -466,6 +446,9 @@ function articleRoute(post, locale = "en") {
 function articleSchema(route, locale = "en") {
   const post = route.article;
   const articleUrl = absolute(route.path);
+  const faqSection = post.sections?.find((section) =>
+    ["faq", "faqs", "الأسئلة الشائعة"].includes(section.heading?.trim().toLowerCase()),
+  );
 
   return {
     "@context": "https://schema.org",
@@ -514,6 +497,24 @@ function articleSchema(route, locale = "en") {
           { "@type": "ListItem", position: 3, name: post.title, item: articleUrl },
         ],
       },
+      ...(faqSection?.callouts?.length
+        ? [
+            {
+              "@type": "FAQPage",
+              "@id": `${articleUrl}#faq`,
+              url: articleUrl,
+              inLanguage: locale === "ar" ? "ar" : "en",
+              mainEntity: faqSection.callouts.map((item) => ({
+                "@type": "Question",
+                name: item.title,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: item.text,
+                },
+              })),
+            },
+          ]
+        : []),
     ],
   };
 }
