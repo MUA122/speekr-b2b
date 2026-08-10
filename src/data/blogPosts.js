@@ -1,6 +1,8 @@
 import { arabicBlogPosts } from "./arabicBlogPosts.js";
+import { newBlogPosts } from "./newBlogPosts.js";
 
 export const blogPosts = [
+  ...newBlogPosts,
   {
     slug: "why-is-public-speaking-important",
     title: "Why is Public Speaking Important? How Strong Communication Opens Doors",

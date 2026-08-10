@@ -37,7 +37,7 @@ const faqs = [
   },
 ];
 
-function FaqItem({ faq, isOpen, onToggle }) {
+export function FaqItem({ faq, isOpen, onToggle }) {
   return (
     <Box
       component="article"

@@ -16,6 +16,8 @@ import { getBlogPosts } from "../data/blogPosts";
 import { localizedPath } from "../utils/i18n";
 import { absoluteUrl, applySeo, organizationSchema, setJsonLd, websiteSchema } from "../utils/seo";
 
+const POSTS_PER_PAGE = 6;
+
 const UI = {
   en: {
     allCategories: "All categories",
@@ -43,6 +45,7 @@ const UI = {
     sectionNote:
       "Every article is structured for readers, search engines, and AI answer engines with clean hierarchy and focused topic signals.",
     readArticle: "Read article",
+    viewMore: "View more",
     noMatch: "No articles match those filters.",
     noMatchNote: "Try a broader keyword or reset the filters to view the full library.",
     mostRead: "Most Read",
@@ -81,6 +84,7 @@ const UI = {
     sectionNote:
       "كل مقال منظم بعناية للقارئ ومحركات البحث ومحركات الإجابة الذكية، مع بنية واضحة وإشارات موضوعية دقيقة.",
     readArticle: "قراءة المقال",
+    viewMore: "عرض المزيد",
     noMatch: "لا توجد مقالات تطابق هذه الفلاتر.",
     noMatchNote: "جرّب كلمة بحث أوسع أو امسح الفلاتر لعرض المكتبة كاملة.",
     mostRead: "الأكثر قراءة",
@@ -791,6 +795,7 @@ export default function BlogPage({ locale = "en" }) {
   const [selectedCategory, setSelectedCategory] = useState(ui.allCategories);
   const [dateFilter, setDateFilter] = useState("newest");
   const [query, setQuery] = useState("");
+  const [visibleCount, setVisibleCount] = useState(POSTS_PER_PAGE);
   const categories = [...new Set(posts.map((post) => post.category))];
   const mostReadPosts = [
     posts.find((post) => post.slug === "ai-sales-objection-handling-guide"),
@@ -830,6 +835,12 @@ export default function BlogPage({ locale = "en" }) {
         return new Date(b.isoDate).getTime() - new Date(a.isoDate).getTime();
       });
   }, [dateFilter, posts, query, selectedCategory, ui.allCategories]);
+  const visiblePosts = filteredPosts.slice(0, visibleCount);
+  const hasMorePosts = visibleCount < filteredPosts.length;
+
+  useEffect(() => {
+    setVisibleCount(POSTS_PER_PAGE);
+  }, [dateFilter, locale, query, selectedCategory]);
 
   const resetFilters = () => {
     setSelectedCategory(ui.allCategories);
@@ -999,7 +1010,7 @@ export default function BlogPage({ locale = "en" }) {
             setDateFilter={setDateFilter}
             query={query}
             setQuery={setQuery}
-            resultCount={filteredPosts.length}
+            resultCount={Math.min(visibleCount, filteredPosts.length)}
             totalCount={posts.length}
             onReset={resetFilters}
           />
@@ -1070,10 +1081,52 @@ export default function BlogPage({ locale = "en" }) {
               gap: { xs: 2.2, md: 2.8 },
             }}
           >
-            {filteredPosts.map((post, index) => (
+            {visiblePosts.map((post, index) => (
               <ArticleCard key={post.slug} post={post} index={index} locale={locale} ui={ui} />
             ))}
           </Box>
+
+          {hasMorePosts && (
+            <Box sx={{ display: "flex", justifyContent: "center", mt: { xs: 3.5, md: 4.5 } }}>
+              <Box
+                component="button"
+                type="button"
+                onClick={() => setVisibleCount((count) => count + POSTS_PER_PAGE)}
+                sx={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 1,
+                  minHeight: 50,
+                  px: 3.5,
+                  border: "none",
+                  borderRadius: "999px",
+                  bgcolor: "#074225",
+                  color: "#EEF3CD",
+                  fontFamily: "inherit",
+                  fontSize: 15,
+                  fontWeight: 900,
+                  cursor: "pointer",
+                  boxShadow: "0 16px 40px rgba(7,66,37,0.18)",
+                  transition: "transform 180ms ease, background-color 180ms ease",
+                  "&:hover": {
+                    bgcolor: "#0A5030",
+                    transform: "translateY(-2px)",
+                  },
+                  "&:focus-visible": {
+                    outline: "3px solid #F26433",
+                    outlineOffset: 3,
+                  },
+                }}
+              >
+                {ui.viewMore}
+                <ArrowRight
+                  size={17}
+                  aria-hidden
+                  style={{ transform: isAr ? "rotate(180deg)" : "none" }}
+                />
+              </Box>
+            </Box>
+          )}
 
           {filteredPosts.length === 0 && (
             <Box

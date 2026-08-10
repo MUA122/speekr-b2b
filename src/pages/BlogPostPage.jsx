@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import {
@@ -12,6 +12,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { getBlogPostBySlug, getBlogPosts } from "../data/blogPosts";
+import { FaqItem } from "../components/FaqSection";
 import { localizedPath } from "../utils/i18n";
 import { absoluteUrl, applySeo, organizationSchema, setJsonLd, websiteSchema } from "../utils/seo";
 
@@ -220,7 +221,87 @@ function MetaChip({ icon: Icon, children }) {
   );
 }
 
+function BlogFaqSection({ section, index }) {
+  const [openIndex, setOpenIndex] = useState(0);
+  const headingId = "article-faq-title";
+
+  return (
+    <Box
+      component="section"
+      id={slugify(section.heading)}
+      aria-labelledby={headingId}
+      sx={{
+        scrollMarginTop: 120,
+        pt: index === 0 ? 0 : { xs: 4.2, md: 5.6 },
+        mt: index === 0 ? 0 : { xs: 4.2, md: 5.6 },
+        borderTop: index === 0 ? "none" : "1px solid rgba(7,66,37,0.1)",
+      }}
+    >
+      <Box
+        sx={{
+          position: "relative",
+          overflow: "hidden",
+          p: { xs: 2, sm: 2.6, md: 3.2 },
+          borderRadius: { xs: "20px", md: "26px" },
+          bgcolor: "rgba(238,243,205,0.7)",
+          border: "1px solid rgba(7,66,37,0.1)",
+        }}
+      >
+        <Box
+          component="img"
+          src="/images/brand-patterns/faq-bg.png"
+          alt=""
+          aria-hidden
+          loading="lazy"
+          decoding="async"
+          sx={{
+            position: "absolute",
+            top: -30,
+            left: "50%",
+            width: 900,
+            maxWidth: "none",
+            transform: "translateX(-50%)",
+            opacity: 0.065,
+            pointerEvents: "none",
+          }}
+        />
+        <Box sx={{ position: "relative", zIndex: 1 }}>
+          <Typography
+            id={headingId}
+            component="h2"
+            sx={{
+              m: 0,
+              mb: { xs: 2.4, md: 3 },
+              fontSize: { xs: 29, md: 40 },
+              fontWeight: 950,
+              lineHeight: 1.05,
+              color: "#074225",
+            }}
+          >
+            {section.heading}
+          </Typography>
+
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 1.35 }}>
+            {section.callouts.map((item, faqIndex) => (
+              <FaqItem
+                key={item.title}
+                faq={{ question: item.title, answer: item.text }}
+                isOpen={openIndex === faqIndex}
+                onToggle={() => setOpenIndex(openIndex === faqIndex ? null : faqIndex)}
+              />
+            ))}
+          </Box>
+        </Box>
+      </Box>
+    </Box>
+  );
+}
+
 function SectionBlock({ section, index }) {
+  if (section.heading?.toLowerCase() === "faqs" && section.callouts?.length) {
+    return <BlogFaqSection section={section} index={index} />;
+  }
+
   return (
     <Box
       component="section"
