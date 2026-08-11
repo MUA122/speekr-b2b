@@ -1,37 +1,39 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from "@mui/material/styles";
 
 export const brand = {
-  forest: '#074225',
-  green: '#074225',
-  greenDeep: '#074225',
-  ivory: '#EEF3CD',
-  lime: '#EEF3CD',
-  limeStrong: '#8EC640',
-  ink: '#073821',
-  moss: '#8EC640',
-  mint: '#EEF3CD',
-  signal: '#8EC640',
-  clay: '#F26433',
-  orange: '#F26433',
-  orangeDeep: '#C84D27',
-  lavender: '#E8DCEB',
-  cobalt: '#074225',
-  sky: '#E8DCEB',
-  line: 'rgba(7, 66, 37, 0.14)',
-  fontHeadline: 'var(--font-headline, "Caprasimo", "Belwe Bold", "Belwe", "Cooper Black", Georgia, serif)',
-  fontBody: 'var(--font-body, "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif)',
+  forest: "#074225",
+  green: "#074225",
+  greenDeep: "#074225",
+  ivory: "#F7F9E8",
+  lime: "#EEF3CD",
+  limeStrong: "#8EC640",
+  ink: "#073821",
+  moss: "#8EC640",
+  mint: "#EEF3CD",
+  signal: "#8EC640",
+  clay: "#F26433",
+  orange: "#F26433",
+  orangeDeep: "#C84D27",
+  lavender: "#E8DCEB",
+  cobalt: "#074225",
+  sky: "#E8DCEB",
+  line: "rgba(7, 66, 37, 0.14)",
+  fontHeadline:
+    'var(--font-headline, "Rubik Local", "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif)',
+  fontBody:
+    'var(--font-body, "Rubik Local", "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif)',
 };
 
 export const theme = createTheme({
   palette: {
-    mode: 'light',
+    mode: "light",
     primary: {
       main: brand.forest,
       contrastText: brand.ivory,
     },
     secondary: {
       main: brand.clay,
-      contrastText: '#ffffff',
+      contrastText: "#ffffff",
     },
     background: {
       default: brand.ivory,
@@ -39,35 +41,75 @@ export const theme = createTheme({
     },
     text: {
       primary: brand.ink,
-      secondary: 'rgba(7, 66, 37, 0.62)',
+      secondary: "rgba(7, 66, 37, 0.62)",
     },
     divider: brand.line,
     brand,
   },
   typography: {
     fontFamily: brand.fontBody,
+    fontWeightLight: 400,
+    fontWeightRegular: 400,
+    fontWeightMedium: 500,
+    fontWeightBold: 700,
     h1: {
       fontFamily: brand.fontHeadline,
-      fontWeight: 800,
+      fontWeight: 700,
       letterSpacing: 0,
       lineHeight: 0.94,
     },
     h2: {
       fontFamily: brand.fontHeadline,
-      fontWeight: 800,
+      fontWeight: 700,
       letterSpacing: 0,
       lineHeight: 1,
     },
     h3: {
       fontFamily: brand.fontHeadline,
-      fontWeight: 800,
+      fontWeight: 700,
       letterSpacing: 0,
       lineHeight: 1.05,
     },
+    h4: {
+      fontFamily: brand.fontHeadline,
+      fontWeight: 700,
+    },
+    h5: {
+      fontFamily: brand.fontHeadline,
+      fontWeight: 700,
+    },
+    h6: {
+      fontFamily: brand.fontHeadline,
+      fontWeight: 700,
+    },
+    subtitle1: {
+      fontFamily: brand.fontBody,
+      fontWeight: 600,
+    },
+    subtitle2: {
+      fontFamily: brand.fontBody,
+      fontWeight: 600,
+    },
+    body1: {
+      fontFamily: brand.fontBody,
+      fontWeight: 400,
+    },
+    body2: {
+      fontFamily: brand.fontBody,
+      fontWeight: 400,
+    },
+    caption: {
+      fontFamily: brand.fontBody,
+      fontWeight: 400,
+    },
+    overline: {
+      fontFamily: brand.fontBody,
+      fontWeight: 600,
+    },
     button: {
       fontFamily: brand.fontBody,
-      fontWeight: 800,
-      textTransform: 'none',
+      fontWeight: 600,
+      textTransform: "none",
       letterSpacing: 0,
     },
   },
@@ -77,11 +119,11 @@ export const theme = createTheme({
   components: {
     MuiCssBaseline: {
       styleOverrides: {
-        '*': {
-          boxSizing: 'border-box',
+        "*": {
+          boxSizing: "border-box",
         },
         html: {
-          scrollBehavior: 'smooth',
+          scrollBehavior: "smooth",
           background: brand.ivory,
         },
         body: {
@@ -91,10 +133,10 @@ export const theme = createTheme({
           color: brand.ink,
           background: brand.ivory,
         },
-        'button, a': {
-          WebkitTapHighlightColor: 'transparent',
+        "button, a": {
+          WebkitTapHighlightColor: "transparent",
         },
-        '::selection': {
+        "::selection": {
           color: brand.ivory,
           backgroundColor: brand.forest,
         },
@@ -107,15 +149,15 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 999,
-          boxShadow: 'none',
+          boxShadow: "none",
           minHeight: 48,
           paddingInline: 24,
           transition:
-            'transform 180ms ease, background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease',
-          '&:hover': {
-            transform: 'translateY(-1px)',
+            "transform 180ms ease, background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease",
+          "&:hover": {
+            transform: "translateY(-1px)",
           },
-          '&:focus-visible': {
+          "&:focus-visible": {
             outline: `3px solid ${brand.limeStrong}`,
             outlineOffset: 3,
           },
@@ -125,7 +167,7 @@ export const theme = createTheme({
     MuiIconButton: {
       styleOverrides: {
         root: {
-          '&:focus-visible': {
+          "&:focus-visible": {
             outline: `3px solid ${brand.limeStrong}`,
             outlineOffset: 3,
           },

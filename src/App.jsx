@@ -25,7 +25,13 @@ import BlogPage from "./pages/BlogPage.jsx";
 import BlogPostPage from "./pages/BlogPostPage.jsx";
 import { homeFaqContent } from "./data/faqContent.js";
 import { localizedPath, splitLocalePath } from "./utils/i18n.js";
-import { absoluteUrl, applySeo, organizationSchema, setJsonLd, websiteSchema } from "./utils/seo.js";
+import {
+  absoluteUrl,
+  applySeo,
+  organizationSchema,
+  setJsonLd,
+  websiteSchema,
+} from "./utils/seo.js";
 import { brand } from "./theme.js";
 
 const SALES_ROLEPLAY_IMAGE =
@@ -132,18 +138,45 @@ const arabicPlatformFeatures = [
 ];
 
 const solutionItems = [
-  ["Sales training", "AI practice for cold calls, discovery, objections, negotiations, and closing conversations."],
-  ["Customer care training", "AI practice for complaints, escalations, empathy, and service recovery conversations."],
-  ["Leadership development", "AI practice for feedback, coaching, accountability, conflict, and difficult conversations."],
-  ["Technical communication", "AI practice for explaining complex work to clients, leaders, and cross-functional teams."],
-  ["Applicant screening", "Structured AI interview workflows for first-round candidate conversations."],
+  [
+    "Sales training",
+    "AI practice for cold calls, discovery, objections, negotiations, and closing conversations.",
+  ],
+  [
+    "Customer care training",
+    "AI practice for complaints, escalations, empathy, and service recovery conversations.",
+  ],
+  [
+    "Leadership development",
+    "AI practice for feedback, coaching, accountability, conflict, and difficult conversations.",
+  ],
+  [
+    "Technical communication",
+    "AI practice for explaining complex work to clients, leaders, and cross-functional teams.",
+  ],
+  [
+    "Applicant screening",
+    "Structured AI interview workflows for first-round candidate conversations.",
+  ],
 ];
 
 const arabicSolutionItems = [
-  ["تدريب المبيعات", "تدريب ذكي على المكالمات الباردة والاستكشاف والاعتراضات والتفاوض وإتمام الصفقات."],
-  ["تدريب خدمة العملاء", "تدريب ذكي على الشكاوى والتصعيد والتعاطف واستعادة رضا العميل."],
-  ["تطوير القيادات", "تدريب ذكي على الملاحظات والتوجيه والمساءلة والخلافات والمحادثات الصعبة."],
-  ["التواصل التقني", "تدريب ذكي على شرح العمل المعقّد للعملاء والقيادات والفرق الأخرى."],
+  [
+    "تدريب المبيعات",
+    "تدريب ذكي على المكالمات الباردة والاستكشاف والاعتراضات والتفاوض وإتمام الصفقات.",
+  ],
+  [
+    "تدريب خدمة العملاء",
+    "تدريب ذكي على الشكاوى والتصعيد والتعاطف واستعادة رضا العميل.",
+  ],
+  [
+    "تطوير القيادات",
+    "تدريب ذكي على الملاحظات والتوجيه والمساءلة والخلافات والمحادثات الصعبة.",
+  ],
+  [
+    "التواصل التقني",
+    "تدريب ذكي على شرح العمل المعقّد للعملاء والقيادات والفرق الأخرى.",
+  ],
   ["فرز المتقدمين", "مقابلات أولية ذكية ومنظمة للمرشحين والمتقدمين."],
 ];
 
@@ -212,7 +245,9 @@ function softwareApplicationSchema(locale) {
     name: "Speekr.ai",
     alternateName: "Speekr",
     applicationCategory: "EducationalApplication",
-    applicationSubCategory: ar ? "منصة تدريب التواصل بالذكاء الاصطناعي" : "AI communication coaching platform",
+    applicationSubCategory: ar
+      ? "منصة تدريب التواصل بالذكاء الاصطناعي"
+      : "AI communication coaching platform",
     operatingSystem: "Web",
     url,
     image: absoluteUrl("/images/hero.png"),
@@ -221,10 +256,16 @@ function softwareApplicationSchema(locale) {
       : "AI-powered communication practice platform for presentations, meetings, sales conversations, customer care, leadership, and workplace soft skills.",
     featureList: ar ? arabicPlatformFeatures : platformFeatures,
     audience: [
-      { "@type": "BusinessAudience", audienceType: "Enterprise training teams" },
+      {
+        "@type": "BusinessAudience",
+        audienceType: "Enterprise training teams",
+      },
       { "@type": "BusinessAudience", audienceType: "Sales enablement teams" },
       { "@type": "BusinessAudience", audienceType: "Customer care teams" },
-      { "@type": "BusinessAudience", audienceType: "Leadership development teams" },
+      {
+        "@type": "BusinessAudience",
+        audienceType: "Leadership development teams",
+      },
     ],
     offers: {
       "@type": "Offer",
@@ -256,7 +297,10 @@ function solutionItemList(locale) {
   return {
     "@type": "ItemList",
     "@id": `${pageUrl("/solutions", locale)}#solutions-list`,
-    name: locale === "ar" ? "حلول Speekr لتدريب التواصل" : "Speekr communication training solutions",
+    name:
+      locale === "ar"
+        ? "حلول Speekr لتدريب التواصل"
+        : "Speekr communication training solutions",
     itemListElement: items.map(([name, description], index) => ({
       "@type": "ListItem",
       position: index + 1,
@@ -314,11 +358,17 @@ function buildRouteSchema({ locale, path, seo }) {
   ];
 
   if (normalizedPath === "/") {
-    graph.push(softwareApplicationSchema(locale), featureItemList(normalizedPath, locale));
+    graph.push(
+      softwareApplicationSchema(locale),
+      featureItemList(normalizedPath, locale),
+    );
   }
 
   if (normalizedPath === "/platform") {
-    graph.push(softwareApplicationSchema(locale), featureItemList(normalizedPath, locale));
+    graph.push(
+      softwareApplicationSchema(locale),
+      featureItemList(normalizedPath, locale),
+    );
   }
 
   if (normalizedPath === "/solutions") {
@@ -379,7 +429,9 @@ function App() {
   const isPlatformPage = path === "/platform";
   const isBlogPage = path === "/blog";
   const isBlogPostPage = path.startsWith("/blog/");
-  const blogSlug = isBlogPostPage ? decodeURIComponent(path.replace("/blog/", "")) : "";
+  const blogSlug = isBlogPostPage
+    ? decodeURIComponent(path.replace("/blog/", ""))
+    : "";
   const openContactModal = () => setIsContactOpen(true);
   const closeContactModal = () => setIsContactOpen(false);
 
@@ -427,7 +479,8 @@ function App() {
     };
 
     document.addEventListener("click", handleInternalLink, true);
-    return () => document.removeEventListener("click", handleInternalLink, true);
+    return () =>
+      document.removeEventListener("click", handleInternalLink, true);
   }, []);
 
   useEffect(() => {
@@ -518,9 +571,9 @@ function App() {
           },
           ":root": {
             "--font-headline":
-              '"Caprasimo", "Belwe Bold", "Belwe", "Cooper Black", Georgia, serif',
+              '"Rubik Local", "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif',
             "--font-body":
-              '"Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif',
+              '"Rubik Local", "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif',
             fontSynthesis: "none",
             textRendering: "optimizeLegibility",
             WebkitTextSizeAdjust: "100%",
@@ -530,36 +583,41 @@ function App() {
           'html[dir="rtl"]': {
             "--font-headline":
               '"Lalezar", "IBM Plex Sans Arabic", Tahoma, Arial, sans-serif',
-            "--font-body":
-              '"IBM Plex Sans Arabic", Tahoma, Arial, sans-serif',
+            "--font-body": '"IBM Plex Sans Arabic", Tahoma, Arial, sans-serif',
           },
           'html[dir="rtl"] body, html[dir="rtl"] #root': {
             direction: "rtl",
             textAlign: "right",
           },
-          'html[dir="rtl"] .MuiTypography-root, html[dir="rtl"] button, html[dir="rtl"] input, html[dir="rtl"] textarea, html[dir="rtl"] select': {
-            letterSpacing: "0 !important",
-            textTransform: "none !important",
-          },
-          'html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] h3, html[dir="rtl"] .MuiTypography-h1, html[dir="rtl"] .MuiTypography-h2, html[dir="rtl"] .MuiTypography-h3': {
-            lineHeight: "1.16 !important",
-            fontWeight: "400 !important",
-            overflowWrap: "anywhere",
-          },
-          'html[dir="rtl"] p, html[dir="rtl"] .MuiTypography-body1, html[dir="rtl"] .MuiTypography-body2': {
-            overflowWrap: "anywhere",
-          },
-          'html[dir="rtl"] input, html[dir="rtl"] textarea, html[dir="rtl"] select': {
-            direction: "rtl",
-            textAlign: "right",
-          },
-          'html[dir="rtl"] input[type="email"], html[dir="rtl"] input[type="tel"]': {
-            direction: "ltr",
-            textAlign: "left",
-          },
-          'html[dir="rtl"] svg.lucide-arrow-right, html[dir="rtl"] svg.lucide-arrow-up-right, html[dir="rtl"] svg.lucide-chevron-right, html[dir="rtl"] svg.lucide-chevron-left': {
-            transform: "scaleX(-1)",
-          },
+          'html[dir="rtl"] .MuiTypography-root, html[dir="rtl"] button, html[dir="rtl"] input, html[dir="rtl"] textarea, html[dir="rtl"] select':
+            {
+              letterSpacing: "0 !important",
+              textTransform: "none !important",
+            },
+          'html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] h3, html[dir="rtl"] .MuiTypography-h1, html[dir="rtl"] .MuiTypography-h2, html[dir="rtl"] .MuiTypography-h3':
+            {
+              lineHeight: "1.16 !important",
+              fontWeight: "400 !important",
+              overflowWrap: "anywhere",
+            },
+          'html[dir="rtl"] p, html[dir="rtl"] .MuiTypography-body1, html[dir="rtl"] .MuiTypography-body2':
+            {
+              overflowWrap: "anywhere",
+            },
+          'html[dir="rtl"] input, html[dir="rtl"] textarea, html[dir="rtl"] select':
+            {
+              direction: "rtl",
+              textAlign: "right",
+            },
+          'html[dir="rtl"] input[type="email"], html[dir="rtl"] input[type="tel"]':
+            {
+              direction: "ltr",
+              textAlign: "left",
+            },
+          'html[dir="rtl"] svg.lucide-arrow-right, html[dir="rtl"] svg.lucide-arrow-up-right, html[dir="rtl"] svg.lucide-chevron-right, html[dir="rtl"] svg.lucide-chevron-left':
+            {
+              transform: "scaleX(-1)",
+            },
           'html[dir="rtl"] .MuiButton-endIcon': {
             marginLeft: "-4px",
             marginRight: "8px",
@@ -571,10 +629,11 @@ function App() {
           ".MuiTypography-root, button, input, textarea, select": {
             fontFamily: "var(--font-body)",
           },
-          "h1, h2, h3, .MuiTypography-h1, .MuiTypography-h2, .MuiTypography-h3": {
-            fontFamily: "var(--font-headline)",
-            letterSpacing: 0,
-          },
+          "h1, h2, h3, h4, h5, h6, .MuiTypography-h1, .MuiTypography-h2, .MuiTypography-h3, .MuiTypography-h4, .MuiTypography-h5, .MuiTypography-h6":
+            {
+              fontFamily: "var(--font-headline)",
+              letterSpacing: 0,
+            },
           "::selection": {
             background: brand.forest,
             color: brand.ivory,
@@ -667,9 +726,8 @@ function App() {
           <SectionDivider />
           <MenaNative />
           <CaseStudiesCarousel locale={locale} />
-          <SectionDivider variant="dark" />
+          {/* <SectionDivider variant="dark" /> */}
           <SecurityTrustSection />
-          <SectionDivider />
           <FaqSection locale={locale} />
           <FinalCta onDemoClick={openContactModal} />
         </>

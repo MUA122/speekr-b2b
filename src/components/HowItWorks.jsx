@@ -394,7 +394,7 @@ function StepCard({ step }) {
           minHeight: { xs: 470, md: 500 },
           p: { xs: 2.4, md: 2.6 },
           borderRadius: "8px",
-          background: "rgba(255,255,255,0.74)",
+          background: "#F7F9E8",
           border: "1px solid rgba(7,66,37,0.08)",
           boxShadow: "0 28px 72px rgba(7,28,20,0.08)",
           overflow: "hidden",
@@ -523,12 +523,8 @@ function HowItWorks() {
         isolation: "isolate",
         overflow: "hidden",
         py: { xs: 8, md: 11, lg: 13 },
-        backgroundColor: brand.ivory,
-        backgroundImage: `
-          linear-gradient(180deg, rgba(0,66,37,0), rgba(0,66,37,0.065) 44%, rgba(0,66,37,0)),
-          linear-gradient(90deg, rgba(0,66,37,0.05) 1px, transparent 1px),
-          linear-gradient(180deg, rgba(0,66,37,0.04) 1px, transparent 1px)
-        `,
+        backgroundColor: "#F7F9E8",
+
         backgroundSize: "100% 100%, 72px 72px, 72px 72px",
         "&::before": {
           content: '""',
@@ -564,6 +560,7 @@ function HowItWorks() {
               color: brand.forest,
               fontSize: { xs: "2.5rem", sm: "3.15rem", md: "4.15rem" },
               lineHeight: 1,
+              letterSpacing: "-4px",
             }}
           >
             How It Works

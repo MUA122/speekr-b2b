@@ -430,6 +430,7 @@ function UseCases({ onDemoClick }) {
                 fontWeight: 800,
                 lineHeight: 1.08,
                 maxWidth: 680,
+                letterSpacing: "-2.5px",
               }}
             >
               Arabic speaking AI Roleplays for{" "}
@@ -445,7 +446,7 @@ function UseCases({ onDemoClick }) {
               color: "#007D50",
               fontSize: { xs: 18, md: 19 },
               lineHeight: 1.45,
-              letterSpacing: "-0.8px",
+              letterSpacing: "-0.7px",
               animation: "fadeLift 620ms ease both",
             }}
           >
@@ -460,7 +461,7 @@ function UseCases({ onDemoClick }) {
             position: "relative",
             p: { xs: 2.4, sm: 3.2, md: 2.5 },
             borderRadius: { xs: 4, md: 5 },
-            background: "rgba(255,255,255,0.66)",
+            background: "#EEF4CC",
           }}
         >
           <Box
@@ -472,6 +473,7 @@ function UseCases({ onDemoClick }) {
               overflowX: { xs: "auto", md: "visible" },
               pb: 0,
               position: "relative",
+              letterSpacing: "-0.5px",
             }}
           >
             {useCases.map((item, index) => (
