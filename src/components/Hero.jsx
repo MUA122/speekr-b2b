@@ -38,6 +38,7 @@ function Hero({ locale = "en", onDemoClick }) {
   return (
     <Box
       component="main"
+      id="home-hero"
       sx={{
         position: "relative",
         isolation: "isolate",
@@ -120,7 +121,10 @@ function Hero({ locale = "en", onDemoClick }) {
                     <Box
                       component="span"
                       className="hero-prefix"
-                      sx={{ letterSpacing: "-4px" }}
+                      sx={{
+                        letterSpacing: { md: "-4px", xs: "-2px" },
+                        mt: { xs: 6 },
+                      }}
                     >
                       AI Roleplay for
                     </Box>
@@ -130,7 +134,7 @@ function Hero({ locale = "en", onDemoClick }) {
                       key={activeAudience}
                       sx={{
                         animation: "fadeLift 420ms ease both",
-                        letterSpacing: "-4px",
+                        letterSpacing: { md: "-4px", xs: "-2px" },
                       }}
                     >
                       {activeAudience}

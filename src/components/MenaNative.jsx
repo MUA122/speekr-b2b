@@ -278,6 +278,7 @@ function MenaNative() {
               color: brand.forest,
               fontSize: { xs: "2.6rem", sm: "3.7rem", md: "5rem" },
               lineHeight: 0.95,
+              letterSpacing: { xs: "-1.5px", md: "-3.5px" },
             }}
           >
             Built for the Way MENA Teams Communicate
@@ -290,6 +291,7 @@ function MenaNative() {
               fontSize: { xs: "1rem", md: "1.12rem" },
               lineHeight: 1.78,
               fontWeight: 560,
+              letterSpacing: { xs: "-0.3px", md: "-0.5px" },
             }}
           >
             From dialects and accents to customer expectations and workplace

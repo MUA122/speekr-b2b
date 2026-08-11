@@ -632,8 +632,14 @@ function App() {
           "h1, h2, h3, h4, h5, h6, .MuiTypography-h1, .MuiTypography-h2, .MuiTypography-h3, .MuiTypography-h4, .MuiTypography-h5, .MuiTypography-h6":
             {
               fontFamily: "var(--font-headline)",
-              letterSpacing: 0,
             },
+          // ":is(main:not(#home-hero), section, footer) .MuiTypography-root": {
+          //   letterSpacing: "-0.3px",
+          // },
+          // ":is(main:not(#home-hero), section, footer) :is(h1, h2, h3, h4, h5, h6, .MuiTypography-h1, .MuiTypography-h2, .MuiTypography-h3, .MuiTypography-h4, .MuiTypography-h5, .MuiTypography-h6)":
+          //   {
+          //     letterSpacing: "-2px",
+          //   },
           "::selection": {
             background: brand.forest,
             color: brand.ivory,

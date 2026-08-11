@@ -79,7 +79,7 @@ function SecurityCard({ item }) {
           fontSize: { xs: 22, md: 23 },
           fontWeight: 900,
           lineHeight: 1.05,
-          letterSpacing: 0,
+          letterSpacing: '-0.25px !important',
         }}
       >
         {item.title}
@@ -91,6 +91,7 @@ function SecurityCard({ item }) {
           fontSize: { xs: 14.5, md: 15.5 },
           lineHeight: 1.55,
           fontWeight: 650,
+          letterSpacing: '0 !important',
         }}
       >
         {item.copy}
