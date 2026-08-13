@@ -429,6 +429,13 @@ function App() {
   const isPlatformPage = path === "/platform";
   const isBlogPage = path === "/blog";
   const isBlogPostPage = path.startsWith("/blog/");
+  const usesBelwePageHeadings =
+    locale === "en" &&
+    (isPlatformPage ||
+      isSolutionsPage ||
+      isPricingPage ||
+      isBlogPage ||
+      isBlogPostPage);
   const blogSlug = isBlogPostPage
     ? decodeURIComponent(path.replace("/blog/", ""))
     : "";
@@ -508,6 +515,7 @@ function App() {
   return (
     <Box
       key={locale}
+      className={usesBelwePageHeadings ? "belwe-page-headings" : undefined}
       sx={{
         minHeight: "100vh",
         color: "text.primary",
