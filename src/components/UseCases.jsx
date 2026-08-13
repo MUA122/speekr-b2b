@@ -7,13 +7,6 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import {
-  Code2,
-  GraduationCap,
-  Headphones,
-  PhoneCall,
-  UsersRound,
-} from "lucide-react";
 import { brand } from "../theme.js";
 
 const useCases = [
@@ -36,11 +29,6 @@ const useCases = [
         copy: "Master negotiation, stakeholder alignment, and closing conversations.",
       },
     ],
-    metric: "31% faster rep ramp",
-    score: "31%",
-    accent: brand.signal,
-    icon: PhoneCall,
-    point: { x: "12%", y: "50%" },
   },
   {
     label: "Customer Service",
@@ -61,11 +49,6 @@ const useCases = [
         copy: "Navigate challenging interactions and retain customers.",
       },
     ],
-    metric: "+22pt NPS lift, post-pilot",
-    score: "+22",
-    accent: "#E7D4F4",
-    icon: Headphones,
-    point: { x: "31%", y: "50%" },
   },
   {
     label: "Leadership",
@@ -86,11 +69,6 @@ const useCases = [
         copy: "Handle accountability, conflict, and performance issues.",
       },
     ],
-    metric: "2x manager confidence (self-reported)",
-    score: "2x",
-    accent: brand.mint,
-    icon: UsersRound,
-    point: { x: "50%", y: "50%" },
   },
   {
     label: "Technical Teams",
@@ -111,11 +89,6 @@ const useCases = [
         copy: "Improve communication with product, sales, and leadership teams.",
       },
     ],
-    metric: "Clearer technical handoffs",
-    score: "3x",
-    accent: "#BFEAFF",
-    icon: Code2,
-    point: { x: "69%", y: "50%" },
   },
   {
     label: "Admissions",
@@ -136,45 +109,43 @@ const useCases = [
         copy: "Handle applicant questions with professionalism and consistency.",
       },
     ],
-    metric: "90% lower interview load",
-    score: "90%",
-    accent: brand.clay,
-    icon: GraduationCap,
-    point: { x: "88%", y: "50%" },
   },
 ];
 
-function UseCaseTab({ item, selected, onSelect }) {
+function UseCaseTab({ item, index, selected, onSelect }) {
   return (
     <Button
       type="button"
+      role="tab"
+      id={`use-case-tab-${index}`}
+      aria-controls={`use-case-panel-${index}`}
+      aria-selected={selected}
       onClick={onSelect}
-      aria-pressed={selected}
       aria-label={`Show ${item.label} use case`}
       sx={{
-        width: { xs: "auto", md: "auto" },
-        flex: { xs: "0 0 168px", sm: "0 0 210px", md: "1 1 0" },
+        flex: { xs: "0 0 172px", sm: "0 0 196px", md: "1 1 0" },
         minWidth: 0,
-        minHeight: { xs: 58, md: 78 },
-        px: { xs: 1.6, md: 1.2 },
-        py: { xs: 1, md: 1.2 },
-        borderRadius: selected ? { xs: 0, md: "16px 16px 0 0" } : 0,
-        overflow: "hidden",
-        color: brand.forest,
+        minHeight: 48,
+        px: 2,
+        borderRadius: 999,
         background: selected ? brand.forest : "transparent",
-        fontSize: { xs: 15, sm: 17, md: 19, lg: 21 },
+        color: selected ? "#ffffff" : brand.forest,
+        fontSize: { xs: 13, sm: 13.5, lg: 14 },
+        fontWeight: 900,
         lineHeight: 1,
         textAlign: "center",
         whiteSpace: "nowrap",
         transition:
-          "background-color 240ms ease, color 240ms ease, border-radius 240ms ease",
+          "background-color 280ms ease, color 280ms ease, box-shadow 280ms ease",
+        boxShadow: selected ? "0 12px 28px rgba(0,66,37,.22)" : "none",
         "&:hover": {
-          background: selected ? brand.forest : "rgba(7,66,37,0.06)",
+          background: selected ? brand.forest : "rgba(0,66,37,.08)",
           transform: "none",
         },
         "& .MuiTypography-root": {
-          color: selected ? brand.ivory : brand.forest,
-          fontSize: { xs: 15, sm: 17, md: 19, lg: 21 },
+          color: "inherit",
+          fontSize: "inherit",
+          fontWeight: "inherit",
           lineHeight: 1,
           transition: "color 240ms ease",
         },
@@ -185,80 +156,24 @@ function UseCaseTab({ item, selected, onSelect }) {
   );
 }
 
-function UseCaseCard({ card, Icon }) {
+function StoryPanel({ active, activeIndex, isChanging, onDemoClick }) {
   return (
     <Box
+      role="tabpanel"
+      id={`use-case-panel-${activeIndex}`}
+      aria-labelledby={`use-case-tab-${activeIndex}`}
       sx={{
         position: "relative",
-        minHeight: { xs: 260, md: 300 },
-        p: { xs: 3, md: 3.5 },
-        borderRadius: "8px",
-        background: brand.ivory,
-        color: brand.forest,
-        overflow: "hidden",
-        transition: "transform 190ms ease, box-shadow 190ms ease",
-        "&:hover": {
-          transform: "translateY(-6px)",
-          boxShadow: "0 22px 48px rgba(0,0,0,0.18)",
-        },
+        pt: { xs: 5, md: 7 },
+        minHeight: { md: 305 },
       }}
     >
-      <Stack sx={{ minHeight: "100%" }}>
-        <Icon size={44} strokeWidth={2.2} color={brand.orange} />
-
-        <Typography
-          component="div"
-          sx={{
-            mt: 4.2,
-            color: brand.orange,
-            fontSize: { xs: 30, md: 34 },
-            lineHeight: 1.08,
-            letterSpacing: "-0.4px",
-            maxWidth: 330,
-          }}
-        >
-          {card.title}
-        </Typography>
-
-        <Typography
-          sx={{
-            mt: 2.4,
-            color: "#007D50",
-            fontSize: { xs: 17, md: 18 },
-            lineHeight: 1.42,
-            letterSpacing: "-0.65px",
-          }}
-        >
-          {card.copy}
-        </Typography>
-      </Stack>
-    </Box>
-  );
-}
-
-function StoryPanel({ active, isChanging, onDemoClick }) {
-  const Icon = active.icon;
-
-  return (
-    <Box
-      sx={{
-        position: "relative",
-        mt: 0,
-        minHeight: "auto",
-        p: { xs: 3, sm: 4, md: 4.2, lg: 4.6 },
-        borderRadius: "0 0 24px 24px",
-        overflow: "hidden",
-        color: brand.ivory,
-        background: brand.forest,
-      }}
-    >
-      <Stack
+      <Box
+        key={active.label}
         sx={{
-          position: "relative",
-          zIndex: 1,
           opacity: isChanging ? 0 : 1,
           transform: isChanging
-            ? "translate3d(0, 7px, 0)"
+            ? "translate3d(0, 9px, 0)"
             : "translate3d(0, 0, 0)",
           transition:
             "opacity 220ms ease, transform 280ms cubic-bezier(0.22, 1, 0.36, 1)",
@@ -273,11 +188,70 @@ function StoryPanel({ active, isChanging, onDemoClick }) {
           sx={{
             display: "grid",
             gridTemplateColumns: { xs: "1fr", md: "repeat(3, minmax(0, 1fr))" },
-            gap: { xs: 2.2, md: 3 },
+            columnGap: { md: 5.5, lg: 8 },
+            rowGap: { xs: 5, md: 0 },
+            alignItems: "start",
           }}
         >
           {active.cards.map((card, index) => (
-            <UseCaseCard key={card.title} card={card} Icon={Icon} />
+            <Box component="article" key={card.title} sx={{ minWidth: 0 }}>
+              <Stack direction="row" alignItems="center" spacing={1.15}>
+                <Typography
+                  component="span"
+                  sx={{
+                    color: brand.orange,
+                    fontSize: 12,
+                    fontWeight: 900,
+                    lineHeight: 1,
+                    letterSpacing: "0.12em",
+                  }}
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </Typography>
+                <Typography
+                  component="span"
+                  sx={{
+                    color: "rgba(7,66,37,.52)",
+                    fontSize: 11,
+                    fontWeight: 850,
+                    lineHeight: 1.2,
+                    letterSpacing: "0.13em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {card.eyebrow}
+                </Typography>
+              </Stack>
+
+              <Typography
+                component="h3"
+                sx={{
+                  m: 0,
+                  mt: 2.25,
+                  maxWidth: 330,
+                  color: brand.forest,
+                  fontSize: { xs: 29, sm: 31, md: 30, lg: 34 },
+                  fontWeight: 700,
+                  lineHeight: 1.08,
+                  letterSpacing: "-0.035em",
+                }}
+              >
+                {card.title}
+              </Typography>
+
+              <Typography
+                sx={{
+                  mt: 1.8,
+                  maxWidth: 345,
+                  color: "rgba(7,66,37,.7)",
+                  fontSize: { xs: 16, md: 16.5 },
+                  lineHeight: 1.7,
+                  letterSpacing: "-0.02em",
+                }}
+              >
+                {card.copy}
+              </Typography>
+            </Box>
           ))}
         </Box>
 
@@ -295,11 +269,12 @@ function StoryPanel({ active, isChanging, onDemoClick }) {
             sx={{
               width: { xs: "100%", sm: "auto" },
               minHeight: 48,
-              px: { xs: 4, md: 4.8 },
+              px: { xs: 3.5, md: 4 },
               borderRadius: 999,
               background: brand.orange,
               color: "#fff",
-              fontSize: { xs: 18, md: 22 },
+              fontSize: { xs: 15, md: 16 },
+              fontWeight: 850,
               "&:hover": {
                 background: "#ff6b3a",
               },
@@ -308,7 +283,7 @@ function StoryPanel({ active, isChanging, onDemoClick }) {
             Book Demo
           </Button>
         </Box>
-      </Stack>
+      </Box>
     </Box>
   );
 }
@@ -459,27 +434,31 @@ function UseCases({ onDemoClick }) {
         <Box
           sx={{
             position: "relative",
-            p: { xs: 2.4, sm: 3.2, md: 2.5 },
-            borderRadius: { xs: 4, md: 5 },
-            background: "#EEF4CC",
           }}
         >
           <Box
+            role="tablist"
+            aria-label="Enterprise team use cases"
             sx={{
+              maxWidth: 1080,
+              mx: "auto",
               display: "flex",
-              alignItems: "flex-end",
-              justifyContent: { xs: "flex-start", md: "space-between" },
-              gap: { xs: 0.7, md: 3.5, lg: 5 },
+              alignItems: "center",
+              gap: { xs: 0.5, md: 0 },
               overflowX: { xs: "auto", md: "visible" },
-              pb: 0,
-              position: "relative",
-              letterSpacing: "-0.5px",
+              p: 0.75,
+              borderRadius: { xs: "22px", md: 999 },
+              background: "rgba(0,66,37,.08)",
+              border: "1px solid rgba(0,66,37,.18)",
+              scrollbarWidth: "none",
+              "&::-webkit-scrollbar": { display: "none" },
             }}
           >
             {useCases.map((item, index) => (
               <UseCaseTab
                 key={item.label}
                 item={item}
+                index={index}
                 selected={index === activeIndex}
                 onSelect={() => handleSelect(index)}
               />
@@ -488,6 +467,7 @@ function UseCases({ onDemoClick }) {
 
           <StoryPanel
             active={active}
+            activeIndex={activeIndex}
             isChanging={isChanging}
             onDemoClick={onDemoClick}
           />
