@@ -10,8 +10,10 @@ function FinalCta({ onDemoClick }) {
       component="section"
       id="book-demo"
       sx={{
-        background: brand.ivory,
-        py: { xs: 3.5, md: 5 },
+        background:
+          'linear-gradient(135deg, #FF6A42 0%, #F2542C 48%, #B93617 100%)',
+        py: { xs: 7, md: 9 },
+        overflow: 'hidden',
       }}
     >
       <Container
@@ -24,26 +26,17 @@ function FinalCta({ onDemoClick }) {
         <Box
           sx={{
             minHeight: { xs: 300, md: 330 },
-            borderRadius: { xs: '22px', md: '26px' },
+            borderRadius: 0,
             px: { xs: 2.4, sm: 4, md: 6, lg: 8 },
-            py: { xs: 4.5, md: 5.5 },
+            py: 0,
             display: 'grid',
             placeItems: 'center',
             textAlign: 'center',
             color: brand.ivory,
             overflow: 'hidden',
             position: 'relative',
-            background:
-              'linear-gradient(135deg, #FF6A42 0%, #F2542C 48%, #B93617 100%)',
-            boxShadow: '0 34px 90px rgba(185,54,23,0.18)',
-            '&::before': {
-              content: '""',
-              position: 'absolute',
-              inset: 0,
-              background:
-                'radial-gradient(circle at 18% 12%, rgba(238,243,205,0.16), transparent 32%), radial-gradient(circle at 76% 64%, rgba(7,66,37,0.16), transparent 34%)',
-              pointerEvents: 'none',
-            },
+            background: 'transparent',
+            boxShadow: 'none',
           }}
         >
           <Stack spacing={1.8} alignItems="center" sx={{ maxWidth: 760, position: 'relative', zIndex: 1 }}>

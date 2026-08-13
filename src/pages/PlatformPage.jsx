@@ -1430,30 +1430,22 @@ function PlatformPage({ locale = "en", onDemoClick }) {
 
       <Box
         sx={{
-          background: cream,
+          background: "linear-gradient(135deg,#F56431 0%,#e0431a 100%)",
           px: { xs: 2.5, md: 4 },
           py: { xs: 7, md: "56px" },
+          overflow: "hidden",
         }}
       >
         <Container maxWidth={false} sx={{ maxWidth: 1240, mx: "auto", px: 0 }}>
           <Box
             sx={{
               position: "relative",
-              background: "linear-gradient(135deg,#F56431 0%,#e0431a 100%)",
-              borderRadius: "28px",
-              p: { xs: 3.5, md: "64px 60px" },
-              overflow: "hidden",
+              background: "transparent",
+              borderRadius: 0,
+              p: 0,
               textAlign: "center",
             }}
           >
-            <Box
-              sx={{
-                position: "absolute",
-                inset: 0,
-                backgroundImage:
-                  "radial-gradient(circle at 15% 20%,rgba(255,255,255,.14) 0,transparent 40%),radial-gradient(circle at 85% 90%,rgba(0,66,37,.25) 0,transparent 45%)",
-              }}
-            />
             <Box sx={{ position: "relative" }}>
               <Typography
                 variant="h2"
