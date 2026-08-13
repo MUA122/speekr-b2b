@@ -519,13 +519,6 @@ function App() {
         styles={{
           "@font-face": [
             {
-              fontFamily: '"Belwe Hero"',
-              src: 'url("/fonts/Belwe%20Bold.otf") format("opentype")',
-              fontStyle: "normal",
-              fontWeight: 700,
-              fontDisplay: "swap",
-            },
-            {
               fontFamily: '"Rubik Local"',
               src: 'url("/fonts/Rubik-Regular.ttf") format("truetype")',
               fontStyle: "normal",

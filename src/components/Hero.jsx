@@ -12,7 +12,7 @@ import { brand } from "../theme.js";
 import { heroScenarios, trustSignals } from "../data/heroScenarios.js";
 import HeroVisual from "./HeroVisual.jsx";
 
-const BELWE_HERO_FONT = '"Belwe Hero", "Belwe", "Cooper Black", Georgia, serif';
+const BELWE_HERO_FONT = '"Belwe Bold", "Belwe", "Cooper Black", Georgia, serif';
 
 function Hero({ locale = "en", onDemoClick }) {
   const [activeIndex, setActiveIndex] = useState(0);

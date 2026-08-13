@@ -1,0 +1,7 @@
+@font-face {
+  font-family: "Belwe Bold";
+  src: url("/fonts/Belwe%20Bold.otf") format("opentype");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}

@@ -6,6 +6,7 @@ import { absoluteUrl, organizationSchema, setJsonLd, websiteSchema } from '../ut
 import { localizedPath } from '../utils/i18n.js';
 import SectionDivider from '../components/SectionDivider.jsx';
 import { FaqItem } from '../components/FaqSection.jsx';
+import LogosMarquee from '../components/LogosMarquee.jsx';
 import { getFaqContent, pricingFaqContent } from '../data/faqContent.js';
 
 const cream = '#EEF4CC';
@@ -51,8 +52,6 @@ const comparisonRows = [
   ['SSO, SCIM & data residency', false, false, true],
   ['Dedicated success manager', false, false, true],
 ];
-
-const logoAssets = Array.from({ length: 9 }, (_, index) => `/images/pricing/pricing-asset-${String(index + 1).padStart(2, '0')}.svg`);
 
 function numericPrice(price) {
   const value = String(price).replace(/[^\d.]/g, '');
@@ -424,10 +423,8 @@ function ComparisonTable({ locale = 'en' }) {
 }
 
 function TrustSection() {
-  const marquee = [...logoAssets, ...logoAssets];
-
   return (
-    <Box sx={{ background: forest, py: { xs: 7, md: 9 }, overflow: 'hidden', '@keyframes pricingMarquee': { from: { transform: 'translateX(0)' }, to: { transform: 'translateX(-50%)' } } }}>
+    <Box sx={{ background: forest, py: { xs: 7, md: 9 }, overflow: 'hidden' }}>
       <Container maxWidth={false} sx={{ maxWidth: 1040, mx: 'auto', px: { xs: 2.5, md: 4 }, textAlign: 'center' }}>
         <Typography variant="h2" sx={{ color: cream, fontSize: { xs: '2rem', md: '2.125rem' }, lineHeight: 1.3, mb: 3.25 }}>
           "We rolled Speekr out to 200 reps in two weeks. The Arabic dialect coverage and the manager analytics are things no other tool gave us."
@@ -440,20 +437,7 @@ function TrustSection() {
           </Box>
         </Stack>
       </Container>
-      <Box sx={{ mt: 6, overflow: 'hidden', WebkitMaskImage: 'linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)', maskImage: 'linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)' }}>
-        <Box sx={{ display: 'flex', gap: { xs: 4, md: 7.5 }, alignItems: 'center', width: 'max-content', animation: 'pricingMarquee 34s linear infinite' }}>
-          {marquee.map((src, index) => (
-            <Box
-              key={`${src}-${index}`}
-              component="img"
-              src={src}
-              alt={`Speekr pricing customer logo ${index % 9 + 1}`}
-              title={`Speekr pricing customer logo ${index % 9 + 1}`}
-              sx={{ height: [28, 36, 30, 28, 32, 26, 38, 38, 24][index % 9], filter: 'brightness(0) invert(1)', opacity: 0.55, flex: '0 0 auto' }}
-            />
-          ))}
-        </Box>
-      </Box>
+      <LogosMarquee embedded />
     </Box>
   );
 }

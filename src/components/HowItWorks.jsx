@@ -590,7 +590,7 @@ function HowItWorks() {
               content: '""',
               position: "absolute",
               inset: { xs: "14px -7px -14px 7px", md: "22px -18px -22px 18px" },
-              borderRadius: "8px",
+              borderRadius: { xs: "12px", md: "20px" },
               border: "1px solid rgba(0,66,37,0.16)",
               background:
                 "linear-gradient(135deg, rgba(0,66,37,0.08), rgba(125,215,247,0.1), rgba(217,107,66,0.08))",
@@ -609,7 +609,7 @@ function HowItWorks() {
               "--mx": "50%",
               position: "relative",
               p: { xs: 0.8, sm: 1, md: 1.25 },
-              borderRadius: "8px",
+              borderRadius: { xs: "12px", md: "20px" },
               border: "1px solid rgba(0,66,37,0.24)",
               background: `
                 linear-gradient(110deg, rgba(247,249,232,0.14), rgba(247,249,232,0.02) 34%, rgba(125,215,247,0.09) 62%, rgba(217,107,66,0.1)),
@@ -639,7 +639,7 @@ function HowItWorks() {
               sx={{
                 position: "relative",
                 aspectRatio: "16 / 9",
-                borderRadius: "8px",
+                borderRadius: { xs: "10px", md: "18px" },
                 overflow: "hidden",
                 background: brand.ink,
                 border: "1px solid rgba(247,249,232,0.22)",
