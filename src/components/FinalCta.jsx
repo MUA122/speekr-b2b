@@ -12,7 +12,7 @@ function FinalCta({ onDemoClick }) {
       sx={{
         background:
           'linear-gradient(135deg, #FF6A42 0%, #F2542C 48%, #B93617 100%)',
-        py: { xs: 7, md: 9 },
+        py: { xs: 5.5, md: 9 },
         overflow: 'hidden',
       }}
     >
@@ -25,7 +25,7 @@ function FinalCta({ onDemoClick }) {
       >
         <Box
           sx={{
-            minHeight: { xs: 300, md: 330 },
+            minHeight: { xs: 330, md: 330 },
             borderRadius: 0,
             px: { xs: 2.4, sm: 4, md: 6, lg: 8 },
             py: 0,
@@ -69,13 +69,14 @@ function FinalCta({ onDemoClick }) {
               direction={{ xs: 'column', sm: 'row' }}
               spacing={1.3}
               alignItems="center"
-              sx={{ pt: 0.6 }}
+              sx={{ pt: 0.6, width: { xs: 'min(100%, 290px)', sm: 'auto' } }}
             >
               <Button
                 endIcon={<ArrowRight size={16} />}
                 onClick={onDemoClick}
                 sx={{
                   minWidth: 158,
+                  width: { xs: '100%', sm: 'auto' },
                   minHeight: 48,
                   color: brand.ivory,
                   background: brand.forest,
@@ -94,6 +95,7 @@ function FinalCta({ onDemoClick }) {
                 href="mailto:sales@speekr.ai"
                 sx={{
                   minWidth: 150,
+                  width: { xs: '100%', sm: 'auto' },
                   minHeight: 48,
                   color: brand.ivory,
                   borderColor: 'rgba(238,243,205,0.48)',

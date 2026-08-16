@@ -50,9 +50,9 @@ function FeatureCard({ card }) {
       spacing={1.45}
       sx={{
         position: "relative",
-        minHeight: { xs: 190, md: 214 },
-        p: { xs: 2.2, md: 2.55 },
-        borderRadius: "8px",
+        minHeight: { xs: 205, sm: 190, md: 214 },
+        p: { xs: 1.75, sm: 2.2, md: 2.55 },
+        borderRadius: { xs: "16px", md: "8px" },
         border: "1px solid rgba(7,66,37,0.13)",
         boxShadow: "0 22px 58px rgba(7,28,20,0.09)",
         overflow: "hidden",
@@ -89,8 +89,8 @@ function FeatureCard({ card }) {
     >
       <Box
         sx={{
-          width: 52,
-          height: 52,
+          width: { xs: 44, md: 52 },
+          height: { xs: 44, md: 52 },
           display: "grid",
           placeItems: "center",
           borderRadius: "8px",
@@ -102,14 +102,14 @@ function FeatureCard({ card }) {
           boxShadow: `0 0 0 8px ${card.accent}26`,
         }}
       >
-        <Icon size={23} strokeWidth={2.2} />
+        <Icon size={21} strokeWidth={2.2} />
       </Box>
 
       <Typography
         sx={{
-          mt: 3,
+          mt: { xs: 2.25, md: 3 },
           color: brand.forest,
-          fontSize: { xs: "1.08rem", md: "1.18rem" },
+          fontSize: { xs: "0.96rem", sm: "1.08rem", md: "1.18rem" },
           lineHeight: 1.12,
           fontWeight: 950,
         }}
@@ -120,8 +120,8 @@ function FeatureCard({ card }) {
         sx={{
           mt: 1.15,
           color: "rgba(7,28,20,0.68)",
-          fontSize: "0.94rem",
-          lineHeight: 1.6,
+          fontSize: { xs: "0.8rem", sm: "0.94rem" },
+          lineHeight: { xs: 1.45, sm: 1.6 },
           fontWeight: 560,
         }}
       >
@@ -234,7 +234,7 @@ function MenaNative() {
       sx={{
         position: "relative",
         overflow: "hidden",
-        py: { xs: 8, md: 11, lg: 13 },
+        py: { xs: 6.5, md: 11, lg: 13 },
         backgroundColor: "#F7F9E8",
 
         "&::after": {
@@ -276,7 +276,7 @@ function MenaNative() {
               m: 0,
               maxWidth: 1040,
               color: brand.forest,
-              fontSize: { xs: "2.6rem", sm: "3.7rem", md: "5rem" },
+              fontSize: { xs: "2.25rem", sm: "3.7rem", md: "5rem" },
               lineHeight: 0.95,
               letterSpacing: { xs: "-1.5px", md: "-3.5px" },
             }}
@@ -302,14 +302,18 @@ function MenaNative() {
 
         <Box
           sx={{
-            mt: { xs: 4.5, md: 6 },
+            mt: { xs: 4, md: 6 },
             display: "grid",
             gridTemplateColumns: {
-              xs: "1fr",
+              xs: "repeat(2, minmax(0, 1fr))",
               sm: "repeat(2, minmax(0, 1fr))",
               lg: "repeat(5, minmax(0, 1fr))",
             },
             gap: { xs: 1.4, md: 1.6 },
+            "& > :last-of-type": {
+              gridColumn: { xs: "1 / -1", sm: "auto" },
+              minHeight: { xs: 160, sm: 190, md: 214 },
+            },
           }}
         >
           {featureCards.map((card) => (
@@ -319,7 +323,7 @@ function MenaNative() {
 
         <Box
           sx={{
-            mt: { xs: 5.5, md: 7 },
+            mt: { xs: 4.5, md: 7 },
             display: "flex",
             justifyContent: "center",
           }}

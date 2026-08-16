@@ -116,14 +116,15 @@ function UseCaseTab({ item, index, selected, onSelect }) {
   return (
     <Button
       type="button"
-      role="tab"
+        role="tab"
       id={`use-case-tab-${index}`}
       aria-controls={`use-case-panel-${index}`}
       aria-selected={selected}
       onClick={onSelect}
       aria-label={`Show ${item.label} use case`}
+      tabIndex={selected ? 0 : -1}
       sx={{
-        flex: { xs: "0 0 172px", sm: "0 0 196px", md: "1 1 0" },
+        flex: { xs: "0 0 156px", sm: "0 0 196px", md: "1 1 0" },
         minWidth: 0,
         minHeight: 48,
         px: 2,
@@ -295,6 +296,7 @@ function UseCases({ onDemoClick }) {
   const [isInView, setIsInView] = useState(false);
   const reduceMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
   const sectionRef = useRef(null);
+  const tabListRef = useRef(null);
   const requestedIndexRef = useRef(0);
   const changeTimerRef = useRef(null);
   const changeFrameRef = useRef(null);
@@ -364,6 +366,23 @@ function UseCases({ onDemoClick }) {
     switchService(index);
   };
 
+  useEffect(() => {
+    const tabList = tabListRef.current;
+    const tab = document.getElementById(`use-case-tab-${activeIndex}`);
+    if (!tabList || !tab || tabList.scrollWidth <= tabList.clientWidth) return;
+
+    const behavior = reduceMotion ? "auto" : "smooth";
+    if (document.documentElement.dir === "rtl") {
+      tab.scrollIntoView({ behavior, block: "nearest", inline: "center" });
+      return;
+    }
+
+    tabList.scrollTo({
+      left: tab.offsetLeft - (tabList.clientWidth - tab.offsetWidth) / 2,
+      behavior,
+    });
+  }, [activeIndex, reduceMotion]);
+
   return (
     <Box
       component="section"
@@ -372,7 +391,7 @@ function UseCases({ onDemoClick }) {
       sx={{
         position: "relative",
         overflow: "hidden",
-        py: { xs: 8, md: 11, lg: 13 },
+        py: { xs: 6.5, md: 11, lg: 13 },
         color: brand.forest,
         background: brand.ivory,
       }}
@@ -388,9 +407,9 @@ function UseCases({ onDemoClick }) {
           sx={{
             display: "grid",
             gridTemplateColumns: { xs: "1fr", lg: "minmax(0, 0.96fr) 430px" },
-            gap: { xs: 3.6, lg: 8 },
+            gap: { xs: 2.4, lg: 8 },
             alignItems: "center",
-            mb: { xs: 5.4, md: 7.8 },
+            mb: { xs: 4, md: 7.8 },
           }}
         >
           <Stack
@@ -402,7 +421,7 @@ function UseCases({ onDemoClick }) {
               sx={{
                 m: 0,
                 color: brand.forest,
-                fontSize: { xs: 36, sm: 46, md: 56 },
+                fontSize: { xs: 32, sm: 46, md: 56 },
                 fontWeight: 800,
                 lineHeight: 1.08,
                 maxWidth: 680,
@@ -420,7 +439,7 @@ function UseCases({ onDemoClick }) {
             sx={{
               maxWidth: 500,
               color: "#007D50",
-              fontSize: { xs: 18, md: 19 },
+              fontSize: { xs: 16, md: 19 },
               lineHeight: 1.45,
               letterSpacing: "-0.7px",
               animation: "fadeLift 620ms ease both",
@@ -438,6 +457,7 @@ function UseCases({ onDemoClick }) {
           }}
         >
           <Box
+            ref={tabListRef}
             role="tablist"
             aria-label="Enterprise team use cases"
             sx={{
@@ -451,6 +471,11 @@ function UseCases({ onDemoClick }) {
               background: "rgba(0,66,37,.08)",
               border: "1px solid rgba(0,66,37,.18)",
               scrollbarWidth: "none",
+              scrollSnapType: { xs: "x proximity", md: "none" },
+              overscrollBehaviorX: "contain",
+              WebkitOverflowScrolling: "touch",
+              scrollPaddingInline: 6,
+              "& > *": { scrollSnapAlign: "start" },
               "&::-webkit-scrollbar": { display: "none" },
             }}
           >

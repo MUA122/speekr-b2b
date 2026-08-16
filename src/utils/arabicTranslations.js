@@ -442,6 +442,7 @@ const entries = [
   ["Start free as an individual, roll it out to a team, or go enterprise with customization and API. Every plan speaks English and 15+ Arabic dialects.", "ابدأ مجاناً كفرد، ثم وسّع الاستخدام لفريقك أو لمؤسستك مع التخصيص وواجهات API. جميع الخطط تدعم الإنجليزية وأكثر من 15 لهجة عربية."],
   ["Monthly", "شهرياً"],
   ["Annual · save 20%", "سنوياً · وفّر 20%"],
+  ["Annual · 20% off", "سنوياً · خصم 20%"],
   ["Speekr for You", "Speekr للأفراد"],
   ["For individuals building their communication skills.", "للأفراد الراغبين في تطوير مهارات التواصل."],
   ["Speekr for Teams", "Speekr للفرق"],

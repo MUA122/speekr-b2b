@@ -7,7 +7,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { ArrowRight, BadgeCheck, Check, PlayCircle } from "lucide-react";
+import { ArrowRight, Check, PlayCircle } from "lucide-react";
 import { brand } from "../theme.js";
 import { heroScenarios, trustSignals } from "../data/heroScenarios.js";
 import HeroVisual from "./HeroVisual.jsx";
@@ -50,22 +50,22 @@ function Hero({ locale = "en", onDemoClick }) {
         sx={{
           width: "min(100%, 1280px)",
           px: { xs: 2, sm: 3, lg: 4 },
-          pt: { xs: 12, md: 14, lg: 15 },
-          pb: { xs: 8, md: 9, lg: 10 },
+          pt: { xs: 12.5, sm: 13, md: 14, lg: 15 },
+          pb: { xs: 6, sm: 8, md: 9, lg: 10 },
         }}
       >
         <Box
           sx={{
             display: "grid",
             gridTemplateColumns: { xs: "1fr", lg: "0.95fr 1.05fr" },
-            gap: { xs: 5, md: 7, lg: 7 },
+            gap: { xs: 3.5, sm: 5, md: 7, lg: 7 },
             alignItems: "center",
             minHeight: { xs: "auto", lg: "calc(100vh - 150px)" },
             minWidth: 0,
           }}
         >
           <Stack
-            spacing={{ xs: 2.6, md: 3.1 }}
+            spacing={{ xs: 2.2, md: 3.1 }}
             sx={{
               maxWidth: 690,
               minWidth: 0,
@@ -77,7 +77,7 @@ function Hero({ locale = "en", onDemoClick }) {
                 variant="h1"
                 sx={{
                   fontSize: {
-                    xs: "2.85rem",
+                    xs: "clamp(2.3rem, 11.5vw, 2.85rem)",
                     sm: "3.6rem",
                     md: "4.55rem",
                     lg: "5.25rem",
@@ -90,7 +90,7 @@ function Hero({ locale = "en", onDemoClick }) {
                     display: "block",
                     whiteSpace: "nowrap",
                     fontFamily: BELWE_HERO_FONT,
-                    fontSize: { xs: "0.68em", sm: "0.76em", lg: "0.78em" },
+                    fontSize: { xs: "0.7em", sm: "0.76em", lg: "0.78em" },
                   },
                   "& .audience": {
                     color: brand.orange,
@@ -124,7 +124,7 @@ function Hero({ locale = "en", onDemoClick }) {
                       className="hero-prefix"
                       sx={{
                         letterSpacing: { md: "-4px", xs: "-2px" },
-                        mt: { xs: 6 },
+                        mt: 0,
                       }}
                     >
                       AI Roleplay for
@@ -149,9 +149,9 @@ function Hero({ locale = "en", onDemoClick }) {
               sx={{
                 maxWidth: 610,
                 color: "text.secondary",
-                fontSize: { xs: "1.04rem", md: "1.17rem" },
-                letterSpacing: "-0.4px",
-                lineHeight: 1.5,
+                fontSize: { xs: "0.98rem", sm: "1.04rem", md: "1.17rem" },
+                letterSpacing: { xs: "-0.15px", md: "-0.4px" },
+                lineHeight: { xs: 1.58, md: 1.5 },
                 mt: { xs: 0.5, md: 2 },
 
                 animation: "fadeLift 560ms ease both",
@@ -166,6 +166,7 @@ function Hero({ locale = "en", onDemoClick }) {
               sx={{
                 alignItems: { xs: "stretch", sm: "center" },
                 mt: { xs: 0.5, md: 2 },
+                width: "100%",
               }}
             >
               <Button
@@ -176,6 +177,7 @@ function Hero({ locale = "en", onDemoClick }) {
                 sx={{
                   minHeight: 54,
                   px: 3,
+                  width: { xs: "100%", sm: "auto" },
                   background: brand.forest,
                   color: brand.ivory,
                   // boxShadow: `0 18px 46px rgba(0, 66, 37, 0.22), 0 0 0 6px ${staticHero.glow}`,
@@ -197,6 +199,7 @@ function Hero({ locale = "en", onDemoClick }) {
                 sx={{
                   minHeight: 54,
                   px: 3,
+                  width: { xs: "100%", sm: "auto" },
                   borderColor: "rgba(0, 66, 37, 0.22)",
                   color: brand.ink,
                   // background: "rgba(255,255,255,0.45)",
@@ -215,25 +218,51 @@ function Hero({ locale = "en", onDemoClick }) {
 
             <Stack
               direction="row"
-              spacing={1.2}
-              alignItems="center"
+              alignItems="stretch"
               sx={{
-                flexWrap: "wrap",
-                gap: 1.1,
+                display: "grid",
+                gridTemplateColumns: {
+                  xs: "repeat(2, minmax(0, 1fr))",
+                  sm: "repeat(4, auto)",
+                },
+                gap: { xs: 0.8, sm: 1.1 },
                 color: "text.secondary",
                 mt: { xs: 0.5, md: 1 },
               }}
             >
-              <BadgeCheck size={19} color={brand.forest} />
               {trustSignals.map((signal) => (
                 <Stack
                   key={signal}
                   direction="row"
                   spacing={0.7}
                   alignItems="center"
+                  sx={{
+                    minHeight: { xs: 38, sm: "auto" },
+                    px: { xs: 1.1, sm: 0 },
+                    py: { xs: 0.7, sm: 0 },
+                    borderRadius: { xs: "12px", sm: 0 },
+                    border: {
+                      xs: "1px solid rgba(7,66,37,0.1)",
+                      sm: "none",
+                    },
+                    bgcolor: {
+                      xs: "rgba(238,243,205,0.54)",
+                      sm: "transparent",
+                    },
+                  }}
                 >
-                  <Check size={14} color={brand.moss} />
-                  <Typography sx={{ fontSize: "0.82rem", fontWeight: 650 }}>
+                  <Check
+                    size={14}
+                    color={brand.moss}
+                    style={{ flexShrink: 0 }}
+                  />
+                  <Typography
+                    sx={{
+                      fontSize: { xs: "0.72rem", sm: "0.82rem" },
+                      fontWeight: 700,
+                      lineHeight: 1.25,
+                    }}
+                  >
                     {signal}
                   </Typography>
                 </Stack>

@@ -511,7 +511,11 @@ function SolutionsPage({ locale = "en", onDemoClick }) {
               variant="h1"
               sx={{
                 fontWeight: 800,
-                fontSize: { xs: "3rem", sm: "4.25rem", md: "4.625rem" },
+                fontSize: {
+                  xs: "clamp(2.45rem, 11.5vw, 3rem)",
+                  sm: "4.25rem",
+                  md: "4.625rem",
+                },
                 lineHeight: 0.98,
                 mb: 3.25,
                 color: "#16371F",

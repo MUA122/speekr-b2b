@@ -1243,7 +1243,11 @@ function PlatformPage({ locale = "en", onDemoClick }) {
               maxWidth: 880,
               mx: "auto",
               color: forest,
-              fontSize: { xs: "3rem", sm: "4.25rem", md: "4.125rem" },
+              fontSize: {
+                xs: "clamp(2.45rem, 11.5vw, 3rem)",
+                sm: "4.25rem",
+                md: "4.125rem",
+              },
               lineHeight: 1.04,
               mb: 2.5,
             }}
@@ -1332,7 +1336,7 @@ function PlatformPage({ locale = "en", onDemoClick }) {
             sx={{
               display: "grid",
               gridTemplateColumns: {
-                xs: "1fr",
+                xs: "repeat(2, minmax(0, 1fr))",
                 sm: "repeat(2, 1fr)",
                 lg: "repeat(4, 1fr)",
               },
@@ -1348,10 +1352,10 @@ function PlatformPage({ locale = "en", onDemoClick }) {
                   href={`#${pillar.id}`}
                   sx={{
                     textDecoration: "none",
-                    background: " creamSoft",
+                    background: creamSoft,
                     border: "1px solid rgba(0,66,37,.1)",
                     borderRadius: "18px",
-                    p: 3,
+                    p: { xs: 2, sm: 3 },
                     color: forest,
                     transition: "transform .18s ease, border-color .18s ease",
                     "&:hover": {
@@ -1377,12 +1381,12 @@ function PlatformPage({ locale = "en", onDemoClick }) {
                   </Box>
                   <Typography
                     variant="h3"
-                    sx={{ color: forest, fontSize: 18, mb: 0.75 }}
+                    sx={{ color: forest, fontSize: { xs: 16, sm: 18 }, mb: 0.75 }}
                   >
                     {pillar.title}
                   </Typography>
                   <Typography
-                    sx={{ color: "#6a7264", fontSize: 13, lineHeight: 1.5 }}
+                    sx={{ color: "#6a7264", fontSize: { xs: 12, sm: 13 }, lineHeight: 1.45 }}
                   >
                     {pillar.copy}
                   </Typography>
@@ -1393,7 +1397,7 @@ function PlatformPage({ locale = "en", onDemoClick }) {
               sx={{
                 background: "linear-gradient(135deg,#004225,#0b3625)",
                 borderRadius: "18px",
-                p: 3,
+                p: { xs: 2, sm: 3 },
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",

@@ -124,7 +124,7 @@ function Footer() {
           maxWidth: 1240,
           mx: "auto",
           px: { xs: 2.5, sm: 4, md: 6, lg: 8 },
-          pt: { xs: 8, md: 10 },
+          pt: { xs: 6.5, md: 10 },
           pb: { xs: 3.5, md: 4 },
         }}
       >
@@ -132,7 +132,7 @@ function Footer() {
           sx={{
             display: "grid",
             gridTemplateColumns: { xs: "1fr", lg: "0.95fr 1.05fr 1fr" },
-            gap: { xs: 5.5, md: 7, lg: 8 },
+            gap: { xs: 4.5, md: 7, lg: 8 },
             alignItems: "start",
           }}
         >
@@ -158,7 +158,7 @@ function Footer() {
 
             <Typography
               sx={{
-                mt: 4,
+                mt: { xs: 2.5, md: 4 },
                 maxWidth: 390,
                 fontSize: 14.5,
                 fontWeight: 550,

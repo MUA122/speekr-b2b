@@ -37,7 +37,8 @@ export function FaqItem({ faq, isOpen, onToggle, id }) {
           display: 'flex',
           alignItems: 'flex-start',
           gap: { xs: 2, sm: 2, md: 3 },
-          p: { xs: '22px 20px', sm: '26px 28px', md: '30px 36px' },
+          minHeight: 58,
+          p: { xs: '18px 16px', sm: '26px 28px', md: '30px 36px' },
           textAlign: 'start',
           cursor: 'pointer',
           bgcolor: 'transparent',
@@ -113,9 +114,9 @@ export function FaqItem({ faq, isOpen, onToggle, id }) {
         <Box sx={{ minHeight: 0, overflow: 'hidden' }}>
           <Box
             sx={{
-              paddingInlineStart: { xs: '20px', sm: '52px', md: '68px' },
-              paddingInlineEnd: { xs: '20px', sm: '28px', md: '36px' },
-              pb: { xs: '22px', sm: '26px', md: '30px' },
+              paddingInlineStart: { xs: '16px', sm: '52px', md: '68px' },
+              paddingInlineEnd: { xs: '16px', sm: '28px', md: '36px' },
+              pb: { xs: '18px', sm: '26px', md: '30px' },
               transform: isOpen ? 'translateY(0)' : 'translateY(-6px)',
               transition: 'transform 0.44s cubic-bezier(0.22,1,0.36,1)',
             }}
@@ -159,9 +160,9 @@ function FaqSection({ locale = 'en' }) {
           bgcolor: '#EEF3CD',
           borderRadius: { xs: '24px', md: '32px' },
           overflow: 'hidden',
-          px: { xs: 2.5, sm: 4, md: 6, lg: 8 },
-          pt: { xs: 6, md: 8 },
-          pb: { xs: 8, md: 10 },
+          px: { xs: 1.5, sm: 4, md: 6, lg: 8 },
+          pt: { xs: 5, md: 8 },
+          pb: { xs: 6, md: 10 },
         }}
       >
         <Box
@@ -213,13 +214,13 @@ function FaqSection({ locale = 'en' }) {
         />
 
         <Box sx={{ position: 'relative', zIndex: 1, maxWidth: 1200, mx: 'auto' }}>
-          <Box sx={{ textAlign: 'center', mb: { xs: 6, md: 9 } }}>
+          <Box sx={{ textAlign: 'center', mb: { xs: 4, md: 9 } }}>
             <Typography
               id="faq-title"
               component="h2"
               sx={{
                 m: 0,
-                fontSize: { xs: 38, sm: 50, md: 58, lg: 64 },
+                fontSize: { xs: 34, sm: 50, md: 58, lg: 64 },
                 fontFamily: (theme) => theme.palette.brand.fontHeadline,
                 fontWeight: 900,
                 lineHeight: 1,

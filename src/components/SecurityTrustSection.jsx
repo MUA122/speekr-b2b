@@ -38,14 +38,16 @@ function SecurityCard({ item }) {
   return (
     <Box
       sx={{
-        minHeight: { xs: 210, md: 228 },
-        p: { xs: 2.4, md: 2.55 },
-        borderRadius: '8px',
+        minHeight: { xs: 'auto', sm: 190, lg: 228 },
+        p: { xs: 2.2, md: 2.55 },
+        borderRadius: { xs: '16px', lg: '8px' },
         bgcolor: 'rgba(238,243,205,0.035)',
         border: '1px solid rgba(142,198,64,0.18)',
         boxShadow: 'inset 0 1px 0 rgba(238,243,205,0.035)',
-        display: 'flex',
-        flexDirection: 'column',
+        display: { xs: 'grid', lg: 'flex' },
+        gridTemplateColumns: { xs: '44px minmax(0, 1fr)', lg: 'none' },
+        gridTemplateRows: { xs: 'auto auto', lg: 'none' },
+        columnGap: { xs: 1.8, lg: 0 },
         alignItems: 'flex-start',
         transition: 'transform 180ms ease, border-color 180ms ease, background-color 180ms ease',
         '&:hover': {
@@ -57,14 +59,15 @@ function SecurityCard({ item }) {
     >
       <Box
         sx={{
-          width: 52,
-          height: 52,
+          width: { xs: 44, lg: 52 },
+          height: { xs: 44, lg: 52 },
           display: 'grid',
           placeItems: 'center',
           borderRadius: '8px',
           bgcolor: 'rgba(242,100,51,0.14)',
           color: brand.orange,
           flexShrink: 0,
+          gridRow: { xs: '1 / 3', lg: 'auto' },
         }}
       >
         <Icon size={23} strokeWidth={2.2} />
@@ -73,10 +76,10 @@ function SecurityCard({ item }) {
       <Typography
         component="h3"
         sx={{
-          m: '22px 0 0',
+          m: { xs: 0, lg: '22px 0 0' },
           color: brand.ivory,
           fontFamily: (theme) => theme.palette.brand.fontHeadline,
-          fontSize: { xs: 22, md: 23 },
+          fontSize: { xs: 18, sm: 19, lg: 23 },
           fontWeight: 900,
           lineHeight: 1.05,
           letterSpacing: '-0.25px !important',
@@ -86,9 +89,9 @@ function SecurityCard({ item }) {
       </Typography>
       <Typography
         sx={{
-          mt: 1.35,
+          mt: { xs: 0.75, lg: 1.35 },
           color: 'rgba(238,243,205,0.66)',
-          fontSize: { xs: 14.5, md: 15.5 },
+          fontSize: { xs: 13.5, md: 14.5, lg: 15.5 },
           lineHeight: 1.55,
           fontWeight: 650,
           letterSpacing: '0 !important',
@@ -111,9 +114,9 @@ function SecurityTrustSection() {
           position: 'relative',
           overflow: 'hidden',
           bgcolor: brand.forest,
-          px: { xs: 2.5, sm: 4, md: 6, lg: 8 },
-          pt: { xs: 7, md: 9 },
-          pb: { xs: 8, md: 10 },
+          px: { xs: 2, sm: 4, md: 6, lg: 8 },
+          pt: { xs: 6, md: 9 },
+          pb: { xs: 6.5, md: 10 },
         }}
       >
         <Box
@@ -170,7 +173,7 @@ function SecurityTrustSection() {
               gridTemplateColumns: { xs: '1fr', md: 'minmax(0, 1fr) auto' },
               gap: { xs: 3, md: 4 },
               alignItems: 'center',
-              mb: { xs: 4.5, md: 6 },
+              mb: { xs: 3.5, md: 6 },
             }}
           >
             <Box>
@@ -196,7 +199,7 @@ function SecurityTrustSection() {
                   maxWidth: 660,
                   color: brand.ivory,
                   fontFamily: (theme) => theme.palette.brand.fontHeadline,
-                  fontSize: { xs: 38, sm: 48, md: 58 },
+                  fontSize: { xs: 34, sm: 48, md: 58 },
                   fontWeight: 900,
                   lineHeight: 0.98,
                   letterSpacing: 0,

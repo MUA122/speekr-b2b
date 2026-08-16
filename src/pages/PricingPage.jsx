@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Check, Minus } from "lucide-react";
 import { splitPrice, useLocalizedPrices } from "../utils/pricing.js";
 import {
   absoluteUrl,
@@ -501,6 +501,7 @@ function ComparisonTable({ locale = "en" }) {
         </Typography>
         <Box
           sx={{
+            display: { xs: "none", md: "block" },
             overflowX: "auto",
             borderRadius: "20px",
             boxShadow: "0 20px 50px rgba(0,50,25,.1)",
@@ -557,12 +558,84 @@ function ComparisonTable({ locale = "en" }) {
             ))}
           </Box>
         </Box>
+
+        <Stack spacing={1.25} sx={{ display: { xs: "flex", md: "none" } }}>
+          {comparisonRows.map(([feature, you, teams, enterprise]) => (
+            <Box
+              key={feature}
+              sx={{
+                p: 2,
+                borderRadius: "16px",
+                border: "1px solid rgba(0,66,37,.1)",
+                bgcolor: "rgba(255,255,255,.62)",
+                boxShadow: "0 10px 28px rgba(0,50,25,.055)",
+              }}
+            >
+              <Typography
+                sx={{
+                  mb: 1.5,
+                  color: forest,
+                  fontSize: 14.5,
+                  fontWeight: 800,
+                  lineHeight: 1.35,
+                }}
+              >
+                {feature}
+              </Typography>
+              <Box
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+                  gap: 0.75,
+                }}
+              >
+                {[
+                  [locale === "ar" ? "الأفراد" : "You", you],
+                  ["Teams", teams],
+                  ["Enterprise", enterprise],
+                ].map(([label, value]) => (
+                  <Stack
+                    key={label}
+                    spacing={0.6}
+                    alignItems="center"
+                    justifyContent="center"
+                    sx={{
+                      minHeight: 58,
+                      p: 0.75,
+                      borderRadius: "12px",
+                      bgcolor: value
+                        ? "rgba(141,198,63,.12)"
+                        : "rgba(0,66,37,.035)",
+                    }}
+                  >
+                    {value ? (
+                      <Check size={17} strokeWidth={3} color={forest} />
+                    ) : (
+                      <Minus size={17} color="rgba(0,66,37,.25)" />
+                    )}
+                    <Typography
+                      sx={{
+                        color: value ? forest : "rgba(0,66,37,.42)",
+                        fontSize: 10.5,
+                        fontWeight: 800,
+                        lineHeight: 1.1,
+                        textAlign: "center",
+                      }}
+                    >
+                      {label}
+                    </Typography>
+                  </Stack>
+                ))}
+              </Box>
+            </Box>
+          ))}
+        </Stack>
       </Container>
     </Box>
   );
 }
 
-function TrustSection() {
+function TrustSection({ locale = "en" }) {
   return (
     <Box sx={{ background: forest, py: { xs: 7, md: 9 }, overflow: "hidden" }}>
       <Container
@@ -644,9 +717,9 @@ function PricingFaqSection({ locale = "en" }) {
           bgcolor: "#EEF3CD",
           borderRadius: { xs: "24px", md: "32px" },
           overflow: "hidden",
-          px: { xs: 2.5, sm: 4, md: 6, lg: 8 },
-          pt: { xs: 6, md: 8 },
-          pb: { xs: 8, md: 10 },
+          px: { xs: 1.5, sm: 4, md: 6, lg: 8 },
+          pt: { xs: 5, md: 8 },
+          pb: { xs: 6, md: 10 },
         }}
       >
         <Box
@@ -700,13 +773,13 @@ function PricingFaqSection({ locale = "en" }) {
         <Box
           sx={{ position: "relative", zIndex: 1, maxWidth: 1200, mx: "auto" }}
         >
-          <Box sx={{ textAlign: "center", mb: { xs: 6, md: 9 } }}>
+          <Box sx={{ textAlign: "center", mb: { xs: 4, md: 9 } }}>
             <Typography
               id="pricing-faq-title"
               component="h2"
               sx={{
                 m: 0,
-                fontSize: { xs: 38, sm: 50, md: 58, lg: 64 },
+                fontSize: { xs: 34, sm: 50, md: 58, lg: 64 },
                 fontFamily: (theme) => theme.palette.brand.fontHeadline,
                 fontWeight: 900,
                 lineHeight: 1,
@@ -804,7 +877,11 @@ function PricingPage({ locale = "en", onDemoClick }) {
               maxWidth: 760,
               mx: "auto",
               color: forest,
-              fontSize: { xs: "3rem", sm: "4rem", md: "3.75rem" },
+              fontSize: {
+                xs: "clamp(2.5rem, 12vw, 3rem)",
+                sm: "4rem",
+                md: "3.75rem",
+              },
               lineHeight: 1.04,
               mb: 2.25,
             }}
@@ -841,7 +918,7 @@ function PricingPage({ locale = "en", onDemoClick }) {
           >
             {[
               ["monthly", "Monthly"],
-              ["annual", "Annual · save 20%"],
+              ["annual", "Annual · 20% off"],
             ].map(([value, label]) => (
               <Box
                 key={value}
@@ -933,7 +1010,7 @@ function PricingPage({ locale = "en", onDemoClick }) {
 
       <SectionDivider />
       <ComparisonTable locale={locale} />
-      <TrustSection />
+      <TrustSection locale={locale} />
       <PricingFaqSection locale={locale} />
 
       <Box

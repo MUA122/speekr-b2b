@@ -386,14 +386,14 @@ function MiniVisual({ step }) {
 
 function StepCard({ step }) {
   return (
-    <Box sx={{ position: "relative", minHeight: { xs: 470, md: 500 } }}>
+    <Box sx={{ position: "relative", minHeight: { xs: 410, sm: 450, md: 500 } }}>
       <Box
         sx={{
           position: "relative",
           height: "100%",
-          minHeight: { xs: 470, md: 500 },
-          p: { xs: 2.4, md: 2.6 },
-          borderRadius: "8px",
+          minHeight: { xs: 410, sm: 450, md: 500 },
+          p: { xs: 2.2, md: 2.6 },
+          borderRadius: { xs: "18px", md: "8px" },
           background: "#F7F9E8",
           border: "1px solid rgba(7,66,37,0.08)",
           boxShadow: "0 28px 72px rgba(7,28,20,0.08)",
@@ -405,7 +405,7 @@ function StepCard({ step }) {
             left: 0,
             right: 0,
             bottom: 0,
-            height: { xs: 128, md: 132 },
+            height: { xs: 112, md: 132 },
             background: brand.forest,
             pointerEvents: "none",
           },
@@ -439,7 +439,7 @@ function StepCard({ step }) {
           sx={{
             position: "relative",
             zIndex: 2,
-            mt: 4.2,
+            mt: { xs: 3, md: 4.2 },
             color: brand.forest,
             fontSize: { xs: 22, md: 23 },
             lineHeight: 1.18,
@@ -453,7 +453,7 @@ function StepCard({ step }) {
           sx={{
             position: "relative",
             zIndex: 2,
-            mt: 2,
+            mt: { xs: 1.5, md: 2 },
             color: "rgba(7,28,20,0.82)",
             fontSize: { xs: 15.5, md: 16 },
             lineHeight: 1.28,
@@ -472,7 +472,7 @@ function StepCard({ step }) {
             position: "absolute",
             zIndex: 3,
             left: "50%",
-            bottom: { xs: 18, md: 16 },
+            bottom: { xs: 10, md: 16 },
             width: {
               xs: step.type === "scenario" ? "108%" : "104%",
               md: step.type === "scenario" ? "116%" : "112%",
@@ -522,7 +522,7 @@ function HowItWorks() {
         position: "relative",
         isolation: "isolate",
         overflow: "hidden",
-        py: { xs: 8, md: 11, lg: 13 },
+        py: { xs: 6.5, md: 11, lg: 13 },
         backgroundColor: "#F7F9E8",
 
         backgroundSize: "100% 100%, 72px 72px, 72px 72px",
@@ -558,9 +558,9 @@ function HowItWorks() {
             variant="h2"
             sx={{
               color: brand.forest,
-              fontSize: { xs: "2.5rem", sm: "3.15rem", md: "4.15rem" },
+              fontSize: { xs: "2.25rem", sm: "3.15rem", md: "4.15rem" },
               lineHeight: 1,
-              letterSpacing: "-4px",
+              letterSpacing: { xs: "-2px", md: "-4px" },
             }}
           >
             How It Works
@@ -582,7 +582,7 @@ function HowItWorks() {
         <Box
           sx={{
             position: "relative",
-            mt: { xs: 5.5, md: 7.5 },
+            mt: { xs: 4, md: 7.5 },
             mx: "auto",
             width: "min(100%, 1080px)",
             perspective: "1400px",
@@ -668,7 +668,7 @@ function HowItWorks() {
 
         <Box
           sx={{
-            mt: { xs: 7, md: 9.5, lg: 10 },
+            mt: { xs: 5.5, md: 9.5, lg: 10 },
             display: "grid",
             letterSpacing: "-0.5px",
             gridTemplateColumns: {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Box,
   Button,
@@ -288,6 +288,7 @@ const visualSx = {
 function EnterpriseFeatures() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [autoAdvance, setAutoAdvance] = useState(true);
+  const tabListRef = useRef(null);
   const active = features[activeIndex];
 
   useEffect(() => {
@@ -304,6 +305,25 @@ function EnterpriseFeatures() {
     setActiveIndex((index + features.length) % features.length);
   };
 
+  useEffect(() => {
+    const tabList = tabListRef.current;
+    const tab = tabList?.querySelector(`[data-feature-index="${activeIndex}"]`);
+    if (!tabList || !tab || tabList.scrollWidth <= tabList.clientWidth) return;
+
+    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ? "auto"
+      : "smooth";
+    if (document.documentElement.dir === "rtl") {
+      tab.scrollIntoView({ behavior, block: "nearest", inline: "center" });
+      return;
+    }
+
+    tabList.scrollTo({
+      left: tab.offsetLeft - (tabList.clientWidth - tab.offsetWidth) / 2,
+      behavior,
+    });
+  }, [activeIndex]);
+
   return (
     <Box
       component="section"
@@ -311,8 +331,8 @@ function EnterpriseFeatures() {
       sx={{
         width: "100%",
         background: "#F7F9E8",
-        py: { xs: 7.25, md: 10 },
-        px: { xs: 2, md: 3 },
+        py: { xs: 6, md: 10 },
+        px: { xs: 1.5, sm: 2, md: 3 },
         overflow: "hidden",
       }}
     >
@@ -321,7 +341,7 @@ function EnterpriseFeatures() {
         sx={{
           maxWidth: 1220,
           mx: "auto",
-          p: { xs: 3, md: 7 },
+          p: { xs: 2.25, sm: 3, md: 7 },
           borderRadius: { xs: "26px", md: "34px" },
           background:
             "linear-gradient(135deg, #E8DCEB 0%, #F7F9E8 58%, #F7F9E8 100%)",
@@ -354,7 +374,7 @@ function EnterpriseFeatures() {
             sx={{
               m: "0 0 14px",
               color: brand.forest,
-              fontSize: { xs: 28, md: 42 },
+              fontSize: { xs: 27, md: 42 },
               lineHeight: 1.08,
               fontFamily: brand.fontHeadline,
               fontWeight: 700,
@@ -366,8 +386,8 @@ function EnterpriseFeatures() {
             sx={{
               m: 0,
               color: "#213528",
-              fontSize: 16,
-              lineHeight: 1.7,
+              fontSize: { xs: 15, md: 16 },
+              lineHeight: { xs: 1.6, md: 1.7 },
               fontFamily: SECTION_BODY_FONT,
               fontWeight: 500,
             }}
@@ -379,16 +399,15 @@ function EnterpriseFeatures() {
         </Stack>
 
         <Box
+          ref={tabListRef}
           sx={{
             position: "relative",
             zIndex: 3,
             maxWidth: 940,
             mx: "auto",
             mb: { xs: 3.5, md: 5.5 },
-            display: "grid",
+            display: { xs: "flex", md: "grid" },
             gridTemplateColumns: {
-              xs: "1fr",
-              sm: "repeat(2, 1fr)",
               md: "repeat(4, 1fr)",
             },
             gap: { xs: 0.75, md: 0 },
@@ -396,6 +415,10 @@ function EnterpriseFeatures() {
             borderRadius: { xs: "22px", md: 999 },
             background: "rgba(0,66,37,.08)",
             border: "1px solid rgba(0,66,37,.18)",
+            overflowX: { xs: "auto", md: "visible" },
+            scrollSnapType: { xs: "x mandatory", md: "none" },
+            scrollbarWidth: "none",
+            "&::-webkit-scrollbar": { display: "none" },
           }}
         >
           {features.map((feature, index) => {
@@ -403,9 +426,12 @@ function EnterpriseFeatures() {
             return (
               <Button
                 key={feature.tab}
+                data-feature-index={index}
                 onClick={() => goTo(index)}
                 sx={{
                   minHeight: 48,
+                  flex: { xs: "0 0 156px", md: "1 1 auto" },
+                  scrollSnapAlign: { xs: "start", md: "none" },
                   borderRadius: 999,
                   background: selected ? brand.forest : "transparent",
                   color: selected ? "#ffffff" : brand.forest,

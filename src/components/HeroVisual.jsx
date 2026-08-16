@@ -13,7 +13,7 @@ function HeroVisual() {
     <Box
       sx={{
         position: 'relative',
-        minHeight: { xs: 360, sm: 440, md: 560, lg: 620 },
+        minHeight: { xs: 270, sm: 440, md: 560, lg: 620 },
         minWidth: 0,
         width: '100%',
         ml: { xs: 0, lg: 4, xl: 6 },
@@ -37,9 +37,9 @@ function HeroVisual() {
           sx={{
             position: 'relative',
             width: '100%',
-            aspectRatio: '16 / 10',
-            minHeight: { xs: 320, sm: 420, md: 500 },
-            borderRadius: { xs: 4, md: 5 },
+            aspectRatio: { xs: '4 / 3', sm: '16 / 10' },
+            minHeight: { xs: 0, sm: 420, md: 500 },
+            borderRadius: { xs: '22px', sm: 4, md: 5 },
             color: brand.ivory,
             background: 'linear-gradient(145deg, #062c1a, #03120d 58%, #0b2f22)',
             border: '1px solid rgba(242,100,51,0.34)',
@@ -88,12 +88,13 @@ function HeroVisual() {
             spacing={1.2}
             sx={{
               position: 'absolute',
-              top: { xs: 16, md: 22 },
-              left: 0,
+              top: { xs: 12, sm: 16, md: 22 },
+              left: { xs: 12, sm: 0 },
               zIndex: 3,
               px: { xs: 1.15, sm: 1.35 },
               py: { xs: 0.95, sm: 1.05 },
-              minWidth: { xs: 236, sm: 282 },
+              minWidth: { xs: 0, sm: 282 },
+              maxWidth: { xs: 'calc(100% - 94px)', sm: 'none' },
               borderRadius: 2,
               background: 'rgba(238,243,205,0.9)',
               border: '1px solid rgba(7,66,37,0.12)',
@@ -108,8 +109,8 @@ function HeroVisual() {
               title="Iman Rashidi, Head of Recruitment"
               decoding="async"
               sx={{
-                width: { xs: 42, sm: 48 },
-                height: { xs: 42, sm: 48 },
+                width: { xs: 36, sm: 48 },
+                height: { xs: 36, sm: 48 },
                 borderRadius: '50%',
                 objectFit: 'cover',
                 flexShrink: 0,
@@ -119,7 +120,7 @@ function HeroVisual() {
               <Typography
                 sx={{
                   color: '#111812',
-                  fontSize: { xs: 17, sm: 20 },
+                  fontSize: { xs: 14.5, sm: 20 },
                   fontWeight: 950,
                   lineHeight: 1,
                 }}
@@ -130,7 +131,7 @@ function HeroVisual() {
                 sx={{
                   mt: 0.35,
                   color: 'rgba(7,66,37,0.48)',
-                  fontSize: { xs: 11, sm: 12.5 },
+                  fontSize: { xs: 9.5, sm: 12.5 },
                   fontWeight: 850,
                   lineHeight: 1.15,
                 }}
@@ -143,8 +144,8 @@ function HeroVisual() {
           <Box
             sx={{
               position: 'absolute',
-              top: { xs: 16, md: 22 },
-              right: { xs: 16, md: 22 },
+              top: { xs: 12, md: 22 },
+              right: { xs: 12, md: 22 },
               zIndex: 3,
               display: 'inline-flex',
               alignItems: 'center',
@@ -182,8 +183,8 @@ function HeroVisual() {
           <Box
             sx={{
               position: 'absolute',
-              left: { xs: 16, md: 22 },
-              bottom: { xs: 16, md: 22 },
+              left: { xs: 12, md: 22 },
+              bottom: { xs: 12, md: 22 },
               zIndex: 3,
               px: 1.35,
               py: 0.9,

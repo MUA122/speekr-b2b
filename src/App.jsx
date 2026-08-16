@@ -445,7 +445,7 @@ function App() {
   useRouteSeo({ locale, path, skip: isBlogPage || isBlogPostPage });
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setIsPageLoading(false), 820);
+    const timer = window.setTimeout(() => setIsPageLoading(false), 420);
     return () => window.clearTimeout(timer);
   }, []);
 
@@ -481,8 +481,8 @@ function App() {
         window.history.pushState({}, "", url.href);
         setRoute(getRoute());
         window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-        window.setTimeout(() => setIsPageLoading(false), 620);
-      }, 120);
+        window.setTimeout(() => setIsPageLoading(false), 280);
+      }, 70);
     };
 
     document.addEventListener("click", handleInternalLink, true);
@@ -501,7 +501,7 @@ function App() {
 
       setIsPageLoading(true);
       setRoute(nextRoute);
-      window.setTimeout(() => setIsPageLoading(false), 620);
+      window.setTimeout(() => setIsPageLoading(false), 320);
     };
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
@@ -560,14 +560,62 @@ function App() {
           },
           html: {
             scrollBehavior: "smooth",
+            width: "100%",
+            maxWidth: "100%",
+            overflowX: "clip",
+            scrollPaddingTop: "88px",
           },
           body: {
             margin: 0,
             minWidth: 320,
+            width: "100%",
+            maxWidth: "100%",
             fontFamily: "var(--font-body)",
             background: brand.ivory,
-            "@media (min-width: 900px)": {
-              zoom: 0.9,
+            overflowX: "clip",
+            overscrollBehaviorX: "none",
+          },
+          "#root": {
+            width: "100%",
+            minWidth: 0,
+            maxWidth: "100%",
+            overflowX: "clip",
+          },
+          "main, section, header, footer": {
+            minWidth: 0,
+            maxWidth: "100%",
+          },
+          "img, video, canvas": {
+            maxWidth: "100%",
+          },
+          "a, button, [role='button']": {
+            WebkitTapHighlightColor: "transparent",
+            touchAction: "manipulation",
+          },
+          ".MuiStack-root > *, .MuiGrid-item": {
+            minWidth: 0,
+          },
+          "h1, h2, h3, h4, h5, h6": {
+            textWrap: "balance",
+          },
+          p: {
+            textWrap: "pretty",
+          },
+          "@media (max-width: 599.95px)": {
+            ".MuiButton-root": {
+              minHeight: "52px",
+            },
+            "input, textarea, select": {
+              fontSize: "16px !important",
+            },
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            html: { scrollBehavior: "auto" },
+            "*, *::before, *::after": {
+              animationDuration: "0.01ms !important",
+              animationIterationCount: "1 !important",
+              scrollBehavior: "auto !important",
+              transitionDuration: "0.01ms !important",
             },
           },
           ":root": {

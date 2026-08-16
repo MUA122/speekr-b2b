@@ -152,10 +152,17 @@ export const theme = createTheme({
           boxShadow: "none",
           minHeight: 48,
           paddingInline: 24,
+          lineHeight: 1.2,
           transition:
             "transform 180ms ease, background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease",
           "&:hover": {
             transform: "translateY(-1px)",
+          },
+          "&:active": {
+            transform: "scale(0.985)",
+          },
+          "&.Mui-disabled": {
+            transform: "none",
           },
           "&:focus-visible": {
             outline: `3px solid ${brand.limeStrong}`,
@@ -167,6 +174,12 @@ export const theme = createTheme({
     MuiIconButton: {
       styleOverrides: {
         root: {
+          minWidth: 44,
+          minHeight: 44,
+          transition: "transform 160ms ease, background-color 160ms ease",
+          "&:active": {
+            transform: "scale(0.94)",
+          },
           "&:focus-visible": {
             outline: `3px solid ${brand.limeStrong}`,
             outlineOffset: 3,

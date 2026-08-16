@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Box } from "@mui/material";
 import { ArrowUpRight, Menu, X } from "lucide-react";
@@ -29,6 +29,7 @@ function getNavHref(item, locale) {
 }
 
 function MobileMenu({ locale, path, open, onClose, onDemoClick }) {
+  const closeButtonRef = useRef(null);
   const isArabic = locale === "ar";
   const alternateLocale = isArabic ? "en" : "ar";
   const languageHref = localizedPath(path, alternateLocale);
@@ -43,11 +44,36 @@ function MobileMenu({ locale, path, open, onClose, onDemoClick }) {
 
   useEffect(() => {
     if (!open) return undefined;
+    const previouslyFocused = document.activeElement;
     const onKeyDown = (event) => {
-      if (event.key === "Escape") onClose();
+      if (event.key === "Escape") {
+        onClose();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+      const menu = closeButtonRef.current?.closest('[role="dialog"]');
+      const focusable = menu?.querySelectorAll(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      );
+      if (!focusable?.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
     document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
+    window.requestAnimationFrame(() => closeButtonRef.current?.focus());
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      previouslyFocused?.focus?.();
+    };
   }, [open, onClose]);
 
   if (!open) return null;
@@ -75,7 +101,7 @@ function MobileMenu({ locale, path, open, onClose, onDemoClick }) {
           right: isArabic ? "auto" : 0,
           left: isArabic ? 0 : "auto",
           bottom: 0,
-          width: "min(84vw, 320px)",
+          width: { xs: "min(92vw, 360px)", sm: 360 },
           background: "#074225",
           borderLeft: isArabic ? "none" : "1px solid rgba(242,100,51,0.12)",
           borderRight: isArabic ? "1px solid rgba(242,100,51,0.12)" : "none",
@@ -85,6 +111,7 @@ function MobileMenu({ locale, path, open, onClose, onDemoClick }) {
           display: "flex",
           flexDirection: "column",
           overflow: "hidden",
+          overscrollBehavior: "contain",
         }}
       >
         <Box
@@ -107,8 +134,9 @@ function MobileMenu({ locale, path, open, onClose, onDemoClick }) {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            px: 2.5,
-            py: 2.5,
+            px: { xs: 2, sm: 2.5 },
+            pt: "max(20px, env(safe-area-inset-top))",
+            pb: 2,
             borderBottom: "1px solid rgba(238,243,205,0.06)",
             position: "relative",
             zIndex: 1,
@@ -131,12 +159,13 @@ function MobileMenu({ locale, path, open, onClose, onDemoClick }) {
           </Box>
           <Box
             component="button"
+            ref={closeButtonRef}
             type="button"
             onClick={onClose}
             aria-label={isArabic ? "إغلاق القائمة" : "Close menu"}
             sx={{
-              width: 40,
-              height: 40,
+              width: 44,
+              height: 44,
               borderRadius: "10px",
               border: "1px solid rgba(238,243,205,0.1)",
               bgcolor: "rgba(238,243,205,0.04)",
@@ -161,8 +190,8 @@ function MobileMenu({ locale, path, open, onClose, onDemoClick }) {
           sx={{
             flex: 1,
             overflowY: "auto",
-            px: 2,
-            py: 2.5,
+            px: { xs: 1.5, sm: 2 },
+            py: 2,
             display: "flex",
             flexDirection: "column",
             gap: 0.75,
@@ -170,39 +199,50 @@ function MobileMenu({ locale, path, open, onClose, onDemoClick }) {
             zIndex: 1,
           }}
         >
-          {navItems.map((item) => (
-            <Box
-              key={item}
-              component="a"
-              href={getNavHref(item, locale)}
-              onClick={onClose}
-              sx={{
+          {navItems.map((item) => {
+            const href = getNavHref(item, locale);
+            const current = href === localizedPath(path, locale);
+            return (
+              <Box
+                key={item}
+                component="a"
+                href={href}
+                aria-current={current ? "page" : undefined}
+                onClick={onClose}
+                sx={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
                 px: 2,
+                minHeight: 52,
                 py: 1.4,
                 borderRadius: "12px",
                 fontSize: 15,
                 fontWeight: 400,
-                color: "rgba(238,243,205,0.68)",
+                color: current ? "#EEF3CD" : "rgba(238,243,205,0.68)",
+                bgcolor: current ? "rgba(238,243,205,0.08)" : "transparent",
                 textDecoration: "none",
                 transition: "background 0.2s ease, color 0.2s ease",
                 "&:hover": {
                   bgcolor: "rgba(238,243,205,0.05)",
                   color: "rgba(238,243,205,0.96)",
                 },
+                "&:focus-visible": {
+                  outline: "3px solid #8EC640",
+                  outlineOffset: 2,
+                },
               }}
-            >
-              {NAV_LABELS[locale]?.[item] || item}
-            </Box>
-          ))}
+              >
+                {NAV_LABELS[locale]?.[item] || item}
+              </Box>
+            );
+          })}
         </Box>
 
         <Box
           sx={{
             px: 2,
-            pb: 3,
+            pb: "max(24px, env(safe-area-inset-bottom))",
             pt: 2,
             display: "flex",
             flexDirection: "column",
@@ -223,7 +263,8 @@ function MobileMenu({ locale, path, open, onClose, onDemoClick }) {
               alignItems: "center",
               justifyContent: "center",
               gap: 0.5,
-              py: 1.45,
+              minHeight: 50,
+              py: 1.25,
               borderRadius: "12px",
               border: "1px solid rgba(238,243,205,0.14)",
               color: "#EEF3CD",
@@ -240,6 +281,7 @@ function MobileMenu({ locale, path, open, onClose, onDemoClick }) {
               aria-hidden
               sx={{ width: 17, height: 17, objectFit: "contain" }}
             />
+            {isArabic ? "English" : "العربية"}
           </Box>
           <Box
             component="button"
@@ -253,7 +295,8 @@ function MobileMenu({ locale, path, open, onClose, onDemoClick }) {
               alignItems: "center",
               justifyContent: "center",
               gap: 0.5,
-              py: 1.7,
+              minHeight: 52,
+              py: 1.45,
               borderRadius: "12px",
               bgcolor: "#F26433",
               color: "#ffffff",
@@ -277,7 +320,8 @@ function MobileMenu({ locale, path, open, onClose, onDemoClick }) {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              py: 1.7,
+              minHeight: 52,
+              py: 1.45,
               borderRadius: "12px",
               border: "1px solid rgba(238,243,205,0.1)",
               bgcolor: "rgba(238,243,205,0.04)",
@@ -327,6 +371,10 @@ function Header({ locale = "en", path = "/", onDemoClick }) {
       color: darkHeader ? "rgba(238,243,205,0.96)" : "#074225",
       bgcolor: darkHeader ? "rgba(238,243,205,0.07)" : "rgba(7,66,37,0.06)",
     },
+    "&:focus-visible": {
+      outline: "3px solid #8EC640",
+      outlineOffset: 2,
+    },
   };
 
   return (
@@ -339,11 +387,11 @@ function Header({ locale = "en", path = "/", onDemoClick }) {
           left: 0,
           right: 0,
           zIndex: 1200,
-          pt: { xs: 1.5, md: 2 },
+          pt: { xs: "max(10px, env(safe-area-inset-top))", md: 2 },
           pointerEvents: "none",
         }}
       >
-        <Box sx={{ maxWidth: 1352, mx: "auto", px: { xs: 2, sm: 3, lg: 5 } }}>
+        <Box sx={{ maxWidth: 1352, mx: "auto", px: { xs: 1.5, sm: 3, lg: 5 } }}>
           <Box
             sx={{
               pointerEvents: "auto",
@@ -353,10 +401,10 @@ function Header({ locale = "en", path = "/", onDemoClick }) {
                 md: "auto minmax(0, 1fr) auto auto auto",
               },
               alignItems: "center",
-              columnGap: { xs: 1.5, md: 1.2, lg: 2 },
-              px: { xs: 1.8, sm: 2.2 },
+              columnGap: { xs: 1, md: 1.2, lg: 2 },
+              px: { xs: 1.4, sm: 2.2 },
               height: { xs: 60, md: 64 },
-              borderRadius: "100px",
+              borderRadius: { xs: "20px", sm: "100px" },
               border: "1px solid",
               borderColor: darkHeader
                 ? "rgba(242,100,51,0.18)"
@@ -385,7 +433,7 @@ function Header({ locale = "en", path = "/", onDemoClick }) {
                 gap: 1,
                 textDecoration: "none",
                 minWidth: 0,
-                width: { xs: 108, sm: 120 },
+                width: { xs: 104, sm: 120 },
               }}
             >
               <Box
@@ -395,9 +443,9 @@ function Header({ locale = "en", path = "/", onDemoClick }) {
                 title="Speekr.ai logo"
                 decoding="async"
                 sx={{
-                  width: scrolled ? { xs: 32, sm: 34 } : { xs: 108, sm: 120 },
+                  width: scrolled ? { xs: 34, sm: 34 } : { xs: 104, sm: 120 },
                   height: scrolled ? { xs: 32, sm: 34 } : "auto",
-                  ml: 1,
+                  ml: { xs: 0.25, sm: 1 },
                   objectFit: "contain",
                   display: "block",
                   filter: "none",
@@ -421,16 +469,33 @@ function Header({ locale = "en", path = "/", onDemoClick }) {
                 overflow: "hidden",
               }}
             >
-              {navItems.map((item) => (
-                <Box
-                  key={item}
-                  component="a"
-                  href={getNavHref(item, locale)}
-                  sx={desktopLinkSx}
-                >
-                  {NAV_LABELS[locale]?.[item] || item}
-                </Box>
-              ))}
+              {navItems.map((item) => {
+                const href = getNavHref(item, locale);
+                const current = href === localizedPath(path, locale);
+                return (
+                  <Box
+                    key={item}
+                    component="a"
+                    href={href}
+                    aria-current={current ? "page" : undefined}
+                    sx={{
+                      ...desktopLinkSx,
+                      color: current
+                        ? darkHeader
+                          ? "#EEF3CD"
+                          : "#074225"
+                        : desktopLinkSx.color,
+                      bgcolor: current
+                        ? darkHeader
+                          ? "rgba(238,243,205,0.08)"
+                          : "rgba(7,66,37,0.07)"
+                        : "transparent",
+                    }}
+                  >
+                    {NAV_LABELS[locale]?.[item] || item}
+                  </Box>
+                );
+              })}
             </Box>
 
             <Box
@@ -542,7 +607,8 @@ function Header({ locale = "en", path = "/", onDemoClick }) {
               sx={{
                 display: { xs: "flex", md: "none" },
                 alignItems: "center",
-                gap: 0.8,
+                gap: 0.6,
+                justifySelf: "end",
               }}
             >
               <Box
@@ -554,9 +620,9 @@ function Header({ locale = "en", path = "/", onDemoClick }) {
                   isArabic ? "Switch to English" : "التبديل إلى العربية"
                 }
                 sx={{
-                  height: 40,
-                  width: 40,
-                  minWidth: 40,
+                  height: 44,
+                  width: 44,
+                  minWidth: 44,
                   px: 0,
                   display: "inline-flex",
                   alignItems: "center",
@@ -565,7 +631,7 @@ function Header({ locale = "en", path = "/", onDemoClick }) {
                   border: darkHeader
                     ? "1px solid rgba(238,243,205,0.16)"
                     : "1px solid rgba(7,66,37,0.16)",
-                  borderRadius: "12px",
+                  borderRadius: "14px",
                   color: darkHeader ? "#EEF3CD" : "#074225",
                   textDecoration: "none",
                   fontSize: 12.5,
@@ -583,20 +649,50 @@ function Header({ locale = "en", path = "/", onDemoClick }) {
               <Box
                 component="button"
                 type="button"
+                onClick={onDemoClick}
+                aria-label={isArabic ? "احجز عرضاً توضيحياً" : "Book a demo"}
+                sx={{
+                  height: 44,
+                  minWidth: 52,
+                  px: 1,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  border: "1px solid rgba(242,100,51,0.5)",
+                  borderRadius: "14px",
+                  bgcolor: "#F26433",
+                  color: "#ffffff",
+                  fontFamily: "inherit",
+                  fontSize: 11.5,
+                  fontWeight: 850,
+                  lineHeight: 1,
+                  cursor: "pointer",
+                  "&:hover": { bgcolor: "#D94F25" },
+                  "&:focus-visible": {
+                    outline: "3px solid #8EC640",
+                    outlineOffset: 2,
+                  },
+                }}
+              >
+                {isArabic ? "عرض" : "Demo"}
+              </Box>
+              <Box
+                component="button"
+                type="button"
                 aria-label={
                   isArabic ? "فتح قائمة التنقل" : "Open navigation menu"
                 }
                 aria-expanded={mobileOpen}
                 onClick={() => setMobileOpen(true)}
                 sx={{
-                  width: 40,
-                  height: 40,
+                  width: 44,
+                  height: 44,
                   display: "inline-flex",
                   alignItems: "center",
                   justifyContent: "center",
                   color: "#F26433",
                   border: "1px solid rgba(242,100,51,0.22)",
-                  borderRadius: "12px",
+                  borderRadius: "14px",
                   bgcolor: "transparent",
                   cursor: "pointer",
                   "&:hover": { bgcolor: "rgba(242,100,51,0.1)" },

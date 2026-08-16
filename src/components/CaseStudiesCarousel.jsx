@@ -85,7 +85,7 @@ export default function CaseStudiesCarousel({ locale = "en" }) {
           bgcolor: "#074225",
           borderRadius: 0,
           overflow: "hidden",
-          px: { xs: 2.5, sm: 4, md: 6, lg: 8 },
+          px: { xs: 2, sm: 4, md: 6, lg: 8 },
           pt: { xs: 5, md: 7 },
           pb: { xs: 8, md: 10 },
         }}
@@ -163,7 +163,7 @@ export default function CaseStudiesCarousel({ locale = "en" }) {
           sx={{ position: "relative", zIndex: 1, maxWidth: 1200, mx: "auto" }}
         >
           {/* ── Heading ── */}
-          <Box sx={{ textAlign: "center", mb: { xs: 6, md: 9 } }}>
+          <Box sx={{ textAlign: "center", mb: { xs: 4.5, md: 9 } }}>
             <Typography
               id="cases-title"
               component="h2"
@@ -224,7 +224,7 @@ export default function CaseStudiesCarousel({ locale = "en" }) {
                   <Box
                     sx={{
                       position: "relative",
-                      minHeight: { xs: 360, md: 510 },
+                      minHeight: { xs: 310, sm: 360, md: 510 },
                       borderRadius: { xs: "16px", md: "20px" },
                       overflow: "hidden",
                       bgcolor: "#111",
@@ -276,8 +276,8 @@ export default function CaseStudiesCarousel({ locale = "en" }) {
                     <Box
                       sx={{
                         position: "absolute",
-                        left: { xs: 22, md: 34 },
-                        bottom: { xs: 26, md: 34 },
+                        left: { xs: 20, md: 34 },
+                        bottom: { xs: 22, md: 34 },
                         zIndex: 2,
                       }}
                     >
@@ -299,7 +299,7 @@ export default function CaseStudiesCarousel({ locale = "en" }) {
                         component="h3"
                         sx={{
                           m: 0,
-                          fontSize: { xs: 34, md: 44, lg: 50 },
+                          fontSize: { xs: 31, md: 44, lg: 50 },
                           fontFamily: (theme) =>
                             theme.palette.brand.fontHeadline,
                           fontWeight: 900,
@@ -320,7 +320,7 @@ export default function CaseStudiesCarousel({ locale = "en" }) {
                       position: "relative",
                       minHeight: { xs: "auto", md: 510 },
                       borderRadius: { xs: "16px", md: "20px" },
-                      p: { xs: "32px 24px", sm: "38px 32px", md: "44px 42px" },
+                      p: { xs: "26px 22px", sm: "38px 32px", md: "44px 42px" },
                       display: "flex",
                       flexDirection: "column",
                       justifyContent: "center",
@@ -449,8 +449,8 @@ export default function CaseStudiesCarousel({ locale = "en" }) {
                   onClick={fn}
                   aria-label={label}
                   sx={{
-                    width: 40,
-                    height: 40,
+                    width: 44,
+                    height: 44,
                     borderRadius: "50%",
                     border: "1.5px solid rgba(242,100,51,0.25)",
                     bgcolor: "rgba(242,100,51,0.07)",
@@ -483,17 +483,27 @@ export default function CaseStudiesCarousel({ locale = "en" }) {
                   onClick={() => goTo(i)}
                   aria-label={`Go to case study ${i + 1}`}
                   sx={{
-                    width: i === active ? 28 : 8,
-                    height: 8,
+                    position: "relative",
+                    width: 44,
+                    height: 44,
                     borderRadius: "100px",
-                    bgcolor: i === active ? "#F26433" : "rgba(7,66,37,0.16)",
+                    bgcolor: "transparent",
                     border: "none",
                     cursor: "pointer",
                     p: 0,
-                    transition:
-                      "width 0.35s cubic-bezier(0.4,0,0.2,1), background-color 0.3s ease",
-                    boxShadow:
-                      i === active ? "0 0 8px rgba(242,100,51,0.5)" : "none",
+                    "&::after": {
+                      content: '\"\"',
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      width: i === active ? 28 : 8,
+                      height: 8,
+                      borderRadius: 999,
+                      bgcolor: i === active ? "#F26433" : "rgba(238,243,205,0.3)",
+                      transform: "translate(-50%, -50%)",
+                      transition: "width 0.35s ease, background-color 0.3s ease",
+                      boxShadow: i === active ? "0 0 8px rgba(242,100,51,0.5)" : "none",
+                    },
                   }}
                 />
               ))}
