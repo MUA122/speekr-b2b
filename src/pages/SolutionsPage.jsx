@@ -358,7 +358,7 @@ function SolutionSection({ section, onDemoClick }) {
           <Box
             key={title}
             sx={{
-              background: "#fff",
+              background: "#EEF4CC",
               border: "1.5px solid rgba(22,55,31,.1)",
               borderRadius: "16px",
               p: { xs: 2.25, md: "20px 22px" },

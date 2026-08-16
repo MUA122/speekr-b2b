@@ -440,8 +440,7 @@ function UseCases({ onDemoClick }) {
             role="tablist"
             aria-label="Enterprise team use cases"
             sx={{
-              maxWidth: 1080,
-              mx: "auto",
+              width: "100%",
               display: "flex",
               alignItems: "center",
               gap: { xs: 0.5, md: 0 },
