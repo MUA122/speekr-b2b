@@ -8,15 +8,16 @@ const LOGO_ASSETS = Array.from(
 );
 
 const LOGO_HEIGHTS = [28, 36, 30, 28, 32, 26, 38, 38, 24];
+const MARQUEE_COPIES = 3;
 
-function LogosMarquee({ embedded = false }) {
-  const marquee = [...LOGO_ASSETS, ...LOGO_ASSETS];
+function LogosMarquee({ embedded = false, locale = "en" }) {
+  const isArabic = locale === "ar";
 
   return (
     <Box
       component={embedded ? "div" : "section"}
       id={embedded ? undefined : "trusted-teams"}
-      aria-label="Trusted Speekr customers"
+      aria-label={isArabic ? "عملاء يثقون بمنصة Speekr" : "Trusted Speekr customers"}
       sx={{
         mt: embedded ? 6 : 0,
         py: embedded ? 0 : { xs: 5, md: 7 },
@@ -24,7 +25,7 @@ function LogosMarquee({ embedded = false }) {
         background: brand.forest,
         "@keyframes customerLogoMarquee": {
           from: { transform: "translateX(0)" },
-          to: { transform: "translateX(-50%)" },
+          to: { transform: "translateX(-33.333333%)" },
         },
       }}
     >
@@ -35,39 +36,58 @@ function LogosMarquee({ embedded = false }) {
             "linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent)",
           maskImage:
             "linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent)",
+          direction: "ltr",
         }}
       >
         <Box
-          role="list"
           sx={{
             display: "flex",
-            gap: { xs: 4, md: 7.5 },
             alignItems: "center",
             width: "max-content",
+            direction: "ltr",
             animation: "customerLogoMarquee 34s linear infinite",
             "@media (prefers-reduced-motion: reduce)": {
               animationPlayState: "paused",
             },
           }}
         >
-          {marquee.map((src, index) => (
+          {Array.from({ length: MARQUEE_COPIES }, (_, copyIndex) => (
             <Box
-              key={`${src}-${index}`}
-              component="img"
-              role="listitem"
-              src={src}
-              alt={`Speekr customer logo ${index % LOGO_ASSETS.length + 1}`}
-              title={`Speekr customer logo ${index % LOGO_ASSETS.length + 1}`}
-              loading="lazy"
-              decoding="async"
+              key={copyIndex}
+              role={copyIndex === 0 ? "list" : "presentation"}
+              aria-hidden={copyIndex === 0 ? undefined : true}
               sx={{
-                height: LOGO_HEIGHTS[index % LOGO_ASSETS.length],
-                width: "auto",
-                filter: "brightness(0) invert(1)",
-                opacity: 0.55,
+                display: "flex",
+                alignItems: "center",
+                gap: { xs: 4, md: 7.5 },
+                pr: { xs: 4, md: 7.5 },
                 flex: "0 0 auto",
               }}
-            />
+            >
+              {LOGO_ASSETS.map((src, logoIndex) => (
+                <Box
+                  key={src}
+                  component="img"
+                  role={copyIndex === 0 ? "listitem" : undefined}
+                  src={src}
+                  alt={
+                    copyIndex === 0
+                      ? `Speekr customer logo ${logoIndex + 1}`
+                      : ""
+                  }
+                  title={`Speekr customer logo ${logoIndex + 1}`}
+                  loading="lazy"
+                  decoding="async"
+                  sx={{
+                    height: LOGO_HEIGHTS[logoIndex],
+                    width: "auto",
+                    filter: "brightness(0) invert(1)",
+                    opacity: 0.55,
+                    flex: "0 0 auto",
+                  }}
+                />
+              ))}
+            </Box>
           ))}
         </Box>
       </Box>

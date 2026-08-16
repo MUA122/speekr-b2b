@@ -98,7 +98,8 @@ function Hero({ locale = "en", onDemoClick }) {
                     display: "inline-block",
                     maxWidth: "100%",
                     whiteSpace: { xs: "normal", sm: "nowrap" },
-                    fontFamily: BELWE_HERO_FONT,
+                    fontFamily:
+                      locale === "en" ? BELWE_HERO_FONT : "var(--font-headline)",
                     fontSize: "0.76em",
                   },
                 }}

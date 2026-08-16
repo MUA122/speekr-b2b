@@ -10,8 +10,7 @@ import {
 import { Check, ChevronLeft, ChevronRight } from "lucide-react";
 import { brand } from "../theme.js";
 
-const RUBIK_SECTION_FONT =
-  '"Rubik Local", "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif';
+const SECTION_BODY_FONT = "var(--font-body)";
 
 const features = [
   {
@@ -357,7 +356,7 @@ function EnterpriseFeatures() {
               color: brand.forest,
               fontSize: { xs: 28, md: 42 },
               lineHeight: 1.08,
-              fontFamily: RUBIK_SECTION_FONT,
+              fontFamily: brand.fontHeadline,
               fontWeight: 700,
             }}
           >
@@ -369,7 +368,7 @@ function EnterpriseFeatures() {
               color: "#213528",
               fontSize: 16,
               lineHeight: 1.7,
-              fontFamily: RUBIK_SECTION_FONT,
+              fontFamily: SECTION_BODY_FONT,
               fontWeight: 500,
             }}
           >
@@ -466,7 +465,7 @@ function EnterpriseFeatures() {
                   color: brand.forest,
                   fontSize: { xs: 32, md: 40 },
                   lineHeight: 1.02,
-                  fontFamily: RUBIK_SECTION_FONT,
+                  fontFamily: brand.fontHeadline,
                   fontWeight: 600,
                 }}
               >
@@ -478,7 +477,7 @@ function EnterpriseFeatures() {
                   color: "#213528",
                   fontSize: 16,
                   lineHeight: 1.75,
-                  fontFamily: RUBIK_SECTION_FONT,
+                  fontFamily: SECTION_BODY_FONT,
                   fontWeight: 400,
                 }}
               >

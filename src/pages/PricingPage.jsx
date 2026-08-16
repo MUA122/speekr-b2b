@@ -618,7 +618,7 @@ function TrustSection() {
           </Box>
         </Stack>
       </Container>
-      <LogosMarquee embedded />
+      <LogosMarquee embedded locale={locale} />
     </Box>
   );
 }

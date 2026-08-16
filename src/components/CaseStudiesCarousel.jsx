@@ -348,7 +348,7 @@ export default function CaseStudiesCarousel({ locale = "en" }) {
 
                     {/* Title */}
                     <Typography
-                      component="p"
+                      component="h3"
                       sx={{
                         m: 0,
                         mb: { xs: 3.5, md: 4.5 },

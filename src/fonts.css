@@ -6,6 +6,72 @@
   font-display: swap;
 }
 
+/* Arabic brand typefaces. Keep these local so the RTL experience does not
+   depend on a third-party font service or a visitor's installed fonts. */
+@font-face {
+  font-family: "Lalezar Local";
+  src: url("/fonts/ar/Lalezar-Regular%20%28Primary%29%20.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans Arabic Local";
+  src: url("/fonts/ar/IBMPlexSansArabic-Thin.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans Arabic Local";
+  src: url("/fonts/ar/IBMPlexSansArabic-ExtraLight.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans Arabic Local";
+  src: url("/fonts/ar/IBMPlexSansArabic-Light.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans Arabic Local";
+  src: url("/fonts/ar/IBMPlexSansArabic-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans Arabic Local";
+  src: url("/fonts/ar/IBMPlexSansArabic-Medium.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans Arabic Local";
+  src: url("/fonts/ar/IBMPlexSansArabic-SemiBold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans Arabic Local";
+  src: url("/fonts/ar/IBMPlexSansArabic-Bold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
 .belwe-page-headings :is(h1, h2, h3, h4, h5, h6) {
   font-family: "Belwe Bold", "Belwe", "Cooper Black", Georgia, serif;
   font-weight: 700;

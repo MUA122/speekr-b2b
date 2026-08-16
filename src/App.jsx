@@ -583,8 +583,9 @@ function App() {
           },
           'html[dir="rtl"]': {
             "--font-headline":
-              '"Lalezar", "IBM Plex Sans Arabic", Tahoma, Arial, sans-serif',
-            "--font-body": '"IBM Plex Sans Arabic", Tahoma, Arial, sans-serif',
+              '"Lalezar Local", "Lalezar", "IBM Plex Sans Arabic Local", Tahoma, Arial, sans-serif',
+            "--font-body":
+              '"IBM Plex Sans Arabic Local", "IBM Plex Sans Arabic", Tahoma, Arial, sans-serif',
           },
           'html[dir="rtl"] body, html[dir="rtl"] #root': {
             direction: "rtl",
@@ -595,15 +596,17 @@ function App() {
               letterSpacing: "0 !important",
               textTransform: "none !important",
             },
-          'html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] h3, html[dir="rtl"] .MuiTypography-h1, html[dir="rtl"] .MuiTypography-h2, html[dir="rtl"] .MuiTypography-h3':
+          'html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] h3, html[dir="rtl"] h4, html[dir="rtl"] h5, html[dir="rtl"] h6, html[dir="rtl"] :is(h1, h2, h3, h4, h5, h6).MuiTypography-root, html[dir="rtl"] .MuiTypography-h1, html[dir="rtl"] .MuiTypography-h2, html[dir="rtl"] .MuiTypography-h3, html[dir="rtl"] .MuiTypography-h4, html[dir="rtl"] .MuiTypography-h5, html[dir="rtl"] .MuiTypography-h6':
             {
-              lineHeight: "1.16 !important",
+              fontFamily: '"Lalezar Local", "Lalezar", sans-serif',
+              lineHeight: "1.22 !important",
               fontWeight: "400 !important",
-              overflowWrap: "anywhere",
+              overflowWrap: "break-word",
             },
           'html[dir="rtl"] p, html[dir="rtl"] .MuiTypography-body1, html[dir="rtl"] .MuiTypography-body2':
             {
-              overflowWrap: "anywhere",
+              lineHeight: "1.7",
+              overflowWrap: "break-word",
             },
           'html[dir="rtl"] input, html[dir="rtl"] textarea, html[dir="rtl"] select':
             {
@@ -622,12 +625,23 @@ function App() {
           'html[dir="rtl"] .MuiButton-endIcon': {
             marginLeft: "-4px",
             marginRight: "8px",
+            flexShrink: 0,
           },
           'html[dir="rtl"] .MuiButton-startIcon': {
             marginLeft: "8px",
             marginRight: "-4px",
+            flexShrink: 0,
           },
-          ".MuiTypography-root, button, input, textarea, select": {
+          'html[dir="rtl"] .MuiButton-root, html[dir="rtl"] .MuiChip-root, html[dir="rtl"] .MuiListItem-root': {
+            lineHeight: 1.5,
+          },
+          'html[dir="rtl"] .MuiButton-root svg, html[dir="rtl"] .MuiChip-root svg, html[dir="rtl"] [role="button"] svg': {
+            flexShrink: 0,
+          },
+          'html[dir="rtl"] .MuiStack-root > *, html[dir="rtl"] .MuiGrid-item': {
+            minWidth: 0,
+          },
+          "button, input, textarea, select": {
             fontFamily: "var(--font-body)",
           },
           "h1, h2, h3, h4, h5, h6, .MuiTypography-h1, .MuiTypography-h2, .MuiTypography-h3, .MuiTypography-h4, .MuiTypography-h5, .MuiTypography-h6":
@@ -721,7 +735,7 @@ function App() {
       ) : (
         <>
           <Hero locale={locale} onDemoClick={openContactModal} />
-          <LogosMarquee />
+          <LogosMarquee locale={locale} />
           <HowItWorks />
           {/* <SectionDivider /> */}
           <UseCases onDemoClick={openContactModal} />

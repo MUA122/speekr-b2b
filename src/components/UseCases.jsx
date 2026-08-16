@@ -398,8 +398,9 @@ function UseCases({ onDemoClick }) {
             sx={{ maxWidth: 900, animation: "fadeLift 520ms ease both" }}
           >
             <Typography
-              component="div"
+              component="h2"
               sx={{
+                m: 0,
                 color: brand.forest,
                 fontSize: { xs: 36, sm: 46, md: 56 },
                 fontWeight: 800,
