@@ -60,10 +60,33 @@ const steps = [
 ];
 
 const stepImages = {
-  scenario: "/images/card4.png",
-  roleplay: "/images/card2.png",
-  feedback: "/images/card-3.png",
-  analytics: "/images/card5.png",
+  scenario: "/images/01.png",
+  roleplay: "/images/02.png",
+  feedback: "/images/03.png",
+  analytics: "/images/04.png",
+};
+
+const stepImageStyles = {
+  scenario: {
+    width: { xs: "80%", md: "82%" },
+    maxWidth: 260,
+    bottom: { xs: 8, md: 10 },
+  },
+  roleplay: {
+    width: { xs: "84%", md: "86%" },
+    maxWidth: 275,
+    bottom: { xs: 8, md: 10 },
+  },
+  feedback: {
+    width: { xs: "78%", md: "80%" },
+    maxWidth: 255,
+    bottom: { xs: 8, md: 10 },
+  },
+  analytics: {
+    width: { xs: "90%", md: "94%" },
+    maxWidth: 300,
+    bottom: { xs: 8, md: 10 },
+  },
 };
 
 function MiniVisual({ step }) {
@@ -386,12 +409,12 @@ function MiniVisual({ step }) {
 
 function StepCard({ step }) {
   return (
-    <Box sx={{ position: "relative", minHeight: { xs: 410, sm: 450, md: 500 } }}>
+    <Box sx={{ position: "relative", minHeight: 500 }}>
       <Box
         sx={{
           position: "relative",
           height: "100%",
-          minHeight: { xs: 410, sm: 450, md: 500 },
+          minHeight: 500,
           p: { xs: 2.2, md: 2.6 },
           borderRadius: { xs: "18px", md: "8px" },
           background: "#F7F9E8",
@@ -472,15 +495,10 @@ function StepCard({ step }) {
             position: "absolute",
             zIndex: 3,
             left: "50%",
-            bottom: { xs: 10, md: 16 },
-            width: {
-              xs: step.type === "scenario" ? "108%" : "104%",
-              md: step.type === "scenario" ? "116%" : "112%",
-            },
-            maxWidth: "none",
             transform: "translateX(-50%)",
             filter: "drop-shadow(0 18px 30px rgba(7,28,20,0.18))",
             pointerEvents: "none",
+            ...stepImageStyles[step.type],
           }}
         />
       </Box>

@@ -127,7 +127,8 @@ const entries = [
   ["02 / TEAM MANAGEMENT", "02 / إدارة الفرق"],
   ["03 / CONTENT LIBRARY", "03 / مكتبة المحتوى"],
   ["04 / REPORTING", "04 / التقارير"],
-  ["Everything you need to manage communication training at scale", "كل ما تحتاجه لإدارة تدريب التواصل على نطاق واسع"],
+  ["Everything you need to manage communication", "كل ما تحتاجه لإدارة"],
+  ["training at scale", "تدريب التواصل على نطاق واسع"],
   ["From onboarding and roleplay assignment to performance reporting and learning customization, Speekr gives teams the tools to deliver measurable communication improvement across the organization.", "من التهيئة وإسناد المحاكاة إلى تقارير الأداء وتخصيص التعلم، تمنح Speekr فرقك أدوات تحقق تحسناً قابلاً للقياس في التواصل على مستوى المؤسسة."],
   ["Customization", "التخصيص"],
   ["Team Management", "إدارة الفرق"],
@@ -173,7 +174,8 @@ const entries = [
   ["Next enterprise feature", "الميزة المؤسسية التالية"],
 
   // MENA and security
-  ["Built for the Way MENA Teams Communicate", "مصمّمة لطريقة تواصل فرق المنطقة"],
+  ["Built for the Way MENA", "مصمّمة لطريقة"],
+  ["Teams Communicate", "تواصل فرق المنطقة"],
   ["From dialects and accents to customer expectations and workplace dynamics, every roleplay is built for the realities of MENA organizations.", "من اللهجات والنبرات إلى توقعات العملاء وديناميكيات العمل، صُممت كل محاكاة لتعكس واقع مؤسسات الشرق الأوسط وشمال أفريقيا."],
   ["15+ Arabic Dialects", "أكثر من 15 لهجة عربية"],
   ["Train in the language your teams use every day.", "تدرّب باللغة التي تستخدمها فرقك كل يوم."],
@@ -220,6 +222,18 @@ const entries = [
   ["No credit card", "من دون بطاقة ائتمانية"],
 
   // Footer
+  ["Pages", "الصفحات"],
+  ["Sections", "الأقسام"],
+  ["Explore", "استكشف"],
+  ["Home", "الرئيسية"],
+  ["Blog", "المدونة"],
+  ["Training management", "إدارة التدريب"],
+  ["MENA coverage", "تغطية منطقة الشرق الأوسط وشمال أفريقيا"],
+  ["Case studies", "دراسات الحالة"],
+  ["FAQs", "الأسئلة الشائعة"],
+  ["Speekr on Instagram", "Speekr على إنستغرام"],
+  ["Speekr on LinkedIn", "Speekr على لينكدإن"],
+  ["Speekr on Facebook", "Speekr على فيسبوك"],
   ["Product", "المنتج"],
   ["Use cases", "حالات الاستخدام"],
   ["Company", "الشركة"],

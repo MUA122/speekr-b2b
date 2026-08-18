@@ -58,15 +58,19 @@ function SectionDivider({ compact = false, variant = 'light' }) {
           }}
         >
           <Box
+            component="img"
+            src={isDark ? "/images/off-green.png" : "/images/green.png"}
+            alt=""
             sx={{
-              width: 12,
-              height: 12,
-              borderRadius: '3px',
-              background: isDark ? brand.ivory : brand.forest,
-              transform: 'rotate(45deg)',
-              boxShadow: isDark
-                ? '0 0 0 8px rgba(238,243,205,.08), 0 12px 26px rgba(0,0,0,.16)'
-                : '0 0 0 8px rgba(0,66,37,.09), 0 12px 26px rgba(0,66,37,.2)',
+              position: 'relative',
+              zIndex: 1,
+              display: 'block',
+              width: { xs: 27, md: 32 },
+              height: { xs: 27, md: 32 },
+              objectFit: 'contain',
+              filter: isDark
+                ? 'drop-shadow(0 8px 16px rgba(0,0,0,.16))'
+                : 'drop-shadow(0 8px 16px rgba(0,66,37,.18))',
             }}
           />
         </Box>

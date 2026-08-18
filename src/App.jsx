@@ -512,6 +512,20 @@ function App() {
     document.documentElement.dir = locale === "ar" ? "rtl" : "ltr";
   }, [locale]);
 
+  useEffect(() => {
+    const hash = window.location.hash.slice(1);
+    if (!hash) return undefined;
+
+    const timer = window.setTimeout(() => {
+      document.getElementById(decodeURIComponent(hash))?.scrollIntoView({
+        block: "start",
+        behavior: "auto",
+      });
+    }, 0);
+
+    return () => window.clearTimeout(timer);
+  }, [locale, path]);
+
   return (
     <Box
       key={locale}
@@ -785,7 +799,7 @@ function App() {
           <Hero locale={locale} onDemoClick={openContactModal} />
           <LogosMarquee locale={locale} />
           <HowItWorks />
-          {/* <SectionDivider /> */}
+          <SectionDivider />
           <UseCases onDemoClick={openContactModal} />
           {/* <SocialProof /> */}
           {/* <SectionDivider />
@@ -795,13 +809,13 @@ function App() {
           <SectionDivider />
           <MenaNative />
           <CaseStudiesCarousel locale={locale} />
-          {/* <SectionDivider variant="dark" /> */}
+          <SectionDivider variant="dark" />
           <SecurityTrustSection />
           <FaqSection locale={locale} />
           <FinalCta onDemoClick={openContactModal} />
         </>
       )}
-      <Footer />
+      <Footer locale={locale} />
       <ContactModal
         locale={locale}
         open={isContactOpen}

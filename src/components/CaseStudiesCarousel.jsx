@@ -4,8 +4,6 @@ import Typography from "@mui/material/Typography";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { landingCopy } from "../utils/i18n";
 
-const NOISE = `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`;
-
 const SLIDES = [
   {
     id: 0,
@@ -100,6 +98,7 @@ export default function CaseStudiesCarousel({ locale = "en" }) {
           loading="lazy"
           decoding="async"
           sx={{
+            display: "none",
             position: "absolute",
             top: { xs: -120, md: -170 },
             left: { xs: -300, md: -260 },
@@ -112,6 +111,7 @@ export default function CaseStudiesCarousel({ locale = "en" }) {
         <Box
           aria-hidden
           sx={{
+            display: "none",
             position: "absolute",
             top: "-14%",
             left: "50%",
@@ -131,6 +131,7 @@ export default function CaseStudiesCarousel({ locale = "en" }) {
         <Box
           aria-hidden
           sx={{
+            display: "none",
             position: "absolute",
             bottom: "-8%",
             left: "-4%",
@@ -149,11 +150,12 @@ export default function CaseStudiesCarousel({ locale = "en" }) {
         <Box
           aria-hidden
           sx={{
+            display: "none",
             position: "absolute",
             inset: 0,
             pointerEvents: "none",
             opacity: 0.02,
-            backgroundImage: NOISE,
+            backgroundImage: "none",
             backgroundRepeat: "repeat",
             backgroundSize: "200px 200px",
           }}

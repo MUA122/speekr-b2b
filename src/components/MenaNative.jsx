@@ -7,7 +7,6 @@ import {
   UsersRound,
 } from "lucide-react";
 import { brand } from "../theme.js";
-import menaDialectsMap from "../assets/mena-dialects-map.png";
 
 const featureCards = [
   {
@@ -50,13 +49,14 @@ function FeatureCard({ card }) {
       spacing={1.45}
       sx={{
         position: "relative",
-        minHeight: { xs: 205, sm: 190, md: 214 },
-        p: { xs: 1.75, sm: 2.2, md: 2.55 },
+        minHeight: { xs: 180, sm: 176, md: 184 },
+        p: { xs: 1.5, sm: 1.8, md: 2 },
         borderRadius: { xs: "16px", md: "8px" },
         border: "1px solid rgba(7,66,37,0.13)",
         boxShadow: "0 22px 58px rgba(7,28,20,0.09)",
         overflow: "hidden",
         isolation: "isolate",
+        backdropFilter: "blur(12px)",
         transition:
           "transform 190ms ease, box-shadow 190ms ease, border-color 190ms ease",
         "&::before": {
@@ -65,7 +65,7 @@ function FeatureCard({ card }) {
           inset: 0,
           zIndex: -1,
           backgroundColor: "#F7F9E8",
-          opacity: 0.68,
+          opacity: 0.86,
           pointerEvents: "none",
         },
         "&::after": {
@@ -89,8 +89,8 @@ function FeatureCard({ card }) {
     >
       <Box
         sx={{
-          width: { xs: 44, md: 52 },
-          height: { xs: 44, md: 52 },
+          width: { xs: 40, md: 44 },
+          height: { xs: 40, md: 44 },
           display: "grid",
           placeItems: "center",
           borderRadius: "8px",
@@ -102,15 +102,15 @@ function FeatureCard({ card }) {
           boxShadow: `0 0 0 8px ${card.accent}26`,
         }}
       >
-        <Icon size={21} strokeWidth={2.2} />
+        <Icon size={19} strokeWidth={2.2} />
       </Box>
 
       <Typography
         sx={{
-          mt: { xs: 2.25, md: 3 },
+          mt: { xs: 1.75, md: 2.1 },
           color: brand.forest,
-          fontSize: { xs: "0.96rem", sm: "1.08rem", md: "1.18rem" },
-          lineHeight: 1.12,
+          fontSize: { xs: "0.9rem", sm: "0.98rem", md: "1.04rem" },
+          lineHeight: 1.16,
           fontWeight: 950,
         }}
       >
@@ -118,10 +118,10 @@ function FeatureCard({ card }) {
       </Typography>
       <Typography
         sx={{
-          mt: 1.15,
+          mt: 0.9,
           color: "rgba(7,28,20,0.68)",
-          fontSize: { xs: "0.8rem", sm: "0.94rem" },
-          lineHeight: { xs: 1.45, sm: 1.6 },
+          fontSize: { xs: "0.75rem", sm: "0.84rem" },
+          lineHeight: { xs: 1.42, sm: 1.5 },
           fontWeight: 560,
         }}
       >
@@ -136,58 +136,38 @@ function MenaMapPanel() {
     <Box
       sx={{
         position: "relative",
-        width: "100%",
-        maxWidth: 1180,
-        aspectRatio: "1451 / 941",
-        borderRadius: { xs: "18px", md: "26px" },
-        overflow: "hidden",
-        background: "#032114",
-        border: "1px solid rgba(7,66,37,0.22)",
-        boxShadow:
-          "0 44px 120px rgba(7,28,20,0.24), 0 0 0 10px rgba(238,243,205,0.64)",
+        zIndex: 1,
+        width: { xs: "122%", sm: "112%", md: "100%" },
+        maxWidth: 1240,
+        flex: "0 0 auto",
+        aspectRatio: "1440 / 1449",
+        overflow: "visible",
         transform: "translateY(0) scale(1)",
-        transition:
-          "transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease, filter 260ms ease",
+        transition: "transform 260ms ease, filter 260ms ease",
         isolation: "isolate",
         "&::before": {
           content: '""',
           position: "absolute",
-          inset: 0,
-          zIndex: 1,
-          backgroundColor: "#F7F9E8",
-
-          transform: "translateX(-120%) skewX(-12deg)",
-          transition: "transform 760ms ease",
-          pointerEvents: "none",
-        },
-        "&::after": {
-          content: '""',
-          position: "absolute",
-          inset: 0,
-          zIndex: 1,
-          borderRadius: "inherit",
-          boxShadow:
-            "inset 0 0 0 1px rgba(247,249,232,0.16), inset 0 -90px 120px rgba(3,18,13,0.16)",
+          zIndex: -1,
+          inset: "9% 5% 12%",
+          borderRadius: "50%",
+          background:
+            "radial-gradient(circle, rgba(138,198,63,0.2), rgba(7,66,37,0.08) 42%, transparent 72%)",
+          filter: "blur(44px)",
           pointerEvents: "none",
         },
         "&:hover": {
-          transform: "translateY(-8px) scale(1.008)",
-          borderColor: "rgba(242,100,51,0.48)",
-          boxShadow:
-            "0 54px 140px rgba(7,28,20,0.28), 0 0 0 10px rgba(242,100,51,0.1)",
-          filter: "saturate(1.04) contrast(1.02)",
-        },
-        "&:hover::before": {
-          transform: "translateX(120%) skewX(-12deg)",
+          transform: "translateY(-6px) scale(1.006)",
+          filter: "saturate(1.06) contrast(1.02)",
         },
         "&:hover img": {
-          transform: "scale(1.018)",
+          transform: "scale(1.012)",
         },
       }}
     >
       <Box
         component="img"
-        src={menaDialectsMap}
+        src="/images/Home-Page-Map.png"
         alt="MENA dialect map with Arabic voice message cards"
         title="MENA dialect map with Arabic voice message cards"
         loading="lazy"
@@ -196,32 +176,11 @@ function MenaMapPanel() {
           width: "100%",
           height: "100%",
           display: "block",
-          objectFit: "cover",
+          objectFit: "contain",
+          filter: "drop-shadow(0 30px 55px rgba(7,28,20,0.12))",
           transition: "transform 420ms ease",
         }}
       />
-      <Box
-        sx={{
-          position: "absolute",
-          left: { xs: 14, md: 22 },
-          top: { xs: 14, md: 22 },
-          zIndex: 2,
-          px: { xs: 1.4, md: 1.8 },
-          py: { xs: 0.9, md: 1.1 },
-          borderRadius: "8px",
-          backgroundColor: "#F7F9E8",
-          background: "rgba(3,18,13,0.72)",
-          border: "1px solid rgba(238,243,205,0.16)",
-          backdropFilter: "blur(14px)",
-          boxShadow: "0 18px 50px rgba(0,0,0,0.18)",
-        }}
-      >
-        <Typography
-          sx={{ fontSize: { xs: 12, md: 13 }, fontWeight: 900, lineHeight: 1 }}
-        >
-          Regional dialect coverage
-        </Typography>
-      </Box>
     </Box>
   );
 }
@@ -234,22 +193,9 @@ function MenaNative() {
       sx={{
         position: "relative",
         overflow: "hidden",
-        py: { xs: 6.5, md: 11, lg: 13 },
+        pt: { xs: 6.5, md: 11, lg: 13 },
+        pb: 0,
         backgroundColor: "#F7F9E8",
-
-        "&::after": {
-          content: '""',
-          position: "absolute",
-          left: -40,
-          bottom: -30,
-          width: 520,
-          height: 170,
-          opacity: 0.26,
-          backgroundImage:
-            "linear-gradient(30deg, rgba(0,66,37,0.14) 12%, transparent 12.5%, transparent 87%, rgba(0,66,37,0.14) 87.5%, rgba(0,66,37,0.14)), linear-gradient(150deg, rgba(0,66,37,0.14) 12%, transparent 12.5%, transparent 87%, rgba(0,66,37,0.14) 87.5%, rgba(0,66,37,0.14))",
-          backgroundSize: "32px 56px",
-          pointerEvents: "none",
-        },
       }}
     >
       <Container
@@ -274,23 +220,27 @@ function MenaNative() {
             variant="h2"
             sx={{
               m: 0,
-              maxWidth: 1040,
+              maxWidth: 680,
               color: brand.forest,
-              fontSize: { xs: "2.25rem", sm: "3.7rem", md: "5rem" },
-              lineHeight: 0.95,
-              letterSpacing: { xs: "-1.5px", md: "-3.5px" },
+              fontSize: { xs: 32, sm: 46, md: 56 },
+              fontWeight: 800,
+              lineHeight: 1.08,
+              letterSpacing: "-2.5px",
             }}
           >
-            Built for the Way MENA Teams Communicate
+            Built for the Way MENA{" "}
+            <Box component="span" sx={{ color: brand.orange }}>
+              Teams Communicate
+            </Box>
           </Typography>
 
           <Typography
             sx={{
-              maxWidth: 760,
+              maxWidth: 700,
               color: "rgba(7,28,20,0.72)",
-              fontSize: { xs: "1rem", md: "1.12rem" },
-              lineHeight: 1.78,
-              fontWeight: 560,
+              fontSize: { xs: "0.93rem", md: "1rem" },
+              lineHeight: 1.6,
+              fontWeight: 540,
               letterSpacing: { xs: "-0.3px", md: "-0.5px" },
             }}
           >
@@ -303,6 +253,10 @@ function MenaNative() {
         <Box
           sx={{
             mt: { xs: 4, md: 6 },
+            position: "relative",
+            zIndex: 3,
+            width: "min(100%, 1200px)",
+            mx: "auto",
             display: "grid",
             gridTemplateColumns: {
               xs: "repeat(2, minmax(0, 1fr))",
@@ -312,7 +266,7 @@ function MenaNative() {
             gap: { xs: 1.4, md: 1.6 },
             "& > :last-of-type": {
               gridColumn: { xs: "1 / -1", sm: "auto" },
-              minHeight: { xs: 160, sm: 190, md: 214 },
+              minHeight: { xs: 145, sm: 176, md: 184 },
             },
           }}
         >
@@ -323,7 +277,9 @@ function MenaNative() {
 
         <Box
           sx={{
-            mt: { xs: 4.5, md: 7 },
+            position: "relative",
+            zIndex: 1,
+            mt: { xs: -12, sm: -18, md: -31 },
             display: "flex",
             justifyContent: "center",
           }}

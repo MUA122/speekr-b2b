@@ -2,8 +2,6 @@ import { Box, Typography } from '@mui/material';
 import { ArrowRight, Database, KeyRound, Lock, Server, ShieldCheck } from 'lucide-react';
 import { brand } from '../theme.js';
 
-const NOISE = `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`;
-
 const securityItems = [
   {
     icon: Lock,
@@ -38,16 +36,20 @@ function SecurityCard({ item }) {
   return (
     <Box
       sx={{
-        minHeight: { xs: 'auto', sm: 190, lg: 228 },
+        minHeight: { xs: 'auto', sm: 180, lg: 'auto' },
         p: { xs: 2.2, md: 2.55 },
         borderRadius: { xs: '16px', lg: '8px' },
         bgcolor: 'rgba(238,243,205,0.035)',
         border: '1px solid rgba(142,198,64,0.18)',
         boxShadow: 'inset 0 1px 0 rgba(238,243,205,0.035)',
-        display: { xs: 'grid', lg: 'flex' },
-        gridTemplateColumns: { xs: '44px minmax(0, 1fr)', lg: 'none' },
-        gridTemplateRows: { xs: 'auto auto', lg: 'none' },
-        columnGap: { xs: 1.8, lg: 0 },
+        display: 'grid',
+        gridTemplateColumns: {
+          xs: '44px minmax(0, 1fr)',
+          lg: '52px minmax(0, 1fr)',
+        },
+        gridTemplateRows: 'auto auto',
+        columnGap: { xs: 1.8, lg: 2 },
+        alignContent: 'start',
         alignItems: 'flex-start',
         transition: 'transform 180ms ease, border-color 180ms ease, background-color 180ms ease',
         '&:hover': {
@@ -67,7 +69,8 @@ function SecurityCard({ item }) {
           bgcolor: 'rgba(242,100,51,0.14)',
           color: brand.orange,
           flexShrink: 0,
-          gridRow: { xs: '1 / 3', lg: 'auto' },
+          gridColumn: 1,
+          gridRow: 1,
         }}
       >
         <Icon size={23} strokeWidth={2.2} />
@@ -76,25 +79,35 @@ function SecurityCard({ item }) {
       <Typography
         component="h3"
         sx={{
-          m: { xs: 0, lg: '22px 0 0' },
+          gridColumn: 2,
+          gridRow: 1,
+          minWidth: 0,
+          m: 0,
+          alignSelf: 'center',
           color: brand.ivory,
           fontFamily: (theme) => theme.palette.brand.fontHeadline,
-          fontSize: { xs: 18, sm: 19, lg: 23 },
+          fontSize: { xs: 18, sm: 19, lg: 20 },
           fontWeight: 900,
-          lineHeight: 1.05,
+          lineHeight: 1.12,
           letterSpacing: '-0.25px !important',
+          overflowWrap: 'normal',
+          wordBreak: 'normal',
         }}
       >
         {item.title}
       </Typography>
       <Typography
         sx={{
-          mt: { xs: 0.75, lg: 1.35 },
+          gridColumn: { xs: 2, lg: '1 / -1' },
+          gridRow: 2,
+          minWidth: 0,
+          mt: { xs: 0.85, lg: 2 },
           color: 'rgba(238,243,205,0.66)',
-          fontSize: { xs: 13.5, md: 14.5, lg: 15.5 },
-          lineHeight: 1.55,
+          fontSize: { xs: 13.5, md: 14.5, lg: 14.5 },
+          lineHeight: 1.6,
           fontWeight: 650,
           letterSpacing: '0 !important',
+          overflowWrap: 'break-word',
         }}
       >
         {item.copy}
@@ -127,6 +140,7 @@ function SecurityTrustSection() {
           loading="lazy"
           decoding="async"
           sx={{
+            display: 'none',
             position: 'absolute',
             top: { xs: -130, md: -180 },
             left: { xs: -340, md: -270 },
@@ -139,6 +153,7 @@ function SecurityTrustSection() {
         <Box
           aria-hidden
           sx={{
+            display: 'none',
             position: 'absolute',
             top: '-18%',
             left: '52%',
@@ -156,11 +171,12 @@ function SecurityTrustSection() {
         <Box
           aria-hidden
           sx={{
+            display: 'none',
             position: 'absolute',
             inset: 0,
             pointerEvents: 'none',
             opacity: 0.02,
-            backgroundImage: NOISE,
+            backgroundImage: 'none',
             backgroundRepeat: 'repeat',
             backgroundSize: '200px 200px',
           }}
@@ -221,17 +237,22 @@ function SecurityTrustSection() {
                 minHeight: 54,
                 px: { xs: 2.2, md: 3 },
                 borderRadius: '999px',
-                border: '1px solid rgba(142,198,64,0.28)',
-                bgcolor: 'rgba(238,243,205,0.02)',
-                color: 'rgba(238,243,205,0.78)',
+                border: `1px solid ${brand.orange}`,
+                bgcolor: brand.orange,
+                backgroundImage: 'none',
+                color: '#ffffff',
+                boxShadow: 'none',
+                filter: 'none',
                 textDecoration: 'none',
                 fontSize: { xs: 14, md: 15 },
                 fontWeight: 900,
-                transition: 'border-color 180ms ease, background-color 180ms ease, color 180ms ease',
+                transition: 'border-color 180ms ease, background-color 180ms ease',
                 '&:hover': {
-                  borderColor: 'rgba(242,100,51,0.46)',
-                  bgcolor: 'rgba(242,100,51,0.08)',
-                  color: brand.ivory,
+                  borderColor: brand.orangeDeep,
+                  bgcolor: brand.orangeDeep,
+                  backgroundImage: 'none',
+                  boxShadow: 'none',
+                  filter: 'none',
                 },
               }}
             >

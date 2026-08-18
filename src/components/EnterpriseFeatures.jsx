@@ -60,230 +60,57 @@ const features = [
   },
 ];
 
-function CustomizationVisual() {
+const featureVisuals = {
+  customization: {
+    src: "/images/1. Customization_.png",
+    alt: "Employee creating a customized communication training scenario",
+  },
+  team: {
+    src: "/images/2. Team Management_.png",
+    alt: "Manager reviewing team engagement and performance analytics",
+  },
+  library: {
+    src: "/images/3. Content Library_.png",
+    alt: "Training administrator assigning content from the learning library",
+  },
+  reporting: {
+    src: "/images/4. Reporting.png",
+    alt: "Team reporting dashboard with engagement and performance insights",
+  },
+};
+
+function FeatureVisual({ type }) {
+  const visual = featureVisuals[type] ?? featureVisuals.customization;
+
   return (
     <Box
       sx={{
-        minHeight: { xs: 320, md: 390 },
+        width: "100%",
+        minHeight: { xs: 290, sm: 360, md: 440 },
+        px: { xs: 0, sm: 1.5, md: 1 },
         display: "grid",
         placeItems: "center",
+        boxSizing: "border-box",
       }}
     >
       <Box
         component="img"
-        src="/images/qsa.png"
-        alt="Scenario customization controls for industry, difficulty, and language"
+        src={visual.src}
+        alt={visual.alt}
         loading="lazy"
         decoding="async"
         sx={{
           display: "block",
-          width: "min(100%, 410px)",
-          maxHeight: { xs: 360, md: 430 },
+          width: "100%",
+          maxWidth: { xs: 340, sm: 420, md: 480 },
+          height: "auto",
           objectFit: "contain",
-          background: "transparent",
+          filter: "drop-shadow(0 22px 34px rgba(0,66,37,.11))",
         }}
       />
     </Box>
   );
 }
-
-function TeamVisual() {
-  const teams = [
-    ["Sales cohort", "24 learners", "#E5F3C9"],
-    ["Support team", "18 learners", "#E9DFF0"],
-    ["Admissions", "31 learners", "#FFE0D1"],
-  ];
-
-  return (
-    <Stack sx={{ ...visualSx, justifyContent: "center" }} spacing={1.6}>
-      {teams.map(([team, count, bg]) => (
-        <Stack
-          key={team}
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
-          sx={{
-            p: 2,
-            borderRadius: "18px",
-            background: bg,
-            border: "1px solid rgba(0,66,37,.1)",
-          }}
-        >
-          <Box>
-            <Typography
-              sx={{ color: brand.forest, fontSize: 16, fontWeight: 900 }}
-            >
-              {team}
-            </Typography>
-            <Typography
-              sx={{ mt: 0.45, color: "#637062", fontSize: 12, fontWeight: 750 }}
-            >
-              {count}
-            </Typography>
-          </Box>
-          <Typography
-            sx={{
-              px: 1.4,
-              py: 0.75,
-              borderRadius: 999,
-              color: brand.ivory,
-              background: brand.forest,
-              fontSize: 11,
-              fontWeight: 900,
-            }}
-          >
-            Assigned
-          </Typography>
-        </Stack>
-      ))}
-    </Stack>
-  );
-}
-
-function LibraryVisual() {
-  const items = [
-    "Roleplay Library",
-    "Micro Learning Videos",
-    "Training Programs",
-  ];
-
-  return (
-    <Box sx={visualSx}>
-      <Box
-        sx={{
-          display: "grid",
-          gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-          gap: 1.5,
-        }}
-      >
-        {items.map((item, index) => (
-          <Box
-            key={item}
-            sx={{
-              minHeight: index === 2 ? 118 : 150,
-              gridColumn: index === 2 ? "1 / -1" : "auto",
-              p: 2.2,
-              borderRadius: "20px",
-              background: index === 1 ? "#F7F9E8" : "#F7F9E8",
-              border: "1px solid rgba(0,66,37,.1)",
-            }}
-          >
-            <Typography
-              sx={{ color: brand.forest, fontSize: 17, fontWeight: 900 }}
-            >
-              {item}
-            </Typography>
-            <Box sx={{ mt: 2, display: "flex", gap: 0.7 }}>
-              {[0, 1, 2].map((dot) => (
-                <Box
-                  key={dot}
-                  sx={{
-                    width: dot === index % 3 ? 30 : 10,
-                    height: 10,
-                    borderRadius: 999,
-                    background:
-                      dot === index % 3 ? brand.forest : "rgba(0,66,37,.18)",
-                  }}
-                />
-              ))}
-            </Box>
-          </Box>
-        ))}
-      </Box>
-    </Box>
-  );
-}
-
-function ReportingVisual() {
-  const bars = ["52%", "70%", "46%", "88%", "64%", "78%"];
-
-  return (
-    <Box sx={visualSx}>
-      <Box
-        sx={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: 1.2,
-          mb: 2.2,
-        }}
-      >
-        {[
-          ["Completion", "87%"],
-          ["Skill lift", "+24%"],
-          ["Exports", "12"],
-        ].map(([label, value]) => (
-          <Box
-            key={label}
-            sx={{
-              p: 1.8,
-              borderRadius: "18px",
-              background: "#FFFDF2",
-              border: "1px solid rgba(0,66,37,.1)",
-            }}
-          >
-            <Typography
-              sx={{ color: "#637062", fontSize: 11, fontWeight: 850 }}
-            >
-              {label}
-            </Typography>
-            <Typography
-              sx={{
-                mt: 0.65,
-                color: brand.forest,
-                fontSize: 24,
-                fontWeight: 950,
-              }}
-            >
-              {value}
-            </Typography>
-          </Box>
-        ))}
-      </Box>
-      <Stack
-        direction="row"
-        alignItems="flex-end"
-        justifyContent="space-around"
-        sx={{
-          height: 165,
-          p: 2.4,
-          borderRadius: "20px",
-          background: "#FFFDF2",
-          border: "1px solid rgba(0,66,37,.1)",
-        }}
-      >
-        {bars.map((height, index) => (
-          <Box
-            key={`${height}-${index}`}
-            sx={{
-              width: 34,
-              height,
-              borderRadius: "10px 10px 0 0",
-              background: `linear-gradient(180deg, ${index % 2 ? "#D7F36A" : "#8AC63F"}, ${brand.forest})`,
-            }}
-          />
-        ))}
-      </Stack>
-    </Box>
-  );
-}
-
-function FeatureVisual({ type }) {
-  if (type === "team") return <TeamVisual />;
-  if (type === "library") return <LibraryVisual />;
-  if (type === "reporting") return <ReportingVisual />;
-  return <CustomizationVisual />;
-}
-
-const visualSx = {
-  minHeight: { xs: 300, md: 350 },
-  borderRadius: "28px",
-  background: "rgba(247,249,232,.78)",
-  border: "1px solid rgba(0,66,37,.16)",
-  boxShadow: "0 24px 60px rgba(0,66,37,.13)",
-  p: { xs: 2.5, md: 3.5 },
-  boxSizing: "border-box",
-  backdropFilter: "blur(10px)",
-};
 
 function EnterpriseFeatures() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -380,7 +207,10 @@ function EnterpriseFeatures() {
               fontWeight: 700,
             }}
           >
-            Everything you need to manage communication training at scale
+            Everything you need to manage communication{" "}
+            <Box component="span" sx={{ color: brand.orange }}>
+              training at scale
+            </Box>
           </Typography>
           <Typography
             sx={{
@@ -457,7 +287,7 @@ function EnterpriseFeatures() {
           sx={{
             position: "relative",
             zIndex: 2,
-            minHeight: { xs: "auto", md: 430 },
+            minHeight: { xs: "auto", md: 480 },
           }}
         >
           <Box
@@ -465,7 +295,7 @@ function EnterpriseFeatures() {
             sx={{
               display: "grid",
               gridTemplateColumns: { xs: "1fr", md: "1fr 1.12fr" },
-              gap: { xs: 4, md: 5.75 },
+              gap: { xs: 3.5, sm: 4.5, md: 5.75 },
               alignItems: "center",
               animation: "visualEnter 480ms ease both",
             }}
