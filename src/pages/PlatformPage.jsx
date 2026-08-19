@@ -87,6 +87,9 @@ const features = [
     copy: "Employees practice the conversations that matter most — with AI personas that respond naturally, push back, and adapt to every turn in real time.",
     dark: true,
     visual: "roleplay",
+    image: "/images/1. Realistic-Rolplays.png",
+    imageAlt: "Speekr realistic AI roleplay simulation interface",
+    imageMaxWidth: 560,
     bullets: [
       [
         "Custom scenarios",
@@ -109,6 +112,9 @@ const features = [
     title: "Coaching after every conversation, not once a quarter",
     copy: "Every roleplay is scored the moment it ends, with specific, actionable feedback employees can act on immediately.",
     visual: "feedback",
+    image: "/images/2. Coaching- Feedback-after-simulation.png",
+    imageAlt: "Speekr coaching and feedback after a simulation",
+    imageMaxWidth: 500,
     bullets: [
       [
         "Scoring",
@@ -129,6 +135,9 @@ const features = [
     copy: "Sequence roleplays, micro-learning, and reinforcement into journeys — or start from ready-made programs and make them yours.",
     dark: true,
     visual: "journey",
+    image: "/images/3. Guided-Path.png",
+    imageAlt: "Speekr guided learning path and video lesson interface",
+    imageMaxWidth: 600,
     bullets: [
       ["Guided paths", "Guided, multi-step learning paths"],
       ["Micro-learning", "Bite-sized micro-learning videos"],
@@ -142,6 +151,9 @@ const features = [
     title: "Build any scenario or persona — no engineering needed",
     copy: "Your L&D team designs roleplays in a visual builder: pick an industry, write the situation, shape the persona, and publish. No tickets, no dev time.",
     visual: "builder",
+    image: "/images/4. Build any scenario.png",
+    imageAlt: "Speekr custom workplace scenario builder",
+    imageMaxWidth: 520,
     bullets: [
       ["Visual builder", "Visual scenario & persona builder"],
       ["Tune the experience", "Tune difficulty, voice, dialect & goals"],
@@ -156,6 +168,9 @@ const features = [
     copy: "Manage seats, assign cohorts, and give managers a live view of their team's progress — all from one admin console.",
     dark: true,
     visual: "team",
+    image: "/images/5. Run-Training.png",
+    imageAlt: "Speekr team training assignment interface",
+    imageMaxWidth: 510,
     bullets: [
       ["Seats", "Seat management & bulk invites"],
       ["Cohorts", "Cohort assignment by role or region"],
@@ -169,6 +184,9 @@ const features = [
     title: "Reporting that ties training to the business",
     copy: "See exactly where skills are strong, where the gaps are, and how practice connects to the metrics leadership actually cares about — not just completion rates.",
     visual: "analytics",
+    image: "/images/6. Reporting.png",
+    imageAlt: "Speekr communication training reporting dashboard",
+    imageMaxWidth: 520,
     bullets: [
       ["Skill gaps", "Skill-gap analysis across cohorts"],
       ["Custom KPIs", "Custom KPIs mapped to your goals"],
@@ -183,6 +201,9 @@ const features = [
     copy: "Launch roleplays, pull scores, and sync learners programmatically — so Speekr lives inside the tools your teams already use.",
     dark: true,
     visual: "api",
+    image: "/images/7. API.png",
+    imageAlt: "Speekr roleplay API integration example",
+    imageMaxWidth: 520,
     bullets: [
       ["REST API", "REST API for roleplays, scores & learners"],
       ["Integrations", "LMS, SCORM & webhook integrations"],
@@ -1026,14 +1047,39 @@ function ApiVisual() {
   );
 }
 
-function Visual({ type }) {
-  if (type === "roleplay") return <RoleplayVisual />;
-  if (type === "feedback") return <FeedbackVisual />;
-  if (type === "journey") return <JourneyVisual />;
-  if (type === "builder") return <BuilderVisual />;
-  if (type === "team") return <TeamVisual />;
-  if (type === "analytics") return <AnalyticsVisual />;
-  return <ApiVisual />;
+function Visual({ feature }) {
+  return (
+    <Box
+      sx={{
+        width: "100%",
+        maxWidth: feature.imageMaxWidth,
+        mx: "auto",
+        px: { xs: 0, sm: 1, md: 1.5 },
+        py: { xs: 0.5, sm: 1 },
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Box
+        component="img"
+        src={feature.image}
+        alt={feature.imageAlt}
+        loading="lazy"
+        decoding="async"
+        sx={{
+          display: "block",
+          width: "100%",
+          height: "auto",
+          maxHeight: { xs: 430, sm: 520, lg: 580 },
+          objectFit: "contain",
+          filter: feature.dark
+            ? "drop-shadow(0 24px 34px rgba(0,0,0,.28))"
+            : "drop-shadow(0 20px 30px rgba(0,50,25,.12))",
+        }}
+      />
+    </Box>
+  );
 }
 
 function FeatureSection({ feature }) {
@@ -1097,7 +1143,7 @@ function FeatureSection({ feature }) {
       </Stack>
     </Box>
   );
-  const visual = <Visual type={feature.visual} />;
+  const visual = <Visual feature={feature} />;
 
   return (
     <Box
@@ -1107,7 +1153,7 @@ function FeatureSection({ feature }) {
         background: feature.dark
           ? "linear-gradient(160deg,#06281b,#0b3625 60%,#052016)"
           : cream,
-        py: { xs: 7, md: 11 },
+        py: { xs: 6, sm: 7.5, md: 10 },
         scrollMarginTop: "96px",
       }}
     >
@@ -1116,18 +1162,31 @@ function FeatureSection({ feature }) {
         sx={{
           maxWidth: 1240,
           mx: "auto",
-          px: { xs: 2.5, md: 4 },
+          px: { xs: 2.25, sm: 3, md: 4 },
           display: "grid",
           gridTemplateColumns: { xs: "1fr", lg: "1fr 1fr" },
-          gap: { xs: 4, lg: 7 },
+          gap: { xs: 3.5, sm: 4.5, lg: 7 },
           alignItems: "center",
         }}
       >
-        <Box sx={{ order: { xs: 2, lg: feature.dark ? 1 : 2 } }}>
-          {feature.dark ? text : visual}
+        <Box
+          sx={{
+            order: 1,
+            maxWidth: { xs: 620, lg: "none" },
+            mx: { xs: "auto", lg: 0 },
+            width: "100%",
+          }}
+        >
+          {text}
         </Box>
-        <Box sx={{ order: { xs: 1, lg: feature.dark ? 2 : 1 } }}>
-          {feature.dark ? visual : text}
+        <Box
+          sx={{
+            order: 2,
+            width: "100%",
+            minWidth: 0,
+          }}
+        >
+          {visual}
         </Box>
       </Container>
     </Box>

@@ -8,9 +8,6 @@ const metrics = [
   ["1", "platform to train them"],
 ];
 
-const SALES_ROLEPLAY_IMAGE =
-  "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=85";
-
 const sections = [
   {
     id: "sec-sales",
@@ -21,12 +18,11 @@ const sections = [
     cta: "Book a demo for Sales",
     stat: "31%",
     statLabel: "faster ramp",
-    image: SALES_ROLEPLAY_IMAGE,
+    image: "/images/Sales.jpeg",
     imageAlt:
-      "Sales team practicing deal conversations and discovery calls with AI roleplay coaching",
+      "Sales representatives wearing headsets working at their laptops",
     imageTitle:
-      "AI sales roleplay practice for deal conversations and discovery calls",
-    imagePriority: true,
+      "Sales team practicing customer conversations and discovery calls",
     imageFirst: true,
     statVariant: "orange",
     items: [
@@ -53,8 +49,8 @@ const sections = [
     cta: "Book a demo for Customer Care",
     stat: "+22",
     statLabel: "CSAT points",
-    image: "/images/b2b-hero-premium-care.png",
-    imageAlt: "Support agent with headset and a calm expression",
+    image: "/images/Customer-care.png",
+    imageAlt: "Customer care agent speaking through a headset at her laptop",
     imageFirst: false,
     statVariant: "orange",
     items: [
@@ -78,8 +74,8 @@ const sections = [
     cta: "Book a demo for Leadership",
     stat: "2×",
     statLabel: "manager confidence",
-    image: "/images/b2b-hero-premium-education.png",
-    imageAlt: "Manager in a one on one conversation",
+    image: "/images/Leadership.png",
+    imageAlt: "Manager leading a conversation from his laptop",
     imageFirst: true,
     statVariant: "orange",
     items: [
@@ -106,8 +102,8 @@ const sections = [
     cta: "Book a demo for Technical Teams",
     stat: "3×",
     statLabel: "practice volume",
-    image: "/images/landing-page-hero.jpg",
-    imageAlt: "Engineer presenting to a small group",
+    image: "/images/Technicals.png",
+    imageAlt: "Software engineers collaborating around code screens",
     imageFirst: false,
     statVariant: "orange",
     items: [
@@ -134,8 +130,8 @@ const sections = [
     cta: "Book a demo for Screening",
     stat: "90%",
     statLabel: "screening coverage",
-    image: "/images/hero.png",
-    imageAlt: "Candidate in a video interview on a laptop",
+    image: "/images/Applicant-Screening.png",
+    imageAlt: "Interviewer welcoming an applicant with a handshake",
     imageFirst: true,
     statVariant: "purple",
     items: [
@@ -169,7 +165,8 @@ function ImagePanel({ section }) {
       sx={{
         position: "relative",
         width: "100%",
-        minHeight: { xs: 280, md: 340 },
+        maxWidth: 560,
+        mx: "auto",
       }}
     >
       <Box
@@ -182,7 +179,8 @@ function ImagePanel({ section }) {
         fetchPriority={section.imagePriority ? "high" : "auto"}
         sx={{
           width: "100%",
-          height: { xs: 280, md: 340 },
+          height: "auto",
+          aspectRatio: "1074 / 941",
           display: "block",
           objectFit: "cover",
           borderRadius: "20px",
@@ -489,12 +487,15 @@ function SolutionsPage({ locale = "en", onDemoClick }) {
             pt: { xs: 12, md: 14, lg: 15 },
             pb: { xs: 7, md: 9 },
             display: "grid",
-            gridTemplateColumns: { xs: "1fr", lg: "1.25fr 1fr" },
+            gridTemplateColumns: {
+              xs: "minmax(0, 1fr)",
+              lg: "minmax(0, 1.25fr) minmax(0, 1fr)",
+            },
             gap: { xs: 5, lg: 8 },
             alignItems: "center",
           }}
         >
-          <Box>
+          <Box sx={{ minWidth: 0 }}>
             <Typography
               sx={{
                 fontSize: 13,
@@ -579,15 +580,27 @@ function SolutionsPage({ locale = "en", onDemoClick }) {
             </Stack>
           </Box>
 
-          <Box sx={{ position: "relative" }}>
+          <Box
+            sx={{
+              position: "relative",
+              width: "100%",
+              minWidth: 0,
+              maxWidth: { xs: 720, lg: "none" },
+              mx: { xs: "auto", lg: 0 },
+            }}
+          >
             <Box
               component="img"
-              src="/images/b2b-hero-premium-sales.png"
-              alt="Confident person mid conversation in a bright office"
-              title="Confident person mid conversation in a bright office"
+              src="/images/Hero Sec - Main.jpeg"
+              alt="Two professionals discussing work together in a modern office"
+              title="Business communication in a modern workplace"
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
               sx={{
                 width: "100%",
-                height: { xs: 320, md: 400 },
+                height: "auto",
+                aspectRatio: "3 / 2",
                 objectFit: "cover",
                 display: "block",
                 borderRadius: "24px",
@@ -602,12 +615,14 @@ function SolutionsPage({ locale = "en", onDemoClick }) {
                 bottom: { sm: -22 },
                 mt: { xs: -4, sm: 0 },
                 mx: { xs: 1.5, sm: 0 },
+                width: { xs: "auto", sm: "calc(100% - 18px)" },
                 background: "#16371F",
                 color: "#fff",
                 borderRadius: "18px",
                 p: { xs: 2, md: "18px 22px" },
-                display: "flex",
-                gap: { xs: 2, md: 3.25 },
+                display: "grid",
+                gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+                gap: { xs: 1.25, md: 2.25 },
                 boxShadow: "0 12px 32px rgba(22,55,31,.25)",
               }}
             >
@@ -630,6 +645,7 @@ function SolutionsPage({ locale = "en", onDemoClick }) {
                       color: "rgba(255,255,255,.75)",
                       mt: 0.4,
                       lineHeight: 1.25,
+                      overflowWrap: "break-word",
                     }}
                   >
                     {label}
