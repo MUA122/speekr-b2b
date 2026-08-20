@@ -23,56 +23,42 @@ const pillars = [
   {
     id: "feat-1",
     icon: MessageCircle,
-    color: lime,
-    iconColor: forestDark,
     title: "AI Roleplays",
     copy: "Custom scenarios & adaptive personas",
   },
   {
     id: "feat-2",
     icon: Zap,
-    color: orange,
-    iconColor: "#fff",
     title: "Instant Feedback",
     copy: "Scoring & AI coaching every session",
   },
   {
     id: "feat-3",
     icon: GraduationCap,
-    color: lavender,
-    iconColor: "#5a3a6a",
     title: "Learning Journeys",
     copy: "Guided paths & content library",
   },
   {
     id: "feat-4",
     icon: SlidersHorizontal,
-    color: "#cfe4f5",
-    iconColor: "#2c6ea0",
     title: "Customization",
     copy: "Scenario & persona builder, no code",
   },
   {
     id: "feat-5",
     icon: Users,
-    color: "#f6c85f",
-    iconColor: "#7a5a10",
     title: "Team & Admin",
     copy: "Seats, cohorts & manager views",
   },
   {
     id: "feat-6",
     icon: BarChart3,
-    color: lime,
-    iconColor: forestDark,
     title: "Analytics",
     copy: "Skill gaps tied to business KPIs",
   },
   {
     id: "feat-7",
     icon: Code2,
-    color: forest,
-    iconColor: cream,
     title: "API Integration",
     copy: "Drop Speekr into your LMS",
   },
@@ -1429,14 +1415,14 @@ function PlatformPage({ locale = "en", onDemoClick }) {
                       width: 44,
                       height: 44,
                       borderRadius: "12px",
-                      background: pillar.color,
+                      background: cream,
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                       mb: 2,
                     }}
                   >
-                    <Icon size={22} color={pillar.iconColor} />
+                    <Icon size={22} color={forestDark} />
                   </Box>
                   <Typography
                     variant="h3"

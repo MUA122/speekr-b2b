@@ -94,12 +94,8 @@ function FeatureCard({ card }) {
           display: "grid",
           placeItems: "center",
           borderRadius: "8px",
-          color:
-            card.accent === brand.lavender || card.accent === "#BFEAFF"
-              ? brand.forest
-              : brand.ink,
-          background: card.accent,
-          boxShadow: `0 0 0 8px ${card.accent}26`,
+          color: brand.forest,
+          background: brand.lime,
         }}
       >
         <Icon size={19} strokeWidth={2.2} />
