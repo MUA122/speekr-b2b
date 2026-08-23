@@ -133,8 +133,8 @@ function MenaMapPanel() {
       sx={{
         position: "relative",
         zIndex: 1,
-        width: { xs: "190%", sm: "145%", md: "100%" },
-        maxWidth: 1240,
+        width: { xs: "220%", sm: "165%", md: "125%", lg: "120%" },
+        maxWidth: 1500,
         flex: "0 0 auto",
         aspectRatio: "2863 / 1335",
         overflow: "visible",
