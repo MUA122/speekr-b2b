@@ -185,13 +185,21 @@ export default function CaseStudiesCarousel({ locale = "en" }) {
               {copy.title}
             </Typography>
             <Typography
+              dir={locale === "ar" ? "rtl" : "ltr"}
               sx={{
                 mt: { xs: 2, md: 2.5 },
-                fontSize: { xs: 14.5, md: 16 },
-                fontWeight: 200,
-                lineHeight: 1.65,
-                color: "rgba(7,66,37,0.62)",
-                maxWidth: 480,
+                fontSize: {
+                  xs: locale === "ar" ? 15.5 : 14.5,
+                  md: locale === "ar" ? 17 : 16,
+                },
+                fontWeight: locale === "ar" ? 500 : 200,
+                lineHeight: locale === "ar" ? 1.9 : 1.65,
+                letterSpacing: locale === "ar" ? 0 : "normal",
+                color:
+                  locale === "ar"
+                    ? "rgba(7,66,37,0.72)"
+                    : "rgba(7,66,37,0.62)",
+                maxWidth: locale === "ar" ? 680 : 480,
                 mx: "auto",
               }}
             >

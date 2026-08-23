@@ -412,7 +412,7 @@ function Header({ locale = "en", path = "/", onDemoClick }) {
               bgcolor: darkHeader ? "rgba(0,34,19,0.94)" : "#EEF3CD",
               background: darkHeader
                 ? "rgba(0,34,19,0.94)"
-                : "radial-gradient(circle at 82% 18%, rgba(142,198,64,0.16) 0%, transparent 30%), radial-gradient(circle at 12% 82%, rgba(7,66,37,0.12) 0%, transparent 34%), linear-gradient(135deg, #EEF3CD 0%, #F4F7DE 58%, rgba(7,66,37,0.08) 100%)",
+                : "radial-gradient(circle at 82% 18%, rgba(142,198,64,0.16) 0%, transparent 30%), radial-gradient(circle at 12% 82%, rgba(7,66,37,0.12) 0%, transparent 34%), linear-gradient(135deg, #EEF3CD 0%, #F4F7DE 58%, #DFE9C9 100%)",
               backdropFilter: { xs: "none", md: "blur(32px) saturate(1.5)" },
               boxShadow: darkHeader
                 ? "0 8px 48px rgba(0,0,0,0.55), inset 0 1px 0 rgba(238,243,205,0.04)"
