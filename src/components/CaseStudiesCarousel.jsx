@@ -67,7 +67,7 @@ export default function CaseStudiesCarousel({ locale = "en" }) {
   return (
     <Box
       sx={{
-        bgcolor: "#074225",
+        bgcolor: "#F7F9E8",
         px: 0,
         py: 0,
       }}
@@ -80,7 +80,7 @@ export default function CaseStudiesCarousel({ locale = "en" }) {
         onMouseLeave={() => setPaused(false)}
         sx={{
           position: "relative",
-          bgcolor: "#074225",
+          bgcolor: "#F7F9E8",
           borderRadius: 0,
           overflow: "hidden",
           px: { xs: 2, sm: 4, md: 6, lg: 8 },
@@ -176,7 +176,7 @@ export default function CaseStudiesCarousel({ locale = "en" }) {
                 fontWeight: 900,
                 letterSpacing: { xs: -1.5, md: -2.5 },
                 lineHeight: 1,
-                color: "#EEF3CD",
+                color: "#074225",
               }}
             >
               <Box component="span" sx={{ color: "#F26433" }}>
@@ -190,7 +190,7 @@ export default function CaseStudiesCarousel({ locale = "en" }) {
                 fontSize: { xs: 14.5, md: 16 },
                 fontWeight: 200,
                 lineHeight: 1.65,
-                color: "rgba(238,243,205,0.68)",
+                color: "rgba(7,66,37,0.62)",
                 maxWidth: 480,
                 mx: "auto",
               }}
@@ -326,8 +326,8 @@ export default function CaseStudiesCarousel({ locale = "en" }) {
                       display: "flex",
                       flexDirection: "column",
                       justifyContent: "center",
-                      border: "1px solid rgba(242,100,51,0.14)",
-                      bgcolor: "#EEF3CD",
+                      border: "1px solid rgba(238,243,205,0.14)",
+                      bgcolor: "#074225",
                       overflow: "hidden",
                     }}
                   >
@@ -358,7 +358,7 @@ export default function CaseStudiesCarousel({ locale = "en" }) {
                         fontWeight: 900,
                         letterSpacing: { xs: -0.5, md: -0.9 },
                         lineHeight: 1.1,
-                        color: "#074225",
+                        color: "#EEF3CD",
                         position: "relative",
                         zIndex: 1,
                       }}
@@ -408,7 +408,7 @@ export default function CaseStudiesCarousel({ locale = "en" }) {
                               fontSize: { xs: 13, md: 14.5 },
                               fontWeight: 600,
                               lineHeight: 1.5,
-                              color: "rgba(7,66,37,0.56)",
+                              color: "rgba(238,243,205,0.68)",
                             }}
                           >
                             {label}
@@ -454,8 +454,8 @@ export default function CaseStudiesCarousel({ locale = "en" }) {
                     width: 44,
                     height: 44,
                     borderRadius: "50%",
-                    border: "1.5px solid rgba(242,100,51,0.25)",
-                    bgcolor: "rgba(242,100,51,0.07)",
+                    border: "1.5px solid rgba(242,100,51,0.42)",
+                    bgcolor: "rgba(242,100,51,0.08)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -464,8 +464,8 @@ export default function CaseStudiesCarousel({ locale = "en" }) {
                     transition:
                       "background 0.2s ease, border-color 0.2s ease, transform 0.2s ease",
                     "&:hover": {
-                      bgcolor: "rgba(242,100,51,0.18)",
-                      borderColor: "rgba(242,100,51,0.5)",
+                      bgcolor: "rgba(242,100,51,0.16)",
+                      borderColor: "#F26433",
                       transform: "scale(1.08)",
                     },
                   }}
@@ -501,7 +501,7 @@ export default function CaseStudiesCarousel({ locale = "en" }) {
                       width: i === active ? 28 : 8,
                       height: 8,
                       borderRadius: 999,
-                      bgcolor: i === active ? "#F26433" : "rgba(238,243,205,0.3)",
+                      bgcolor: i === active ? "#F26433" : "rgba(242,100,51,0.32)",
                       transform: "translate(-50%, -50%)",
                       transition: "width 0.35s ease, background-color 0.3s ease",
                       boxShadow: i === active ? "0 0 8px rgba(242,100,51,0.5)" : "none",

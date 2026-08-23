@@ -808,8 +808,8 @@ function App() {
           <EnterpriseFeatures />
           <SectionDivider />
           <MenaNative />
+          <SectionDivider compact />
           <CaseStudiesCarousel locale={locale} />
-          <SectionDivider variant="dark" />
           <SecurityTrustSection />
           <FaqSection locale={locale} />
           <FinalCta onDemoClick={openContactModal} />

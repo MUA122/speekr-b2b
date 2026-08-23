@@ -133,10 +133,10 @@ function MenaMapPanel() {
       sx={{
         position: "relative",
         zIndex: 1,
-        width: { xs: "122%", sm: "112%", md: "100%" },
+        width: { xs: "190%", sm: "145%", md: "100%" },
         maxWidth: 1240,
         flex: "0 0 auto",
-        aspectRatio: "1440 / 1449",
+        aspectRatio: "2863 / 1335",
         overflow: "visible",
         transform: "translateY(0) scale(1)",
         transition: "transform 260ms ease, filter 260ms ease",
@@ -163,9 +163,9 @@ function MenaMapPanel() {
     >
       <Box
         component="img"
-        src="/images/Home-Page-Map.png"
-        alt="MENA dialect map with Arabic voice message cards"
-        title="MENA dialect map with Arabic voice message cards"
+        src="/images/Home-Page-Map-02.png"
+        alt="Global language map with Arabic and English voice message cards"
+        title="Global language map with Arabic and English voice message cards"
         loading="lazy"
         decoding="async"
         sx={{
@@ -275,7 +275,7 @@ function MenaNative() {
           sx={{
             position: "relative",
             zIndex: 1,
-            mt: { xs: -12, sm: -18, md: -31 },
+            mt: { xs: -3, sm: -5, md: -8 },
             display: "flex",
             justifyContent: "center",
           }}
