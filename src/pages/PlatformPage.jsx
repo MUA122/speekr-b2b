@@ -18,6 +18,9 @@ const forestDark = "#04301f";
 const orange = "#F56431";
 const lime = "#8DC63F";
 const lavender = "#E8DCEA";
+const headingTracking = "-0.02em";
+const bodyTracking = "-0.01em";
+const labelTracking = "0.05em";
 
 const pillars = [
   {
@@ -227,6 +230,7 @@ function CheckBullet({ title, copy, dark }) {
               color: dark ? cream : "#284a37",
               fontSize: 16,
               fontWeight: 700,
+              letterSpacing: bodyTracking,
             }}
           >
             {title}
@@ -238,6 +242,7 @@ function CheckBullet({ title, copy, dark }) {
             fontSize: title && copy ? 14 : 16,
             lineHeight: 1.5,
             fontWeight: title && copy ? 400 : 500,
+            letterSpacing: bodyTracking,
           }}
         >
           {copy || title}
@@ -475,7 +480,7 @@ function JourneyVisual() {
           color: orange,
           fontSize: 12,
           fontWeight: 900,
-          letterSpacing: ".1em",
+          letterSpacing: labelTracking,
           mb: 2,
         }}
       >
@@ -783,7 +788,7 @@ function TeamVisual() {
           color: "#8a927a",
           fontSize: 11,
           fontWeight: 900,
-          letterSpacing: ".06em",
+          letterSpacing: labelTracking,
         }}
       >
         <span>MEMBER</span>
@@ -1082,7 +1087,7 @@ function FeatureSection({ feature }) {
           color: feature.dark ? lime : orange,
           fontSize: 12,
           fontWeight: 900,
-          letterSpacing: ".08em",
+          letterSpacing: labelTracking,
           px: 1.75,
           py: 0.9,
           borderRadius: 20,
@@ -1097,6 +1102,7 @@ function FeatureSection({ feature }) {
           color: feature.dark ? cream : forest,
           fontSize: { xs: "2.25rem", md: "2.625rem" },
           lineHeight: 1.06,
+          letterSpacing: headingTracking,
           mb: 2.25,
         }}
       >
@@ -1107,6 +1113,7 @@ function FeatureSection({ feature }) {
           color: feature.dark ? "rgba(238,244,204,.72)" : "#4b5a4e",
           fontSize: { xs: 16, md: 18 },
           lineHeight: 1.6,
+          letterSpacing: bodyTracking,
           maxWidth: 480,
           mb: 3.75,
         }}
@@ -1274,7 +1281,7 @@ function PlatformPage({ locale = "en", onDemoClick }) {
             sx={{
               fontSize: 13,
               fontWeight: 600,
-              letterSpacing: ".14em",
+              letterSpacing: "0.08em",
               textTransform: "uppercase",
               color: "#5D8A3C",
               mb: 2.25,
@@ -1294,6 +1301,7 @@ function PlatformPage({ locale = "en", onDemoClick }) {
                 md: "4.125rem",
               },
               lineHeight: 1.04,
+              letterSpacing: { xs: "-0.03em", md: "-0.04em" },
               mb: 2.5,
             }}
           >
@@ -1310,6 +1318,7 @@ function PlatformPage({ locale = "en", onDemoClick }) {
               color: "#4b5a4e",
               fontSize: { xs: 17, md: 20 },
               lineHeight: 1.55,
+              letterSpacing: bodyTracking,
               mb: 4,
             }}
           >
@@ -1424,12 +1433,22 @@ function PlatformPage({ locale = "en", onDemoClick }) {
                   </Box>
                   <Typography
                     variant="h3"
-                    sx={{ color: forest, fontSize: { xs: 16, sm: 18 }, mb: 0.75 }}
+                    sx={{
+                      color: forest,
+                      fontSize: { xs: 16, sm: 18 },
+                      letterSpacing: headingTracking,
+                      mb: 0.75,
+                    }}
                   >
                     {pillar.title}
                   </Typography>
                   <Typography
-                    sx={{ color: "#6a7264", fontSize: { xs: 12, sm: 13 }, lineHeight: 1.45 }}
+                    sx={{
+                      color: "#6a7264",
+                      fontSize: { xs: 12, sm: 13 },
+                      lineHeight: 1.45,
+                      letterSpacing: bodyTracking,
+                    }}
                   >
                     {pillar.copy}
                   </Typography>
@@ -1448,7 +1467,13 @@ function PlatformPage({ locale = "en", onDemoClick }) {
             >
               <Typography
                 variant="h3"
-                sx={{ color: cream, fontSize: 20, lineHeight: 1.15, mb: 1.25 }}
+                sx={{
+                  color: cream,
+                  fontSize: 20,
+                  lineHeight: 1.15,
+                  letterSpacing: headingTracking,
+                  mb: 1.25,
+                }}
               >
                 Seven pillars. One workflow.
               </Typography>
@@ -1502,6 +1527,7 @@ function PlatformPage({ locale = "en", onDemoClick }) {
                   maxWidth: 720,
                   mx: "auto",
                   lineHeight: 1.05,
+                  letterSpacing: headingTracking,
                   mb: 2,
                 }}
               >
@@ -1512,6 +1538,7 @@ function PlatformPage({ locale = "en", onDemoClick }) {
                   color: "rgba(255,255,255,.9)",
                   fontSize: { xs: 16.5, md: 19 },
                   lineHeight: 1.5,
+                  letterSpacing: bodyTracking,
                   maxWidth: 560,
                   mx: "auto",
                   mb: 4,
