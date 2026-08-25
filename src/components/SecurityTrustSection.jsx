@@ -42,14 +42,8 @@ function SecurityCard({ item }) {
         bgcolor: 'rgba(238,243,205,0.035)',
         border: '1px solid rgba(142,198,64,0.18)',
         boxShadow: 'inset 0 1px 0 rgba(238,243,205,0.035)',
-        display: 'grid',
-        gridTemplateColumns: {
-          xs: '44px minmax(0, 1fr)',
-          lg: '52px minmax(0, 1fr)',
-        },
-        gridTemplateRows: 'auto auto',
-        columnGap: { xs: 1.8, lg: 2 },
-        alignContent: 'start',
+        display: 'flex',
+        flexDirection: 'column',
         alignItems: 'flex-start',
         transition: 'transform 180ms ease, border-color 180ms ease, background-color 180ms ease',
         '&:hover': {
@@ -61,29 +55,24 @@ function SecurityCard({ item }) {
     >
       <Box
         sx={{
-          width: { xs: 44, lg: 52 },
-          height: { xs: 44, lg: 52 },
-          display: 'grid',
-          placeItems: 'center',
-          borderRadius: '8px',
-          bgcolor: 'rgba(242,100,51,0.14)',
+          width: 24,
+          height: 24,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          mb: 1.35,
           color: brand.orange,
           flexShrink: 0,
-          gridColumn: 1,
-          gridRow: 1,
         }}
       >
-        <Icon size={23} strokeWidth={2.2} />
+        <Icon size={22} strokeWidth={2.2} />
       </Box>
 
       <Typography
         component="h3"
         sx={{
-          gridColumn: 2,
-          gridRow: 1,
           minWidth: 0,
           m: 0,
-          alignSelf: 'center',
           color: brand.ivory,
           fontFamily: (theme) => theme.palette.brand.fontHeadline,
           fontSize: { xs: 18, sm: 19, lg: 20 },
@@ -98,10 +87,8 @@ function SecurityCard({ item }) {
       </Typography>
       <Typography
         sx={{
-          gridColumn: { xs: 2, lg: '1 / -1' },
-          gridRow: 2,
           minWidth: 0,
-          mt: { xs: 0.85, lg: 2 },
+          mt: 1.1,
           color: 'rgba(238,243,205,0.66)',
           fontSize: { xs: 13.5, md: 14.5, lg: 14.5 },
           lineHeight: 1.6,
