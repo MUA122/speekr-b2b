@@ -7,7 +7,6 @@ const LOGO_ASSETS = Array.from(
     `/images/pricing/pricing-asset-${String(index + 1).padStart(2, "0")}.svg`,
 );
 
-const LOGO_HEIGHTS = [28, 36, 30, 28, 32, 26, 38, 38, 24];
 const MARQUEE_COPIES = 3;
 
 function LogosMarquee({ embedded = false, locale = "en" }) {
@@ -79,7 +78,7 @@ function LogosMarquee({ embedded = false, locale = "en" }) {
                   loading="lazy"
                   decoding="async"
                   sx={{
-                    height: LOGO_HEIGHTS[logoIndex],
+                    height: { xs: 30, md: 32 },
                     width: "auto",
                     filter: "brightness(0) invert(1)",
                     opacity: 0.55,

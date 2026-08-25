@@ -1405,21 +1405,72 @@ function PlatformPage({ locale = "en", onDemoClick }) {
                   component="a"
                   href={`#${pillar.id}`}
                   sx={{
+                    position: "relative",
                     textDecoration: "none",
-                    background: creamSoft,
+                    backgroundColor: creamSoft,
                     border: "1px solid rgba(0,66,37,.1)",
                     borderRadius: "18px",
                     p: { xs: 2, sm: 3 },
                     color: forest,
-                    transition: "transform .18s ease, border-color .18s ease",
-                    "&:hover": {
-                      transform: "translateY(-3px)",
-                      borderColor: orange,
-                      color: forest,
+                    overflow: "hidden",
+                    isolation: "isolate",
+                    transformOrigin: "center bottom",
+                    willChange: "transform, box-shadow",
+                    boxShadow: "0 18px 44px rgba(7,28,20,0.04)",
+                    transition:
+                      "transform 420ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 420ms cubic-bezier(0.16, 1, 0.3, 1), border-color 260ms ease, background-color 320ms ease",
+                    "& > *": {
+                      position: "relative",
+                      zIndex: 1,
+                    },
+                    "&::after": {
+                      content: '""',
+                      position: "absolute",
+                      zIndex: 0,
+                      top: "-55%",
+                      left: "-75%",
+                      width: "42%",
+                      height: "210%",
+                      transform: "rotate(18deg)",
+                      background:
+                        "linear-gradient(90deg, transparent, rgba(247,249,232,0.28), transparent)",
+                      filter: "blur(1px)",
+                      pointerEvents: "none",
+                      transition:
+                        "left 720ms cubic-bezier(0.16, 1, 0.3, 1)",
+                    },
+                    "&:hover, &:focus-visible": {
+                      zIndex: 4,
+                      transform: "translateY(-11px) scale(1.035)",
+                      backgroundColor: orange,
+                      borderColor: "rgba(247,249,232,0.48)",
+                      boxShadow:
+                        "0 34px 68px rgba(245,100,49,0.3), 0 16px 30px rgba(7,28,20,0.18)",
+                      "&::after": {
+                        left: "135%",
+                      },
+                      "& .pillar-card-icon, & .pillar-card-title, & .pillar-card-copy": {
+                        color: "#F7F9E8",
+                      },
+                      "& .pillar-card-icon": {
+                        transform:
+                          "translateY(-3px) scale(1.12) rotate(-4deg)",
+                      },
+                    },
+                    "&:focus-visible": {
+                      outline: `3px solid ${lime}`,
+                      outlineOffset: 3,
+                    },
+                    "@media (prefers-reduced-motion: reduce)": {
+                      transitionDuration: "1ms",
+                      "&::after, & > *": {
+                        transitionDuration: "1ms",
+                      },
                     },
                   }}
                 >
                   <Box
+                    className="pillar-card-icon"
                     sx={{
                       width: 44,
                       height: 44,
@@ -1427,27 +1478,35 @@ function PlatformPage({ locale = "en", onDemoClick }) {
                       alignItems: "center",
                       justifyContent: "center",
                       mb: 2,
+                      color: forestDark,
+                      transition:
+                        "color 260ms ease, transform 420ms cubic-bezier(0.16, 1, 0.3, 1)",
                     }}
                   >
-                    <Icon size={22} color={forestDark} />
+                    <Icon size={22} />
                   </Box>
                   <Typography
+                    className="pillar-card-title"
                     variant="h3"
                     sx={{
                       color: forest,
                       fontSize: { xs: 16, sm: 18 },
                       letterSpacing: headingTracking,
                       mb: 0.75,
+                      transition: "color 260ms ease",
                     }}
                   >
                     {pillar.title}
                   </Typography>
                   <Typography
+                    className="pillar-card-copy"
                     sx={{
                       color: "#6a7264",
                       fontSize: { xs: 12, sm: 13 },
                       lineHeight: 1.45,
+                      fontWeight: 400,
                       letterSpacing: bodyTracking,
+                      transition: "color 260ms ease",
                     }}
                   >
                     {pillar.copy}

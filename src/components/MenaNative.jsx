@@ -52,8 +52,14 @@ function FeatureCard({ card }) {
         overflow: "hidden",
         isolation: "isolate",
         backdropFilter: "blur(12px)",
+        transformOrigin: "center bottom",
+        willChange: "transform, box-shadow",
         transition:
-          "transform 190ms ease, box-shadow 190ms ease, border-color 190ms ease",
+          "transform 420ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 420ms cubic-bezier(0.16, 1, 0.3, 1), border-color 260ms ease",
+        "& > *": {
+          position: "relative",
+          zIndex: 1,
+        },
         "&::before": {
           content: '""',
           position: "absolute",
@@ -62,21 +68,61 @@ function FeatureCard({ card }) {
           backgroundColor: "#F7F9E8",
           opacity: 0.86,
           pointerEvents: "none",
+          transition: "background-color 320ms ease, opacity 320ms ease",
+        },
+        "&::after": {
+          content: '""',
+          position: "absolute",
+          zIndex: 0,
+          top: "-55%",
+          left: "-75%",
+          width: "42%",
+          height: "210%",
+          transform: "rotate(18deg)",
+          background:
+            "linear-gradient(90deg, transparent, rgba(247,249,232,0.28), transparent)",
+          filter: "blur(1px)",
+          pointerEvents: "none",
+          transition: "left 720ms cubic-bezier(0.16, 1, 0.3, 1)",
         },
         "&:hover": {
-          transform: "translateY(-3px)",
-          borderColor: brand.orange,
-          boxShadow: "0 30px 76px rgba(7,28,20,0.13)",
+          zIndex: 4,
+          transform: "translateY(-11px) scale(1.035)",
+          borderColor: "rgba(247,249,232,0.48)",
+          boxShadow:
+            "0 34px 68px rgba(242,100,51,0.3), 0 16px 30px rgba(7,28,20,0.18)",
+          "&::before": {
+            backgroundColor: brand.orange,
+            opacity: 1,
+          },
+          "&::after": {
+            left: "135%",
+          },
+          "& > *": {
+            color: "#F7F9E8",
+          },
+          "& .feature-card-icon": {
+            transform: "translateY(-3px) scale(1.12) rotate(-4deg)",
+          },
+        },
+        "@media (prefers-reduced-motion: reduce)": {
+          transitionDuration: "1ms",
+          "&::before, &::after, & > *": {
+            transitionDuration: "1ms",
+          },
         },
       }}
     >
       <Box
+        className="feature-card-icon"
         sx={{
           width: { xs: 40, md: 44 },
           height: { xs: 40, md: 44 },
           display: "grid",
           placeItems: "center",
           color: brand.forest,
+          transition:
+            "color 260ms ease, transform 420ms cubic-bezier(0.16, 1, 0.3, 1)",
         }}
       >
         <Icon size={19} strokeWidth={2.2} />
@@ -89,6 +135,7 @@ function FeatureCard({ card }) {
           fontSize: { xs: "0.9rem", sm: "0.98rem", md: "1.04rem" },
           lineHeight: 1.16,
           fontWeight: 950,
+          transition: "color 190ms ease",
         }}
       >
         {card.title}
@@ -99,7 +146,8 @@ function FeatureCard({ card }) {
           color: "rgba(7,28,20,0.68)",
           fontSize: { xs: "0.75rem", sm: "0.84rem" },
           lineHeight: { xs: 1.42, sm: 1.5 },
-          fontWeight: 560,
+          fontWeight: 400,
+          transition: "color 190ms ease",
         }}
       >
         {card.copy}
