@@ -857,7 +857,7 @@ export default function BlogPage({ locale = "en" }) {
           position: "relative",
           direction: isAr ? "rtl" : "ltr",
           overflow: "hidden",
-          bgcolor: "#EEF3CD",
+          bgcolor: "#F7F9E8",
           pt: { xs: 14, sm: 16, md: 20 },
           pb: { xs: 5.5, sm: 6.5, md: 11 },
         }}

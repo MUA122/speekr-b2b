@@ -1138,7 +1138,7 @@ function FeatureSection({ feature }) {
       sx={{
         background: feature.dark
           ? "linear-gradient(160deg,#06281b,#0b3625 60%,#052016)"
-          : cream,
+          : "#F7F9E8",
         py: { xs: 6, sm: 7.5, md: 10 },
         scrollMarginTop: "96px",
       }}
@@ -1241,7 +1241,7 @@ function PlatformPage({ locale = "en", onDemoClick }) {
     <Box
       component="main"
       dir={locale === "ar" ? "rtl" : "ltr"}
-      sx={{ background: cream, color: forest, overflowX: "clip" }}
+      sx={{ background: "#F7F9E8", color: forest, overflowX: "clip" }}
     >
       <Box
         sx={{
@@ -1414,8 +1414,6 @@ function PlatformPage({ locale = "en", onDemoClick }) {
                     sx={{
                       width: 44,
                       height: 44,
-                      borderRadius: "12px",
-                      background: cream,
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",

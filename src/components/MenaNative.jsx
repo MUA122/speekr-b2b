@@ -13,31 +13,26 @@ const featureCards = [
     icon: Globe2,
     title: "15+ Arabic Dialects",
     copy: "Train in the language your teams use every day.",
-    accent: brand.clay,
   },
   {
     icon: Building2,
     title: "Local Business Context",
     copy: "Practice conversations that reflect regional markets and industries.",
-    accent: brand.limeStrong,
   },
   {
     icon: UserRound,
     title: "Realistic AI Personas",
     copy: "Voices, names, and communication styles that feel familiar.",
-    accent: brand.lavender,
   },
   {
     icon: UsersRound,
     title: "Built for Enterprise Teams",
     copy: "Deploy communication training across teams and regions.",
-    accent: "#BFEAFF",
   },
   {
     icon: TrendingUp,
     title: "Measurable Practice Impact",
     copy: "Track progress, skill development, and learning outcomes across teams.",
-    accent: "#FFB86B",
   },
 ];
 
@@ -68,21 +63,9 @@ function FeatureCard({ card }) {
           opacity: 0.86,
           pointerEvents: "none",
         },
-        "&::after": {
-          content: '""',
-          position: "absolute",
-          right: -34,
-          bottom: -38,
-          width: 120,
-          height: 120,
-          borderRadius: "50%",
-          border: `1px solid ${card.accent}70`,
-          opacity: 0.5,
-          pointerEvents: "none",
-        },
         "&:hover": {
-          transform: "translateY(-4px)",
-          borderColor: "rgba(7,66,37,0.22)",
+          transform: "translateY(-3px)",
+          borderColor: brand.orange,
           boxShadow: "0 30px 76px rgba(7,28,20,0.13)",
         },
       }}
@@ -93,9 +76,7 @@ function FeatureCard({ card }) {
           height: { xs: 40, md: 44 },
           display: "grid",
           placeItems: "center",
-          borderRadius: "8px",
           color: brand.forest,
-          background: brand.lime,
         }}
       >
         <Icon size={19} strokeWidth={2.2} />
@@ -275,7 +256,7 @@ function MenaNative() {
           sx={{
             position: "relative",
             zIndex: 1,
-            mt: { xs: -3, sm: -5, md: -8 },
+            mt: { xs: 1, sm: 0, md: -2 },
             display: "flex",
             justifyContent: "center",
           }}

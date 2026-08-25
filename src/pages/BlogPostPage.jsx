@@ -174,7 +174,7 @@ function ArticleNotFound({ locale, ui }) {
     <Box
       sx={{
         minHeight: "100svh",
-        bgcolor: "#EEF3CD",
+        bgcolor: "#F7F9E8",
         pt: { xs: 15, md: 18 },
         pb: 10,
         px: { xs: 2.5, md: 5 },
@@ -525,7 +525,7 @@ export default function BlogPostPage({ slug, locale = "en" }) {
         sx={{
           position: "relative",
           overflow: "hidden",
-          bgcolor: "#EEF3CD",
+          bgcolor: "#F7F9E8",
           color: "#073821",
           pt: { xs: 12.5, md: 14.5 },
           pb: { xs: 8, md: 11 },
