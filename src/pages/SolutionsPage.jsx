@@ -2,12 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { ArrowDown, ArrowRight } from "lucide-react";
 
-const metrics = [
-  ["15+", "Arabic dialects"],
-  ["5", "business conversations"],
-  ["1", "platform to train them"],
-];
-
 const sections = [
   {
     id: "sec-sales",
@@ -16,15 +10,12 @@ const sections = [
     title: "Practice the deal before it's real",
     copy: "Reps rehearse the exact calls they'll make this quarter — with an AI buyer that pushes back in the dialect your market speaks — and ramp in weeks, not months.",
     cta: "Book a demo for Sales",
-    stat: "31%",
-    statLabel: "faster ramp",
-    image: "/images/Sales.jpeg",
+    image: "/images/solution_page/Sales.png",
     imageAlt:
       "Sales representatives wearing headsets working at their laptops",
     imageTitle:
       "Sales team practicing customer conversations and discovery calls",
     imageFirst: true,
-    statVariant: "orange",
     items: [
       [
         "Cold Calling",
@@ -47,12 +38,9 @@ const sections = [
     title: "Turn tough calls into loyal customers",
     copy: "Agents face the angriest customer they'll ever meet — before they meet one. High-pressure practice that shows up as calmer calls and higher CSAT.",
     cta: "Book a demo for Customer Care",
-    stat: "+22",
-    statLabel: "CSAT points",
-    image: "/images/Customer-care.png",
+    image: "/images/solution_page/Customer-Care.png",
     imageAlt: "Customer care agent speaking through a headset at her laptop",
     imageFirst: false,
-    statVariant: "orange",
     items: [
       ["Customer Complaints", "Handle complaints with confidence and empathy."],
       [
@@ -72,12 +60,9 @@ const sections = [
     title: "Say the hard thing, well",
     copy: "Feedback, coaching, and accountability conversations are the ones managers avoid. Rehearsing them privately makes them happen - and land.",
     cta: "Book a demo for Leadership",
-    stat: "2×",
-    statLabel: "manager confidence",
-    image: "/images/Leadership.png",
+    image: "/images/solution_page/Leadership-.png",
     imageAlt: "Manager leading a conversation from his laptop",
     imageFirst: true,
-    statVariant: "orange",
     items: [
       [
         "Giving Feedback",
@@ -100,12 +85,9 @@ const sections = [
     title: "Make complex work make sense",
     copy: "Engineers and specialists practice explaining technical decisions to clients, executives, and other teams — until clarity is the default.",
     cta: "Book a demo for Technical Teams",
-    stat: "3×",
-    statLabel: "practice volume",
-    image: "/images/Technicals.png",
+    image: "/images/solution_page/Technical-Team.png",
     imageAlt: "Software engineers collaborating around code screens",
     imageFirst: false,
-    statVariant: "orange",
     items: [
       [
         "Stakeholder Communication",
@@ -128,12 +110,9 @@ const sections = [
     title: "Interview every candidate, any hour",
     copy: "AI runs structured first-round interviews on the candidate's schedule; your team reviews scored, human-verified notes and decides. No scheduler bottleneck.",
     cta: "Book a demo for Screening",
-    stat: "90%",
-    statLabel: "screening coverage",
-    image: "/images/Applicant-Screening.png",
+    image: "/images/solution_page/Applicant-Screening.png",
     imageAlt: "Interviewer welcoming an applicant with a handshake",
     imageFirst: true,
-    statVariant: "purple",
     items: [
       [
         "On-Demand AI Interviews",
@@ -158,8 +137,6 @@ const ctaMetrics = [
 ];
 
 function ImagePanel({ section }) {
-  const isPurple = section.statVariant === "purple";
-
   return (
     <Box
       sx={{
@@ -180,47 +157,11 @@ function ImagePanel({ section }) {
         sx={{
           width: "100%",
           height: "auto",
-          aspectRatio: "1074 / 941",
+          aspectRatio: "1427 / 1236",
           display: "block",
-          objectFit: "cover",
-          borderRadius: "20px",
-          border: "1px solid rgba(22,55,31,.11)",
-          boxShadow: "0 16px 44px rgba(22,55,31,.14)",
-          background: "#EEF3CD",
+          objectFit: "contain",
         }}
       />
-      <Box
-        sx={{
-          position: "absolute",
-          left: section.imageFirst ? "auto" : { xs: 12, sm: -14 },
-          right: section.imageFirst ? { xs: 12, sm: -14 } : "auto",
-          top: 20,
-          background: isPurple ? "#E7D4F4" : "#EEF3CD",
-          border: isPurple
-            ? "1.5px solid rgba(91,62,119,.2)"
-            : "1.5px solid rgba(22,55,31,.15)",
-          borderRadius: "14px",
-          p: "12px 18px",
-          boxShadow: isPurple
-            ? "0 8px 24px rgba(91,62,119,.18)"
-            : "0 8px 24px rgba(22,55,31,.14)",
-        }}
-      >
-        <Typography
-          variant="h3"
-          sx={{
-            fontWeight: 800,
-            fontSize: 40,
-            lineHeight: 1,
-            color: isPurple ? "#5B3E77" : "#E8552A",
-          }}
-        >
-          {section.stat}
-        </Typography>
-        <Typography sx={{ fontSize: 12.5, fontWeight: 500, color: "#16371F" }}>
-          {section.statLabel}
-        </Typography>
-      </Box>
     </Box>
   );
 }
@@ -386,13 +327,6 @@ function SolutionSection({ section, onDemoClick }) {
 
 function SolutionsPage({ locale = "en", onDemoClick }) {
   const isArabic = locale === "ar";
-  const heroMetrics = isArabic
-    ? [
-        ["15+", "لهجة عربية"],
-        ["5", "محادثات أعمال"],
-        ["1", "منصة واحدة لتدريبها"],
-      ]
-    : metrics;
   const localizedCtaMetrics = isArabic
     ? [
         ["15+", "الإنجليزية ولهجات عربية"],
@@ -591,68 +525,20 @@ function SolutionsPage({ locale = "en", onDemoClick }) {
           >
             <Box
               component="img"
-              src="/images/Hero Sec - Main.jpeg"
-              alt="Two professionals discussing work together in a modern office"
-              title="Business communication in a modern workplace"
+              src="/images/solution_page/Hero.png"
+              alt="Professionals collaborating beside Speekr platform metrics"
+              title="Speekr business conversation training platform"
               loading="eager"
               decoding="async"
               fetchPriority="high"
               sx={{
                 width: "100%",
                 height: "auto",
-                aspectRatio: "3 / 2",
-                objectFit: "cover",
+                aspectRatio: "1427 / 1236",
+                objectFit: "contain",
                 display: "block",
-                borderRadius: "24px",
-                border: "1px solid rgba(22,55,31,.1)",
-                boxShadow: "0 16px 44px rgba(22,55,31,.16)",
               }}
             />
-            <Box
-              sx={{
-                position: { xs: "relative", sm: "absolute" },
-                left: { sm: -22 },
-                bottom: { sm: -22 },
-                mt: { xs: -4, sm: 0 },
-                mx: { xs: 1.5, sm: 0 },
-                width: { xs: "auto", sm: "calc(100% - 18px)" },
-                background: "#16371F",
-                color: "#fff",
-                borderRadius: "18px",
-                p: { xs: 2, md: "18px 22px" },
-                display: "grid",
-                gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-                gap: { xs: 1.25, md: 2.25 },
-                boxShadow: "0 12px 32px rgba(22,55,31,.25)",
-              }}
-            >
-              {heroMetrics.map(([value, label]) => (
-                <Box key={label} sx={{ minWidth: 0 }}>
-                  <Typography
-                    variant="h3"
-                    sx={{
-                      fontWeight: 700,
-                      fontSize: 30,
-                      lineHeight: 1,
-                      color: "#EEF3CD",
-                    }}
-                  >
-                    {value}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: 12,
-                      color: "rgba(255,255,255,.75)",
-                      mt: 0.4,
-                      lineHeight: 1.25,
-                      overflowWrap: "break-word",
-                    }}
-                  >
-                    {label}
-                  </Typography>
-                </Box>
-              ))}
-            </Box>
           </Box>
         </Container>
       </Box>
