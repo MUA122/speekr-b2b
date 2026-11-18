@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import PracticeTimeline from "./PracticeTimeline.jsx";
 import {
   Box,
   Container,
@@ -533,6 +534,7 @@ function HowItWorks() {
   };
 
   return (
+    <>
     <Box
       component="section"
       id="how-it-works"
@@ -684,25 +686,10 @@ function HowItWorks() {
           </Box>
         </Box>
 
-        <Box
-          sx={{
-            mt: { xs: 5.5, md: 9.5, lg: 10 },
-            display: "grid",
-            letterSpacing: "-0.5px",
-            gridTemplateColumns: {
-              xs: "1fr",
-              md: "repeat(2, minmax(0, 1fr))",
-              lg: "repeat(4, minmax(0, 1fr))",
-            },
-            gap: { xs: 2, md: 2.4 },
-          }}
-        >
-          {steps.map((step, index) => (
-            <StepCard key={step.number} step={step} index={index} />
-          ))}
-        </Box>
       </Container>
     </Box>
+    <PracticeTimeline steps={steps} images={stepImages} />
+    </>
   );
 }
 

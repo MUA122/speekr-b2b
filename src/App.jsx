@@ -800,13 +800,12 @@ function App() {
           <LogosMarquee locale={locale} />
           <HowItWorks />
           <SectionDivider />
-          <UseCases onDemoClick={openContactModal} />
+          {/* Temporarily hidden: <UseCases onDemoClick={openContactModal} /> */}
           {/* <SocialProof /> */}
           {/* <SectionDivider />
           <GrowthOpportunities /> */}
           {/* <SectionDivider /> */}
-          <EnterpriseFeatures />
-          <SectionDivider />
+          {/* Temporarily hidden: <EnterpriseFeatures /> */}
           <MenaNative />
           <SectionDivider compact />
           <CaseStudiesCarousel locale={locale} />
