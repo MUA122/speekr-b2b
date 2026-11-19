@@ -1,0 +1,44 @@
+.MuiPaper-root.vd-dialog { border-radius: 23px; font-family: var(--font-body); color: #143b2a; background: #fffefa; }
+.vd-room {
+  display: grid; justify-items: center; text-align: center; position: relative; padding: 23px 44px 18px;
+  background: radial-gradient(ellipse at top, #356e48, #104b30); color: #fffbea;
+}
+.vd-room-photo { position: relative; }
+.vd-room-photo img { display: block; width: 77px; height: 77px; border-radius: 50%; border: 3px solid #e1ebcc; box-shadow: 0 0 0 5px #cfe5b62e; object-fit: cover; }
+.vd-room-photo span { position: absolute; bottom: -3px; inset-inline-end: -3px; display: grid; place-items: center; border-radius: 50%; width: 26px; height: 26px; background: #e4f1bd; color: #16452e; border: 2px solid #366a47; }
+.vd-room h2 { font: 700 30px/1.15 'Belwe Bold', Georgia, serif; margin: 13px 0 2px; letter-spacing: -.025em; }
+.vd-room-meta { margin: 0; font-size: 13px; color: #e3eedc; }
+.vd-room .vd-close { position: absolute; top: 8px; inset-inline-end: 8px; border: 0; background: transparent; color: white; cursor: pointer; display: grid; place-items: center; border-radius: 50%; width: 44px; height: 44px; }
+.vd-room .vd-close:hover { background: #ffffff20; }
+.vd-dialog-body { display: flex; flex-direction: column; padding: 23px; gap: 13px; }
+.vd-dialog-body > p { font-size: 14px; line-height: 1.55; margin: 0; color: #495b4d; }
+.vd-call-status, .vd-summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.vd-call-status strong { font-size: 17px; font-weight: 600; }
+.vd-call-status > span { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; font-variant-numeric: tabular-nums; }
+.vd-summary { background: #f1f5e6; border-radius: 10px; padding: 12px; font-size: 14px; }
+.vd-primary { border: 1px solid #074225; color: #fff; background: #074225; }
+.vd-primary:hover { background: #145b36; }
+.vd-secondary { border: 1px solid #d7dfd2; color: #194c2d; background: #fffefa; }
+.vd-secondary:hover { background: #f3f6e9; }
+.vd-end { color: #893f31; }
+.vd-audio { display: grid; gap: 7px; place-items: center; padding: 12px; background: #f1f5e6; border-radius: 12px; }
+.vd-audio small, .vd-meter { display: flex; align-items: center; justify-content: center; gap: 5px; }
+.vd-meter { height: 32px; gap: 4px; }
+.vd-meter i { border-radius: 5px; width: 4px; height: 4px; background: #527a55; }
+.vd-meter:is([data-phase="speaking"], [data-phase="listening"]) i {
+  height: var(--bar); animation: vd-meter .85s var(--delay) ease-in-out infinite alternate;
+}
+@keyframes vd-meter { from { transform: scaleY(.3); } to { transform: scaleY(1); } }
+.vd-transcript { max-height: min(22vh, 175px); overflow-y: auto; overscroll-behavior: contain; display: flex; flex-direction: column; gap: 10px; border-block: 1px solid #dee4d7; padding: 10px 4px; }
+.vd-transcript small { font-size: 12px; font-weight: 600; color: #486c45; }
+.vd-transcript p { margin: 2px 0 0; font-size: 14px; line-height: 1.45; overflow-wrap: anywhere; color: #253e2d; text-align: start; }
+.vd-input { display: flex; gap: 7px; }
+.vd-input input { flex: 1; min-width: 0; border: 1px solid #aebfaa; border-radius: 10px; padding: 10px; font: inherit; color: inherit; }
+.vd-dialog .vd-input input[dir="ltr"] { direction: ltr; text-align: left; }
+.vd-dialog .vd-input input[dir="rtl"] { direction: rtl; text-align: right; }
+.vd-input button { border: 0; border-radius: 10px; width: 45px; min-height: 44px; background: #104b30; color: white; cursor: pointer; display: grid; place-items: center; }
+.vd-input button:disabled { background: #d6e0ce; color: #546654; }
+@media (max-width: 599px) {
+  .MuiPaper-root.vd-dialog { width: calc(100% - 26px); margin: 13px; max-height: calc(100dvh - 26px); }
+  .vd-dialog-body { padding: 17px; }
+}

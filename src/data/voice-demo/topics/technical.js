@@ -1,0 +1,28 @@
+import { intent, lines } from './format.js';
+
+export const technical = [
+  intent('analogy',
+    lines('imagine|think of|it is like|it’s like|like a|analogy|simple terms', 'That comparison helps. Which part represents the customer’s wait?', 'Could you connect that example to what I see on my screen?', 'Where does the comparison stop being accurate?'),
+    lines('تخيلي|تخيل|شبه|زي طابور|زي الزحمة|مثال بسيط|ببساطة', 'المثال قرّب الفكرة. أنهي جزء فيه يمثّل وقت الانتظار؟', 'اربط لي المثال باللي بشوفه على الشاشة.', 'فين المثال يبقى مختلف عن اللي بيحصل فعلًا؟')),
+  intent('demo',
+    lines('demo|walkthrough|show you|screen share|click here|dashboard', 'What is the first thing I should try on this screen?', 'Can we walk through one customer task from start to finish?', 'What should I see if the step worked?'),
+    lines('عرض توضيحي|أوريكي|أورّيك|الشاشة|تجربة قدامك|لوحة التحكم', 'أول حاجة أجرّبها على الشاشة دي إيه؟', 'نجرب طلب واحد من أوله لحد ما يخلص؟', 'لو الخطوة نجحت، المفروض يظهر لي إيه؟')),
+  intent('delay',
+    lines('project delay|behind schedule|release date|deadline|postpone|delivery date', 'Which part can we still deliver on the original date?', 'When will you have enough information for a new estimate?', 'What should I tell the client about the next milestone?'),
+    lines('تأخير التسليم|المشروع اتأخر|موعد التسليم|هنأجل|موعد الإطلاق|اتأخرنا', 'إيه الجزء اللي نقدر نسلّمه في الميعاد الأول؟', 'هتعرف تديني تقدير جديد للميعاد إمتى؟', 'أقول للعميل إيه عن التسليم الجاي؟')),
+  intent('support',
+    lines('restart|reboot|troubleshoot|help desk|error message|support ticket', 'What should I save before trying that step?', 'I can reproduce it. Which details would help support investigate?', 'If that step fails, who should I contact next?'),
+    lines('إعادة تشغيل|نطفي|ريستارت|رسالة خطأ|الدعم|بلاغ فني', 'أحفظ إيه قبل ما أجرّب الخطوة دي؟', 'المشكلة حصلت تاني. أبعت للدعم أنهي تفاصيل؟', 'لو ده منفعش أرجع لمين؟')),
+  intent('bug',
+    lines('bug|defect|code change|patch|fix|regression|test the fix', 'Which action triggers the bug, and is there a workaround?', 'How will we verify the fix from the customer’s side?', 'What would you check before releasing that change?'),
+    lines('خلل|خطأ برمجي|تحديث|إصلاح|نصلح|مشكلة في الكود|عيب', 'إيه الخطوة اللي بتظهر المشكلة؟ فيه طريقة تانية أكمّل بيها؟', 'أعرف من عندي إن الإصلاح نجح إزاي؟', 'هتجرّب إيه قبل ما تنزل التحديث؟')),
+  intent('stakeholder',
+    lines('stakeholder|nontechnical|executive|business impact|plain language|without jargon', 'I have one minute with the director. What is the impact in one sentence?', 'Which decision do you need from someone outside engineering?', 'How would you check that your explanation landed?'),
+    lines('مش متخصص|غير تقني|الإدارة|المدير|من غير مصطلحات|تأثير على الشغل', 'قدامي دقيقة مع المدير. أشرح تأثير المشكلة في جملة إزاي؟', 'إيه القرار اللي محتاجينه من حد خارج الفريق التقني؟', 'تتأكد منين إنّي فهمت شرحك؟')),
+  intent('capacity',
+    lines('slow|latency|traffic|load|server|queue|response time|bandwidth', 'What will a customer notice when traffic is high?', 'Can people still place an order while the system is slow?', 'What can we do for customers while the team reduces the wait?'),
+    lines('بطيء|بطيئة|بطء|بطيئ|زحمة|ضغط|السيرفر|طابور|الخدمة تقيلة', 'لما الضغط يزيد، العميل هيلاحظ إيه؟', 'أقدر أكمّل طلبي والخدمة بطيئة، ولا أستنى؟', 'نقدر نساعد الناس بإيه لحد ما وقت الانتظار يقل؟')),
+  intent('collaboration',
+    lines('handoff|engineering team|coordinate|other team|shared notes|owner|collaborate', 'Who owns the next update, and when should we expect it?', 'What do the support team and the engineers each need to know?', 'How will both teams know the incident is over?'),
+    lines('فريق الدعم|فريق التطوير|نسلّم للفريق|تنسيق|مين المسؤول|نتعاون', 'مين مسؤول عن التحديث الجاي، وهيوصلنا إمتى؟', 'فريق الدعم محتاج يعرف إيه من المطورين دلوقتي؟', 'الفريقين هيعرفوا منين إن الخدمة استقرّت؟')),
+];

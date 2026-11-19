@@ -1,0 +1,28 @@
+import { intent, lines } from './format.js';
+
+export const leadership = [
+  intent('feedback',
+    lines('feedback|noticed|observed|specific example|impact on the team', 'Which moment from last week best shows what you mean?', 'What would you have liked to see me do differently?', 'Could we turn that observation into one action I can try?'),
+    lines('ملاحظة|ملاحظات|لاحظت|أداءك|تأثير على الفريق|مثال محدد', 'ممكن تفكّرني بموقف حصل الأسبوع اللي فات يوضّح قصدك؟', 'كنت تحب أتصرف بطريقة مختلفة في إيه تحديدًا؟', 'نحوّل الملاحظة دي لخطوة أجرّبها المرة الجاية؟')),
+  intent('motivation',
+    lines('motivation|motivated|recognition|meaningful|burnout|energy|feel about the work', 'I miss seeing how my work helps the customer. How could we reconnect the two?', 'I put effort into the launch and heard very little back. What stood out to you?', 'What would make it easier for me to see my progress?'),
+    lines('حافز|متحمس|الدافع|حماسك|تشجيع|تقدير|مرهق', 'نفسي أشوف شغلي فرّق مع العميل في إيه. نقدر نعرف ده منين؟', 'تعبت في التسليم الأخير ومسمعتش تعليق. إيه أكتر حاجة لفتت نظرك؟', 'نقدر نتابع تقدمي بطريقة تشجّعني أكمل؟')),
+  intent('deadline',
+    lines('deadline|late|missed|behind schedule|blocked|what happened|obstacle', 'Two reviews landed on the same day. Which one should I have flagged first?', 'I waited for approval too long. When should I raise a delay next time?', 'Can we agree on an early warning before the next deadline?'),
+    lines('ميعاد|التسليم|اتأخرت|التأخير|عطلك|حصل إيه|الأولويات', 'كان عندي مراجعتين في نفس اليوم. كنت محتاج أحدد أنهي واحدة أولى.', 'استنيت الموافقة وقت طويل. إمتى أنبّهك المرة الجاية؟', 'نتفق على علامة بدري تقول لنا إن التسليم في خطر؟')),
+  intent('conflict',
+    lines('conflict|disagree|tension|argument|different opinions|both sides', 'We disagree about the approach. How would you open a joint conversation?', 'I felt dismissed in the meeting. How can I bring it up constructively?', 'What shared outcome could both of us agree on?'),
+    lines('خلاف|اختلفت|مختلفين|توتر|وجهات نظر|الطرفين', 'إحنا مختلفين على الطريقة. هتبدأ الكلام معانا إزاي؟', 'حسّيت إن رأيي ملوش قيمة في الاجتماع. أفتح الموضوع منين؟', 'إيه الهدف اللي ممكن يجمعني أنا وزميلي؟')),
+  intent('performance',
+    lines('performance|target|expectations|standard|measure progress|quality', 'What does meeting the standard look like on a real deliverable?', 'Which one measure should I watch this month?', 'When can we review a sample of my work together?'),
+    lines('الأداء|تارجت|المطلوب|تقييم|جودة|نقيس|معيار', 'ممكن تورّيني شكل التسليم اللي يحقق المطلوب؟', 'من كل الأرقام دي، أركّز على أنهي رقم الشهر ده؟', 'نعمل مراجعة لعينة من شغلي إمتى؟')),
+  intent('coaching',
+    lines('coach|support|practice|check in|mentor|help you|training', 'Could we rehearse how I ask for a decision before the next review?', 'A short check-in would help. What should I bring?', 'What should I try on my own before I ask for help?'),
+    lines('تدريب|دعم|مساعدة|أساعدك|نتمرن|نراجع سوا|محتاج مني', 'ينفع نتمرّن سوا على إني أطلب قرار واضح قبل المراجعة؟', 'وقفة قصيرة في نص الأسبوع هتفيدني. أحضّر إيه؟', 'إيه اللي أجرّبه بنفسي قبل ما أطلب دعم؟')),
+  intent('delegation',
+    lines('delegate|ownership|assign|hand over|decision rights|take responsibility', 'Which decisions can I make on my own?', 'I can own that part. Who else needs to know about the handover?', 'What should I escalate, and what can wait for our check-in?'),
+    lines('تفويض|مسؤولية|هتستلم|هتفوض|هقسم|توزيع المهام', 'إيه القرارات اللي أقدر أخدها بنفسي؟', 'تمام، أستلم الجزء ده. مين محتاج يعرف إن المهمة بقت معايا؟', 'إيه اللي لازم أرجع لك فيه فورًا؟')),
+  intent('difficult',
+    lines('difficult conversation|sensitive|privately|one on one|defensive|hard to hear', 'I’m worried this means you’ve lost confidence in me. How would you respond?', 'Could we talk about this privately? What would you want me to take away?', 'How would you check that we left with the same understanding?'),
+    lines('كلام صعب|موضوع حساس|على انفراد|بيني وبينك|لوحدنا|دفاعي', 'قلقان تكون فقدت الثقة فيّا. تحب توضّح لي موقفك؟', 'ممكن نتكلم على انفراد؟ إيه أهم نقطة تحب أخرج بيها؟', 'في آخر الكلام، نتأكد إزاي إننا فاهمين بعض؟')),
+];

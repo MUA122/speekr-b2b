@@ -1,0 +1,28 @@
+import { intent, lines } from './format.js';
+
+export const sales = [
+  intent('opening',
+    lines('cold call|cold calling|good time to talk|have a minute|calling about|quick call', 'I have a minute. What made you call my company?', 'I’m heading into a meeting. What is the one thing I should hear?', 'How would you earn permission for another minute?'),
+    lines('مكالمة باردة|وقت مناسب|دقيقة من وقتك|بتصل بحضرتك|ممكن دقيقة', 'معايا دقيقة قبل الاجتماع. إيه اللي خلاك تكلّمني أنا؟', 'اتفضل، لو محتاج أفتكر جملة واحدة من مكالمتك، هتكون إيه؟', 'ممكن تطلب مني وقت أكتر بطريقة مريحة؟')),
+  intent('product',
+    lines('software|platform|product|our tool|our service|selling an app|subscription', 'What problem would that solve for my team on a busy day?', 'Walk me through the first thing a customer would do with it.', 'What would my team be able to stop doing by hand?'),
+    lines('برنامج|منصة|منتج|منتجنا|المنتج|تطبيق|خدمتنا|سيستم', 'المنتج ده هيحلّ لي مشكلة إيه في يوم شغل عادي؟', 'خلّيني مكان المستخدم. أول حاجة هعملها بالمنتج إيه؟', 'إيه الشغل اليدوي اللي فريقي هيستغنى عنه؟')),
+  intent('discovery',
+    lines('biggest challenge|what matters|your needs|priorities|pain point|how do you currently|what takes|your process', 'Follow-ups get lost between shifts. What else would you ask before proposing a fix?', 'My team copies the same details into two systems. What would you want to see?', 'How would you check what that extra work is costing us?'),
+    lines('تحدي|أكبر مشكلة|أولوياتك|احتياجاتك|محتاج إيه|بتعملوا إيه|بيعطلك|مضيع وقت', 'المتابعات بتضيع بين الورديات. تحب تعرف إيه كمان قبل ما تقترح حل؟', 'بنسجّل نفس البيانات مرتين. هتسألني عن إيه عشان تفهم السبب؟', 'تقدر تساعدني أحسب وقت الشغل الضايع؟')),
+  intent('price',
+    lines('price|pricing|cost|budget|expensive|afford|how much does it cost|how much is it|=how much', 'My budget is tight. Which cost would your offer help me reduce first?', 'What is included in that price, and what would cost extra?', 'What evidence could I take to finance to justify the spend?'),
+    lines('سعر|السعر|تكلفة|التكلفة|ميزانية|غالي|فلوس|بكام', 'العرض التاني أرخص. إيه اللي هاخده عندك ويستاهل الفرق؟', 'السعر ده شامل إيه بالضبط؟ فيه حاجة هادفع عليها زيادة؟', 'لو هعرض الفكرة على الحسابات، أشرح لهم التوفير بكلام بسيط إزاي؟')),
+  intent('proof',
+    lines('save time|saves time|case study|customer story|improve|return on investment|results', 'Could you give me a before-and-after example from a team like mine?', 'Which result could we measure in the first week?', 'How would we agree on a starting point for that measurement?'),
+    lines('نوفر|يوفر|هيوفر|وفرنا|نتيجة|نتايج|نتائج|عميل سابق|توفير', 'عندك مثال لفريق شبهنا؟ كان بيعمل إيه قبل التجربة وبعدها؟', 'إيه نتيجة نقدر نقيسها من أول أسبوع؟', 'عشان نعرف الفرق، إيه اللي نقيسه قبل ما نبدأ؟')),
+  intent('objection',
+    lines('already use|another supplier|competitor|other vendor|switching|not interested|happy with', 'Our supplier already handles that. Where would your offer make a difference?', 'Changing tools takes time. What could we test before committing?', 'Which part of the switch could your team handle for us?'),
+    lines('مورد|المورد|منافس|عندنا بديل|بديل تاني|مش مهتم|تغيير النظام', 'إحنا مرتاحين مع المورد الحالي. من وجهة نظرك إيه اللي يستاهل التغيير؟', 'نقدر نجرّب حاجة صغيرة قبل ما ننقل كل الشغل؟', 'مين هيساعد فريقي وقت النقل؟')),
+  intent('negotiate',
+    lines('discount|negotiate|negotiation|annual plan|payment terms|smaller package|installments', 'If we commit for a year, what could you offer in return?', 'Could we adjust the scope to fit the budget?', 'Which part of the offer would you protect, and why?'),
+    lines('خصم|تقسيط|دفعات|اشتراك سنوي|نتفاوض|باقة أصغر', 'لو التزمنا بسنة، ممكن تقدّم لنا إيه في المقابل؟', 'ممكن نبدأ بباقة أصغر تناسب الميزانية؟', 'إيه الجزء المهم اللي تنصحني أحتفظ بيه في الاتفاق؟')),
+  intent('close',
+    lines('book a meeting|next step|schedule|free trial|pilot|follow up|follow up meeting|demo', 'I can bring my operations lead. What should we cover in the meeting?', 'What would a useful trial look like for one team?', 'What should we each prepare before our next call?'),
+    lines('ميعاد|الخطوة الجاية|خطوة تالية|تجربة|نجرب|عرض توضيحي|اجتماع|نتابع', 'ممكن أجيب مسؤول التشغيل. نركّز على إيه في الاجتماع؟', 'لو جرّبنا مع فريق واحد، نعرف منين إن التجربة نجحت؟', 'نتفق كل واحد فينا هيحضّر إيه للمكالمة الجاية؟')),
+];

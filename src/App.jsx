@@ -796,20 +796,19 @@ function App() {
         <BlogPostPage slug={blogSlug} locale={locale} />
       ) : (
         <>
-          <Hero locale={locale} onDemoClick={openContactModal} />
+          <Hero locale={locale} />
           <LogosMarquee locale={locale} />
           <HowItWorks />
-          <SectionDivider />
           {/* Temporarily hidden: <UseCases onDemoClick={openContactModal} /> */}
           {/* <SocialProof /> */}
           {/* <SectionDivider />
           <GrowthOpportunities /> */}
           {/* <SectionDivider /> */}
           {/* Temporarily hidden: <EnterpriseFeatures /> */}
+          <SecurityTrustSection />
           <MenaNative />
           <SectionDivider compact />
           <CaseStudiesCarousel locale={locale} />
-          <SecurityTrustSection />
           <FaqSection locale={locale} />
           <FinalCta onDemoClick={openContactModal} />
         </>

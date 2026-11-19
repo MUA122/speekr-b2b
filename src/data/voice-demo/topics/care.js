@@ -1,0 +1,28 @@
+import { intent, lines } from './format.js';
+
+export const care = [
+  intent('complaint',
+    lines('what happened|tell me more|complaint|what went wrong|ticket number|service issue', 'I contacted support twice and had to start over. Which details do you need?', 'My ticket was closed while the problem was still there. Can you reopen it?', 'What will you record so I can pick this up with any agent?'),
+    lines('رقم الطلب|رقم الشكوى|تفاصيل المشكلة|حصل إيه|شكوى|المشكلة بدأت', 'بلّغت مرتين وكل مرة بحكي من الأول. محتاج تعرف إيه بالتحديد؟', 'البلاغ اتقفل ولسه المشكلة موجودة. ينفع نفتحه تاني؟', 'هتسجّل إيه عشان الموظف الجاي يلاقي اللي اتفقنا عليه؟')),
+  intent('angry',
+    lines('angry|upset|frustrated|unacceptable|calm down|frustrating', 'I’m frustrated because nobody called back. How will today be different?', 'I’ve already explained this twice. What can you do right now?', 'What can you promise me today that you control yourself?'),
+    lines('غضبان|زعلك|متضايق|متضايقة|معصب|اهدى|محبط', 'أنا متضايقة عشان محدّش رجع لي. إيه اللي هيتغيّر النهارده؟', 'شرحت الموضوع مرتين. تقدر تعمل لي إيه دلوقتي؟', 'إيه الحاجة اللي تقدر توعدني بيها وتكون في إيدك؟')),
+  intent('apology',
+    lines('sorry|apologize|apologies|our mistake|our fault', 'I appreciate the apology. What happens to my open ticket now?', 'Thanks for acknowledging it. When will someone update me?', 'What can you do while I’m waiting?'),
+    lines('آسف|آسفة|حقك عليا|حقك علينا|بنعتذر|بعتذر|معلش', 'شكرًا على الاعتذار. ممكن تقولي هتعمل إيه بخصوص طلبي؟', 'مقدّرة كلامك. حد هيتابع معايا إمتى؟', 'ولحد ما يجي الرد، فيه حل مؤقت؟')),
+  intent('empathy',
+    lines('understand how|hear you|must be difficult|how you feel|in your shoes|that sounds', 'Exactly. I took time off to sort this out. How can we save another trip?', 'Thanks for listening. Could you summarize what you heard?', 'Which part of the problem would you address first?'),
+    lines('حاسس بيك|حاسة بيك|حاسس بيكي|فاهم ضيقك|متفهم|مقدّر تعبك|حاطط نفسي', 'بالضبط، أخدت إجازة عشان أتابع. ممكن نوفر عليّا مشوار تاني؟', 'شكرًا إنك سمعتني. ممكن تقولي فهمت إيه من كلامي؟', 'من وجهة نظرك نبدأ بحل إيه الأول؟')),
+  intent('refund',
+    lines('refund|money back|credit my account|reimburse|return the payment', 'A refund would help. How long before it shows on my statement?', 'Would that cover delivery as well as the order?', 'What confirmation should I keep until the money arrives?'),
+    lines('استرجاع|استرداد|ترجع الفلوس|نرجع الفلوس|تعويض|المبلغ', 'المبلغ هيرجع على نفس وسيلة الدفع؟ وهياخد وقت قد إيه؟', 'الاسترجاع شامل مصاريف التوصيل كمان؟', 'أحتفظ برقم إيه لحد ما الفلوس ترجع؟')),
+  intent('delivery',
+    lines('delayed order|delivery|tracking|shipment|courier|arrive', 'The tracking page hasn’t changed since Monday. Can you check with the courier?', 'I need the order for tomorrow. What are my options?', 'When should I check back if the tracking details stay the same?'),
+    lines('توصيل|الشحن|الشحنة|المندوب|التوصيل|الطلب اتأخر|هيوصل|طلبك', 'حالة الشحنة ثابتة من يومين. ممكن تراجع مع المندوب؟', 'أنا محتاجة الطلب بكرة. قدامي اختيارات إيه؟', 'لو حالة الشحن فضلت زي ما هي، أرجع لك إمتى؟')),
+  intent('escalation',
+    lines('supervisor|manager|escalate|specialist|transfer you', 'Who will take over, and what will you tell them before the transfer?', 'Can you stay on the line until the specialist has my details?', 'How do I reach the new contact if we disconnect?'),
+    lines('المشرف|المدير|تصعيد|هصعد|أحوّل|للمختص|المسؤول', 'مين هيستلم الشكوى، وهتبلّغه بإيه قبل ما تحوّلني؟', 'ينفع تفضل معايا لحد ما المسؤول يشوف التفاصيل؟', 'لو الخط فصل، أوصل له تاني منين؟')),
+  intent('recovery',
+    lines('replace|replacement|resolve|fix it|call you back|follow up|alternative|temporary fix', 'I can try that. What should I do if it happens again?', 'That sounds workable. Can we agree on a time to check the result?', 'How will you know the service is working on my side?'),
+    lines('بديل|استبدال|نبدل|حل مؤقت|هنصلح|هتابع|هنتابع|أكلمك', 'ممكن أجرّب الحل ده. ولو المشكلة رجعت أعمل إيه؟', 'تمام، نحدد وقت نتأكد فيه إن الموضوع اتحل؟', 'هتتأكد من عندك إزاي إن الخدمة رجعت عندي؟')),
+];

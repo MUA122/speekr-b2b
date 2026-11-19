@@ -1,4 +1,10 @@
-.practice-track{--pin-top:94px;position:relative;height:340vh;background:#f7f9e8}
+.practice-track {
+  --pin-top: 94px;
+  position: relative;
+  height: 340vh;
+  margin-block-end: clamp(64px, 9vw, 144px);
+  background: #f7f9e8;
+}
 .practice-pin{position:sticky;top:var(--pin-top);height:calc(100svh - 130px);min-height:500px;display:flex;align-items:center}
 .practice-layout{width:min(100% - 80px,1216px);margin:auto;display:grid;grid-template-columns:minmax(0,440px) minmax(0,552px);justify-content:space-between;align-items:center;gap:64px}
 .practice-steps{position:relative;isolation:isolate;height:calc(100svh - 135px);min-height:var(--min-height,0px)}
