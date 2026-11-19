@@ -806,7 +806,9 @@ function App() {
           <GrowthOpportunities /> */}
           {/* <SectionDivider /> */}
           {/* Temporarily hidden: <EnterpriseFeatures /> */}
+          <SectionDivider compact />
           <SecurityTrustSection />
+          <SectionDivider compact />
           <MenaNative />
           <SectionDivider compact />
           <CaseStudiesCarousel locale={locale} />

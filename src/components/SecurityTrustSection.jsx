@@ -1,6 +1,7 @@
-import { Box, Typography } from '@mui/material';
+import Box from '@mui/material/Box';
 import { ArrowRight, Database, KeyRound, Lock, Server, ShieldCheck } from 'lucide-react';
 import { brand } from '../theme.js';
+import './SecurityTrustSection.css';
 
 const securityItems = [
   {
@@ -30,243 +31,57 @@ const securityItems = [
   },
 ];
 
-function SecurityCard({ item }) {
-  const Icon = item.icon;
-
+export default function SecurityTrustSection() {
   return (
     <Box
+      component="section"
+      id="security"
+      className="security-trust"
+      aria-labelledby="security-title"
       sx={{
-        minHeight: { xs: 'auto', sm: 180, lg: 'auto' },
-        p: { xs: 2.2, md: 2.55 },
-        borderRadius: { xs: '16px', lg: '8px' },
-        bgcolor: 'rgba(238,243,205,0.035)',
-        border: '1px solid rgba(142,198,64,0.18)',
-        boxShadow: 'inset 0 1px 0 rgba(238,243,205,0.035)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        transition: 'transform 180ms ease, border-color 180ms ease, background-color 180ms ease',
-        '&:hover': {
-          transform: 'translateY(-4px)',
-          borderColor: 'rgba(242,100,51,0.34)',
-          bgcolor: 'rgba(238,243,205,0.055)',
-        },
+        '--trust-forest': brand.forest,
+        '--trust-ink': brand.ink,
+        '--trust-paper': brand.ivory,
+        '--trust-orange': brand.orange,
+        '--trust-line': brand.line,
+        bgcolor: 'background.default',
       }}
     >
-      <Box
-        sx={{
-          width: 24,
-          height: 24,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          mb: 1.35,
-          color: brand.orange,
-          flexShrink: 0,
-        }}
-      >
-        <Icon size={22} strokeWidth={2.2} />
-      </Box>
-
-      <Typography
-        component="h3"
-        sx={{
-          minWidth: 0,
-          m: 0,
-          color: brand.ivory,
-          fontFamily: (theme) => theme.palette.brand.fontHeadline,
-          fontSize: { xs: 18, sm: 19, lg: 20 },
-          fontWeight: 900,
-          lineHeight: 1.12,
-          letterSpacing: '-0.25px !important',
-          overflowWrap: 'normal',
-          wordBreak: 'normal',
-        }}
-      >
-        {item.title}
-      </Typography>
-      <Typography
-        sx={{
-          minWidth: 0,
-          mt: 1.1,
-          color: 'rgba(238,243,205,0.66)',
-          fontSize: { xs: 13.5, md: 14.5, lg: 14.5 },
-          lineHeight: 1.6,
-          fontWeight: 650,
-          letterSpacing: '0 !important',
-          overflowWrap: 'break-word',
-        }}
-      >
-        {item.copy}
-      </Typography>
-    </Box>
-  );
-}
-
-function SecurityTrustSection() {
-  return (
-    <Box sx={{ bgcolor: brand.forest }}>
-      <Box
-        component="section"
-        id="security"
-        aria-labelledby="security-title"
-        sx={{
-          position: 'relative',
-          overflow: 'hidden',
-          bgcolor: brand.forest,
-          px: { xs: 2, sm: 4, md: 6, lg: 8 },
-          pt: { xs: 6, md: 9 },
-          pb: { xs: 6.5, md: 10 },
-        }}
-      >
-        <Box
-          component="img"
-          src="/images/brand-patterns/block.png"
-          alt="Speekr security background pattern"
-          title="Speekr security background pattern"
-          loading="lazy"
-          decoding="async"
-          sx={{
-            display: 'none',
-            position: 'absolute',
-            top: { xs: -130, md: -180 },
-            left: { xs: -340, md: -270 },
-            width: { xs: 760, md: 980 },
-            maxWidth: 'none',
-            opacity: 0.08,
-            pointerEvents: 'none',
-          }}
-        />
-        <Box
-          aria-hidden
-          sx={{
-            display: 'none',
-            position: 'absolute',
-            top: '-18%',
-            left: '52%',
-            transform: 'translateX(-50%)',
-            width: '78vw',
-            height: '78vw',
-            maxWidth: 900,
-            maxHeight: 900,
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(242,100,51,0.06) 0%, transparent 60%)',
-            filter: 'blur(80px)',
-            pointerEvents: 'none',
-          }}
-        />
-        <Box
-          aria-hidden
-          sx={{
-            display: 'none',
-            position: 'absolute',
-            inset: 0,
-            pointerEvents: 'none',
-            opacity: 0.02,
-            backgroundImage: 'none',
-            backgroundRepeat: 'repeat',
-            backgroundSize: '200px 200px',
-          }}
-        />
-
-        <Box sx={{ position: 'relative', zIndex: 1, maxWidth: 1200, mx: 'auto' }}>
-          <Box
-            sx={{
-              display: 'grid',
-              gridTemplateColumns: { xs: '1fr', md: 'minmax(0, 1fr) auto' },
-              gap: { xs: 3, md: 4 },
-              alignItems: 'center',
-              mb: { xs: 3.5, md: 6 },
-            }}
-          >
-            <Box>
-              <Typography
-                component="p"
-                sx={{
-                  m: 0,
-                  mb: 2,
-                  color: brand.orange,
-                  fontSize: 12,
-                  fontWeight: 950,
-                  letterSpacing: 3,
-                  textTransform: 'uppercase',
-                }}
-              >
-                Security & Trust
-              </Typography>
-              <Typography
-                id="security-title"
-                component="h2"
-                sx={{
-                  m: 0,
-                  maxWidth: 660,
-                  color: brand.ivory,
-                  fontFamily: (theme) => theme.palette.brand.fontHeadline,
-                  fontSize: { xs: 34, sm: 48, md: 58 },
-                  fontWeight: 900,
-                  lineHeight: 0.98,
-                  letterSpacing: 0,
-                }}
-              >
-                Enterprise-grade protection, by default
-              </Typography>
-            </Box>
-
-            <Box
-              component="a"
-              href="#security"
-              sx={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                justifySelf: { xs: 'start', md: 'end' },
-                gap: 0.7,
-                minHeight: 54,
-                px: { xs: 2.2, md: 3 },
-                borderRadius: '999px',
-                border: `1px solid ${brand.orange}`,
-                bgcolor: brand.orange,
-                backgroundImage: 'none',
-                color: '#ffffff',
-                boxShadow: 'none',
-                filter: 'none',
-                textDecoration: 'none',
-                fontSize: { xs: 14, md: 15 },
-                fontWeight: 900,
-                transition: 'border-color 180ms ease, background-color 180ms ease',
-                '&:hover': {
-                  borderColor: brand.orangeDeep,
-                  bgcolor: brand.orangeDeep,
-                  backgroundImage: 'none',
-                  boxShadow: 'none',
-                  filter: 'none',
-                },
-              }}
-            >
+      <div className="trust-layout">
+        <header className="trust-feature">
+          <img
+            className="trust-art"
+            src="/images/security-lock.webp"
+            alt=""
+            width="1120"
+            height="840"
+            loading="lazy"
+            decoding="async"
+          />
+          <div className="trust-feature-content">
+            <p id="trust-label" className="trust-label">Security &amp; Trust</p>
+            <h2 id="security-title" className="trust-heading">
+              Enterprise-grade protection,{' '}<span>by default</span>
+            </h2>
+            <a className="trust-link" href="#security-overview">
               Read our security overview
-              <ArrowRight size={16} aria-hidden />
-            </Box>
-          </Box>
+              <ArrowRight size={16} strokeWidth={1.8} aria-hidden="true" />
+            </a>
+          </div>
+        </header>
 
-          <Box
-            sx={{
-              display: 'grid',
-              gridTemplateColumns: {
-                xs: '1fr',
-                sm: 'repeat(2, minmax(0, 1fr))',
-                lg: 'repeat(5, minmax(0, 1fr))',
-              },
-              gap: { xs: 1.6, md: 1.8 },
-            }}
-          >
-            {securityItems.map((item) => (
-              <SecurityCard key={item.title} item={item} />
-            ))}
-          </Box>
-        </Box>
-      </Box>
+        <ul id="security-overview" className="trust-safeguards" tabIndex={-1} aria-labelledby="trust-label">
+          {securityItems.map(({ icon: Icon, title, copy }) => (
+            <li key={title}>
+              <span className="trust-symbol" aria-hidden="true"><Icon size={22} strokeWidth={1.65} /></span>
+              <div>
+                <h3>{title}</h3>
+                <p>{copy}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </Box>
   );
 }
-
-export default SecurityTrustSection;
