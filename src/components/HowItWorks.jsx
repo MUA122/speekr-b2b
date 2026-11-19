@@ -17,6 +17,7 @@ import {
   Target,
 } from "lucide-react";
 import { brand } from "../theme.js";
+import { translateUiValue } from "../utils/arabicTranslations.js";
 
 const vimeoUrl =
   "https://player.vimeo.com/video/1146534594?h=2d5851ade0&title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479";
@@ -507,7 +508,7 @@ function StepCard({ step }) {
   );
 }
 
-function HowItWorks() {
+function HowItWorks({ locale = "en" }) {
   const frameRef = useRef(null);
   const reduceMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
 
@@ -583,7 +584,14 @@ function HowItWorks() {
               letterSpacing: { xs: "-2px", md: "-4px" },
             }}
           >
-            How It Works
+            {locale === "ar" ? (
+              translateUiValue("How It Works", locale)
+            ) : (
+              <>
+                How It{" "}
+                <Box component="span" sx={{ color: brand.orange }}>Works</Box>
+              </>
+            )}
           </Typography>
 
           <Typography

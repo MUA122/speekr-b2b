@@ -11,6 +11,7 @@ import EnterpriseFeatures from "./components/EnterpriseFeatures.jsx";
 import SectionDivider from "./components/SectionDivider.jsx";
 import MenaNative from "./components/MenaNative.jsx";
 import CaseStudiesCarousel from "./components/CaseStudiesCarousel.jsx";
+import SpeekrDifference from "./components/SpeekrDifference.jsx";
 import SecurityTrustSection from "./components/SecurityTrustSection.jsx";
 import FaqSection from "./components/FaqSection.jsx";
 import FinalCta from "./components/FinalCta.jsx";
@@ -798,7 +799,7 @@ function App() {
         <>
           <Hero locale={locale} />
           <LogosMarquee locale={locale} />
-          <HowItWorks />
+          <HowItWorks locale={locale} />
           {/* Temporarily hidden: <UseCases onDemoClick={openContactModal} /> */}
           {/* <SocialProof /> */}
           {/* <SectionDivider />
@@ -809,6 +810,8 @@ function App() {
           <MenaNative />
           <SectionDivider compact />
           <CaseStudiesCarousel locale={locale} />
+          <SectionDivider compact />
+          <SpeekrDifference locale={locale} />
           <FaqSection locale={locale} />
           <FinalCta onDemoClick={openContactModal} />
         </>

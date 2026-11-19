@@ -152,10 +152,24 @@ export const landingCopy = {
       expand: "Click to expand",
       closeHint: "Press ESC to close",
     },
+    difference: {
+      title: "The Speekr",
+      accent: "difference",
+      intro: "Rehearse your next sales call, customer conversation, or team check-in.",
+      before: "On your own",
+      after: "With Speekr",
+      rows: [
+        ["Waiting for a partner", "An AI coach when you’re ready"],
+        ["Guessing what to improve", "Instant feedback on your delivery"],
+        ["Following a generic script", "Scenarios based on your work"],
+        ["Repeating the same exercise", "Know what to practice next"],
+      ],
+      cta: "Try a practice call",
+    },
     cases: {
       badge: "Real Results",
-      titleAccent: "Case",
-      title: "Studies",
+      titleStart: "Case",
+      titleAccent: "Studies",
       subtitle: "Real examples of how we solve complex challenges and deliver results.",
       slides: [
         {
@@ -272,10 +286,24 @@ export const landingCopy = {
       expand: "انقر للتكبير",
       closeHint: "اضغط ESC للإغلاق",
     },
+    difference: {
+      title: "ما الذي يميّز",
+      accent: "تدريبنا؟",
+      intro: "تدرّب على مكالمة مبيعات أو حديث مع عميل أو اجتماع مع فريقك.",
+      before: "بمفردك",
+      after: "مع Speekr",
+      rows: [
+        ["تنتظر شريكًا للتدريب", "مدرّب بالذكاء الاصطناعي وقتما يناسبك"],
+        ["تخمّن ما يحتاج إلى تحسين", "ملاحظات فورية على طريقة حديثك"],
+        ["تتّبع نصًا عامًا", "سيناريوهات من واقع عملك"],
+        ["تكرّر التمرين نفسه", "تعرف ما تتدرّب عليه بعد ذلك"],
+      ],
+      cta: "جرّب مكالمة تدريبية",
+    },
     cases: {
       badge: "نتائج واقعية",
       titleAccent: "دراسات",
-      title: "حالة",
+      titleEnd: "حالة",
       subtitle: "أمثلة عملية على كيفية معالجة تحديات تواصل معقدة وتحويلها إلى نتائج قابلة للقياس.",
       slides: [
         {

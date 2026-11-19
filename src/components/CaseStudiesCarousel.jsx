@@ -176,13 +176,14 @@ export default function CaseStudiesCarousel({ locale = "en" }) {
                 fontWeight: 900,
                 letterSpacing: { xs: -1.5, md: -2.5 },
                 lineHeight: 1,
-                color: "#074225",
+                color: "primary.main",
               }}
             >
-              <Box component="span" sx={{ color: "#F26433" }}>
+              {copy.titleStart && `${copy.titleStart} `}
+              <Box component="span" sx={{ color: "secondary.main" }}>
                 {copy.titleAccent}
-              </Box>{" "}
-              {copy.title}
+              </Box>
+              {copy.titleEnd && ` ${copy.titleEnd}`}
             </Typography>
             <Typography
               dir={locale === "ar" ? "rtl" : "ltr"}
