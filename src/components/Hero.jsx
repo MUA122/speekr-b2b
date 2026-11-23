@@ -1,22 +1,22 @@
 import { useRef, useState } from 'react';
-import { AudioLines, BriefcaseBusiness, Check, Clock3, CodeXml, Globe2, Headset, Lightbulb, Phone, TrendingUp, Users } from 'lucide-react';
+import { AudioLines, BriefcaseBusiness, Check, Clock3, CodeXml, Headset, Phone, SlidersHorizontal, TrendingUp, Users } from 'lucide-react';
 import { languageName, scenarios } from '../data/voice-demo/scenarios.js';
 import './voice-demo/hero.css';
 
 const icons = { sales: TrendingUp, care: Headset, leadership: Users, technical: CodeXml, screening: BriefcaseBusiness };
 const labels = {
   en: {
-    title: 'Practice real conversations', titleAccent: 'with AI',
+    eyebrow: 'AI Roleplays', title: 'Practice real conversations', titleAccent: 'with AI.',
     subtitle: 'Choose a scenario, meet your coach, and try a free 30-second voice conversation.',
-    scenario: 'Choose your scenario', coach: 'Choose your coach', expect: 'What to expect',
-    preview: 'Coach preview', duration: '30 seconds', start: 'Start a Free Call', free: 'No sign-up required',
+    scenario: 'Choose your scenario', coach: 'Choose your coach', goals: 'Practice goals',
+    duration: '30 seconds', start: 'Start a free call', free: 'No sign-up required',
     loading: 'Opening your call…', loadError: 'The call could not load. Please try again.',
   },
   ar: {
-    title: 'تدرّب على محادثات واقعية', titleAccent: 'بالذكاء الاصطناعي',
+    eyebrow: 'محاكاة بالذكاء الاصطناعي', title: 'تدرّب على محادثات واقعية', titleAccent: 'بالذكاء الاصطناعي',
     subtitle: 'اختار سيناريو، واتعرّف على مدربك، وجرّب محادثة صوتية مجانية لمدة ٣٠ ثانية.',
-    scenario: 'اختار السيناريو', coach: 'اختار مدربك', expect: 'إيه اللي هتتدرّب عليه؟',
-    preview: 'معاينة المدرب', duration: '٣٠ ثانية', start: 'ابدأ مكالمة مجانية', free: 'من غير تسجيل',
+    scenario: 'اختار السيناريو', coach: 'اختار مدربك', goals: 'أهداف التدريب',
+    duration: '٣٠ ثانية', start: 'ابدأ مكالمة مجانية', free: 'من غير تسجيل',
     loading: 'جاري فتح المكالمة…', loadError: 'تعذّر تحميل المكالمة. حاول مرة تانية.',
   },
 };
@@ -60,65 +60,70 @@ export default function Hero({ locale = 'en' }) {
 
   return (
     <main id="home-hero" className="vd-hero" data-no-translate="true" lang={locale} dir={locale === 'ar' ? 'rtl' : 'ltr'}>
-      <div className="vd-intro">
-        <h1>{ui.title} <span className="vd-title-accent">{ui.titleAccent}</span></h1>
-        <p>{ui.subtitle}</p>
-      </div>
-      <div className="vd-studio">
-        <div className="vd-setup">
-          <fieldset className="vd-group" ref={scenarioGroup} disabled={loading}>
-            <legend><span className="vd-step" aria-hidden="true">{locale === 'ar' ? '١' : '1'}</span>{ui.scenario}</legend>
+      <div className="vd-layout">
+        <div className="vd-intro">
+          <div className="vd-eyebrow"><SlidersHorizontal size={17} aria-hidden="true" />{ui.eyebrow}</div>
+          <h1>{ui.title} <span>{ui.titleAccent}</span></h1>
+          <p>{ui.subtitle}</p>
+          <fieldset className="vd-group vd-scenarios" ref={scenarioGroup} disabled={loading}>
+            <legend>{ui.scenario}</legend>
             <div className="vd-options">
               {scenarios.map(option => {
                 const Icon = icons[option.id];
                 return (
                   <label className="vd-option" key={option.id}>
                     <input type="radio" name="demo-scenario" checked={scenario.id === option.id} onChange={() => setScenario(option)} />
-                    <span className="vd-option-body"><span className="vd-option-icon"><Icon size={19} aria-hidden="true" /></span>{option.name[locale]}</span>
+                    <span><Icon size={16} aria-hidden="true" />{option.name[locale]}</span>
                   </label>
                 );
               })}
             </div>
           </fieldset>
-          <fieldset className="vd-group" disabled={loading}>
-            <legend><span className="vd-step" aria-hidden="true">{locale === 'ar' ? '٢' : '2'}</span>{ui.coach}</legend>
-            <div className="vd-personas">
-              {scenario.personas.map(option => (
-                <label className="vd-persona" key={option.id}>
-                  <input type="radio" name="demo-coach" checked={language === option.language} onChange={() => setLanguage(option.language)} />
-                  <span className="vd-persona-body">
-                    <img src={option.portrait} width="52" height="58" alt="" />
-                    <span className="vd-persona-copy"><strong>{option.name[locale]}</strong><small lang={option.language}>{languageName[option.language]}</small></span>
-                    <span className="vd-check" aria-hidden="true"><Check size={10} strokeWidth={3} /></span>
-                  </span>
-                </label>
-              ))}
-            </div>
-          </fieldset>
-          <div className="vd-brief" aria-live="polite" aria-atomic="true">
-            <div><Lightbulb size={16} aria-hidden="true" />{ui.expect}</div>
-            <p>{persona.description[locale]}</p>
-          </div>
         </div>
-        <section className="vd-stage" aria-label={ui.preview}>
-          <div className="vd-stage-top">
-            <span><AudioLines size={17} aria-hidden="true" />{ui.preview}</span>
-            <span><Clock3 size={14} aria-hidden="true" />{ui.duration}</span>
-          </div>
-          <div className="vd-profile" key={persona.id}>
-            <div className="vd-portrait">
-              <img src={persona.portrait} width="260" height="260" alt={persona.name[locale]} />
-              <span className="vd-language" lang={persona.language}><Globe2 size={13} aria-hidden="true" />{languageName[persona.language]}</span>
+
+        <section className="vd-card" aria-labelledby="vd-roleplay-title">
+          <div className="vd-cover">
+            <div className="vd-cover-copy">
+              <span className="vd-category">{scenario.name[locale]}</span>
+              <h2 id="vd-roleplay-title">{persona.title[locale]}</h2>
+              <span className="vd-duration"><Clock3 size={15} aria-hidden="true" />{ui.duration}</span>
             </div>
-            <h2>{persona.name[locale]}</h2>
-            <p>{persona.role[locale]}</p>
+            <div className="vd-photo" aria-hidden="true">
+              <img key={persona.id} src={persona.portrait} width="200" height="200" alt="" />
+            </div>
           </div>
-          <div className="vd-stage-action">
+
+          <div className="vd-card-body">
+            <p className="vd-brief" aria-live="polite" aria-atomic="true">{persona.description[locale]}</p>
+            <div className="vd-goals">
+              <h3>{ui.goals}</h3>
+              <ul>{scenario.goals.map(goal => (
+                <li key={goal.en}><span><Check size={10} strokeWidth={3} aria-hidden="true" /></span>{goal[locale]}</li>
+              ))}</ul>
+            </div>
+            <fieldset className="vd-group vd-coaches" disabled={loading}>
+              <legend>{ui.coach}</legend>
+              <div className="vd-personas">
+                {scenario.personas.map(option => (
+                  <label className="vd-persona" key={option.id}>
+                    <input type="radio" name="demo-coach" checked={language === option.language} onChange={() => setLanguage(option.language)} />
+                    <span className="vd-persona-body">
+                      <img src={option.portrait} width="40" height="40" alt="" />
+                      <span className="vd-persona-copy"><strong>{option.name[locale]}</strong><small lang={option.language}>{languageName[option.language]}</small></span>
+                      <span className="vd-choice-mark" aria-hidden="true"><Check size={10} strokeWidth={3} /></span>
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+          </div>
+
+          <div className="vd-card-footer">
+            <span className="vd-free"><AudioLines size={18} aria-hidden="true" />{ui.free}</span>
             <button ref={dial} className="vd-dial" type="button" aria-haspopup="dialog" disabled={loading} onClick={openCall}>
-              <Phone size={18} aria-hidden="true" />{loading ? ui.loading : ui.start}
+              <Phone size={17} aria-hidden="true" />{loading ? ui.loading : ui.start}
             </button>
-            <small>{ui.free}</small>
-            {loadError && <span role="alert">{ui.loadError}</span>}
+            {loadError && <span className="vd-error" role="alert">{ui.loadError}</span>}
           </div>
         </section>
       </div>

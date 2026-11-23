@@ -1,156 +1,207 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useMediaQuery } from "@mui/material";
+import { AudioLines, ChartNoAxesCombined, ListChecks, PencilRuler } from "lucide-react";
+import { translateUiValue } from "../utils/arabicTranslations.js";
 import "./HowItWorks.css";
 
-// Fit the artwork, excluding only transparent asset margins, into the same frame.
-const artworkBounds = {
-  scenario: { viewBox: "80 47 971 976", width: 1080, height: 1080 },
-  roleplay: { viewBox: "37 178 1007 779", width: 1080, height: 1080 },
-  feedback: { viewBox: "0 104 1080 933", width: 1080, height: 1080 },
-  analytics: { viewBox: "4 89 1207 998", width: 1353, height: 1080 },
+const chapters = {
+  scenario: {
+    icon: PencilRuler, label: { en: "Create", ar: "صمّم" },
+    image: "/images/walkthrough/create.webp",
+    alt: { en: "Scenario builder with difficulty, industry and language settings", ar: "منشئ السيناريوهات مع إعدادات الصعوبة والقطاع واللغة" },
+  },
+  roleplay: {
+    icon: AudioLines, label: { en: "Practice", ar: "تدرّب" },
+    image: "/images/walkthrough/practice.webp",
+    alt: { en: "An AI roleplay partner on a video call with a voice waveform", ar: "شريك محاكاة بالذكاء الاصطناعي في مكالمة فيديو مع عرض الموجة الصوتية" },
+  },
+  feedback: {
+    icon: ListChecks, label: { en: "Improve", ar: "طوّر" },
+    image: "/images/walkthrough/improve.webp",
+    alt: { en: "Coaching feedback alongside the recorded conversation", ar: "ملاحظات التدريب بجانب تسجيل المحادثة" },
+  },
+  analytics: {
+    icon: ChartNoAxesCombined, label: { en: "Measure", ar: "قِس" },
+    image: "/images/walkthrough/measure.webp",
+    alt: { en: "Team reporting dashboard with a leaderboard and an engagement chart", ar: "لوحة تقارير الفريق مع ترتيب المشاركين ورسم بياني للتفاعل" },
+  },
 };
 
-export default function PracticeTimeline({ steps, images }) {
+export default function PracticeTimeline({ steps, locale = "en" }) {
   const track = useRef(null);
-  const geometry = useRef({ start: 0, travel: 1 });
+  const frame = useRef(null);
+  const tabs = useRef([]);
+  const glideFrame = useRef(0);
   const [active, setActive] = useState(0);
-  const labels = ["CREATE", "PRACTICE", "IMPROVE", "MEASURE"];
+  const pinned = useMediaQuery("(min-width: 820px) and (min-height: 650px) and (prefers-reduced-motion: no-preference)");
+  const isArabic = locale === "ar";
+  const step = steps[active];
+  const digits = new Intl.NumberFormat(isArabic ? "ar-EG" : "en", { minimumIntegerDigits: 2 });
 
-  useLayoutEffect(() => {
-    const node = track.current;
-    const list = node.querySelector(".practice-steps");
-    const cards = [...list.querySelectorAll(".practice-step")];
-    const surfaces = [...list.querySelectorAll(".practice-surface")];
-    const windows = [...node.querySelectorAll(".practice-window")];
-    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let positions = [];
-    let previous = -1;
-    let frame = 0;
-    let disposed = false;
-
-    const update = () => {
-      frame = 0;
-      const { start, travel } = geometry.current;
-      const phase = (window.scrollY - start) / travel * cards.length;
-      // Keep a reading interval on each side of a short, reversible handoff.
-      const boundary = Math.round(phase);
-      const t = Math.max(0, Math.min(1, (phase - boundary + 0.22) / 0.44));
-      const blend = motion.matches ? Number(t >= 0.5) : t * t * (3 - 2 * t);
-      const position = Math.max(0, Math.min(cards.length - 1, boundary - 1 + blend));
-      if (position === previous) return;
-      previous = position;
-      const from = Math.floor(position);
-      const to = Math.min(from + 1, cards.length - 1);
-      const fraction = position - from;
-      const tops = positions[from].map((top, i) => top + (positions[to][i] - top) * fraction);
-
-      cards.forEach((card, i) => {
-        const weight = Math.max(0, 1 - Math.abs(position - i));
-        const shift = `translateY(${tops[i]}px)`;
-        card.style.transform = shift;
-        surfaces[i].style.transform = shift;
-        surfaces[i].style.opacity = weight;
-        surfaces[i].style.setProperty("--weight", weight);
-        card.style.setProperty("--weight", weight);
-        if (i + 1 < cards.length) {
-          const length = tops[i + 1] - tops[i];
-          card.style.setProperty("--segment", length);
-          card.style.setProperty("--completed", Math.max(0, Math.min(1, position - i)));
-        }
-        const depth = i - position;
-        windows[i].style.setProperty("--depth", Math.max(0, depth));
-        windows[i].style.setProperty("--passed", Math.max(0, Math.min(1, -depth)));
-        windows[i].style.visibility = depth <= -1 ? "hidden" : "visible";
-      });
-      setActive(Math.round(position));
+  // The sticky frame's available travel is split into equal reading intervals.
+  function scrollRange() {
+    const rect = track.current.getBoundingClientRect();
+    // WebKit may report "auto" before the sticky layout is applied.
+    const stickyTop = Number.parseFloat(getComputedStyle(frame.current).top) || 0;
+    return {
+      start: rect.top + window.scrollY - stickyTop,
+      travel: rect.height - frame.current.offsetHeight,
     };
+  }
 
-    const measure = () => {
-      const pinTop = parseFloat(getComputedStyle(node).getPropertyValue("--pin-top"));
-      geometry.current = {
-        start: window.scrollY + node.getBoundingClientRect().top - pinTop,
-        travel: Math.max(1, node.offsetHeight - node.firstElementChild.offsetHeight),
-      };
-      const sizes = cards.map(card => {
-        const padding = parseFloat(getComputedStyle(card).paddingTop);
-        const closed = card.querySelector("button").offsetHeight + 2 * padding;
-        return { closed, extra: card.querySelector("p").offsetHeight + 10 };
-      });
-      const closedTotal = sizes.reduce((sum, size) => sum + size.closed, 0);
-      const height = Math.max(list.clientHeight, closedTotal + Math.max(...sizes.map(size => size.extra)));
-      positions = sizes.map((open, selected) => {
-        const gap = (height - closedTotal - open.extra) / (cards.length - 1);
-        let top = 0;
-        return sizes.map((size, i) => {
-          const y = top;
-          top += size.closed + gap + (selected === i ? size.extra : 0);
-          return y;
-        });
-      });
-      sizes.forEach(({ closed, extra }, i) => {
-        surfaces[i].style.setProperty("--open-height", `${closed + extra}px`);
-        surfaces[i].style.setProperty("--closed-ratio", closed / (closed + extra));
-      });
-      list.style.setProperty("--min-height", `${closedTotal + Math.max(...sizes.map(size => size.extra))}px`);
-      previous = -1;
-      update();
-    };
-    const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
-    const observer = new ResizeObserver(measure);
-    observer.observe(list);
+  useEffect(() => {
+    if (!pinned) return undefined;
+    const section = track.current;
+    let paintFrame = 0;
+    let position;
+    let target = 0;
+    let lastPaint = 0;
+
+    function paint() {
+      const index = Math.max(0, Math.min(steps.length - 1, Math.floor(position)));
+      section.style.setProperty("--chapter-fill", String(position - index));
+      setActive(index);
+    }
+
+    // Ease the visible progress between wheel events, independent of the display refresh rate.
+    function followScroll(now) {
+      // The first frame timestamp can precede a scroll event from the same frame.
+      const elapsed = Math.max(0, now - lastPaint);
+      lastPaint = now;
+      position += (target - position) * (1 - Math.exp(-elapsed / 105));
+      if (Math.abs(target - position) < 0.001) position = target;
+      paint();
+      paintFrame = position === target ? 0 : requestAnimationFrame(followScroll);
+    }
+
+    function measure() {
+      const { start, travel } = scrollRange();
+      if (travel <= 0) return;
+      target = Math.max(0, Math.min(steps.length, (window.scrollY - start) / travel * steps.length));
+      if (position === undefined) {
+        position = target;
+        paint();
+      } else if (!paintFrame && position !== target) {
+        lastPaint = performance.now();
+        paintFrame = requestAnimationFrame(followScroll);
+      }
+    }
+
+    function stopGlide() {
+      cancelAnimationFrame(glideFrame.current);
+      glideFrame.current = 0;
+    }
+    const interrupts = ["wheel", "touchstart", "pointerdown", "keydown", "resize"];
+    for (const event of interrupts) window.addEventListener(event, stopGlide, { capture: true, passive: true });
     measure();
-    document.fonts.ready.then(() => { if (!disposed) measure(); });
-    motion.addEventListener("change", schedule);
-    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("scroll", measure, { passive: true });
     window.addEventListener("resize", measure);
     return () => {
-      disposed = true;
-      cancelAnimationFrame(frame);
-      observer.disconnect();
-      motion.removeEventListener("change", schedule);
-      window.removeEventListener("scroll", schedule);
+      stopGlide();
+      cancelAnimationFrame(paintFrame);
+      section.style.removeProperty("--chapter-fill");
+      for (const event of interrupts) window.removeEventListener(event, stopGlide, true);
+      window.removeEventListener("scroll", measure);
       window.removeEventListener("resize", measure);
     };
-  }, [steps]);
+  }, [pinned, steps.length]);
 
-  const select = (index) => {
-    const { start, travel } = geometry.current;
-    window.scrollTo({ top: start + travel * (index + .5) / steps.length, behavior: "instant" });
-  };
+  function select(index) {
+    if (pinned) {
+      const { start, travel } = scrollRange();
+      if (travel > 0) {
+        cancelAnimationFrame(glideFrame.current);
+        const from = window.scrollY;
+        const distance = start + travel * (index + 0.5) / steps.length - from;
+        const duration = Math.min(1150, 450 + Math.abs(distance) * 0.48);
+        const began = performance.now();
+        function glide(now) {
+          const t = Math.min(1, Math.max(0, (now - began) / duration));
+          const eased = (1 - Math.cos(Math.PI * t)) / 2;
+          window.scrollTo({ top: from + distance * eased, behavior: "instant" });
+          glideFrame.current = t < 1 ? requestAnimationFrame(glide) : 0;
+        }
+        glideFrame.current = requestAnimationFrame(glide);
+        return;
+      }
+    }
+    setActive(index);
+  }
 
+  function handleTabKey(event, index) {
+    const forward = isArabic ? "ArrowLeft" : "ArrowRight";
+    const backward = isArabic ? "ArrowRight" : "ArrowLeft";
+    let next;
+    switch (event.key) {
+      case forward: next = (index + 1) % steps.length; break;
+      case backward: next = (index - 1 + steps.length) % steps.length; break;
+      case "Home": next = 0; break;
+      case "End": next = steps.length - 1; break;
+      default: return;
+    }
+    event.preventDefault();
+    tabs.current[next]?.focus({ preventScroll: true });
+    select(next);
+  }
+
+  const walkthrough = isArabic ? "جولة في منصة Speekr" : "Speekr walkthrough";
   return (
-    <section ref={track} className="practice-track" aria-label="From practice to performance">
-      <div className="practice-pin">
-        <div className="practice-layout">
-          <div className="practice-steps">
-            {steps.map(step => <div key={step.number} className="practice-surface" aria-hidden />)}
-            {steps.map((step, index) => (
-              <div className={`practice-step ${active === index ? "is-active" : ""}`} key={step.number}>
-                <span className={`practice-dot ${index <= active ? "is-complete" : ""}`} aria-hidden />
-                {index < steps.length - 1 && <span className="practice-segment" aria-hidden />}
-                <button type="button" onClick={() => select(index)} aria-expanded={active === index} aria-controls={`practice-copy-${index}`}>
-                  <span className="practice-label">{labels[index]}</span>
-                  <span className="practice-title">{step.title}</span>
-                </button>
-                <div id={`practice-copy-${index}`} className="practice-copy" aria-hidden={active !== index}>
-                  <p>{step.copy}</p>
+    <section ref={track} id="product-walkthrough" aria-label={walkthrough} className="practice-track"
+      lang={locale} dir={isArabic ? "rtl" : "ltr"} data-no-translate="true" data-pinned={pinned}>
+      <div className="practice-frame" ref={frame}>
+        <div className="practice-chapters" role="tablist" aria-label={isArabic ? "خطوات التدريب" : "Practice steps"}>
+          {steps.map(({ type }, index) => {
+            const { icon: Icon, label } = chapters[type];
+            return (
+              <button type="button" role="tab" key={type} id={`practice-tab-${type}`}
+                ref={node => { tabs.current[index] = node; }}
+                aria-controls="practice-panel" aria-selected={active === index}
+                data-complete={index < active}
+                tabIndex={active === index ? 0 : -1}
+                onClick={() => select(index)} onKeyDown={event => handleTabKey(event, index)}>
+                <Icon size={21} strokeWidth={1.6} aria-hidden="true" />
+                <span>{label[locale]}</span>
+              </button>
+            );
+          })}
+        </div>
+        <div className="practice-stage" id="practice-panel" role="tabpanel" tabIndex={0}
+          aria-labelledby={`practice-tab-${step.type}`}>
+          <div className="practice-caption">
+            <div className="practice-caption-line">
+              <span>{walkthrough}</span>
+              <span className="practice-count" dir="ltr" aria-label={isArabic
+                ? `الخطوة ${active + 1} من ${steps.length}` : `Step ${active + 1} of ${steps.length}`}>
+                {digits.format(active + 1)} <span>/</span> {digits.format(steps.length)}
+              </span>
+            </div>
+            <div className="practice-descriptions">
+              {steps.map(({ type, title, copy }) => (
+                <div key={type} className="practice-description" data-current={type === step.type}
+                  aria-hidden={type !== step.type}>
+                  <h2>{translateUiValue(title, locale)}</h2>
+                  <p>{translateUiValue(copy, locale)}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="practice-mac">
+            <div className="practice-display">
+              <div className="practice-screen">
+                <div className="practice-toolbar" aria-hidden="true">
+                  <span className="practice-window-controls"><i /><i /><i /></span>
+                  <span>Speekr.ai</span>
+                </div>
+                <div className="practice-exhibit">
+                  {steps.map(({ type }) => (
+                    <img key={type} className="practice-art" data-current={type === step.type}
+                      src={chapters[type].image} loading="lazy" decoding="async" aria-hidden={type !== step.type}
+                      alt={chapters[type].alt[locale]} />
+                  ))}
                 </div>
               </div>
-            ))}
-          </div>
-          <div className="practice-preview">
-            {steps.map((step, index) => {
-              return (
-                <div key={step.number} className={`practice-window ${index === active ? "is-front" : ""}`} aria-hidden={index !== active}
-                  style={{ zIndex: steps.length - index }}>
-                  <div className="practice-bar"><span aria-hidden><i /><i /><i /></span><span>{step.title}</span></div>
-                  <div className="practice-visuals">
-                    <svg viewBox={artworkBounds[step.type].viewBox} role="img" aria-label={step.title} preserveAspectRatio="xMidYMid meet">
-                      <image href={images[step.type]} width={artworkBounds[step.type].width} height={artworkBounds[step.type].height} />
-                    </svg>
-                  </div>
-                </div>
-              );
-            })}
+            </div>
+            <div className="practice-stand" aria-hidden="true" />
           </div>
         </div>
       </div>

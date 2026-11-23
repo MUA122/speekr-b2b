@@ -696,7 +696,7 @@ function HowItWorks({ locale = "en" }) {
 
       </Container>
     </Box>
-    <PracticeTimeline steps={steps} images={stepImages} />
+    <PracticeTimeline steps={steps} locale={locale} />
     </>
   );
 }

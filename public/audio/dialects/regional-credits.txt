@@ -1,0 +1,64 @@
+Speekr voice map — Arabic recording credits
+
+Egypt • وأتمنى إن إنتوا وعيلتكوا تكونوا بخير.
+Anonymous speaker, “Anonymous 20200622 arz.ogg,” Wikitongues.
+Census 2020 Language Project, League of Women Voters of the City of New York.
+https://commons.wikimedia.org/wiki/File:Anonymous_20200622_arz.ogg
+Excerpt from 00:44.27 to 00:46.76, level-adjusted and encoded to mono AAC.
+Original and audio adaptation: CC BY-SA 4.0
+https://creativecommons.org/licenses/by-sa/4.0/
+
+Lebanon • بتسمحلي بسؤال؟
+George Sayegh, U.S. Department of State, Foreign Service Institute,
+Arabic Language and Area School, Beirut. Levantine Arabic: Introduction
+to Pronunciation (1971), tape 10, exercise S.8, item 5 (student text p. 100).
+Recorded in the FSI Beirut studio. Excerpted and encoded to mono AAC.
+https://fsi-languages.yojik.eu/languages/FSI/Arabic/Levantine%20Arabic/
+U.S. government work in the public domain in the United States.
+https://www.copyright.gov/title17/92chap1.html#105
+
+Morocco • المغرب بلاد زوينة. بزاف د الناس كيجيو ليها حيت الجو ديالها زوين.
+“WIKITONGUES: Nawal speaking Moroccan Arabic,” spoken by Nawal, recorded by
+Kristen Tcherneshoff for Wikitongues. Darija segmentation by BrunoHays.
+https://commons.wikimedia.org/wiki/File:WIKITONGUES-_Nawal_speaking_Moroccan_Arabic.webm
+https://huggingface.co/datasets/BrunoHays/wikitongues-darija
+Excerpt of the original interview, approximately 00:57.7–01:02.3.
+The excerpt was cropped, level-adjusted and encoded to mono AAC.
+Original and audio adaptation: CC BY-SA 4.0
+https://creativecommons.org/licenses/by-sa/4.0/
+
+Saudi Arabia • مرحبا، كيف حالك؟
+U.S. Department of State, Foreign Service Institute. Saudi Arabic Basic
+Course (Urban Hijazi Dialect), lesson 1, dialogue for fluency.
+https://fsi-languages.yojik.eu/languages/FSI/Arabic/Saudi%20Arabic%20Basic%20%28Urban%20Hijazi%20Dialect%29/
+Excerpt at 01:15.78–01:17.40, level-adjusted and encoded to mono AAC.
+U.S. government work in the public domain in the United States.
+https://www.copyright.gov/title17/92chap1.html#105
+
+United Arab Emirates • السلام عليكم ورحمة الله وبركاته.
+Alqayed2024, EmiratiTTS smoke samples. This is synthesized speech from
+Chatterbox fine-tuned for Emirati Arabic. The source file is
+uaevideos_01__00.wav. The opening greeting was trimmed and encoded to AAC.
+https://huggingface.co/datasets/Alqayed2024/EmiratiTTS-smoke-samples/blob/main/uaevideos_01__00.wav
+https://huggingface.co/datasets/Alqayed2024/EmiratiTTS-smoke-samples
+MIT License — https://opensource.org/license/mit
+
+Copyright (c) 2026 Alqayed2024
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

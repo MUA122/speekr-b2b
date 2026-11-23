@@ -634,6 +634,7 @@ function App() {
             },
           },
           ":root": {
+            "--brand-orange": brand.orange,
             "--font-headline":
               '"Rubik Local", "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif',
             "--font-body":
@@ -809,7 +810,7 @@ function App() {
           <SectionDivider compact />
           <SecurityTrustSection />
           <SectionDivider compact />
-          <MenaNative />
+          <MenaNative locale={locale} />
           <SectionDivider compact />
           <CaseStudiesCarousel locale={locale} />
           <SectionDivider compact />

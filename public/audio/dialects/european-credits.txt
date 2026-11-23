@@ -1,0 +1,19 @@
+British English (United Kingdom) — gb.m4a
+“Good morning” and “How are you?” by Judith Franck, London, England.
+Copyright 2009 Association Shtooka.
+Sources:
+https://commons.wikimedia.org/wiki/File:En-uk-good_morning.ogg
+https://commons.wikimedia.org/wiki/File:En-uk-How_are_you.ogg
+Licensed under Creative Commons Attribution 3.0 United States.
+https://creativecommons.org/licenses/by/3.0/us/
+Changes: the two phrases were joined in sequence and re-encoded to AAC.
+
+French (France) — fr.m4a
+“Bonjour” and “Comment allez-vous ?” by Nicolas Vion, Paris region, France.
+Copyright 2006 Vion Nicolas. Shtooka Project.
+Sources:
+https://commons.wikimedia.org/wiki/File:Fr-bonjour.ogg
+https://commons.wikimedia.org/wiki/File:Fr-comment-allez%E2%80%90vous.ogg
+Licensed under Creative Commons Attribution 2.0 France.
+https://creativecommons.org/licenses/by/2.0/fr/
+Changes: the two phrases were joined in sequence and re-encoded to AAC.
